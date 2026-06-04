@@ -4,30 +4,30 @@
   <url><loc>https://23232322.xyz/</loc><priority>1.0</priority><changefreq>daily</changefreq></url>
 
   <!-- Static Pages -->
-  <url><loc>https://23232322.xyz/about.html</loc><priority>0.6</priority></url>
-  <url><loc>https://23232322.xyz/privacy.html</loc><priority>0.3</priority></url>
+  <url><loc>https://23232322.xyz/about</loc><priority>0.6</priority></url>
+  <url><loc>https://23232322.xyz/privacy</loc><priority>0.3</priority></url>
 
   <!-- Category Index -->
   <url><loc>https://23232322.xyz/categories/</loc><priority>0.8</priority></url>
 
   <!-- Category Pages -->
-  <url><loc>https://23232322.xyz/categories/code-ide.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/categories/api-network.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/categories/database-sql.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/categories/frontend-design.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/categories/devops-cicd.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/categories/security-testing.html</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/code-ide</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/api-network</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/database-sql</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/frontend-design</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/devops-cicd</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/categories/security-testing</loc><priority>0.7</priority></url>
 
   <!-- Tool Pages -->
-  <url><loc>https://23232322.xyz/tools/sql-formatter-online.html</loc><priority>0.9</priority></url>
-  <url><loc>https://23232322.xyz/tools/json-formatter-online.html</loc><priority>0.9</priority></url>
-  <url><loc>https://23232322.xyz/tools/base64-encoder-decoder.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/url-encoder-decoder.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/html-entity-encoder-decoder.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/uuid-generator.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/jwt-debugger.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/regex-tester.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/diff-checker.html</loc><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/timestamp-converter.html</loc><priority>0.7</priority></url>
-  <url><loc>https://23232322.xyz/tools/color-picker-converter.html</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/tools/sql-formatter-online</loc><priority>0.9</priority></url>
+  <url><loc>https://23232322.xyz/tools/json-formatter-online</loc><priority>0.9</priority></url>
+  <url><loc>https://23232322.xyz/tools/base64-encoder-decoder</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/url-encoder-decoder</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/html-entity-encoder-decoder</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/uuid-generator</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/jwt-debugger</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/regex-tester</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/diff-checker</loc><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/tools/timestamp-converter</loc><priority>0.7</priority></url>
+  <url><loc>https://23232322.xyz/tools/color-picker-converter</loc><priority>0.7</priority></url>
 </urlset>

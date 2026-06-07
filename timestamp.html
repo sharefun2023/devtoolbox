@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamp Converter — DevToolbox</title>
+<meta name="description" content="Free online Unix timestamp converter. Convert between timestamps and human-readable dates. Live clock, timezone support.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/timestamp">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;--orange:#d2991d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a.home{font-size:1.1rem;margin-right:auto}
+.container{max-width:800px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}.subtitle{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.live-clock{background:var(--card);border:1px solid var(--accent);border-radius:8px;padding:16px;margin-bottom:20px;text-align:center}
+.live-clock .current{font-size:1.3rem;font-family:'JetBrains Mono','Fira Code',monospace;color:var(--green)}
+.live-clock .ts{font-family:'JetBrains Mono','Fira Code',monospace;color:var(--accent);font-size:1rem;margin-top:4px}
+.live-clock .friendly{color:var(--muted);font-size:.85rem;margin-top:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px}
+.card h2{font-size:1rem;margin-bottom:12px}
+.card label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+input[type=text],input[type=number],textarea,select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.9rem;border-radius:6px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+input[type=number]{-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button{display:none}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+.result{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;margin-top:8px;font-size:.9rem}
+.result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)}
+.result .row:last-child{border-bottom:none}
+.result .label{color:var(--muted)}.result .value{color:var(--text);font-family:'JetBrains Mono','Fira Code',monospace}
+.copy-btn{cursor:pointer;color:var(--muted);font-size:.8rem;margin-left:8px}
+.copy-btn:hover{color:var(--accent)}
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64">Base64</a>
+  <a href="/timestamp" style="color:var(--text)">Timestamp</a>
+</nav>
+
+<div class="container">
+  <h1>🕐 Timestamp Converter</h1>
+  <p class="subtitle">Convert between Unix timestamps and human-readable dates</p>
+
+  <div class="live-clock">
+    <div class="current" id="liveClock">—</div>
+    <div class="ts">Unix: <span id="liveTs">—</span> (seconds)</div>
+    <div class="ts">Unix ms: <span id="liveMs">—</span></div>
+    <div class="friendly" id="liveFriendly">—</div>
+  </div>
+
+  <div class="grid">
+    <!-- Timestamp → Date -->
+    <div class="card">
+      <h2>📅 Timestamp → Date</h2>
+      <label>Unix Timestamp</label>
+      <input type="text" id="tsInput" placeholder="e.g. 1700000000 or 1700000000000" oninput="tsToDate()">
+      <div class="btn-row">
+        <button class="primary" onclick="useCurrentTs()">Now</button>
+        <select id="tsUnit" onchange="tsToDate()">
+          <option value="s">Seconds</option>
+          <option value="ms">Milliseconds</option>
+        </select>
+      </div>
+      <div class="result" id="tsResult" style="display:none"></div>
+    </div>
+
+    <!-- Date → Timestamp -->
+    <div class="card">
+      <h2>⏰ Date → Timestamp</h2>
+      <label>Date & Time</label>
+      <input type="text" id="dateInput" placeholder="e.g. 2024-01-15 08:30:00" oninput="dateToTs()">
+      <div class="btn-row">
+        <button class="primary" onclick="useCurrentDate()">Now</button>
+        <button onclick="useMidnight()">Today 00:00</button>
+      </div>
+      <div class="result" id="dateResult" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function updateClock(){
+  const now=new Date();
+  $('liveClock').textContent=now.toLocaleString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZoneName:'short'});
+  $('liveTs').textContent=Math.floor(now.getTime()/1000).toLocaleString();
+  $('liveMs').textContent=now.getTime().toLocaleString();
+  $('liveFriendly').textContent='ISO: '+now.toISOString();
+}
+updateClock();setInterval(updateClock,1000);
+
+function tsToDate(){
+  const v=$('tsInput').value.trim();
+  if(!v){$('tsResult').style.display='none';return}
+  let ts=parseInt(v);
+  if(isNaN(ts)){$('tsResult').style.display='block';$('tsResult').innerHTML='<span style="color:var(--red)">Invalid timestamp</span>';return}
+  if($('tsUnit').value==='s')ts*=1000;
+  const d=new Date(ts);
+  const rows=[
+    ['Local',d.toString()],
+    ['UTC',d.toUTCString()],
+    ['ISO 8601',d.toISOString()],
+    ['Date (YYYY-MM-DD)',d.toISOString().split('T')[0]],
+    ['Time (HH:MM:SS)',d.toTimeString().split(' ')[0]],
+    ['Day of Week',['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()]],
+    ['Unix (s)',Math.floor(ts/1000).toString()],
+    ['Unix (ms)',ts.toString()],
+  ];
+  $('tsResult').style.display='block';
+  $('tsResult').innerHTML=rows.map(r=>`<div class="row"><span class="label">${r[0]}</span><span class="value">${r[1]}</span></div>`).join('');
+}
+
+function dateToTs(){
+  const v=$('dateInput').value.trim();
+  if(!v){$('dateResult').style.display='none';return}
+  const d=new Date(v);
+  if(isNaN(d.getTime())){$('dateResult').style.display='block';$('dateResult').innerHTML='<span style="color:var(--red)">Invalid date. Try: 2024-01-15 or 2024-01-15T08:30:00</span>';return}
+  const s=Math.floor(d.getTime()/1000);
+  const ms=d.getTime();
+  const rows=[
+    ['Unix (seconds)',s.toString()],
+    ['Unix (ms)',ms.toString()],
+    ['ISO 8601',d.toISOString()],
+    ['UTC',d.toUTCString()],
+    ['Local',d.toString()],
+  ];
+  $('dateResult').style.display='block';
+  $('dateResult').innerHTML=rows.map(r=>`<div class="row"><span class="label">${r[0]}</span><span class="value" onclick="navigator.clipboard.writeText('${r[1].replace(/'/g,"\\'")}')" title="Click to copy">${r[1]}</span></div>`).join('');
+}
+
+function useCurrentTs(){$('tsInput').value=Math.floor(Date.now()/1000);tsToDate()}
+function useCurrentDate(){
+  const d=new Date();
+  $('dateInput').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');
+  dateToTs();
+}
+function useMidnight(){
+  const d=new Date();d.setHours(0,0,0,0);
+  $('dateInput').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' 00:00:00';
+  dateToTs();
+}
+</script>
+</body>
+</html>

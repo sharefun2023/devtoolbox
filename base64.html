@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 & URL Encoder — DevToolbox</title>
+<meta name="description" content="Free online Base64 encoder/decoder and URL encoder/decoder. All processing in your browser.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/base64">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a.home{font-size:1.1rem;margin-right:auto}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}.subtitle{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.tabs{display:flex;gap:0;margin-bottom:0}
+.tab{padding:8px 20px;border:1px solid var(--border);border-bottom:none;background:var(--bg);color:var(--muted);cursor:pointer;border-radius:8px 8px 0 0;font-size:.9rem}
+.tab.active{background:var(--card);color:var(--text);border-color:var(--border)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:20px}
+textarea,video,img{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;border-radius:8px;line-height:1.6;resize:vertical;min-height:140px}
+textarea:focus{outline:none;border-color:var(--accent)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-size:.85rem}
+.stats{color:var(--muted);font-size:.8rem;margin-top:4px;height:20px}
+.copy-feedback{color:var(--green);font-size:.8rem;margin-left:8px;opacity:0;transition:opacity .3s}
+.copy-feedback.show{opacity:1}
+.file-input{display:inline-block;padding:8px 16px;border:1px dashed var(--border);border-radius:6px;cursor:pointer;font-size:.85rem;color:var(--muted);text-align:center}
+.file-input:hover{border-color:var(--accent);color:var(--text)}
+.file-input input{display:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64" style="color:var(--text)">Base64</a>
+  <a href="/timestamp">Timestamp</a>
+</nav>
+
+<div class="container">
+  <h1>64 Base64 & URL Encoder</h1>
+  <p class="subtitle">Encode and decode Base64, URL-encode, and file-to-Base64 conversion</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('base64')" id="tab-base64">Base64</button>
+    <button class="tab" onclick="switchTab('url')" id="tab-url">URL Encode</button>
+    <button class="tab" onclick="switchTab('file')" id="tab-file">File → Base64</button>
+  </div>
+
+  <!-- Base64 Tab -->
+  <div class="panel" id="panel-base64">
+    <label>Input Text</label>
+    <textarea id="b64in" placeholder="Enter text to encode/decode..." oninput="b64Stats()"></textarea>
+    <div class="btn-row">
+      <button class="primary" onclick="b64Encode()">🔒 Encode</button>
+      <button onclick="b64Decode()">🔓 Decode</button>
+      <button onclick="swapB64()">⇅ Swap</button>
+      <button onclick="copyB64()">📋 Copy Output</button>
+    </div>
+    <label>Output</label>
+    <textarea id="b64out" placeholder="Result will appear here..." readonly></textarea>
+    <div class="stats" id="b64stats"></div>
+  </div>
+
+  <!-- URL Tab -->
+  <div class="panel" id="panel-url" style="display:none">
+    <label>Input Text</label>
+    <textarea id="urlin" placeholder="Enter text or URL to encode/decode..." oninput="urlStats()"></textarea>
+    <div class="btn-row">
+      <button class="primary" onclick="urlEncode()">🔒 Encode</button>
+      <button onclick="urlDecode()">🔓 Decode</button>
+      <button onclick="urlEncodeComponent()">🔒 Encode Component</button>
+      <button onclick="urlDecodeComponent()">🔓 Decode Component</button>
+      <button onclick="swapUrl()">⇅ Swap</button>
+      <button onclick="copyUrl()">📋 Copy Output</button>
+    </div>
+    <label>Output</label>
+    <textarea id="urlout" placeholder="Result will appear here..." readonly></textarea>
+    <div class="stats" id="urlstats"></div>
+  </div>
+
+  <!-- File Tab -->
+  <div class="panel" id="panel-file" style="display:none">
+    <label>Select File</label>
+    <div class="btn-row">
+      <label class="file-input">
+        📁 Choose File
+        <input type="file" id="fileInput" onchange="fileToBase64()">
+      </label>
+      <button onclick="copyFileB64()" id="copyFileBtn">📋 Copy Base64</button>
+    </div>
+    <div id="fileInfo" style="display:none;margin-bottom:12px">
+      <span style="color:var(--accent)" id="fileName"></span>
+      <span style="color:var(--muted);margin-left:8px" id="fileSize"></span>
+    </div>
+    <label>Base64 Output</label>
+    <textarea id="fileB64out" placeholder="Select a file to convert..." readonly style="min-height:200px"></textarea>
+    <div class="stats" id="filestats"></div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+// Tab switching
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+  $(`tab-${name}`).classList.add('active');
+  $(`panel-${name}`).style.display='block';
+}
+
+// Base64
+function b64Encode(){
+  try{$('b64out').value=btoa(unescape(encodeURIComponent($('b64in').value)));b64Stats()}
+  catch(e){$('b64out').value='Error: '+e.message}
+}
+function b64Decode(){
+  try{$('b64out').value=decodeURIComponent(escape(atob($('b64in').value.trim())));b64Stats()}
+  catch(e){$('b64out').value='Error: Invalid Base64 input'}
+}
+function swapB64(){const t=$('b64in').value;$('b64in').value=$('b64out').value;$('b64out').value=t;b64Stats()}
+function copyB64(){navigator.clipboard.writeText($('b64out').value)}
+function b64Stats(){const l=$('b64out').value.length;$('b64stats').textContent=l?`${l.toLocaleString()} chars`:'Ready'}
+
+// URL
+function urlEncode(){$('urlout').value=encodeURI($('urlin').value);urlStats()}
+function urlDecode(){try{$('urlout').value=decodeURI($('urlin').value);urlStats()}catch(e){$('urlout').value='Error: '+e.message}}
+function urlEncodeComponent(){$('urlout').value=encodeURIComponent($('urlin').value);urlStats()}
+function urlDecodeComponent(){try{$('urlout').value=decodeURIComponent($('urlin').value);urlStats()}catch(e){$('urlout').value='Error: '+e.message}}
+function swapUrl(){const t=$('urlin').value;$('urlin').value=$('urlout').value;$('urlout').value=t;urlStats()}
+function copyUrl(){navigator.clipboard.writeText($('urlout').value)}
+function urlStats(){const l=$('urlout').value.length;$('urlstats').textContent=l?`${l.toLocaleString()} chars`:'Ready'}
+
+// File
+function fileToBase64(){
+  const file=$('fileInput').files[0];
+  if(!file)return;
+  $('fileName').textContent=file.name;
+  $('fileSize').textContent=`(${(file.size/1024).toFixed(1)} KB)`;
+  $('fileInfo').style.display='block';
+  const reader=new FileReader();
+  reader.onload=function(){
+    const base64=reader.result.split(',')[1];
+    $('fileB64out').value=base64;
+    $('filestats').textContent=`Base64 length: ${base64.length.toLocaleString()} chars | Raw: ${file.size.toLocaleString()} bytes`;
+  };
+  reader.readAsDataURL(file);
+}
+function copyFileB64(){navigator.clipboard.writeText($('fileB64out').value)}
+
+b64Stats();urlStats();
+</script>
+</body>
+</html>

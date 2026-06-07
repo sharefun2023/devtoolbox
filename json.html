@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter — DevToolbox</title>
+<meta name="description" content="Free online JSON formatter, validator, minifier, and diff tool. All processing in your browser — no data sent anywhere.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/json">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--red:#f85149;--green:#3fb950;--orange:#d2991d;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a.home{font-size:1.1rem;margin-right:auto}
+.container{max-width:1200px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}
+.subtitle{color:var(--muted);margin-bottom:16px;font-size:.9rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.toolbar button,.toolbar select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem}
+.toolbar button:hover{border-color:var(--accent)}
+.toolbar button.accent{background:var(--accent);color:#000;border-color:var(--accent)}
+.editor{display:grid;grid-template-columns:1fr;gap:16px}
+.editor.diff{grid-template-columns:1fr 1fr}
+.panel{display:flex;flex-direction:column}
+.panel label{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.panel label span{margin-left:auto}
+textarea{width:100%;min-height:360px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;resize:vertical;border-radius:8px;line-height:1.6;tab-size:2}
+textarea:focus{outline:none;border-color:var(--accent)}
+.output{background:var(--card);border:1px solid var(--border);border-radius:8px;min-height:360px;max-height:600px;overflow:auto;padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;line-height:1.6;white-space:pre-wrap;word-break:break-all}
+.error{background:#2d1114;border-color:var(--red);color:var(--red);padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:.85rem;display:none}
+.error.show{display:block}
+.error .pos{color:var(--orange)}
+.stats{display:flex;gap:16px;font-size:.8rem;color:var(--muted);margin-top:8px}
+.stats span{background:var(--card);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+.key{color:var(--accent)}.string{color:#a5d6ff}.number{color:var(--green)}.boolean{color:var(--orange)}.null{color:var(--muted)}.bracket{color:var(--text)}
+#input2{display:none}
+.editor.diff #input2{display:block}
+.editor.diff .panel:first-child #input1-label::after{content:'Original'}
+.editor.diff .panel:last-child #input1-label::after{content:'Modified'}
+.line-nums{position:absolute;left:0;top:0;width:40px;text-align:right;padding:12px 8px 12px 0;color:var(--muted);font-size:.75rem;pointer-events:none}
+@media (max-width:768px){.editor.diff{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json" style="color:var(--text)">JSON</a>
+  <a href="/base64">Base64</a>
+  <a href="/timestamp">Timestamp</a>
+</nav>
+
+<div class="container">
+  <h1>{ } JSON Formatter</h1>
+  <p class="subtitle">Format, validate, minify, and diff JSON — all in your browser</p>
+
+  <div class="error" id="error"></div>
+
+  <div class="toolbar">
+    <button class="accent" onclick="format()">✨ Format</button>
+    <button onclick="minify()">📦 Minify</button>
+    <button onclick="validate()">✓ Validate</button>
+    <button onclick="toggleDiff()">≠ Diff</button>
+    <select id="indent" onchange="format()">
+      <option value="2">Indent: 2</option>
+      <option value="4">Indent: 4</option>
+      <option value="tab">Indent: Tab</option>
+    </select>
+    <button onclick="loadSample()">📋 Sample</button>
+    <button onclick="copyOutput()">📋 Copy</button>
+    <button onclick="clearAll()">🗑 Clear</button>
+  </div>
+
+  <div class="editor" id="editor">
+    <div class="panel">
+      <label id="input1-label">Input JSON <span id="charCount">0 chars</span></label>
+      <textarea id="input1" placeholder='Paste your JSON here...&#10;e.g. {"name":"John","age":30}' oninput="updateStats()"></textarea>
+    </div>
+    <div class="panel" id="panel2">
+      <label>Input JSON (compare)</label>
+      <textarea id="input2" placeholder='Paste JSON to compare...'></textarea>
+    </div>
+    <div class="panel">
+      <label>Output</label>
+      <div class="output" id="output">← Paste JSON and click "Format"</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <span id="statLines">Lines: 0</span>
+    <span id="statKeys">Keys: 0</span>
+    <span id="statDepth">Max Depth: 0</span>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const input1=$('input1'),input2=$('input2'),output=$('output'),error=$('error');
+
+function getIndent(){
+  const v=$('indent').value;
+  return v==='tab'?'\t':parseInt(v);
+}
+
+function showError(msg,pos){
+  error.className='error show';
+  error.innerHTML=pos!==undefined?`❌ ${msg} <span class="pos">(position ${pos})</span>`:`❌ ${msg}`;
+}
+
+function hideError(){error.className='error'}
+
+function format(){
+  hideError();
+  try{
+    const obj=JSON.parse(input1.value);
+    const out=JSON.stringify(obj,null,getIndent());
+    output.innerHTML=syntaxHighlight(out);
+    updateStatsObj(obj);
+  }catch(e){
+    showError(e.message,extractPos(e.message));
+  }
+}
+
+function minify(){
+  hideError();
+  try{
+    const obj=JSON.parse(input1.value);
+    const out=JSON.stringify(obj);
+    output.textContent=out;
+    updateStatsObj(obj);
+  }catch(e){
+    showError(e.message,extractPos(e.message));
+  }
+}
+
+function validate(){
+  try{
+    JSON.parse(input1.value);
+    hideError();
+    const obj=JSON.parse(input1.value);
+    format();
+    showError('✅ Valid JSON',null);
+    error.style.background='#0d3320';error.style.color=document.querySelector(':root').style.getPropertyValue('--green')||'#3fb950';error.style.borderColor=document.querySelector(':root').style.getPropertyValue('--green')||'#3fb950';
+    updateStatsObj(obj);
+  }catch(e){
+    error.style.background='';error.style.color='';error.style.borderColor='';
+    showError(e.message,extractPos(e.message));
+  }
+}
+
+function toggleDiff(){
+  const ed=$('editor');
+  ed.classList.toggle('diff');
+  if(ed.classList.contains('diff')){
+    input2.style.display='block';
+    $('panel2').style.display='flex';
+    doDiff();
+  }else{
+    input2.style.display='none';
+    $('panel2').style.display='none';
+    format();
+  }
+}
+
+function doDiff(){
+  hideError();
+  try{
+    const o1=JSON.parse(input1.value),o2=JSON.parse(input2.value);
+    const s1=JSON.stringify(o1,null,2),s2=JSON.stringify(o2,null,2);
+    if(s1===s2){output.innerHTML='<span style="color:var(--green)">✅ Identical JSON</span>';return}
+    const lines1=s1.split('\n'),lines2=s2.split('\n');
+    let html='<span style="color:var(--orange);font-weight:600">Differences:</span>\n\n';
+    const max=Math.max(lines1.length,lines2.length);
+    for(let i=0;i<max;i++){
+      const l1=lines1[i]||'',l2=lines2[i]||'';
+      if(l1!==l2){
+        html+=`<span style="color:var(--red)">- ${esc(l1)}</span>\n`;
+        html+=`<span style="color:var(--green)">+ ${esc(l2)}</span>\n`;
+      }else{
+        html+=`  ${esc(l1)}\n`;
+      }
+    }
+    output.innerHTML=html;
+  }catch(e){showError(e.message)}
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function extractPos(msg){
+  const m=msg.match(/position\s+(\d+)/i);
+  return m?parseInt(m[1]):undefined;
+}
+
+function syntaxHighlight(json){
+  return esc(json).replace(/("(\\u[a-fA-F0-9]{4}|\\[^u]|[^"\\])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,m=>{
+    let cls='number';
+    if(/^"/.test(m)){cls=/:$/.test(m)?'key':'string'}
+    else if(/true|false/.test(m))cls='boolean';
+    else if(/null/.test(m))cls='null';
+    return `<span class="${cls}">${m}</span>`;
+  });
+}
+
+function updateStatsObj(obj){
+  const s=JSON.stringify(obj,null,getIndent());
+  const lines=s.split('\n').length;
+  const keys=countKeys(obj);
+  const depth=maxDepth(obj);
+  $('statLines').textContent=`Lines: ${lines}`;
+  $('statKeys').textContent=`Keys: ${keys}`;
+  $('statDepth').textContent=`Max Depth: ${depth}`;
+}
+
+function updateStats(){
+  const chars=input1.value.length;
+  $('charCount').textContent=`${chars.toLocaleString()} chars`;
+  try{
+    const obj=JSON.parse(input1.value);
+    updateStatsObj(obj);
+  }catch(e){}
+}
+
+function countKeys(obj,depth=0){
+  if(typeof obj!=='object'||obj===null)return 0;
+  let c=0;
+  for(const k in obj){if(obj.hasOwnProperty(k)){c++;c+=countKeys(obj[k],depth+1)}}
+  return c;
+}
+
+function maxDepth(obj){
+  if(typeof obj!=='object'||obj===null)return 0;
+  let max=0;
+  for(const k in obj){if(obj.hasOwnProperty(k)){max=Math.max(max,1+maxDepth(obj[k]))}}
+  return max;
+}
+
+function loadSample(){
+  input1.value=JSON.stringify({name:"John Doe",age:30,email:"john@example.com",address:{street:"123 Main St",city:"New York",zip:"10001",country:"USA"},hobbies:["reading","coding","hiking"],metadata:{created:"2024-01-15T08:30:00Z",active:true,score:95.5,verified:null}},null,2);
+  format();
+}
+
+function copyOutput(){
+  const text=output.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector('button:last-of-type');
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy',1500);
+  });
+}
+
+function clearAll(){input1.value='';output.innerHTML='← Paste JSON and click "Format"';hideError();updateStats()}
+
+updateStats();
+</script>
+</body>
+</html>

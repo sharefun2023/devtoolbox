@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevToolbox — Free Online Developer Tools</title>
+<meta name="description" content="Free online developer tools: JSON formatter, Base64 encoder, timestamp converter, and more. All processing happens in your browser — no data sent anywhere.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/">
+<style>
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --border: #30363d;
+  --text: #c9d1d9;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --orange: #d2991d;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh;
+}
+header {
+  text-align: center; padding: 48px 16px 32px;
+  border-bottom: 1px solid var(--border);
+}
+header h1 { font-size: 2.5rem; color: var(--accent); margin-bottom: 8px; }
+header p { color: var(--muted); font-size: 1.1rem; }
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px; padding: 32px 16px; max-width: 1100px; margin: 0 auto;
+}
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 24px;
+  transition: border-color .2s, transform .2s;
+  text-decoration: none; color: var(--text); display: block;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card .icon { font-size: 2rem; margin-bottom: 12px; }
+.card h2 { font-size: 1.25rem; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: .9rem; line-height: 1.5; }
+.card .tag {
+  display: inline-block; background: #1a2332; color: var(--accent);
+  padding: 2px 10px; border-radius: 12px; font-size: .75rem; margin-top: 12px;
+}
+footer {
+  text-align: center; padding: 32px 16px;
+  color: var(--muted); font-size: .85rem;
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧰 DevToolbox</h1>
+  <p>Free online developer tools — all processing in your browser, zero data leaves your device</p>
+</header>
+
+<main class="tools">
+  <a href="/json" class="card">
+    <div class="icon">{ }</div>
+    <h2>JSON Formatter</h2>
+    <p>Format, validate, minify, and diff JSON. Syntax highlighting, tree view, error detection.</p>
+    <span class="tag">#1 Most Used</span>
+  </a>
+
+  <a href="/base64" class="card">
+    <div class="icon">64</div>
+    <h2>Base64 & URL Encoder</h2>
+    <p>Encode/decode Base64, URL-encode, and one-click copy. Supports text and file input.</p>
+    <span class="tag">High Frequency</span>
+  </a>
+
+  <a href="/timestamp" class="card">
+    <div class="icon">🕐</div>
+    <h2>Timestamp Converter</h2>
+    <p>Convert between Unix timestamps and human-readable dates. Live clock, timezone support.</p>
+    <span class="tag">Daily Driver</span>
+  </a>
+
+  <div class="card" style="opacity:.5; cursor:default">
+    <div class="icon">🔍</div>
+    <h2>Regex Tester · Coming Soon</h2>
+    <p>Test regular expressions with real-time matching, capture groups, and substitution.</p>
+    <span class="tag">Planned</span>
+  </div>
+
+  <div class="card" style="opacity:.5; cursor:default">
+    <div class="icon">≠</div>
+    <h2>Diff Checker · Coming Soon</h2>
+    <p>Compare text side-by-side with inline differences. No upload, no account needed.</p>
+    <span class="tag">Planned</span>
+  </div>
+
+  <div class="card" style="opacity:.5; cursor:default">
+    <div class="icon">🎲</div>
+    <h2>UUID Generator · Coming Soon</h2>
+    <p>Generate UUID v1/v4, random strings, and password hashes. Batch generation supported.</p>
+    <span class="tag">Planned</span>
+  </div>
+</main>
+
+<footer>
+  <p>All tools run 100% in your browser · No data is ever uploaded · <a href="https://github.com/sharefun/devtoolbox">Open Source</a></p>
+</footer>
+
+</body>
+</html>

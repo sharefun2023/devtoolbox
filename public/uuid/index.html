@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID Generator — DevToolbox</title>
+<meta name="description" content="Free online UUID generator. Generate UUID v1, v4, v7, GUID, NanoID, ULID. All in your browser — no data sent anywhere.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/uuid">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"UUID Generator","url":"https://devtoolbox.pages.dev/uuid","applicationCategory":"DeveloperApplication","operatingSystem":"All","description":"Online UUID generator supporting v1, v4, v7, GUID, NanoID"}</script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--red:#f85149;--green:#3fb950;--orange:#d2991d;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card);flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem}
+nav a:hover{color:var(--accent)}
+nav a.home{color:var(--text);font-size:1.1rem;margin-right:auto}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}
+.subtitle{color:var(--muted);margin-bottom:24px;font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px}
+.card h2{font-size:1rem;margin-bottom:12px;color:var(--muted)}
+.uuid-display{font-family:'JetBrains Mono','Fira Code',monospace;font-size:1.4rem;color:var(--green);padding:16px;background:#0d1117;border:1px solid var(--border);border-radius:6px;text-align:center;word-break:break-all;margin-bottom:12px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.toolbar button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .15s}
+.toolbar button:hover{border-color:var(--accent)}
+.toolbar button.active,.toolbar button.accent{background:var(--accent);color:#000;border-color:var(--accent)}
+.toolbar button.danger{background:var(--red);color:#fff;border-color:var(--red)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:8px}
+.stats span{background:var(--card);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+.bulk-area{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;resize:vertical;border-radius:6px;margin-top:8px}
+.bulk-area:focus{outline:none;border-color:var(--accent)}
+.copied{color:var(--green);font-size:.8rem;opacity:0;transition:opacity .2s}
+.copied.show{opacity:1}
+.info-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted);margin:4px 0}
+.version-info{padding:8px 12px;background:var(--card);border-radius:6px;border:1px solid var(--border);font-size:.8rem;color:var(--muted);margin-top:12px}
+.version-info strong{color:var(--accent)}
+@media(max-width:600px){.uuid-display{font-size:1rem}.toolbar button{padding:6px 10px;font-size:.8rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64">Base64</a>
+  <a href="/timestamp">Timestamp</a>
+  <a href="/uuid" style="color:var(--text)">UUID</a>
+</nav>
+<div class="container">
+  <h1>🆔 UUID Generator</h1>
+  <p class="subtitle">Generate UUID v1, v4, v7, GUID, NanoID — all in your browser, zero network requests</p>
+
+  <div class="card">
+    <h2>Single UUID</h2>
+    <div class="toolbar">
+      <button onclick="gen('v4')" class="active" id="btn-v4">UUID v4 (Random)</button>
+      <button onclick="gen('v7')" id="btn-v7">UUID v7 (Timestamp)</button>
+      <button onclick="gen('v1')" id="btn-v1">UUID v1 (MAC+Time)</button>
+      <button onclick="gen('guid')" id="btn-guid">GUID</button>
+      <button onclick="gen('nanoid')" id="btn-nanoid">NanoID</button>
+      <button onclick="gen('ulid')" id="btn-ulid">ULID</button>
+    </div>
+    <div class="uuid-display" id="result" onclick="copyUUID()" title="Click to copy">Click a button above to generate</div>
+    <div class="copied" id="copied">✓ Copied!</div>
+  </div>
+
+  <div class="card">
+    <h2>Bulk Generate</h2>
+    <div class="toolbar">
+      <input type="number" id="count" value="10" min="1" max="200" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;width:70px;font-size:.85rem">
+      <button onclick="genBulk()" class="accent">Generate</button>
+      <button onclick="copyBulk()">Copy All</button>
+      <button onclick="document.getElementById('bulk').value=''" class="danger">Clear</button>
+    </div>
+    <textarea class="bulk-area" id="bulk" readonly placeholder="Bulk UUIDs will appear here..."></textarea>
+  </div>
+
+  <div class="version-info">
+    <strong>v4</strong> — Random (RFC 9562) · <strong>v7</strong> — Time-ordered, sortable · <strong>v1</strong> — MAC + timestamp · <strong>GUID</strong> — Microsoft format · <strong>NanoID</strong> — Short, URL-safe · <strong>ULID</strong> — Sortable, 26 chars
+  </div>
+</div>
+
+<script>
+function setActive(type) {
+  document.querySelectorAll('.toolbar button[id^="btn-"]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + type);
+  if (btn) btn.classList.add('active');
+}
+
+function gen(type) {
+  setActive(type);
+  let uuid;
+  switch(type) {
+    case 'v4': uuid = crypto.randomUUID(); break;
+    case 'v7': uuid = uuidv7(); break;
+    case 'v1': uuid = uuidv1(); break;
+    case 'guid': uuid = '{' + crypto.randomUUID().toUpperCase() + '}'; break;
+    case 'nanoid': uuid = nanoid(21); break;
+    case 'ulid': uuid = ulid(); break;
+  }
+  document.getElementById('result').textContent = uuid;
+}
+
+function uuidv7() {
+  const ms = BigInt(Date.now());
+  const rand = crypto.getRandomValues(new Uint8Array(10));
+  const bytes = new Uint8Array(16);
+  bytes[0] = Number((ms >> 40n) & 0xFFn);
+  bytes[1] = Number((ms >> 32n) & 0xFFn);
+  bytes[2] = Number((ms >> 24n) & 0xFFn);
+  bytes[3] = Number((ms >> 16n) & 0xFFn);
+  bytes[4] = Number((ms >> 8n) & 0xFFn);
+  bytes[5] = Number(ms & 0xFFn);
+  bytes.set(rand, 6);
+  bytes[6] = (bytes[6] & 0x0f) | 0x70;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join('');
+  return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+}
+
+function uuidv1() {
+  const now = Date.now() * 10000 + 122192928000000000;
+  const hexTime = now.toString(16).padStart(16,'0');
+  const clock = Math.floor(Math.random() * 16384);
+  let node = [];
+  for(let i=0;i<6;i++) node.push(Math.floor(Math.random()*256));
+  node[0] |= 0x01;
+  const hexNode = node.map(b=>b.toString(16).padStart(2,'0')).join('');
+  const hexClock = (clock | 0x8000).toString(16).padStart(4,'0');
+  return `${hexTime.slice(0,8)}-${hexTime.slice(8,12)}-1${hexTime.slice(13,16)}-${hexClock}-${hexNode}`;
+}
+
+function nanoid(size=21) {
+  const chars = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLFGQZbfghjklqvwyzrict';
+  let id = '';
+  const bytes = crypto.getRandomValues(new Uint8Array(size));
+  for(let i=0;i<size;i++) id += chars[bytes[i] & 63];
+  return id;
+}
+
+function ulid() {
+  const time = Date.now().toString(32).padStart(10,'0').toUpperCase();
+  const chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  let rand = '';
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  for(let i=0;i<16;i++) rand += chars[bytes[i] % 32];
+  return time + rand;
+}
+
+function genBulk() {
+  const count = Math.min(200, Math.max(1, parseInt(document.getElementById('count').value) || 10));
+  const type = document.querySelector('.toolbar button.active')?.id?.replace('btn-','') || 'v4';
+  const uuids = [];
+  for(let i=0;i<count;i++) {
+    switch(type) {
+      case 'v4': uuids.push(crypto.randomUUID()); break;
+      case 'v7': uuids.push(uuidv7()); break;
+      case 'v1': uuids.push(uuidv1()); break;
+      case 'guid': uuids.push('{' + crypto.randomUUID().toUpperCase() + '}'); break;
+      case 'nanoid': uuids.push(nanoid(21)); break;
+      case 'ulid': uuids.push(ulid()); break;
+    }
+  }
+  document.getElementById('bulk').value = uuids.join('\n');
+}
+
+function copyUUID() {
+  const t = document.getElementById('result').textContent;
+  if (!t || t.includes('Click')) return;
+  navigator.clipboard.writeText(t);
+  const c = document.getElementById('copied');
+  c.classList.add('show');
+  setTimeout(() => c.classList.remove('show'), 1500);
+}
+
+function copyBulk() {
+  const t = document.getElementById('bulk').value;
+  if (!t) return;
+  navigator.clipboard.writeText(t);
+  const c = document.getElementById('copied');
+  c.textContent = '✓ Copied ' + t.split('\n').length + ' UUIDs!';
+  c.classList.add('show');
+  setTimeout(() => {c.classList.remove('show');c.textContent='✓ Copied!'}, 2000);
+}
+
+// Generate initial UUID
+gen('v4');
+</script>
+</body>
+</html>

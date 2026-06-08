@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cron Expression Editor — DevToolbox</title>
+<meta name="description" content="Interactive cron expression editor with human-readable translations, presets, and next-execution preview. Supports standard 5-field cron.">
+<link rel="canonical" href="https://devtoolbox.pages.dev/cron">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cron Editor","url":"https://devtoolbox.pages.dev/cron","applicationCategory":"DeveloperApplication","description":"Interactive cron expression editor with presets and preview"}</script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--red:#f85149;--green:#3fb950;--orange:#d2991d;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card);flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem}
+nav a:hover{color:var(--accent)}
+nav a.home{color:var(--text);font-size:1.1rem;margin-right:auto}
+nav a.active{color:var(--text)}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin-bottom:4px}
+.subtitle{color:var(--muted);margin-bottom:24px;font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px}
+.card h2{font-size:1rem;margin-bottom:12px;color:var(--muted)}
+.expr-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.expr-bar input{flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border);color:var(--green);padding:10px 14px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:1.1rem;border-radius:6px;letter-spacing:1px}
+.expr-bar input:focus{outline:none;border-color:var(--accent)}
+.expr-bar button{background:var(--accent);color:#000;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.presets button{background:var(--bg);border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:4px;cursor:pointer;font-size:.8rem}
+.presets button:hover{color:var(--text);border-color:var(--accent)}
+.presets button.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.fields{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.field{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px}
+.field label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.field input,.field select{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85rem}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+.desc{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:.95rem;line-height:1.6}
+.desc .en{color:var(--text)}
+.desc .zh{color:var(--muted);font-size:.85rem;margin-top:4px}
+.next-list{font-family:'JetBrains Mono',monospace;font-size:.85rem;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+.next-list div:nth-child(odd){color:var(--muted)}
+.next-list div:nth-child(even){color:var(--green)}
+.copied{position:fixed;bottom:20px;right:20px;background:var(--green);color:#000;padding:10px 20px;border-radius:8px;font-weight:600;font-size:.9rem;opacity:0;transition:opacity .3s;z-index:100}
+.copied.show{opacity:1}
+@media(max-width:700px){.fields{grid-template-columns:repeat(3,1fr)}.next-list{grid-template-columns:1fr}}
+@media(max-width:480px){.fields{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64">Base64</a>
+  <a href="/timestamp">Timestamp</a>
+  <a href="/uuid">UUID</a>
+  <a href="/cron" class="active">Cron</a>
+</nav>
+<div class="container">
+  <h1>⏰ Cron Expression Editor</h1>
+  <p class="subtitle">Build, understand, and test cron expressions visually</p>
+
+  <div class="card">
+    <h2>Presets</h2>
+    <div class="presets" id="presets">
+      <button onclick="setPreset('* * * * *')">Every Minute</button>
+      <button onclick="setPreset('*/5 * * * *')">Every 5 Min</button>
+      <button onclick="setPreset('*/15 * * * *')">Every 15 Min</button>
+      <button onclick="setPreset('0 * * * *')">Every Hour</button>
+      <button onclick="setPreset('0 */2 * * *')">Every 2 Hours</button>
+      <button onclick="setPreset('0 */6 * * *')">Every 6 Hours</button>
+      <button onclick="setPreset('0 0 * * *')">Daily Midnight</button>
+      <button onclick="setPreset('0 9 * * *')">Daily 9 AM</button>
+      <button onclick="setPreset('0 9 * * 1-5')">Weekdays 9 AM</button>
+      <button onclick="setPreset('0 0 * * 0')">Weekly Sunday</button>
+      <button onclick="setPreset('0 0 1 * *')">Monthly 1st</button>
+      <button onclick="setPreset('0 0 1 1 *')">Yearly Jan 1</button>
+      <button onclick="setPreset('*/30 * * * 1-5')">Weekdays /30min</button>
+      <button onclick="setPreset('0 9,17 * * 1-5')">9AM+5PM Weekdays</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Expression</h2>
+    <div class="expr-bar">
+      <input type="text" id="expr" value="*/5 * * * *" oninput="parseExpr()" placeholder="* * * * *">
+      <button onclick="copyExpr()">📋 Copy</button>
+    </div>
+
+    <div class="fields">
+      <div class="field"><label>Minute (0-59)</label><input id="f-min" value="*/5" oninput="syncFromFields()" placeholder="*"></div>
+      <div class="field"><label>Hour (0-23)</label><input id="f-hr" value="*" oninput="syncFromFields()" placeholder="*"></div>
+      <div class="field"><label>Day (1-31)</label><input id="f-day" value="*" oninput="syncFromFields()" placeholder="*"></div>
+      <div class="field"><label>Month (1-12)</label><input id="f-mon" value="*" oninput="syncFromFields()" placeholder="*"></div>
+      <div class="field"><label>Weekday (0-6)</label><input id="f-wk" value="*" oninput="syncFromFields()" placeholder="*"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Description</h2>
+    <div class="desc">
+      <div class="en" id="desc-en">Every 5 minutes</div>
+      <div class="zh" id="desc-zh">每 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Next 10 Executions</h2>
+    <div class="next-list" id="next-list">Loading...</div>
+  </div>
+</div>
+<div class="copied" id="copied">✓ Copied!</div>
+
+<script>
+const FIELD_NAMES = ['minute','hour','day of month','month','day of week'];
+const FIELD_NAMES_ZH = ['分钟','小时','日','月','星期'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS_ZH = ['日','一','二','三','四','五','六'];
+
+function setPreset(expr) {
+  document.getElementById('expr').value = expr;
+  document.querySelectorAll('#presets button').forEach(b => {
+    b.classList.toggle('active', b.textContent.includes(expr.split(' ').join('')) || b.onclick?.toString().includes(expr.replace(/\*/g,'\\*')));
+  });
+  parseExpr();
+}
+
+function parseExpr() {
+  const expr = document.getElementById('expr').value.trim();
+  const parts = expr.split(/\s+/);
+  if (parts.length !== 5) {
+    document.getElementById('desc-en').textContent = 'Invalid: need 5 fields';
+    document.getElementById('desc-zh').textContent = '无效：需要 5 个字段';
+    return;
+  }
+  ['f-min','f-hr','f-day','f-mon','f-wk'].forEach((id,i) => {
+    document.getElementById(id).value = parts[i];
+  });
+
+  const desc = describeCron(parts);
+  document.getElementById('desc-en').textContent = desc.en;
+  document.getElementById('desc-zh').textContent = desc.zh;
+  
+  calcNext(parts);
+}
+
+function syncFromFields() {
+  const parts = ['f-min','f-hr','f-day','f-mon','f-wk'].map(id => document.getElementById(id).value.trim() || '*');
+  document.getElementById('expr').value = parts.join(' ');
+  parseExpr();
+}
+
+function describeField(val, name, nameZH, unitZH) {
+  val = val.trim();
+  if (val === '*') return {en: `every ${name}`, zh: `每${nameZH}`};
+  if (val.startsWith('*/')) {
+    const n = val.slice(2);
+    return {en: `every ${n} ${name}s`, zh: `每 ${n} ${nameZH}`};
+  }
+  if (val.includes(',')) {
+    const items = val.split(',').map(v => expandItem(v, name));
+    return {en: `at ${items.join(', ')}`, zh: `在 ${items.join('、')}`};
+  }
+  if (val.includes('-')) {
+    const [s,e] = val.split('-');
+    return {en: `${s} through ${e}`, zh: `从 ${s} 到 ${e} ${nameZH}`};
+  }
+  return {en: `at ${val}`, zh: `在 ${val} ${nameZH}`};
+}
+
+function expandItem(v, field) {
+  if (field === 'day of week' && /^\d$/.test(v)) return DAYS[parseInt(v)];
+  return v;
+}
+
+function describeCron(parts) {
+  const [min,hour,day,mon,wk] = parts;
+  
+  // Special common patterns
+  const expr = parts.join(' ');
+  
+  if (expr === '* * * * *') return {en:'Every minute',zh:'每分钟'};
+  if (expr === '0 * * * *') return {en:'Every hour at minute 0',zh:'每小时整点'};
+  if (expr === '0 0 * * *') return {en:'Every day at midnight',zh:'每天午夜 0:00'};
+  if (expr === '0 9 * * *') return {en:'Every day at 9:00 AM',zh:'每天早上 9:00'};
+  if (expr === '0 9 * * 1-5') return {en:'Weekdays at 9:00 AM',zh:'工作日早上 9:00'};
+  if (expr === '0 0 * * 0') return {en:'Every Sunday at midnight',zh:'每周日凌晨 0:00'};
+  if (expr === '0 0 1 * *') return {en:'First day of every month at midnight',zh:'每月 1 号凌晨 0:00'};
+  if (expr === '0 0 1 1 *') return {en:'January 1st at midnight (yearly)',zh:'每年 1 月 1 日凌晨'};
+  if (expr === '*/30 * * * 1-5') return {en:'Every 30 minutes on weekdays',zh:'工作日每 30 分钟'};
+  if (expr === '0 9,17 * * 1-5') return {en:'At 9:00 AM and 5:00 PM on weekdays',zh:'工作日 9:00 和 17:00'};
+
+  const minD = describeField(min, 'minute', '分钟', '分钟');
+  const hrD = describeField(hour, 'hour', '小时', '小时');
+  const dayD = describeField(day, 'day of month', '日', '日');
+  const monD = describeField(mon, 'month', '月', '月');
+  const wkD = describeField(wk, 'day of week', '星期', '');
+
+  // Build description
+  let en = '', zh = '';
+  
+  if (wk !== '*') {
+    en += wkD.en + (day !== '*' ? ', plus ' + dayD.en : '') + ', ';
+    zh += wkD.zh + (day !== '*' ? '，且' + dayD.zh : '') + '，';
+  } else if (day !== '*') {
+    en += dayD.en + (mon !== '*' ? ' of ' + monD.en : '') + ', ';
+    zh += dayD.zh + (mon !== '*' ? '（' + monD.zh + '）' : '') + '，';
+  } else {
+    en += 'every day, ';
+    zh += '每天，';
+  }
+  
+  en += 'at ' + hrD.en + ':' + pad(min);
+  zh += hrD.zh + ':' + pad(min);
+
+  if (min.startsWith('*/')) {
+    const n = min.slice(2);
+    en = en.replace(/at .+/, `every ${n} minutes starting at ${hrD.en}:00`);
+    zh = zh.replace(/.+/, `从 ${hrD.zh}:00 起每 ${n} 分钟`);
+  }
+
+  return {en, zh};
+}
+
+function pad(v) {
+  v = v.replace('*/','').split(',')[0];
+  return v.length === 1 ? '0'+v : v;
+}
+
+function calcNext(parts) {
+  try {
+    const expr = parts.join(' ');
+    const dates = getNextDates(expr, 10);
+    const list = document.getElementById('next-list');
+    list.innerHTML = dates.map(d => {
+      const ds = d.toISOString().replace('T',' ').replace('Z','').substring(0,19);
+      const local = d.toLocaleString('zh-CN', {weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      return `<div>${ds} UTC</div><div>${local}</div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('next-list').textContent = 'Invalid expression';
+  }
+}
+
+function getNextDates(expr, count) {
+  const parts = expr.split(/\s+/);
+  const [min,hour,dom,mon,dow] = parts;
+  const results = [];
+  let d = new Date();
+  d.setSeconds(0,0);
+  d.setMinutes(d.getMinutes() + 1); // start from next minute
+  
+  let tries = 0;
+  while (results.length < count && tries < 100000) {
+    if (matches(d, min, hour, dom, mon, dow)) {
+      results.push(new Date(d));
+    }
+    d.setMinutes(d.getMinutes() + 1);
+    tries++;
+  }
+  return results;
+}
+
+function matches(d, min, hour, dom, mon, dow) {
+  if (!matchField(d.getMinutes(), 0, 59, min)) return false;
+  if (!matchField(d.getHours(), 0, 23, hour)) return false;
+  if (!matchField(d.getDate(), 1, 31, dom)) return false;
+  if (!matchField(d.getMonth()+1, 1, 12, mon)) return false;
+  if (!matchField(d.getDay(), 0, 6, dow)) return false;
+  return true;
+}
+
+function matchField(val, vmin, vmax, pattern) {
+  if (pattern === '*') return true;
+  const parts = pattern.split(',');
+  for (let p of parts) {
+    p = p.trim();
+    if (p.startsWith('*/')) {
+      const step = parseInt(p.slice(2));
+      if ((val - vmin) % step === 0) return true;
+    } else if (p.includes('-')) {
+      const [s,e] = p.split('-').map(Number);
+      if (val >= s && val <= e) return true;
+    } else {
+      if (parseInt(p) === val) return true;
+    }
+  }
+  return false;
+}
+
+function copyExpr() {
+  navigator.clipboard.writeText(document.getElementById('expr').value);
+  showCopied();
+}
+
+function showCopied() {
+  const c = document.getElementById('copied');
+  c.classList.add('show');
+  setTimeout(() => c.classList.remove('show'), 1500);
+}
+
+// Init
+parseExpr();
+</script>
+</body>
+</html>

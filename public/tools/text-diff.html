@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Diff — Free Online Text Comparison Tool | DevToolBox</title>
+<meta name="description" content="Free online text diff tool. Compare two texts side by side with line-by-line highlight of additions, deletions, and modifications. 100% client-side.">
+<link rel="canonical" href="https://23232322.xyz/tools/text-diff">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column}
+header{background:#16213e;padding:0 20px;border-bottom:1px solid #2a2a4a;display:flex;align-items:center;height:56px;flex-shrink:0}
+header .logo{font-size:20px;font-weight:700;color:#e94560;text-decoration:none}
+header nav{margin-left:auto;display:flex;gap:20px}
+header nav a{color:#a0a0c0;text-decoration:none;font-size:14px;transition:color .2s}
+header nav a:hover{color:#e94560}
+.breadcrumbs{padding:12px 20px;font-size:13px;color:#666;background:#1a1a2e;border-bottom:1px solid #2a2a4a}
+.breadcrumbs a{color:#e94560;text-decoration:none}
+.breadcrumbs .sep{margin:0 8px;color:#555}
+main{flex:1;padding:20px;max-width:1400px;margin:0 auto;width:100%}
+main h1{font-size:24px;margin-bottom:6px;color:#e0e0e0}
+main p.desc{color:#888;margin-bottom:20px;font-size:14px}
+.tool-container{display:flex;flex-direction:column;gap:12px}
+.editor-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.editor-pair textarea{width:100%;height:300px;background:#0f3460;color:#e0e0e0;border:1px solid #2a2a4a;border-radius:8px;padding:14px;font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;font-size:13px;line-height:1.6;resize:vertical;outline:none;transition:border-color .2s}
+.editor-pair textarea:focus{border-color:#e94560}
+.editor-pair .label{font-size:12px;color:#888;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.actions button{padding:10px 28px;background:#e94560;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;transition:background .2s;font-weight:600}
+.actions button:hover{background:#d63850}
+.actions button.secondary{background:#2a2a4a;color:#a0a0c0}
+.actions button.secondary:hover{background:#3a3a5a}
+.actions .stats{font-size:13px;color:#666;margin-left:auto}
+.diff-output{padding:0;border:1px solid #2a2a4a;border-radius:8px;overflow:hidden;background:#0a0a1a}
+.diff-output .diff-line{display:grid;grid-template-columns:50px 1fr 50px 1fr;font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;font-size:13px;line-height:1.6;border-bottom:1px solid #1a1a2e}
+.diff-output .diff-line:last-child{border-bottom:none}
+.diff-line .ln{background:#0d0d24;color:#555;text-align:right;padding:0 8px;user-select:none;font-size:12px;line-height:1.6;border-right:1px solid #1a1a2e;min-height:1.6em}
+.diff-line .content{padding:0 12px;white-space:pre-wrap;word-break:break-all;min-height:1.6em}
+.diff-line .ln-r{background:#0d0d24;color:#555;text-align:right;padding:0 8px;user-select:none;font-size:12px;line-height:1.6;border-left:1px solid #1a1a2e;border-right:1px solid #1a1a2e;min-height:1.6em}
+.diff-line .content-r{padding:0 12px;white-space:pre-wrap;word-break:break-all;min-height:1.6em}
+/* Diff styles */
+.diff-line.add .content,.diff-line.add .content-r{background:rgba(0,200,83,0.12);color:#81c784}
+.diff-line.del .content,.diff-line.del .content-r{background:rgba(233,69,96,0.12);color:#ef9a9a}
+.diff-line.mod .content,.diff-line.mod .content-r{background:rgba(255,193,7,0.1);color:#ffd54f}
+.diff-line.eq .content,.diff-line.eq .content-r{color:#b0b0b0}
+.diff-placeholder{color:#555;text-align:center;padding:40px;font-size:14px}
+/* Inline word-level diff */
+.del-word{background:rgba(233,69,96,0.25);color:#ef9a9a;border-radius:3px;padding:0 2px}
+.add-word{background:rgba(0,200,83,0.25);color:#81c784;border-radius:3px;padding:0 2px}
+footer{background:#16213e;padding:20px;text-align:center;border-top:1px solid #2a2a4a;flex-shrink:0}
+footer a{color:#e94560;text-decoration:none;margin:0 12px;font-size:13px}
+footer a:hover{text-decoration:underline}
+footer p{color:#555;margin-top:8px;font-size:12px}
+@media(max-width:768px){
+  .editor-pair{grid-template-columns:1fr}
+  .editor-pair textarea{height:180px}
+  .diff-output .diff-line{grid-template-columns:35px 1fr 35px 1fr;font-size:12px}
+  .actions button{padding:8px 18px;font-size:13px}
+  main{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">🧰 DevToolBox</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="breadcrumbs">
+  <a href="/">Home</a><span class="sep">›</span><a href="/tools/">Tools</a><span class="sep">›</span>Text Diff
+</div>
+
+<main>
+<h1>📄 Text Diff</h1>
+<p class="desc">Compare two texts side by side. Additions, deletions, and modifications are highlighted line by line with word-level granularity.</p>
+
+<div class="tool-container">
+  <div class="editor-pair">
+    <div>
+      <div class="label">📌 Original Text</div>
+      <textarea id="left" placeholder="Paste original text here..."></textarea>
+    </div>
+    <div>
+      <div class="label">✏️ Modified Text</div>
+      <textarea id="right" placeholder="Paste modified text here..."></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button onclick="runDiff()">🔍 Compare</button>
+    <button class="secondary" onclick="swapText()">⇄ Swap</button>
+    <button class="secondary" onclick="clearAll()">✕ Clear</button>
+    <span class="stats" id="stats"></span>
+  </div>
+
+  <div id="diffOutput" class="diff-output">
+    <div class="diff-placeholder">Paste text in both panels and click Compare</div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div>
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+  </div>
+  <p>© 2026 DevToolBox. 100% client-side — your data never leaves your device.</p>
+</footer>
+
+<script>
+// Simple LCS-based diff algorithm
+function diffWords(a, b) {
+  const aWords = a.split(/\b(?=\S)/g);
+  const bWords = b.split(/\b(?=\S)/g);
+  const m = aWords.length, n = bWords.length;
+  const dp = Array.from({length: m+1}, () => new Uint16Array(n+1));
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j] = aWords[i-1]===bWords[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j],dp[i][j-1]);
+  const left=[], right=[];
+  let i=m,j=n;
+  while(i>0||j>0){
+    if(i>0&&j>0&&aWords[i-1]===bWords[j-1]){left.unshift({t:'eq',w:aWords[i-1]});right.unshift({t:'eq',w:bWords[j-1]});i--;j--;}
+    else if(j>0&&(i===0||dp[i][j-1]>=dp[i-1][j])){right.unshift({t:'add',w:bWords[j-1]});j--;}
+    else{left.unshift({t:'del',w:aWords[i-1]});i--;}
+  }
+  // Merge consecutive tokens of same type
+  function merge(arr){const r=[];for(const t of arr){if(r.length&&r[r.length-1].t===t.t)r[r.length-1].w+=t.w;else r.push({t:t.t,w:t.w})}return r}
+  return {left:merge(left),right:merge(right)};
+}
+
+function computeDiff(aLines, bLines) {
+  const m = aLines.length, n = bLines.length;
+  const dp = Array.from({length:m+1},()=>new Uint16Array(n+1));
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j] = aLines[i-1]===bLines[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j],dp[i][j-1]);
+  const result = [];
+  let i=m,j=n;
+  while(i>0||j>0){
+    if(i>0&&j>0&&aLines[i-1]===bLines[j-1]){result.push({type:'eq',lnA:i,lnB:j,textA:aLines[i-1],textB:bLines[j-1]});i--;j--;}
+    else if(j>0&&(i===0||dp[i][j-1]>=dp[i-1][j])){result.push({type:'add',lnA:'-',lnB:j,textA:'',textB:bLines[j-1]});j--;}
+    else{result.push({type:'del',lnA:i,lnB:'-',textA:aLines[i-1],textB:''});i--;}
+  }
+  // Check for modifications (adjacent del+add with same context)
+  for(let k=0;k<result.length-1;k++){
+    if(result[k].type==='del'&&result[k+1].type==='add'&&result[k+1].type==='add'){
+      // mark as modification
+      result[k].type='mod';
+      result[k].textB=result[k+1].textB;
+      result[k].lnB=result[k+1].lnB;
+      result.splice(k+1,1);
+    }
+  }
+  
+  // Word-level diff for modifications
+  for(let k=0;k<result.length;k++){
+    if(result[k].type==='mod'){
+      const wd = diffWords(result[k].textA, result[k].textB);
+      result[k].wordLeft = wd.left;
+      result[k].wordRight = wd.right;
+    }
+  }
+  
+  return result.reverse();
+}
+
+function renderWordDiff(words) {
+  return words.map(w => {
+    if(w.t === 'del') return `<span class="del-word">${escapeHtml(w.w)}</span>`;
+    if(w.t === 'add') return `<span class="add-word">${escapeHtml(w.w)}</span>`;
+    return escapeHtml(w.w);
+  }).join('');
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function runDiff() {
+  const leftText = document.getElementById('left').value;
+  const rightText = document.getElementById('right').value;
+  const output = document.getElementById('diffOutput');
+  const stats = document.getElementById('stats');
+
+  if(!leftText && !rightText) {
+    output.innerHTML = '<div class="diff-placeholder">Paste text in both panels and click Compare</div>';
+    stats.textContent = '';
+    return;
+  }
+
+  const aLines = leftText.split('\n');
+  const bLines = rightText.split('\n');
+  const diff = computeDiff(aLines, bLines);
+
+  let html = '';
+  let adds=0, dels=0, mods=0, eqs=0;
+
+  for(const d of diff){
+    const cls = d.type;
+    if(cls==='add') adds++;
+    else if(cls==='del') dels++;
+    else if(cls==='mod') mods++;
+    else eqs++;
+
+    let leftContent, rightContent;
+    if(d.type==='mod' && d.wordLeft) {
+      leftContent = renderWordDiff(d.wordLeft);
+      rightContent = renderWordDiff(d.wordRight);
+    } else {
+      leftContent = escapeHtml(d.textA);
+      rightContent = escapeHtml(d.textB);
+    }
+
+    const lnA = d.lnA !== '-' ? `<div class="ln">${d.lnA}</div>` : '<div class="ln"></div>';
+    const lnB = d.lnB !== '-' ? `<div class="ln-r">${d.lnB}</div>` : '<div class="ln-r"></div>';
+
+    html += `<div class="diff-line ${cls}">${lnA}<div class="content">${leftContent||'&nbsp;'}</div>${lnB}<div class="content-r">${rightContent||'&nbsp;'}</div></div>`;
+  }
+
+  output.innerHTML = html;
+  stats.textContent = `${eqs} equal · ${mods} modified · ${adds} added · ${dels} deleted`;
+}
+
+function swapText() {
+  const left = document.getElementById('left');
+  const right = document.getElementById('right');
+  [left.value, right.value] = [right.value, left.value];
+  runDiff();
+}
+
+function clearAll() {
+  document.getElementById('left').value = '';
+  document.getElementById('right').value = '';
+  document.getElementById('diffOutput').innerHTML = '<div class="diff-placeholder">Paste text in both panels and click Compare</div>';
+  document.getElementById('stats').textContent = '';
+}
+
+// Run on page load with demo data
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('left').value = 'Hello World\nThis is line 2\nThis is line 3\nThis is line 4\nEnd of file';
+  document.getElementById('right').value = 'Hello World\nThis is modified line 2\nThis is line 3\nThis is a new line\nEnd of file';
+  runDiff();
+});
+</script>
+</body>
+</html>

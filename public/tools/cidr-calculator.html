@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIDR/IPv6 Subnet Calculator — Free Online IP Subnet Calculator | DevToolBox</title>
+  <meta name="description" content="Free online CIDR and IPv6 subnet calculator. Calculate network address, broadcast address, subnet mask, usable IP range for both IPv4 and IPv6. 100% client-side, instant results.">
+  <link rel="canonical" href="https://23232322.xyz/tools/cidr-calculator">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CIDR/IPv6 Subnet Calculator",
+    "description": "Free online CIDR and IPv6 subnet calculator. Calculate network address, broadcast address, subnet mask, usable IP range for both IPv4 and IPv6. 100% client-side.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "url": "https://23232322.xyz/tools/cidr-calculator"
+  }
+  </script>
+  <style>
+    /* CIDR Calculator — inline dark theme */
+    :root {
+      --tool-bg: #1a1a2e;
+      --tool-card: #2d2d44;
+      --tool-accent: #00d4aa;
+      --tool-accent-dim: rgba(0,212,170,0.12);
+      --tool-border: #3d3d5c;
+      --tool-text: #c8d0e0;
+      --tool-text-dim: #7a7a9e;
+      --tool-text-bright: #e8ecf4;
+      --tool-input-bg: #22223a;
+      --tool-radius: 10px;
+    }
+
+    .calc-section {
+      background: var(--tool-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .calc-section h2 {
+      font-size: 1.4rem;
+      color: var(--tool-text-bright);
+      margin-bottom: 8px;
+    }
+
+    .calc-section .subtitle {
+      font-size: 0.9rem;
+      color: var(--tool-text-dim);
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .input-group input {
+      flex: 1;
+      min-width: 280px;
+      padding: 14px 18px;
+      background: var(--tool-input-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      color: var(--tool-text-bright);
+      font-size: 1.05rem;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-group input::placeholder { color: var(--tool-text-dim); }
+    .input-group input:focus {
+      border-color: var(--tool-accent);
+      box-shadow: 0 0 0 3px var(--tool-accent-dim);
+    }
+
+    .btn {
+      padding: 14px 28px;
+      background: var(--tool-accent);
+      color: #0a0a1a;
+      border: none;
+      border-radius: var(--tool-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .error-msg {
+      color: #f07178;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      min-height: 20px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .result-card {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .result-card:hover { border-color: var(--tool-accent); }
+
+    .result-card .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tool-text-dim);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .result-card .value {
+      font-size: 1.08rem;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      color: var(--tool-accent);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .result-card .value.ipv6-long {
+      font-size: 0.92rem;
+    }
+
+    .examples {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .example-chip {
+      font-size: 0.82rem;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      background: var(--tool-card);
+      color: var(--tool-text-dim);
+      border: 1px solid var(--tool-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .example-chip:hover {
+      color: var(--tool-accent);
+      border-color: var(--tool-accent);
+      background: var(--tool-accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .calc-section { padding: 20px; }
+      .input-group { flex-direction: column; }
+      .input-group input { min-width: 0; }
+      .btn { width: 100%; }
+      .results { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
+<main>
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/dev-tools">Dev Tools</a><span class="sep">›</span>CIDR / IPv6 Subnet Calculator</div>
+
+<div class="tool-hero">
+  <h1>🌐 CIDR / IPv6 Subnet Calculator</h1>
+  <div class="tool-tags"><span class="tag free">Free</span></div>
+  <p class="tool-desc">Free online CIDR subnet calculator with full IPv4 and IPv6 support. Enter any CIDR notation to instantly get network address, broadcast address, subnet mask, usable IP range, and total usable IP count. All calculations run client-side — no data is ever sent anywhere.</p>
+</div>
+
+<div class="calc-section">
+  <h2>🔢 Subnet Calculator</h2>
+  <p class="subtitle">Enter a CIDR notation — e.g. <code>10.0.0.0/24</code> or <code>2001:db8::/32</code></p>
+
+  <div class="examples">
+    <span class="example-chip" onclick="useExample('10.0.0.0/24')">10.0.0.0/24</span>
+    <span class="example-chip" onclick="useExample('192.168.1.0/28')">192.168.1.0/28</span>
+    <span class="example-chip" onclick="useExample('172.16.0.0/12')">172.16.0.0/12</span>
+    <span class="example-chip" onclick="useExample('2001:db8::/32')">2001:db8::/32</span>
+    <span class="example-chip" onclick="useExample('fe80::/10')">fe80::/10</span>
+    <span class="example-chip" onclick="useExample('::1/128')">::1/128</span>
+  </div>
+
+  <div class="input-group">
+    <input type="text" id="cidrInput" placeholder="Enter CIDR, e.g. 10.0.0.0/24 or 2001:db8::/32" autocomplete="off" spellcheck="false">
+    <button class="btn" onclick="calculate()">Calculate</button>
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="results" id="results" style="display:none;"></div>
+</div>
+
+<section class="about-section"><h2>✨ Key Features</h2><ul>
+<li>Full IPv4 and IPv6 CIDR support in one tool</li>
+<li>Instant calculation: network address, broadcast address, subnet mask</li>
+<li>Usable IP range (first and last assignable host) for IPv4</li>
+<li>Total usable IP count — handles huge IPv6 subnets</li>
+<li>Common example presets for quick reference</li>
+<li>100% client-side JavaScript — no data transmitted</li>
+<li>Dark theme, responsive layout, works on desktop and mobile</li>
+</ul></section>
+
+</main>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">&copy; 2026 DevToolBox.</p></footer>
+
+<script>
+(function() {
+  const $ = id => document.getElementById(id);
+
+  /* ---- IPv4 helpers ---- */
+  function ipv4ToNum(ip) {
+    const parts = ip.split('.').map(Number);
+    if (parts.length !== 4 || parts.some(p => isNaN(p) || p < 0 || p > 255)) return null;
+    return ((parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]) >>> 0;
+  }
+
+  function numToIPv4(n) {
+    return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
+  }
+
+  function maskFromPrefix(prefix) {
+    if (prefix === 0) return 0;
+    return (~0 << (32 - prefix)) >>> 0;
+  }
+
+  function calcIPv4(ipStr, prefix) {
+    const ipNum = ipv4ToNum(ipStr);
+    if (ipNum === null) return null;
+    if (prefix < 0 || prefix > 32) return null;
+
+    const mask = maskFromPrefix(prefix);
+    const network = (ipNum & mask) >>> 0;
+    const broadcast = prefix === 32 ? network : ((network | ~mask) >>> 0);
+    const total = prefix >= 31 ? 0 : (broadcast - network - 1);
+    const firstUsable = prefix >= 31 ? network : ((network + 1) >>> 0);
+    const lastUsable = prefix >= 31 ? broadcast : ((broadcast - 1) >>> 0);
+
+    return {
+      type: 'IPv4',
+      network: numToIPv4(network),
+      broadcast: numToIPv4(broadcast),
+      mask: numToIPv4(mask),
+      maskShort: '/' + prefix,
+      firstUsable: prefix >= 31 ? 'N/A' : numToIPv4(firstUsable),
+      lastUsable: prefix >= 31 ? 'N/A' : numToIPv4(lastUsable),
+      usableCount: total.toLocaleString(),
+      totalIps: prefix === 32 ? '1 (single host)' : Math.pow(2, 32 - prefix).toLocaleString(),
+      prefix: prefix
+    };
+  }
+
+  /* ---- IPv6 helpers ---- */
+  function expandIPv6(ip) {
+    if (ip.includes('::')) {
+      const sides = ip.split('::');
+      const left = sides[0] ? sides[0].split(':') : [];
+      const right = sides[1] ? sides[1].split(':') : [];
+      const missing = 8 - left.length - right.length;
+      if (missing < 0) return null;
+      const expanded = [...left, ...Array(missing).fill('0'), ...right];
+      return expanded;
+    }
+    return ip.split(':');
+  }
+
+  function ipv6ToBigInt(groups) {
+    let result = 0n;
+    for (let i = 0; i < 8; i++) {
+      const val = parseInt(groups[i] || '0', 16);
+      if (isNaN(val) || val < 0 || val > 0xFFFF) return null;
+      result = (result << 16n) | BigInt(val);
+    }
+    return result;
+  }
+
+  function bigIntToIPv6(num) {
+    const parts = [];
+    for (let i = 0; i < 8; i++) {
+      parts.unshift(((num >> BigInt(i * 16)) & 0xFFFFn).toString(16));
+    }
+    // Compress
+    return compressIPv6(parts);
+  }
+
+  function compressIPv6(parts) {
+    let bestStart = -1, bestLen = 0;
+    let curStart = -1, curLen = 0;
+    for (let i = 0; i < 8; i++) {
+      if (parts[i] === '0') {
+        if (curStart === -1) curStart = i;
+        curLen++;
+        if (curLen > bestLen) { bestStart = curStart; bestLen = curLen; }
+      } else {
+        curStart = -1; curLen = 0;
+      }
+    }
+    if (bestLen < 2) return parts.join(':');
+    const left = parts.slice(0, bestStart).join(':');
+    const right = parts.slice(bestStart + bestLen).join(':');
+    return left + '::' + right;
+  }
+
+  function calcIPv6(ipStr, prefix) {
+    const groups = expandIPv6(ipStr);
+    if (!groups || groups.length !== 8) return null;
+    const ipNum = ipv6ToBigInt(groups);
+    if (ipNum === null) return null;
+    if (prefix < 0 || prefix > 128) return null;
+
+    const mask = prefix === 0 ? 0n : ((1n << 128n) - 1n) ^ ((1n << BigInt(128 - prefix)) - 1n);
+    const network = ipNum & mask;
+    const broadcast = prefix === 128 ? network : (network | ((1n << BigInt(128 - prefix)) - 1n));
+    const totalUsable = prefix >= 127
+      ? (prefix === 128 ? 0n : (128 - prefix === 1 ? 0n : BigInt(128 - prefix)))
+      : ((1n << BigInt(128 - prefix)) - 2n);
+
+    return {
+      type: 'IPv6',
+      network: bigIntToIPv6(network),
+      broadcast: bigIntToIPv6(broadcast),
+      mask: '/' + prefix + ' (128-bit subnet mask)',
+      maskShort: '/' + prefix,
+      firstUsable: prefix >= 127 ? (prefix === 128 ? 'N/A' : 'N/A (point-to-point only)') : bigIntToIPv6(network + 1n),
+      lastUsable: prefix >= 127 ? (prefix === 128 ? 'N/A' : 'N/A (point-to-point only)') : bigIntToIPv6(broadcast - 1n),
+      usableCount: totalUsable.toLocaleString(),
+      totalIps: prefix === 128 ? '1' : ((1n << BigInt(128 - prefix)).toLocaleString()),
+      prefix: prefix
+    };
+  }
+
+  /* ---- Parse & calculate ---- */
+  function parseCIDR(input) {
+    const trimmed = input.trim();
+    const slashIdx = trimmed.lastIndexOf('/');
+    if (slashIdx === -1) return { error: 'Invalid CIDR format. Expected format like 10.0.0.0/24 or 2001:db8::/32' };
+
+    const ip = trimmed.slice(0, slashIdx);
+    const prefixStr = trimmed.slice(slashIdx + 1);
+    const prefix = parseInt(prefixStr, 10);
+    if (isNaN(prefix) || prefix < 0) return { error: 'Invalid prefix length' };
+
+    // Detect IPv4 vs IPv6
+    if (ip.includes(':')) {
+      // IPv6
+      if (prefix > 128) return { error: 'IPv6 prefix must be 0-128' };
+      const result = calcIPv6(ip, prefix);
+      if (!result) return { error: 'Invalid IPv6 address format' };
+      return { result };
+    } else {
+      // IPv4
+      if (prefix > 32) return { error: 'IPv4 prefix must be 0-32' };
+      const result = calcIPv4(ip, prefix);
+      if (!result) return { error: 'Invalid IPv4 address format' };
+      return { result };
+    }
+  }
+
+  function renderResults(r) {
+    const cards = [];
+    if (r.type === 'IPv4') {
+      cards.push(
+        { label: 'IP Version', value: 'IPv4' },
+        { label: 'CIDR Notation', value: r.network + r.maskShort },
+        { label: 'Network Address', value: r.network },
+        { label: 'Broadcast Address', value: r.broadcast },
+        { label: 'Subnet Mask', value: r.mask + ' ' + r.maskShort },
+        { label: 'Usable IP Range', value: r.firstUsable + ' — ' + r.lastUsable },
+        { label: 'Usable IPs', value: r.usableCount },
+        { label: 'Total IPs (incl. network & broadcast)', value: r.totalIps }
+      );
+    } else {
+      cards.push(
+        { label: 'IP Version', value: 'IPv6' },
+        { label: 'CIDR Notation', value: r.network + r.maskShort },
+        { label: 'Network Address', value: r.network },
+        { label: 'Last Address in Subnet', value: r.broadcast },
+        { label: 'Subnet Mask', value: r.mask },
+        { label: 'Usable IP Range', value: r.firstUsable + ' — ' + r.lastUsable },
+        { label: 'Usable IPs', value: r.usableCount },
+        { label: 'Total Addresses', value: r.totalIps }
+      );
+    }
+
+    const resultsDiv = $('results');
+    resultsDiv.innerHTML = cards.map(c =>
+      '<div class="result-card">' +
+        '<div class="label">' + c.label + '</div>' +
+        '<div class="value' + (r.type === 'IPv6' && c.value.length > 40 ? ' ipv6-long' : '') + '">' + c.value + '</div>' +
+      '</div>'
+    ).join('');
+    resultsDiv.style.display = '';
+  }
+
+  window.calculate = function() {
+    const input = $('cidrInput').value;
+    const errDiv = $('errorMsg');
+    const resultsDiv = $('results');
+
+    if (!input.trim()) {
+      errDiv.textContent = 'Please enter a CIDR notation';
+      resultsDiv.style.display = 'none';
+      return;
+    }
+
+    const parsed = parseCIDR(input);
+    if (parsed.error) {
+      errDiv.textContent = parsed.error;
+      resultsDiv.style.display = 'none';
+      return;
+    }
+
+    errDiv.textContent = '';
+    renderResults(parsed.result);
+  };
+
+  window.useExample = function(cidr) {
+    $('cidrInput').value = cidr;
+    calculate();
+  };
+
+  // Enter key support
+  $('cidrInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculate();
+  });
+
+  // Auto-calculate on load with default
+  $('cidrInput').value = '10.0.0.0/24';
+  calculate();
+})();
+</script>
+</body>
+</html>

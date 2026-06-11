@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hash & UUID Generator - DevToolBox</title>
+<meta name="description" content="Generate UUID v4 and compute MD5, SHA1, SHA256, SHA512 hashes. Batch generate and copy with one click. Fully offline, no server uploads.">
+<link rel="canonical" href="https://23232322.xyz/tools/hash-generator">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1a1a2e;--surface:#16213e;--card:#0f3460;--accent:#e94560;--text:#e8e8e8;--text-dim:#8892b0;--border:#233a5e;--radius:8px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;min-height:100vh}
+.container{max-width:920px;margin:0 auto;padding:24px 20px 80px}
+h1{font-size:1.8rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+h1 span{font-size:1.6rem}
+.subtitle{color:var(--text-dim);margin-bottom:32px;font-size:0.95rem}
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--border);flex-wrap:wrap}
+.tab{padding:10px 20px;cursor:pointer;border:none;background:none;color:var(--text-dim);font-size:0.95rem;font-family:var(--font);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;font-weight:500}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.card-title{font-size:1rem;font-weight:600;margin-bottom:16px;color:var(--accent)}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:0.85rem;color:var(--text-dim);margin-bottom:6px;font-weight:500}
+textarea,input[type="text"],input[type="number"]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;color:var(--text);font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:0.9rem;outline:none;transition:border .2s}
+textarea:focus,input:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:100px}
+.input-row{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.input-row textarea,.input-row input{flex:1;min-width:200px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:none;border-radius:var(--radius);font-size:0.9rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--font);background:var(--card);color:var(--text)}
+.btn:hover{filter:brightness(1.2)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{filter:brightness(1.15)}
+.btn-sm{padding:6px 14px;font-size:0.82rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.output-area{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:0.85rem;word-break:break-all;max-height:400px;overflow-y:auto}
+.output-area .entry{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.output-area .entry:last-child{border-bottom:none}
+.output-area .entry .val{flex:1;min-width:0}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--text-dim);border-radius:4px;padding:2px 8px;cursor:pointer;font-size:0.75rem;white-space:nowrap;transition:all .2s}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent)}
+.copy-btn.copied{color:#4ade80;border-color:#4ade80}
+.batch-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.batch-controls label{font-size:0.85rem;color:var(--text-dim)}
+.batch-controls input[type="number"]{width:80px;padding:6px 10px}
+.status{font-size:0.82rem;color:var(--text-dim);margin-top:8px}
+.result-count{font-size:0.82rem;color:var(--text-dim);margin-top:8px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-dim);text-decoration:none;font-size:0.9rem;margin-top:40px;transition:color .2s}
+.back-link:hover{color:var(--accent)}
+@media(max-width:600px){
+  .container{padding:16px 14px 60px}
+  h1{font-size:1.4rem}
+  .tab{padding:8px 12px;font-size:0.85rem}
+  .card{padding:16px}
+  .output-area .entry{flex-wrap:wrap}
+  .batch-controls{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1><span>🔐</span> Hash & UUID Generator</h1>
+  <p class="subtitle">Generate UUID v4, compute MD5/SHA1/SHA256/SHA512 hashes. All processing happens in your browser — nothing is sent to any server.</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="uuid">UUID v4</button>
+    <button class="tab" data-tab="hash">Hash</button>
+    <button class="tab" data-tab="batch">Batch Hash</button>
+  </div>
+
+  <!-- UUID Tab -->
+  <div class="panel active" id="panel-uuid">
+    <div class="card">
+      <div class="card-title">Generate UUID v4</div>
+      <div class="batch-controls">
+        <label for="uuid-count">Count:</label>
+        <input type="number" id="uuid-count" min="1" max="100" value="1">
+        <button class="btn btn-primary" onclick="generateUUIDs()">Generate</button>
+      </div>
+      <div id="uuid-output" class="output-area" style="display:none"></div>
+      <div class="btn-group" id="uuid-actions" style="display:none">
+        <button class="btn btn-sm" onclick="copyAll('uuid')">Copy All</button>
+        <button class="btn btn-sm" onclick="downloadAll('uuid')">Download TXT</button>
+      </div>
+      <div class="result-count" id="uuid-count-display"></div>
+    </div>
+  </div>
+
+  <!-- Hash Tab -->
+  <div class="panel" id="panel-hash">
+    <div class="card">
+      <div class="card-title">Compute Hash</div>
+      <div class="form-group">
+        <label for="hash-input">Input Text</label>
+        <textarea id="hash-input" placeholder="Type or paste text to hash..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-sm btn-primary" onclick="computeHash('MD5')">MD5</button>
+        <button class="btn btn-sm" onclick="computeHash('SHA-1')">SHA-1</button>
+        <button class="btn btn-sm" onclick="computeHash('SHA-256')">SHA-256</button>
+        <button class="btn btn-sm" onclick="computeHash('SHA-384')">SHA-384</button>
+        <button class="btn btn-sm" onclick="computeHash('SHA-512')">SHA-512</button>
+      </div>
+      <div id="hash-output" class="output-area" style="display:none"></div>
+      <div class="btn-group" id="hash-actions" style="display:none">
+        <button class="btn btn-sm" onclick="copyAll('hash')">Copy All</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Compute Hash from File</div>
+      <div class="form-group">
+        <label for="file-input">Upload a file to compute its hash</label>
+        <input type="file" id="file-input" onchange="hashFile()">
+      </div>
+      <div id="file-hash-output" class="output-area" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Batch Hash Tab -->
+  <div class="panel" id="panel-batch">
+    <div class="card">
+      <div class="card-title">Batch Hash (one per line)</div>
+      <div class="form-group">
+        <label for="batch-input">Enter text — one item per line</label>
+        <textarea id="batch-input" placeholder="line1&#10;line2&#10;line3&#10;&#10;Each line will be hashed separately" rows="6"></textarea>
+      </div>
+      <div class="batch-controls">
+        <label for="batch-algo">Algorithm:</label>
+        <select id="batch-algo" style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;color:var(--text);font-family:var(--font);font-size:0.85rem">
+          <option value="MD5">MD5</option>
+          <option value="SHA-1">SHA-1</option>
+          <option value="SHA-256" selected>SHA-256</option>
+          <option value="SHA-384">SHA-384</option>
+          <option value="SHA-512">SHA-512</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="batchHash()">Hash All Lines</button>
+      <div id="batch-output" class="output-area" style="display:none"></div>
+      <div class="btn-group" id="batch-actions" style="display:none">
+        <button class="btn btn-sm" onclick="copyAll('batch')">Copy All</button>
+        <button class="btn btn-sm" onclick="downloadAll('batch')">Download TXT</button>
+      </div>
+    </div>
+  </div>
+
+  <a href="/tools" class="back-link">&larr; Back to Tools</a>
+</div>
+
+<script>
+// ─── MD5 Implementation (inline, RFC 1321) ──────────────────────────────
+function md5(s){
+  var hex=function(n){return (n>>>0).toString(16).padStart(8,'0')};
+  function F(x,y,z){return (x&y)|(~x&z)}
+  function G(x,y,z){return (x&z)|(y&~z)}
+  function H(x,y,z){return x^y^z}
+  function I(x,y,z){return y^(x|~z)}
+  var S=[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21];
+  var T=[];
+  for(var i=1;i<=64;i++)T[i]=Math.floor(Math.abs(Math.sin(i))*0x100000000)|0;
+  // Encode
+  var w=[],l=s.length;
+  for(var i=0;i<l;i++)w[i>>2]|=(s.charCodeAt(i)&0xff)<<((i%4)*8);
+  w[l>>2]|=0x80<<((l%4)*8);
+  w[((l+8>>6)+1)*16-1]=l*8;
+  var a=0x67452301,b=0xefcdab89,c=0x98badcfe,d=0x10325476;
+  for(var i=0;i<w.length;i+=16){
+    var aa=a,bb=b,cc=c,dd=d;
+    for(var j=0;j<64;j++){
+      var f,g;
+      if(j<16){f=F(b,c,d);g=j}
+      else if(j<32){f=G(b,c,d);g=(5*j+1)%16}
+      else if(j<48){f=H(b,c,d);g=(3*j+5)%16}
+      else{f=I(b,c,d);g=(7*j)%16}
+      f=(f+a+T[j+1]+w[i+g])|0;
+      var t=(d+((f<<S[j%4*4+(j>>4)]|(f>>>(32-S[j%4*4+(j>>4)])))))>>>0;
+      a=d;d=c;c=b;b=(b+t)>>>0;
+    }
+    a=(a+aa)>>>0;b=(b+bb)>>>0;c=(c+cc)>>>0;d=(d+dd)>>>0;
+  }
+  return hex(a)+hex(b)+hex(c)+hex(d);
+}
+
+// ─── SubtleCrypto wrappers ─────────────────────────────────────────────
+async function sha(algorithm,text){
+  var enc=new TextEncoder();
+  var buf=await crypto.subtle.digest(algorithm,enc.encode(text));
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+
+async function shaFile(algorithm,file){
+  var buf=await file.arrayBuffer();
+  var hash=await crypto.subtle.digest(algorithm,buf);
+  return Array.from(new Uint8Array(hash)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+
+// ─── UUID Generation ────────────────────────────────────────────────────
+function uuidv4(){
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
+    var r=Math.random()*16|0;
+    return (c=='x'?r:(r&0x3|0x8)).toString(16);
+  });
+}
+
+function generateUUIDs(){
+  var count=parseInt(document.getElementById('uuid-count').value)||1;
+  if(count<1)count=1;if(count>100)count=100;
+  var out=document.getElementById('uuid-output');
+  var actions=document.getElementById('uuid-actions');
+  var countDisplay=document.getElementById('uuid-count-display');
+  var html='';
+  var uuids=[];
+  for(var i=0;i<count;i++){
+    var id=uuidv4();
+    uuids.push(id);
+    html+='<div class="entry"><span class="val">'+(count>1?(i+1)+'. ':'')+id+'</span><button class="copy-btn" onclick="copyText(\''+id+'\',this)">Copy</button></div>';
+  }
+  out.innerHTML=html;
+  out.style.display='block';
+  actions.style.display='flex';
+  countDisplay.textContent=count+' UUID'+(count>1?'s':'')+' generated';
+  out._data=uuids;
+}
+
+// ─── Hash Computation ────────────────────────────────────────────────────
+async function computeHash(algo){
+  var input=document.getElementById('hash-input').value;
+  if(!input.trim()){alert('Please enter text to hash.');return}
+  var out=document.getElementById('hash-output');
+  var actions=document.getElementById('hash-actions');
+  var result;
+  if(algo==='MD5'){
+    result=md5(input);
+  }else{
+    result=await sha(algo,input);
+  }
+  var label=algo==='SHA-1'?'SHA-1':algo==='SHA-256'?'SHA-256':algo==='SHA-384'?'SHA-384':algo==='SHA-512'?'SHA-512':'MD5';
+  out.innerHTML='<div class="entry"><span style="color:var(--text-dim);min-width:60px">'+label+'</span><span class="val" style="font-family:monospace">'+result+'</span><button class="copy-btn" onclick="copyText(\''+result+'\',this)">Copy</button></div>';
+  out.style.display='block';
+  actions.style.display='flex';
+  out._data=[result];
+}
+
+// ─── File Hash ────────────────────────────────────────────────────────────
+async function hashFile(){
+  var fileInput=document.getElementById('file-input');
+  var file=fileInput.files[0];
+  if(!file)return;
+  var out=document.getElementById('file-hash-output');
+  out.innerHTML='<div class="entry" style="color:var(--text-dim)">Hashing '+file.name+'...</div>';
+  out.style.display='block';
+  try{
+    var md5r=md5(await file.text());
+    var sha256r=await shaFile('SHA-256',file);
+    var sha512r=await shaFile('SHA-512',file);
+    out.innerHTML=
+      '<div style="margin-bottom:8px;color:var(--text-dim);font-size:0.82rem">File: <strong style="color:var(--text)">'+file.name+'</strong> ('+formatSize(file.size)+')</div>'+
+      '<div class="entry"><span style="color:var(--text-dim);min-width:70px">MD5</span><span class="val">'+md5r+'</span><button class="copy-btn" onclick="copyText(\''+md5r+'\',this)">Copy</button></div>'+
+      '<div class="entry"><span style="color:var(--text-dim);min-width:70px">SHA-256</span><span class="val">'+sha256r+'</span><button class="copy-btn" onclick="copyText(\''+sha256r+'\',this)">Copy</button></div>'+
+      '<div class="entry"><span style="color:var(--text-dim);min-width:70px">SHA-512</span><span class="val">'+sha512r+'</span><button class="copy-btn" onclick="copyText(\''+sha512r+'\',this)">Copy</button></div>';
+  }catch(e){
+    out.innerHTML='<div class="entry" style="color:var(--accent)">Error: '+e.message+'</div>';
+  }
+}
+
+// ─── Batch Hash ──────────────────────────────────────────────────────────
+async function batchHash(){
+  var input=document.getElementById('batch-input').value;
+  if(!input.trim()){alert('Please enter text to hash.');return}
+  var lines=input.split('\n').filter(function(l){return l.trim()});
+  if(lines.length===0){alert('No non-empty lines found.');return}
+  var algo=document.getElementById('batch-algo').value;
+  var out=document.getElementById('batch-output');
+  var actions=document.getElementById('batch-actions');
+  var html='';
+  var results=[];
+  for(var i=0;i<lines.length;i++){
+    var line=lines[i].trim();
+    var hash;
+    try{
+      if(algo==='MD5')hash=md5(line);
+      else hash=await sha(algo,line);
+    }catch(e){hash='[Error]'}
+    var display=line.length>40?line.substring(0,40)+'...':line;
+    html+='<div class="entry"><span class="val"><span style="color:var(--text-dim);margin-right:8px">'+(i+1)+'.</span>'+hash+'</span><button class="copy-btn" onclick="copyText(\''+hash+'\',this)">Copy</button></div>';
+    results.push(hash);
+  }
+  out.innerHTML=html;
+  out.style.display='block';
+  actions.style.display='flex';
+  out._data=results;
+}
+
+// ─── Utilities ────────────────────────────────────────────────────────────
+async function copyText(text,btn){
+  try{
+    await navigator.clipboard.writeText(text);
+    if(btn){btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied')},1500)}
+  }catch(e){
+    // fallback
+    var ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    if(btn){btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied')},1500)}
+  }
+}
+
+function copyAll(type){
+  var out=document.getElementById(type+'-output');
+  if(out._data&&out._data.length>0){
+    copyText(out._data.join('\n'));
+  }
+}
+
+function downloadAll(type){
+  var out=document.getElementById(type+'-output');
+  if(!out._data||out._data.length===0)return;
+  var blob=new Blob([out._data.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  var name=type==='uuid'?'uuids':'hashes';
+  a.download=name+'-'+new Date().toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function formatSize(bytes){
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1048576)return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1048576).toFixed(1)+' MB';
+}
+
+// ─── Tab Switching ──────────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+    this.classList.add('active');
+    document.getElementById('panel-'+this.getAttribute('data-tab')).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

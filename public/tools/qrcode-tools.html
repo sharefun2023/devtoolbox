@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator & Reader — Free Online QR Code Tools | DevToolBox</title>
+  <meta name="description" content="Free online QR Code generator and reader. Generate QR codes from text or URLs, download as PNG. Upload images to decode QR codes. 100% client-side, no data sent anywhere.">
+  <link rel="canonical" href="https://23232322.xyz/tools/qrcode-tools">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Generator & Reader",
+    "description": "Free online QR code generator and reader. Generate QR codes from text/URLs with download, or upload images to decode QR codes. 100% client-side.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "url": "https://23232322.xyz/tools/qrcode-tools"
+  }
+  </script>
+  <style>
+    /* QR Code Tools — inline dark theme */
+    :root {
+      --tool-bg: #1a1a2e;
+      --tool-card: #2d2d44;
+      --tool-accent: #00d4aa;
+      --tool-accent-dim: rgba(0,212,170,0.12);
+      --tool-border: #3d3d5c;
+      --tool-text: #c8d0e0;
+      --tool-text-dim: #7a7a9e;
+      --tool-text-bright: #e8ecf4;
+      --tool-input-bg: #22223a;
+      --tool-radius: 10px;
+    }
+
+    .calc-section {
+      background: var(--tool-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .calc-section h2 {
+      font-size: 1.4rem;
+      color: var(--tool-text-bright);
+      margin-bottom: 8px;
+    }
+
+    .calc-section .subtitle {
+      font-size: 0.9rem;
+      color: var(--tool-text-dim);
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      flex: 1;
+      min-width: 280px;
+      padding: 14px 18px;
+      background: var(--tool-input-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      color: var(--tool-text-bright);
+      font-size: 1.05rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+
+    .input-group textarea {
+      min-height: 80px;
+    }
+
+    .input-group input::placeholder,
+    .input-group textarea::placeholder { color: var(--tool-text-dim); }
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--tool-accent);
+      box-shadow: 0 0 0 3px var(--tool-accent-dim);
+    }
+
+    .btn {
+      padding: 14px 28px;
+      background: var(--tool-accent);
+      color: #0a0a1a;
+      border: none;
+      border-radius: var(--tool-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--tool-accent);
+      border: 1px solid var(--tool-accent);
+    }
+
+    .btn-secondary:hover { background: var(--tool-accent-dim); }
+
+    .error-msg {
+      color: #f07178;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      min-height: 20px;
+    }
+
+    .success-msg {
+      color: var(--tool-accent);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      min-height: 20px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .result-card {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .result-card:hover { border-color: var(--tool-accent); }
+
+    .result-card .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tool-text-dim);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .result-card .value {
+      font-size: 1.08rem;
+      color: var(--tool-text-bright);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .result-card .value.mono {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    }
+
+    .qr-output {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background: #fff;
+      border-radius: var(--tool-radius);
+      margin-top: 16px;
+      min-height: 280px;
+      justify-content: center;
+    }
+
+    .qr-output canvas,
+    .qr-output img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .qr-output-placeholder {
+      color: var(--tool-text-dim);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .qr-output-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .file-upload-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 40px 24px;
+      border: 2px dashed var(--tool-border);
+      border-radius: var(--tool-radius);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: center;
+    }
+
+    .file-upload-area:hover {
+      border-color: var(--tool-accent);
+      background: var(--tool-accent-dim);
+    }
+
+    .file-upload-area .icon {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .file-upload-area .hint {
+      color: var(--tool-text-dim);
+      font-size: 0.9rem;
+    }
+
+    .file-upload-area .filename {
+      color: var(--tool-accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .file-upload-input {
+      display: none;
+    }
+
+    .decode-preview {
+      max-width: 300px;
+      max-height: 300px;
+      margin: 16px auto;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .decode-result-box {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-accent);
+      border-radius: var(--tool-radius);
+      padding: 18px 20px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .decode-result-box .result-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tool-text-dim);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .decode-result-box .result-text {
+      font-size: 1rem;
+      color: var(--tool-text-bright);
+      word-break: break-all;
+      line-height: 1.6;
+    }
+
+    .decode-result-box .copy-area {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .calc-section { padding: 20px; }
+      .input-group { flex-direction: column; }
+      .input-group input,
+      .input-group textarea { min-width: 0; }
+      .btn { width: 100%; }
+      .results { grid-template-columns: 1fr; }
+      .qr-output { padding: 16px; min-height: 220px; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-ESF1YX8CCR");
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
+<main>
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/dev-tools">Dev Tools</a><span class="sep">›</span>QR Code Generator & Reader</div>
+
+<div class="tool-hero">
+  <h1> QR Code Generator & Reader</h1>
+  <div class="tool-tags"><span class="tag free">Free</span></div>
+  <p class="tool-desc">Free online QR code tools — generate QR codes from any text or URL with instant download as PNG image, or upload an image to decode and extract the content from a QR code. All processing runs in your browser, nothing is uploaded to any server.</p>
+</div>
+
+<div class="calc-section">
+  <h2> Generate QR Code</h2>
+  <p class="subtitle">Enter text or a URL to generate a scannable QR code</p>
+
+  <div class="input-group">
+    <textarea id="qrInput" placeholder="Enter text or URL, e.g. https://23232322.xyz" rows="2" autocomplete="off" spellcheck="false"></textarea>
+    <button class="btn" onclick="generateQR()">Generate</button>
+  </div>
+
+  <div class="error-msg" id="genError"></div>
+
+  <div class="qr-output" id="qrOutput">
+    <div class="qr-output-placeholder" id="qrPlaceholder">Enter text above and click Generate</div>
+    <div id="qrCanvas" style="display:none;"></div>
+    <div class="qr-output-actions" id="qrActions" style="display:none;">
+      <button class="btn btn-secondary" onclick="downloadQR()">Download PNG</button>
+      <button class="btn btn-secondary" onclick="clearQR()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="calc-section">
+  <h2> Read / Decode QR Code</h2>
+  <p class="subtitle">Upload an image containing a QR code to extract its content</p>
+
+  <div class="file-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+    <div class="icon"></div>
+    <div class="hint">Click to select an image, or use the button below</div>
+    <div class="filename" id="fileName"></div>
+  </div>
+
+  <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+    <button class="btn" onclick="document.getElementById('fileInput').click()">Choose Image</button>
+    <button class="btn btn-secondary" id="decodeBtn" onclick="decodeQR()" disabled>Decode QR Code</button>
+  </div>
+
+  <input type="file" id="fileInput" class="file-upload-input" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml" onchange="onFileSelected(event)">
+
+  <div class="error-msg" id="decodeError"></div>
+
+  <img class="decode-preview" id="decodePreview" alt="Uploaded QR code preview">
+
+  <div class="decode-result-box" id="decodeResult">
+    <div class="result-label">Decoded Content</div>
+    <div class="result-text" id="decodedText"></div>
+    <div class="copy-area">
+      <button class="btn btn-secondary" onclick="copyDecoded()">Copy to Clipboard</button>
+      <button class="btn btn-secondary" onclick="clearDecode()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<section class="about-section"><h2> Key Features</h2><ul>
+<li>Generate QR codes from any text or URL</li>
+<li>Download generated QR codes as high-quality PNG images</li>
+<li>Decode and read QR codes from uploaded images</li>
+<li>Supports PNG, JPEG, WebP, GIF, BMP image formats</li>
+<li>100% client-side JavaScript — no data sent to any server</li>
+<li>Dark theme, responsive layout, works on desktop and mobile</li>
+</ul></section>
+
+</main>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">&copy; 2026 DevToolBox.</p></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+(function() {
+  const $ = id => document.getElementById(id);
+
+  let qrCodeInstance = null;
+  let currentDecodedText = '';
+
+  /* ---- QR Code Generation ---- */
+
+  window.generateQR = function() {
+    const input = $('qrInput').value.trim();
+    const errDiv = $('genError');
+
+    if (!input) {
+      errDiv.textContent = 'Please enter text or a URL to generate a QR code';
+      return;
+    }
+
+    errDiv.textContent = '';
+    $('qrPlaceholder').style.display = 'none';
+
+    const container = $('qrCanvas');
+    container.style.display = '';
+    container.innerHTML = '';
+
+    try {
+      qrCodeInstance = new QRCode(container, {
+        text: input,
+        width: 256,
+        height: 256,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      $('qrActions').style.display = 'flex';
+    } catch (e) {
+      errDiv.textContent = 'Failed to generate QR code: ' + e.message;
+    }
+  };
+
+  window.downloadQR = function() {
+    if (!qrCodeInstance) return;
+
+    const canvas = $('qrCanvas').querySelector('canvas');
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.download = 'qrcode.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
+  window.clearQR = function() {
+    qrCodeInstance = null;
+    $('qrCanvas').style.display = 'none';
+    $('qrCanvas').innerHTML = '';
+    $('qrPlaceholder').style.display = '';
+    $('qrActions').style.display = 'none';
+    $('qrInput').value = '';
+  };
+
+  /* ---- QR Code Decoding ---- */
+
+  let selectedFile = null;
+
+  window.onFileSelected = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedFile = file;
+    $('fileName').textContent = file.name;
+    $('decodeError').textContent = '';
+    $('decodeBtn').disabled = false;
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const preview = $('decodePreview');
+      preview.src = ev.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  };
+
+  window.decodeQR = function() {
+    const errDiv = $('decodeError');
+
+    if (!selectedFile) {
+      errDiv.textContent = 'Please select an image first';
+      return;
+    }
+
+    errDiv.textContent = '';
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const img = new Image();
+      img.onload = function() {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: 'dontInvert'
+          });
+
+          if (code && code.data) {
+            currentDecodedText = code.data;
+            $('decodedText').textContent = code.data;
+            $('decodeResult').style.display = 'block';
+            errDiv.textContent = '';
+          } else {
+            // Try with inversion
+            const code2 = jsQR(imageData.data, imageData.width, imageData.height, {
+              inversionAttempts: 'attemptBoth'
+            });
+            if (code2 && code2.data) {
+              currentDecodedText = code2.data;
+              $('decodedText').textContent = code2.data;
+              $('decodeResult').style.display = 'block';
+              errDiv.textContent = '';
+            } else {
+              errDiv.textContent = 'No QR code found in the image. Try a clearer or higher-resolution image.';
+              $('decodeResult').style.display = 'none';
+            }
+          }
+        } catch (e) {
+          errDiv.textContent = 'Error decoding QR code: ' + e.message;
+          $('decodeResult').style.display = 'none';
+        }
+      };
+      img.onerror = function() {
+        errDiv.textContent = 'Failed to load the image. Please try a different file.';
+      };
+      img.src = ev.target.result;
+    };
+    reader.onerror = function() {
+      errDiv.textContent = 'Failed to read the selected file.';
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
+  window.copyDecoded = function() {
+    if (!currentDecodedText) return;
+    navigator.clipboard.writeText(currentDecodedText).then(function() {
+      const btn = document.querySelector('.decode-result-box .copy-area .btn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = original; }, 2000);
+    });
+  };
+
+  window.clearDecode = function() {
+    selectedFile = null;
+    currentDecodedText = '';
+    $('fileInput').value = '';
+    $('fileName').textContent = '';
+    $('decodePreview').style.display = 'none';
+    $('decodePreview').src = '';
+    $('decodeResult').style.display = 'none';
+    $('decodedText').textContent = '';
+    $('decodeError').textContent = '';
+    $('decodeBtn').disabled = true;
+  };
+
+  // Enter key support for QR generation
+  $('qrInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      generateQR();
+    }
+  });
+
+  // Drag and drop for decode
+  const uploadArea = $('uploadArea');
+  uploadArea.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    uploadArea.style.borderColor = 'var(--tool-accent)';
+    uploadArea.style.background = 'var(--tool-accent-dim)';
+  });
+  uploadArea.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    uploadArea.style.background = '';
+  });
+  uploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    uploadArea.style.background = '';
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const input = $('fileInput');
+      input.files = files;
+      onFileSelected({ target: { files: [files[0]] } });
+    }
+  });
+
+  // Clear also resets the upload area
+  uploadArea.addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+  });
+})();
+</script>
+</body>
+</html>

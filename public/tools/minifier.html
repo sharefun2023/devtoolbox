@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS/JS Minifier — Compress & Beautify Code Online | DevToolBox</title>
+  <meta name="description" content="Free online CSS and JavaScript minifier. Paste your code to compress (remove whitespace, comments, newlines) or beautify with proper formatting. 100% client-side, zero dependencies.">
+  <link rel="canonical" href="https://23232322.xyz/tools/minifier">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CSS/JS Minifier — Compress & Beautify Code",
+    "description": "Free online CSS and JavaScript minifier. Paste your code to compress or beautify with proper formatting. 100% client-side.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "url": "https://23232322.xyz/tools/minifier"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://23232322.xyz/"},
+      {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://23232322.xyz/tools/"},
+      {"@type": "ListItem", "position": 3, "name": "CSS/JS Minifier", "item": "https://23232322.xyz/tools/minifier"}
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --tool-bg: #1a1a2e;
+      --tool-card: #2d2d44;
+      --tool-accent: #00d4aa;
+      --tool-accent-dim: rgba(0,212,170,0.12);
+      --tool-border: #3d3d5c;
+      --tool-text: #c8d0e0;
+      --tool-text-dim: #7a7a9e;
+      --tool-text-bright: #e8ecf4;
+      --tool-input-bg: #22223a;
+      --tool-radius: 10px;
+    }
+    body { background: var(--tool-bg); color: var(--tool-text); margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; min-height: 100vh; }
+
+    .tool-container { max-width: 960px; margin: 0 auto; }
+    h1 { color: var(--tool-text-bright); font-size: 1.8em; margin-bottom: 4px; }
+    .subtitle { color: var(--tool-text-dim); margin-top: 0; margin-bottom: 32px; font-size: 0.95em; }
+
+    .mode-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .mode-tab {
+      padding: 8px 20px;
+      border: 1px solid var(--tool-border);
+      border-radius: 6px;
+      background: var(--tool-input-bg);
+      color: var(--tool-text-dim);
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: all 0.2s;
+    }
+    .mode-tab:hover { border-color: var(--tool-accent); color: var(--tool-text); }
+    .mode-tab.active { background: var(--tool-accent-dim); border-color: var(--tool-accent); color: var(--tool-accent); }
+
+    .action-bar { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+    .action-btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-minify { background: var(--tool-accent); color: #0a0a1a; }
+    .btn-minify:hover { filter: brightness(1.15); }
+    .btn-beautify { background: #39bae6; color: #0a0a1a; }
+    .btn-beautify:hover { filter: brightness(1.15); }
+    .btn-clear { background: var(--tool-card); color: var(--tool-text-dim); border: 1px solid var(--tool-border); }
+    .btn-clear:hover { color: var(--tool-text); border-color: var(--tool-text-dim); }
+    .btn-copy { background: var(--tool-card); color: var(--tool-accent); border: 1px solid var(--tool-accent); }
+    .btn-copy:hover { background: var(--tool-accent-dim); }
+
+    .editor-area { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media (max-width: 700px) { .editor-area { grid-template-columns: 1fr; } }
+
+    .editor-pane { display: flex; flex-direction: column; }
+    .pane-label {
+      font-size: 0.8em;
+      color: var(--tool-text-dim);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .pane-label .count { font-family: 'Courier New', monospace; font-size: 0.85em; }
+
+    textarea {
+      flex: 1;
+      min-height: 360px;
+      padding: 14px;
+      background: var(--tool-input-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      color: var(--tool-text);
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+      font-size: 0.85em;
+      line-height: 1.55;
+      resize: vertical;
+      outline: none;
+      transition: border 0.2s;
+      tab-size: 2;
+    }
+    textarea:focus { border-color: var(--tool-accent); }
+    textarea::placeholder { color: #4a4a6e; }
+
+    .back-link { display: inline-block; margin-top: 32px; color: var(--tool-accent); text-decoration: none; font-size: 0.9em; }
+    .back-link:hover { text-decoration: underline; }
+
+    .toast {
+      visibility: hidden;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--tool-accent);
+      color: #0a0a1a;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9em;
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 999;
+    }
+    .toast.show { visibility: visible; opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="tool-container">
+  <h1>CSS / JS Minifier</h1>
+  <p class="subtitle">Compress (minify) or beautify (format) your CSS and JavaScript code. All processing happens in your browser — nothing is uploaded.</p>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" data-mode="css" onclick="setMode('css')">CSS</div>
+    <div class="mode-tab" data-mode="js" onclick="setMode('js')">JS</div>
+  </div>
+
+  <div class="action-bar">
+    <button class="action-btn btn-minify" onclick="minify()">Compress</button>
+    <button class="action-btn btn-beautify" onclick="beautify()">Beautify</button>
+    <button class="action-btn btn-clear" onclick="clearOutput()">Clear Output</button>
+    <button class="action-btn btn-copy" onclick="copyOutput()">Copy Output</button>
+  </div>
+
+  <div class="editor-area">
+    <div class="editor-pane">
+      <div class="pane-label">
+        <span>Input</span>
+        <span class="count" id="inputCount">0 chars</span>
+      </div>
+      <textarea id="inputArea" placeholder="Paste your CSS or JavaScript code here..." spellcheck="false"></textarea>
+    </div>
+    <div class="editor-pane">
+      <div class="pane-label">
+        <span>Output</span>
+        <span class="count" id="outputCount">0 chars</span>
+      </div>
+      <textarea id="outputArea" placeholder="Compressed or beautified output will appear here..." spellcheck="false" readonly></textarea>
+    </div>
+  </div>
+
+  <a href="/tools/" class="back-link">&larr; Back to All Tools</a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentMode = 'css';
+
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === mode);
+  });
+  document.getElementById('inputArea').placeholder = mode === 'css'
+    ? 'Paste your CSS code here...'
+    : 'Paste your JavaScript code here...';
+}
+
+// --- Live char count ---
+document.getElementById('inputArea').addEventListener('input', function() {
+  document.getElementById('inputCount').textContent = this.value.length + ' chars';
+});
+document.getElementById('outputArea').addEventListener('input', function() {
+  document.getElementById('outputCount').textContent = this.value.length + ' chars';
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// --- Minify ---
+function minify() {
+  const input = document.getElementById('inputArea').value;
+  if (!input.trim()) { showToast('Nothing to compress'); return; }
+
+  let output;
+  if (currentMode === 'css') {
+    output = minifyCSS(input);
+  } else {
+    output = minifyJS(input);
+  }
+
+  document.getElementById('outputArea').value = output;
+  document.getElementById('outputCount').textContent = output.length + ' chars';
+  showToast('Compressed successfully');
+}
+
+function minifyCSS(css) {
+  return css
+    // Remove multi-line comments (/* ... */)
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    // Remove single-line comments (// ...) — CSS doesn't officially have them, but some preprocessors use them
+    .replace(/\/\/.*$/gm, '')
+    // Collapse whitespace around braces and semicolons
+    .replace(/\s*\{\s*/g, '{')
+    .replace(/\s*\}\s*/g, '}')
+    .replace(/\s*;\s*/g, ';')
+    .replace(/\s*:\s*/g, ':')
+    .replace(/\s*,\s*/g, ',')
+    // Collapse multiple spaces to one
+    .replace(/\s+/g, ' ')
+    // Remove trailing semicolons before closing braces
+    .replace(/;}/g, '}')
+    // Trim whitespace around selectors
+    .replace(/\s*>\s*/g, '>')
+    .replace(/\s*\+\s*/g, '+')
+    .replace(/\s*~\s*/g, '~')
+    // Remove leading/trailing whitespace on each line
+    .split('\n').map(l => l.trim()).join('')
+    // Collapse all remaining whitespace runs
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function minifyJS(js) {
+  // Token-aware minification
+  let result = '';
+  let i = 0;
+  const len = js.length;
+
+  while (i < len) {
+    const ch = js[i];
+    const next = i + 1 < len ? js[i + 1] : '';
+
+    // Skip line comments
+    if (ch === '/' && next === '/') {
+      while (i < len && js[i] !== '\n') i++;
+      i++;
+      continue;
+    }
+
+    // Skip block comments
+    if (ch === '/' && next === '*') {
+      i += 2;
+      while (i < len && !(js[i] === '*' && i + 1 < len && js[i + 1] === '/')) i++;
+      i += 2;
+      continue;
+    }
+
+    // Preserve strings (single, double, template literal)
+    if (ch === "'" || ch === '"' || ch === '`') {
+      const quote = ch;
+      result += quote;
+      i++;
+      while (i < len) {
+        if (js[i] === '\\') { result += '\\' + (i + 1 < len ? js[i + 1] : ''); i += 2; continue; }
+        if (js[i] === quote) { result += quote; i++; break; }
+        result += js[i];
+        i++;
+      }
+      continue;
+    }
+
+    // Preserve regex literals (heuristic: /.../ not preceded by a word/close paren)
+    if (ch === '/' && i > 0 && /[\(\[\{,:;=+\-*/%|&!^<>?~]\s*$/.test(result)) {
+      result += '/';
+      i++;
+      while (i < len) {
+        if (js[i] === '\\') { result += '\\' + (i + 1 < len ? js[i + 1] : ''); i += 2; continue; }
+        if (js[i] === '/') { result += '/'; i++; break; }
+        if (js[i] === '\n') break; // malformed regex
+        result += js[i];
+        i++;
+      }
+      continue;
+    }
+
+    // Skip whitespace (except in strings)
+    if (/\s/.test(ch)) {
+      i++;
+      // Insert a space only when needed to separate tokens
+      const prevResultChar = result.length > 0 ? result[result.length - 1] : '';
+      const nextNonWs = getNextNonWS(js, i);
+      if (prevResultChar && nextNonWs &&
+          needsSpaceBetween(prevResultChar, nextNonWs)) {
+        result += ' ';
+      }
+      continue;
+    }
+
+    result += ch;
+    i++;
+  }
+
+  return result.trim();
+}
+
+function getNextNonWS(str, pos) {
+  while (pos < str.length && /\s/.test(str[pos])) pos++;
+  return pos < str.length ? str[pos] : null;
+}
+
+function needsSpaceBetween(a, b) {
+  // Insert space between two alphanumeric/identifier tokens
+  if (/[a-zA-Z0-9_$]/.test(a) && /[a-zA-Z0-9_$]/.test(b)) return true;
+  // Space between keyword and identifier
+  if (/[a-zA-Z0-9_$}]/.test(a) && /[{([a-zA-Z0-9_$]/.test(b)) return false;
+  return false;
+}
+
+// --- Beautify ---
+function beautify() {
+  const input = document.getElementById('inputArea').value;
+  if (!input.trim()) { showToast('Nothing to beautify'); return; }
+
+  let output;
+  if (currentMode === 'css') {
+    output = beautifyCSS(input);
+  } else {
+    output = beautifyJS(input);
+  }
+
+  document.getElementById('outputArea').value = output;
+  document.getElementById('outputCount').textContent = output.length + ' chars';
+  showToast('Beautified successfully');
+}
+
+function beautifyCSS(css) {
+  // First: strip existing whitespace artifacts, then reformat
+  let clean = css
+    // Remove comments
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .trim();
+
+  let indent = 0;
+  let result = '';
+  let inValue = false;
+
+  for (let i = 0; i < clean.length; i++) {
+    const ch = clean[i];
+
+    if (ch === '{') {
+      result += ' {\n';
+      indent++;
+      inValue = false;
+    } else if (ch === '}') {
+      indent = Math.max(0, indent - 1);
+      result += '\n' + '  '.repeat(indent) + '}';
+      // Check for adjacent closing braces
+      if (i + 1 < clean.length && clean[i + 1] === '}') {
+        result += '\n';
+      } else if (i + 1 < clean.length) {
+        result += '\n';
+      }
+    } else if (ch === ';') {
+      result += ';\n';
+      if (indent > 0) {
+        // Check next char — if closing brace, don't add indent line
+        const nextNonWS = getNextNonSpace(clean, i + 1);
+        if (nextNonWS !== '}') {
+          result += '  '.repeat(indent);
+        }
+      }
+    } else if (ch === ':') {
+      result += ': ';
+    } else if (ch === ',') {
+      result += ', ';
+      i++; // skip next space if any
+      while (i < clean.length && clean[i] === ' ') i++;
+      i--;
+    } else if (ch === '\n' || ch === '\r') {
+      // skip existing newlines
+    } else if (/\s/.test(ch)) {
+      // At start of line, skip leading spaces (we add our own)
+      if (result.endsWith('\n')) {
+        result += '  '.repeat(indent);
+      }
+      // Skip consecutive spaces
+      if (result.length > 0 && result[result.length - 1] === ' ') continue;
+      result += ' ';
+    } else {
+      result += ch;
+    }
+  }
+
+  return result.trim();
+}
+
+function getNextNonSpace(str, pos) {
+  while (pos < str.length && (str[pos] === ' ' || str[pos] === '\n' || str[pos] === '\r')) pos++;
+  return pos < str.length ? str[pos] : null;
+}
+
+function beautifyJS(js) {
+  // Basic JS beautifier
+  let result = '';
+  let indent = 0;
+  let inString = false;
+  let stringChar = '';
+  let i = 0;
+
+  // Pre-clean: remove comments for reformatting
+  const noComments = js
+    .replace(/\/\/.*$/gm, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+
+  for (let i = 0; i < noComments.length; i++) {
+    const ch = noComments[i];
+    const next = i + 1 < noComments.length ? noComments[i + 1] : '';
+
+    // Handle strings
+    if ((ch === "'" || ch === '"' || ch === '`') && !inString) {
+      inString = true;
+      stringChar = ch;
+      result += ch;
+      continue;
+    }
+    if (inString) {
+      if (ch === '\\') { result += ch + next; i++; continue; }
+      result += ch;
+      if (ch === stringChar) inString = false;
+      continue;
+    }
+
+    if (ch === '{') {
+      result += ' {\n';
+      indent++;
+      result += '  '.repeat(indent);
+    } else if (ch === '}') {
+      indent = Math.max(0, indent - 1);
+      result += '\n' + '  '.repeat(indent) + '}';
+    } else if (ch === ';') {
+      result += ';\n' + '  '.repeat(indent);
+    } else if (ch === '(') {
+      result += '(';
+    } else if (ch === ')') {
+      result += ')';
+    } else if (ch === ',') {
+      result += ', ';
+    } else if (ch === '\n' || ch === '\r') {
+      // skip
+    } else if (/\s/.test(ch)) {
+      // Collapse whitespace
+      if (result.length > 0 && !/\s/.test(result[result.length - 1])) {
+        result += ' ';
+      }
+    } else {
+      result += ch;
+    }
+  }
+
+  return result.trim();
+}
+
+function clearOutput() {
+  document.getElementById('outputArea').value = '';
+  document.getElementById('outputCount').textContent = '0 chars';
+  showToast('Output cleared');
+}
+
+function copyOutput() {
+  const text = document.getElementById('outputArea').value;
+  if (!text) { showToast('Nothing to copy'); return; }
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Copied to clipboard');
+  }).catch(() => {
+    // Fallback
+    document.getElementById('outputArea').select();
+    document.execCommand('copy');
+    showToast('Copied to clipboard');
+  });
+}
+</script>
+
+</body>
+</html>

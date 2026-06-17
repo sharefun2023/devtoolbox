@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown Preview — Free Online Markdown Editor & Live Preview | DevToolBox</title>
+<meta name="description" content="Write Markdown and see a live HTML preview. Supports GitHub Flavored Markdown with tables, task lists, code blocks with syntax highlighting. Export to HTML.">
+<link rel="canonical" href="https://23232322.xyz/tools/markdown-preview">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column}
+header{background:#16213e;padding:0 20px;border-bottom:1px solid #2a2a4a;display:flex;align-items:center;height:56px;flex-shrink:0}
+header .logo{font-size:20px;font-weight:700;color:#e94560;text-decoration:none}
+header nav{margin-left:auto;display:flex;gap:20px}
+header nav a{color:#a0a0c0;text-decoration:none;font-size:14px;transition:color .2s}
+header nav a:hover{color:#e94560}
+.breadcrumbs{padding:12px 20px;font-size:13px;color:#666;background:#1a1a2e;border-bottom:1px solid #2a2a4a}
+.breadcrumbs a{color:#e94560;text-decoration:none}
+.breadcrumbs .sep{margin:0 8px;color:#555}
+main{flex:1;padding:20px;max-width:1400px;margin:0 auto;width:100%}
+main h1{font-size:24px;margin-bottom:6px;color:#e0e0e0}
+main p.desc{color:#888;margin-bottom:20px;font-size:14px}
+.tool-container{display:flex;flex-direction:column;gap:12px}
+.editor-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pane{display:flex;flex-direction:column}
+.pane .label{font-size:12px;color:#888;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between}
+.pane .label .hint{font-weight:400;text-transform:none;letter-spacing:0;font-size:11px}
+.editor-pair textarea{width:100%;height:500px;background:#0f3460;color:#e0e0e0;border:1px solid #2a2a4a;border-radius:8px;padding:14px;font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;font-size:13px;line-height:1.6;resize:vertical;outline:none;transition:border-color .2s}
+.editor-pair textarea:focus{border-color:#e94560}
+.preview-panel{height:500px;overflow-y:auto;background:#0f3460;border:1px solid #2a2a4a;border-radius:8px;padding:20px;word-wrap:break-word;overflow-wrap:break-word}
+.preview-panel:empty::after{content:'Preview will appear here...';color:#555;font-style:italic}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.actions button{padding:10px 28px;background:#e94560;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;transition:background .2s;font-weight:600}
+.actions button:hover{background:#d63850}
+.actions button.secondary{background:#2a2a4a;color:#a0a0c0}
+.actions button.secondary:hover{background:#3a3a5a}
+.actions .stats{font-size:13px;color:#666;margin-left:auto}
+
+/* Preview content styles */
+.preview-panel h1{font-size:2em;margin:.5em 0 .3em;border-bottom:1px solid #2a2a4a;padding-bottom:.3em;color:#e0e0e0}
+.preview-panel h2{font-size:1.5em;margin:.5em 0 .3em;border-bottom:1px solid #2a2a4a;padding-bottom:.2em;color:#e0e0e0}
+.preview-panel h3{font-size:1.25em;margin:.5em 0 .3em;color:#e0e0e0}
+.preview-panel h4,.preview-panel h5,.preview-panel h6{font-size:1em;margin:.5em 0 .2em;color:#e0e0e0}
+.preview-panel p{margin:.4em 0;line-height:1.7}
+.preview-panel a{color:#e94560;text-decoration:underline}
+.preview-panel code{background:#16213e;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:13px;color:#ff8c94}
+.preview-panel pre{background:#0a0a1a;border:1px solid #2a2a4a;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+.preview-panel pre code{background:transparent;padding:0;color:#c8d6e5}
+.preview-panel blockquote{margin:12px 0;padding:8px 16px;border-left:4px solid #e94560;background:rgba(233,69,96,0.08);border-radius:0 6px 6px 0;color:#c0c0d0}
+.preview-panel ul,.preview-panel ol{margin:8px 0;padding-left:24px}
+.preview-panel li{margin:4px 0;line-height:1.6}
+.preview-panel table{border-collapse:collapse;width:100%;margin:12px 0}
+.preview-panel th,.preview-panel td{border:1px solid #2a2a4a;padding:8px 12px;text-align:left}
+.preview-panel th{background:#16213e;font-weight:600}
+.preview-panel tr:nth-child(even){background:rgba(15,52,96,0.4)}
+.preview-panel hr{border:none;border-top:1px solid #2a2a4a;margin:16px 0}
+.preview-panel img{max-width:100%;border-radius:6px;margin:8px 0}
+.preview-panel input[type=checkbox]{margin-right:6px;accent-color:#e94560}
+.preview-panel .contains-task-list{list-style:none;padding-left:0}
+footer{background:#16213e;padding:20px;text-align:center;border-top:1px solid #2a2a4a;flex-shrink:0}
+footer a{color:#e94560;text-decoration:none;margin:0 12px;font-size:13px}
+footer a:hover{text-decoration:underline}
+footer p{color:#555;margin-top:8px;font-size:12px}
+@media(max-width:768px){
+  .editor-pair{grid-template-columns:1fr}
+  .editor-pair textarea,.preview-panel{height:300px}
+  .actions button{padding:8px 18px;font-size:13px}
+  main{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">DevToolBox</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/categories/">Categories</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="breadcrumbs">
+  <a href="/">Home</a><span class="sep">/</span><a href="/categories/frontend-design">Frontend &amp; Design</a><span class="sep">/</span>Markdown Preview
+</div>
+
+<main>
+  <h1>📝 Markdown Preview</h1>
+  <p class="desc">Write Markdown on the left, see live HTML preview on the right. Supports GitHub Flavored Markdown — tables, task lists, strikethrough, fenced code blocks. Export to HTML.</p>
+
+  <div class="tool-container">
+    <div class="actions">
+      <button id="btn-clear">Clear</button>
+      <button id="btn-sample" class="secondary">Load Sample</button>
+      <button id="btn-export" class="secondary">Export HTML</button>
+      <span class="stats" id="stats">0 chars</span>
+    </div>
+
+    <div class="editor-pair">
+      <div class="pane">
+        <div class="label">Markdown <span class="hint">GitHub Flavored</span></div>
+        <textarea id="editor" placeholder="# Type your Markdown here...
+
+## Features
+- **Bold** and *italic* text
+- ~~strikethrough~~
+- `inline code`
+
+> Blockquotes
+
+### Code Block
+```javascript
+console.log("Hello, DevToolBox!");
+```
+
+### Table
+| Tool | Category |
+|------|----------|
+| MD Preview | Frontend |
+| JWT Decoder | Security |
+
+### Task List
+- [x] Write Markdown
+- [ ] Preview output
+- [ ] Export HTML
+"></textarea>
+      </div>
+      <div class="pane">
+        <div class="label">Preview</div>
+        <div class="preview-panel" id="preview"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="/tools/sql-formatter-online">SQL Formatter</a>
+  <a href="/tools/json-formatter-online">JSON Formatter</a>
+  <a href="/tools/qrcode-tools">QR Tools</a>
+  <a href="/tools/image-compressor">Image Compressor</a>
+  <a href="/">Back to Tools</a>
+  <p>&copy; 2026 DevToolBox. All tools run locally in your browser.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(function(){
+  const editor = document.getElementById('editor');
+  const preview = document.getElementById('preview');
+  const stats = document.getElementById('stats');
+
+  // Configure marked
+  if (typeof marked !== 'undefined') {
+    marked.setOptions({
+      breaks: true,
+      gfm: true
+    });
+  }
+
+  function updatePreview() {
+    const md = editor.value;
+    stats.textContent = md.length + ' chars';
+    try {
+      if (typeof marked !== 'undefined') {
+        preview.innerHTML = marked.parse(md);
+      } else {
+        preview.innerHTML = '<p style="color:#f07178">marked.js failed to load. Check your network connection.</p>';
+      }
+    } catch(e) {
+      preview.innerHTML = '<p style="color:#f07178">Rendering error: ' + e.message + '</p>';
+    }
+  }
+
+  editor.addEventListener('input', updatePreview);
+
+  document.getElementById('btn-clear').addEventListener('click', function(){
+    editor.value = '';
+    updatePreview();
+  });
+
+  document.getElementById('btn-sample').addEventListener('click', function(){
+    editor.value =
+      '# Markdown Cheatsheet\n\n' +
+      '## Text Formatting\n\n' +
+      '**Bold text** and *italic text* and ***bold italic***.\n' +
+      '~~Strikethrough~~ and `inline code`.\n\n' +
+      '## Links & Images\n\n' +
+      'Visit [DevToolBox](https://23232322.xyz) for more free tools.\n\n' +
+      '## Lists\n\n' +
+      '### Unordered\n' +
+      '- Item one\n' +
+      '- Item two\n' +
+      '  - Nested item\n' +
+      '- Item three\n\n' +
+      '### Ordered\n' +
+      '1. First step\n' +
+      '2. Second step\n' +
+      '3. Third step\n\n' +
+      '### Task List\n' +
+      '- [x] Setup project\n' +
+      '- [x] Write code\n' +
+      '- [ ] Write tests\n' +
+      '- [ ] Deploy\n\n' +
+      '## Blockquote\n\n' +
+      '> The best way to predict the future is to invent it.\n' +
+      '>\n' +
+      '> — Alan Kay\n\n' +
+      '## Code Blocks\n\n' +
+      '```python\n' +
+      'def fibonacci(n):\n' +
+      '    a, b = 0, 1\n' +
+      '    for _ in range(n):\n' +
+      '        yield a\n' +
+      '        a, b = b, a + b\n' +
+      '\n' +
+      'print(list(fibonacci(10)))\n' +
+      '```\n\n' +
+      '```sql\n' +
+      'SELECT u.name, COUNT(o.id) AS orders\n' +
+      'FROM users u\n' +
+      'LEFT JOIN orders o ON u.id = o.user_id\n' +
+      'GROUP BY u.name\n' +
+      'HAVING COUNT(o.id) > 5\n' +
+      'ORDER BY orders DESC;\n' +
+      '```\n\n' +
+      '## Table\n\n' +
+      '| Name | Type | Default | Description |\n' +
+      '|------|------|---------|-------------|\n' +
+      '| id | UUID | gen | Primary key |\n' +
+      '| name | TEXT | — | User name |\n' +
+      '| created_at | TIMESTAMP | now() | Creation time |\n\n' +
+      '## Horizontal Rule\n\n' +
+      '---\n\n' +
+      '## HTML Elements\n\n' +
+      'You can use <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.\n\n' +
+      '<details>\n' +
+      '<summary>Click to expand</summary>\n\n' +
+      'Hidden content revealed!\n\n' +
+      '</details>';
+    updatePreview();
+  });
+
+  document.getElementById('btn-export').addEventListener('click', function(){
+    const md = editor.value;
+    if (!md.trim()) return;
+    let html;
+    if (typeof marked !== 'undefined') {
+      html = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Markdown Export</title>\n<style>\nbody{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;color:#333}\nh1,h2{border-bottom:1px solid #eee;padding-bottom:6px}\npre{background:#f5f5f5;padding:16px;border-radius:8px;overflow-x:auto}\ncode{background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:0.9em}\npre code{background:none;padding:0}\nblockquote{margin:12px 0;padding:8px 16px;border-left:4px solid #ddd;background:#f9f9f9}\ntable{border-collapse:collapse;width:100%}\nth,td{border:1px solid #ddd;padding:8px 12px}\nth{background:#f5f5f5}\nimg{max-width:100%}\n</style>\n</head>\n<body>\n' + marked.parse(md) + '\n</body>\n</html>';
+    } else {
+      html = md;
+    }
+    const blob = new Blob([html], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'markdown-export.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Initial render with placeholder content
+  updatePreview();
+})();
+</script>
+</body>
+</html>

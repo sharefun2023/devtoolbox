@@ -224,6 +224,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
 .tag.paid { background: rgba(255, 173, 102, 0.15); color: var(--orange); }
 .tag.open-source { background: rgba(210, 166, 255, 0.15); color: var(--purple); }
 .tag.featured { background: rgba(57, 186, 230, 0.15); color: var(--accent); }
+.tag.new { background: rgba(233, 69, 96, 0.18); color: #ff6b7a; }
 
 /* Category cards */
 .category-card {

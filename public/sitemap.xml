@@ -40,4 +40,8 @@
   <url><loc>https://23232322.xyz/tools/minifier</loc><lastmod>2026-06-19</lastmod><priority>0.7</priority></url>
   <url><loc>https://23232322.xyz/tools/image-compressor</loc><lastmod>2026-06-19</lastmod><priority>0.8</priority></url>
   <url><loc>https://23232322.xyz/tools/markdown-preview</loc><lastmod>2026-06-19</lastmod><priority>0.8</priority></url>
+
+  <!-- Standalone Tools -->
+  <url><loc>https://23232322.xyz/cron</loc><lastmod>2026-06-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/uuid</loc><lastmod>2026-06-19</lastmod><priority>0.8</priority></url>
 </urlset>

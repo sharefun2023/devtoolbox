@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Compressor — Compress PNG, JPG & WebP Online | DevToolBox</title>
+  <title>Free Online Image Compressor - Compress JPG PNG WebP | DevToolBox</title>
   <meta name="description" content="Free online image compressor. Compress PNG, JPG, WebP images by adjusting quality and dimensions. 100% client-side — nothing uploaded to any server.">
   <link rel="canonical" href="https://23232322.xyz/tools/image-compressor">
   <link rel="stylesheet" href="/css/style.css">
@@ -11,7 +11,7 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Image Compressor — Compress PNG, JPG & WebP Online",
+    "name": "Free Online Image Compressor - Compress JPG PNG WebP",
     "description": "Free online image compressor. Compress PNG, JPG, WebP images by adjusting quality and dimensions. 100% client-side in your browser.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -149,6 +149,123 @@
       opacity: 0; transition: opacity 0.3s, visibility 0.3s; z-index: 999;
     }
     .toast.show { visibility: visible; opacity: 1; }
+
+    /* ── SEO content — TOC, about sections, code blocks, related tools ── */
+    .toc {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+    }
+    .toc h2 {
+      font-size: 1.15rem;
+      color: var(--tool-accent);
+      margin: 0 0 12px 0;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      columns: 2;
+      column-gap: 24px;
+    }
+    .toc ul li {
+      margin-bottom: 6px;
+      break-inside: avoid;
+    }
+    .toc ul li a {
+      color: var(--tool-text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc ul li a:hover { color: var(--tool-accent); }
+    @media (max-width: 768px) {
+      .toc ul { columns: 1; }
+    }
+
+    .seo-section {
+      margin-bottom: 40px;
+    }
+    .seo-section h2 {
+      font-size: 1.4rem;
+      color: var(--tool-text-bright);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--tool-border);
+    }
+    .seo-section h3 {
+      font-size: 1.05rem;
+      color: var(--tool-text-bright);
+      margin: 18px 0 8px 0;
+    }
+    .seo-section p {
+      color: var(--tool-text);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .seo-section ul, .seo-section ol {
+      padding-left: 20px;
+      color: var(--tool-text);
+      margin-bottom: 14px;
+    }
+    .seo-section li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .code-block {
+      background: #1e1e2e;
+      border: 1px solid var(--tool-border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      overflow-x: auto;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #c8d0e0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .code-block .keyword { color: #c792ea; }
+    .code-block .string { color: #c3e88d; }
+    .code-block .comment { color: #676e95; }
+    .code-block .func { color: #82aaff; }
+    .code-block .const { color: #f78c6c; }
+
+    .related-tools {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 24px 28px;
+      margin-top: 48px;
+    }
+    .related-tools h2 {
+      font-size: 1.15rem;
+      color: var(--tool-accent);
+      margin-bottom: 14px;
+    }
+    .related-tools ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .related-tools ul li a {
+      display: inline-block;
+      padding: 10px 18px;
+      background: var(--tool-input-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: 8px;
+      color: var(--tool-text);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .related-tools ul li a:hover {
+      border-color: var(--tool-accent);
+      color: var(--tool-accent);
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -157,18 +274,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is Image Compressor free to use?",
+      "name": "Is this Image Compressor free to use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, Image Compressor is completely free to use. No sign-up required, no usage limits."
+        "text": "Yes, this Image Compressor is 100% free. No sign-up, no usage limits, no watermarks. Compress as many images as you need — JPG, PNG, WebP, GIF, and BMP formats are all supported."
       }
     },
     {
       "@type": "Question",
-      "name": "Does Image Compressor require an internet connection?",
+      "name": "Are my images uploaded to any server when I compress them?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
+        "text": "No. All image compression happens 100% client-side in your browser using the HTML5 Canvas API. Your images never leave your device — you can even disconnect your internet after the page loads and the tool continues to work offline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What image formats does the compressor support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool accepts JPG, PNG, WebP, GIF, and BMP images as input (up to 20 MB). You can output your compressed image as JPEG, PNG, or WebP. WebP typically achieves the best compression ratios — often 25–35% smaller than JPEG at equivalent visual quality."
       }
     }
   ]
@@ -180,6 +305,19 @@
 <div class="tool-container">
   <h1>Image Compressor</h1>
   <p class="subtitle">Compress PNG, JPG, and WebP images by adjusting quality and dimensions. All processing happens in your browser — nothing is uploaded to any server.</p>
+
+  <!-- Table of Contents -->
+  <nav class="toc" aria-label="Table of Contents">
+    <h2>📑 Table of Contents</h2>
+    <ul>
+      <li><a href="#what-is-image-compression">What is Image Compression</a></li>
+      <li><a href="#lossy-vs-lossless">Lossy vs Lossless Compression</a></li>
+      <li><a href="#how-browser-compression-works">How Browser-Based Compression Works</a></li>
+      <li><a href="#why-compress-images">Why Compress Images</a></li>
+      <li><a href="#canvas-api-code-example">Canvas API Code Example</a></li>
+      <li><a href="#faq">Frequently Asked Questions</a></li>
+    </ul>
+  </nav>
 
   <!-- Drop zone -->
   <div class="drop-zone" id="dropZone">
@@ -246,6 +384,144 @@
 
   <a href="/tools/" class="back-link">&larr; Back to All Tools</a>
 </div>
+
+<!-- ====== SEO Content Sections ====== -->
+
+<!-- What is Image Compression -->
+<section class="seo-section" id="what-is-image-compression">
+  <h2>📖 What is Image Compression</h2>
+  <p><strong>Image compression</strong> is the process of reducing the file size of a digital image while preserving as much of its visual quality as possible. Every image you see on the web — from product photos and blog headers to social media avatars and email signatures — is almost certainly compressed. Without compression, a single high-resolution photograph could easily consume 20–50 MB of bandwidth, slowing page loads to a crawl and consuming users' mobile data allowances.</p>
+  <p>At its core, image compression works by identifying and eliminating redundancies in the pixel data. These redundancies take two forms: <strong>spatial redundancy</strong> (neighboring pixels that share similar colors) and <strong>perceptual redundancy</strong> (subtle color variations the human eye cannot distinguish). By mathematically encoding these patterns more efficiently, compression algorithms can shrink an image to a fraction of its original size — often with no visible quality loss.</p>
+  <p>Modern image formats like <strong>JPEG, PNG, WebP, and AVIF</strong> each employ different compression strategies optimized for different use cases. JPEG excels at photographs with smooth gradients, PNG preserves sharp edges and transparency ideal for logos and screenshots, and WebP — developed by Google — combines the best of both worlds with superior compression ratios supported by 97% of browsers today. Understanding how these formats differ is key to choosing the right one for your project.</p>
+</section>
+
+<!-- Lossy vs Lossless -->
+<section class="seo-section" id="lossy-vs-lossless">
+  <h2>⚡ Lossy vs Lossless Compression</h2>
+  <p>Image compression falls into two fundamental categories: <strong>lossy</strong> and <strong>lossless</strong>. The distinction is critical — choosing the wrong type can result in either bloated file sizes or visibly degraded images.</p>
+
+  <h3>Lossy Compression</h3>
+  <p><strong>Lossy compression</strong> achieves dramatic file-size reductions by permanently discarding some image data. Formats like <strong>JPEG and WebP (lossy mode)</strong> use this approach. They work by transforming the image into the frequency domain (via Discrete Cosine Transform), quantizing high-frequency details that the human eye is less sensitive to, and then entropy-coding the result. The trade-off is controlled by a <strong>quality parameter</strong> (typically 1–100): lower values produce smaller files but introduce visible artifacts like blocking, ringing, and color banding. At 80–85% quality, JPEG can often reduce file size by 85–95% with barely noticeable quality loss.</p>
+
+  <h3>Lossless Compression</h3>
+  <p><strong>Lossless compression</strong> reduces file size without discarding any pixel data — the decompressed image is mathematically identical to the original. <strong>PNG</strong> is the most widely used lossless format on the web, employing the DEFLATE algorithm (a combination of LZ77 dictionary compression and Huffman coding) to compress pixel data. Lossless compression is essential for images containing text, sharp edges, line art, or transparency — any scenario where artifacts would be immediately obvious. However, lossless files are typically 2–5× larger than their lossy counterparts, making them less suitable for photographs on bandwidth-sensitive pages.</p>
+
+  <h3>Which Should You Use?</h3>
+  <ul>
+    <li><strong>Photographs & complex images:</strong> Use lossy JPEG or lossy WebP at 75–90% quality. WebP typically saves 25–35% more space than JPEG.</li>
+    <li><strong>Logos, icons, screenshots, text-heavy images:</strong> Use lossless PNG or lossless WebP to preserve crisp edges and transparency.</li>
+    <li><strong>Best of both worlds:</strong> WebP supports both lossy and lossless modes in a single format — our compressor lets you experiment with both.</li>
+  </ul>
+</section>
+
+<!-- How Browser-Based Compression Works -->
+<section class="seo-section" id="how-browser-compression-works">
+  <h2>🔧 How Browser-Based Compression Works</h2>
+  <p>Our <strong>Image Compressor</strong> performs all compression entirely within your browser using the <strong>HTML5 Canvas API</strong> and the <code>canvas.toBlob()</code> method. No server-side processing, no uploads, no third-party libraries — just native browser capabilities working directly on your device. Here's the step-by-step pipeline:</p>
+  <ol>
+    <li><strong>Image Loading:</strong> Your selected image file is read via the <code>FileReader</code> API and decoded into an <code>HTMLImageElement</code> in memory. The browser's built-in codec handles JPEG, PNG, WebP, GIF, and BMP decoding automatically.</li>
+    <li><strong>Dimension Calculation:</strong> If resizing is requested, the tool computes new width and height while preserving the original aspect ratio. This prevents stretching or squashing — the image is scaled proportionally to fit within your specified maximum dimensions.</li>
+    <li><strong>Canvas Rendering:</strong> A hidden <code>&lt;canvas&gt;</code> element is created at the target resolution. The original image is drawn onto this canvas using <code>ctx.drawImage()</code>, scaling it in a single GPU-accelerated operation. For JPEG output, a white background fill is applied first to replace any transparent regions (JPEG does not support alpha channels).</li>
+    <li><strong>Re-encoding:</strong> The canvas is exported to a compressed blob via <code>canvas.toBlob(callback, mimeType, quality)</code>. The <code>quality</code> parameter (0.0–1.0) maps to your slider setting, controlling the trade-off between file size and visual fidelity. The browser's native encoder — optimized in C/C++ under the hood — handles the heavy lifting of DCT transformation, quantization, and entropy coding.</li>
+    <li><strong>Preview & Download:</strong> The resulting blob is displayed as an image preview using <code>URL.createObjectURL()</code>, and side-by-side stats show original vs. compressed sizes, dimensions, and percentage saved. A single click downloads the compressed file to your device.</li>
+  </ol>
+  <p>Because everything runs locally, the tool is <strong>privacy-preserving by design</strong>. Your images never touch a remote server, and the compressor works fully offline after the initial page load.</p>
+</section>
+
+<!-- Why Compress Images -->
+<section class="seo-section" id="why-compress-images">
+  <h2>🎯 Why Compress Images</h2>
+  <p>Image compression isn't just a nice-to-have — it's a <strong>critical performance optimization</strong> with direct impact on user experience, SEO rankings, and business metrics. Consider these real-world benefits:</p>
+  <ul>
+    <li><strong>Faster Page Loads:</strong> Images account for roughly 50–65% of the average webpage's total weight according to the HTTP Archive. Compressing a 5 MB photo to 300 KB can turn a 6-second page load into under 1 second — a difference that directly affects bounce rates and conversions.</li>
+    <li><strong>Improved Core Web Vitals:</strong> Google's <strong>Largest Contentful Paint (LCP)</strong> metric — a key ranking signal — is heavily influenced by image load times. Compressed images help you pass the recommended 2.5-second threshold, boosting your search rankings.</li>
+    <li><strong>Reduced Bandwidth Costs:</strong> For websites serving thousands or millions of visitors, every kilobyte saved translates to real money. Compressing images can cut CDN egress costs by 60–80%, especially for image-heavy e-commerce, portfolio, and media sites.</li>
+    <li><strong>Better Mobile Experience:</strong> Mobile users on metered connections or slow 3G/4G networks benefit enormously from smaller images. A compressed image loads faster, consumes less data, and provides a smoother scrolling experience — critical when 60%+ of web traffic comes from mobile devices.</li>
+    <li><strong>Lower Storage Footprint:</strong> Compressed images take up less space on your device, cloud storage, CMS media library, or Git repository — making backups faster and cheaper.</li>
+    <li><strong>Email & Messaging Compatibility:</strong> Many email clients and messaging platforms impose file-size limits (often 10–25 MB). Compressing images ensures your attachments arrive without being rejected or automatically downscaled by the platform.</li>
+    <li><strong>SEO Advantage:</strong> Google explicitly uses page speed as a ranking factor. Faster-loading image assets contribute to better crawl efficiency, higher dwell time, and ultimately stronger organic search performance.</li>
+  </ul>
+</section>
+
+<!-- Canvas API Code Example -->
+<section class="seo-section" id="canvas-api-code-example">
+  <h2>💻 Canvas API Code Example</h2>
+  <p>The core of browser-based image compression is remarkably simple — just a few lines of JavaScript using the <strong>HTML5 Canvas API</strong>. Below is a complete, self-contained example that loads an image, resizes it, and exports it as a compressed WebP blob. This is the same technique our tool uses under the hood:</p>
+  <pre class="code-block"><span class="comment">// Complete browser-based image compression with Canvas API</span>
+<span class="keyword">function</span> <span class="func">compressImage</span>(file, quality = 0.8, maxWidth = 1920, maxHeight = 1920) {
+  <span class="keyword">const</span> reader = <span class="keyword">new</span> <span class="func">FileReader</span>();
+
+  reader.<span class="const">onload</span> = (<span class="const">e</span>) => {
+    <span class="keyword">const</span> img = <span class="keyword">new</span> <span class="func">Image</span>();
+    img.<span class="const">onload</span> = () => {
+      <span class="comment">// Step 1: Calculate new dimensions while preserving aspect ratio</span>
+      <span class="keyword">let</span> { width, height } = img;
+      <span class="keyword">if</span> (width > maxWidth || height > maxHeight) {
+        <span class="keyword">const</span> ratio = Math.<span class="func">min</span>(maxWidth / width, maxHeight / height);
+        width  = Math.<span class="func">round</span>(width * ratio);
+        height = Math.<span class="func">round</span>(height * ratio);
+      }
+
+      <span class="comment">// Step 2: Create off-screen canvas and draw the scaled image</span>
+      <span class="keyword">const</span> canvas = document.<span class="func">createElement</span>(<span class="string">'canvas'</span>);
+      canvas.<span class="const">width</span>  = width;
+      canvas.<span class="const">height</span> = height;
+      <span class="keyword">const</span> ctx = canvas.<span class="func">getContext</span>(<span class="string">'2d'</span>);
+      ctx.<span class="func">drawImage</span>(img, 0, 0, width, height);
+
+      <span class="comment">// Step 3: Export as compressed WebP blob (also works with 'image/jpeg')</span>
+      canvas.<span class="func">toBlob</span>((<span class="const">blob</span>) => {
+        <span class="keyword">if</span> (!blob) <span class="keyword">return</span> console.<span class="func">error</span>(<span class="string">'Compression failed'</span>);
+
+        <span class="keyword">const</span> url = URL.<span class="func">createObjectURL</span>(blob);
+        console.<span class="func">log</span>(<span class="string">`Original: ${file.size} bytes`</span>);
+        console.<span class="func">log</span>(<span class="string">`Compressed: ${blob.size} bytes`</span>);
+        console.<span class="func">log</span>(<span class="string">`Saved: ${((1 - blob.size / file.size) * 100).toFixed(1)}%`</span>);
+
+        <span class="comment">// Step 4: Trigger download or display preview</span>
+        <span class="keyword">const</span> a = document.<span class="func">createElement</span>(<span class="string">'a'</span>);
+        a.<span class="const">href</span> = url;
+        a.<span class="const">download</span> = <span class="string">'compressed.webp'</span>;
+        a.<span class="func">click</span>();
+        URL.<span class="func">revokeObjectURL</span>(url);
+      }, <span class="string">'image/webp'</span>, quality);  <span class="comment">// mimeType, quality (0.0–1.0)</span>
+    };
+    img.<span class="const">src</span> = e.<span class="const">target</span>.<span class="const">result</span>;
+  };
+  reader.<span class="func">readAsDataURL</span>(file);
+}
+
+<span class="comment">// Usage: attach to a file input's change event</span>
+<span class="keyword">const</span> input = document.<span class="func">querySelector</span>(<span class="string">'input[type=file]'</span>);
+input.<span class="func">addEventListener</span>(<span class="string">'change'</span>, (<span class="const">e</span>) => {
+  <span class="func">compressImage</span>(e.<span class="const">target</span>.<span class="const">files</span>[0], 0.8, 1920, 1920);
+});</pre>
+  <p>Key takeaways from this example: <strong><code>canvas.toBlob()</code></strong> is asynchronous and non-blocking — it won't freeze the UI during encoding. The <strong>quality parameter</strong> is a value between 0.0 (maximum compression, lowest quality) and 1.0 (minimum compression, highest quality). For <code>image/webp</code>, the quality parameter controls both lossy and lossless encoding depending on the browser's implementation. This entire pipeline processes the image <strong>in memory</strong> — no disk writes, no server round-trips, no external dependencies.</p>
+</section>
+
+<!-- FAQ -->
+<section class="seo-section" id="faq">
+  <h2>❓ Frequently Asked Questions</h2>
+
+  <h3>Is this Image Compressor free to use?</h3>
+  <p>Yes, this Image Compressor is 100% free. No sign-up, no usage limits, no watermarks. Compress as many images as you need — JPG, PNG, WebP, GIF, and BMP formats are all supported.</p>
+
+  <h3>Are my images uploaded to any server when I compress them?</h3>
+  <p>No. All image compression happens 100% client-side in your browser using the HTML5 Canvas API. Your images never leave your device — you can even disconnect your internet after the page loads and the tool continues to work offline.</p>
+
+  <h3>What image formats does the compressor support?</h3>
+  <p>The tool accepts JPG, PNG, WebP, GIF, and BMP images as input (up to 20 MB). You can output your compressed image as JPEG, PNG, or WebP. WebP typically achieves the best compression ratios — often 25–35% smaller than JPEG at equivalent visual quality.</p>
+</section>
+
+<!-- Related Tools -->
+<section class="related-tools" id="related-tools">
+  <h2>🔗 Related Tools</h2>
+  <ul>
+    <li><a href="/tools/color-tools">🎨 Color Tools</a></li>
+    <li><a href="/tools/qrcode-tools">📱 QR Code Tools</a></li>
+    <li><a href="/tools/base64-encoder-decoder">🔐 Base64 Encoder / Decoder</a></li>
+  </ul>
+</section>
 
 <div class="toast" id="toast"></div>
 

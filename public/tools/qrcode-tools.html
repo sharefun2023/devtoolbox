@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Generator & Reader — Free Online QR Code Tools | DevToolBox</title>
+  <title>Free Online QR Code Generator & Reader - Generate & Scan QR | DevToolBox</title>
   <meta name="description" content="Free online QR Code generator and reader. Generate QR codes from text or URLs, download as PNG. Upload images to decode QR codes. 100% client-side, no data sent anywhere.">
   <link rel="canonical" href="https://23232322.xyz/tools/qrcode-tools">
   <link rel="stylesheet" href="/css/style.css">
@@ -283,6 +283,92 @@
       .results { grid-template-columns: 1fr; }
       .qr-output { padding: 16px; min-height: 220px; }
     }
+
+    /* SEO content — TOC, code blocks, related tools */
+    .toc {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+    }
+    .toc h2 {
+      font-size: 1.15rem;
+      color: var(--tool-accent);
+      margin-bottom: 12px;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      columns: 2;
+      column-gap: 24px;
+    }
+    .toc ul li {
+      margin-bottom: 6px;
+      break-inside: avoid;
+    }
+    .toc ul li a {
+      color: var(--tool-text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc ul li a:hover { color: var(--tool-accent); }
+    @media (max-width: 768px) {
+      .toc ul { columns: 1; }
+    }
+
+    .code-block {
+      background: #1e1e2e;
+      border: 1px solid var(--tool-border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      overflow-x: auto;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #c8d0e0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .code-block .keyword { color: #c792ea; }
+    .code-block .string { color: #c3e88d; }
+    .code-block .comment { color: #676e95; }
+    .code-block .func { color: #82aaff; }
+    .code-block .const { color: #f78c6c; }
+
+    .related-tools {
+      background: var(--tool-card);
+      border: 1px solid var(--tool-border);
+      border-radius: var(--tool-radius);
+      padding: 24px 28px;
+    }
+    .related-tools h2 {
+      font-size: 1.15rem;
+      color: var(--tool-accent);
+      margin-bottom: 14px;
+    }
+    .related-tools ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .related-tools ul li a {
+      display: inline-block;
+      padding: 10px 18px;
+      background: var(--tool-input-bg);
+      border: 1px solid var(--tool-border);
+      border-radius: 8px;
+      color: var(--tool-text);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .related-tools ul li a:hover {
+      border-color: var(--tool-accent);
+      color: var(--tool-accent);
+    }
   </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -331,7 +417,15 @@ gtag("config", "G-ESF1YX8CCR");
       "name": "Does QR Code Generator & Reader require an internet connection?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
+        "text": "The QR Code Generator & Reader runs 100% client-side in your browser. Once the page is loaded, QR code generation and decoding work entirely offline — no data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of data can I encode in a QR code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can encode URLs, plain text, email addresses, phone numbers, SMS messages, Wi-Fi credentials, vCard contact information, geographic coordinates, calendar events, and cryptocurrency wallet addresses. QR codes support up to 7,089 numeric characters or 4,296 alphanumeric characters."
       }
     }
   ]
@@ -350,7 +444,19 @@ gtag("config", "G-ESF1YX8CCR");
   <p class="tool-desc">Free online QR code tools — generate QR codes from any text or URL with instant download as PNG image, or upload an image to decode and extract the content from a QR code. All processing runs in your browser, nothing is uploaded to any server.</p>
 </div>
 
-<div class="calc-section">
+<nav class="toc" aria-label="Table of Contents">
+  <h2>📑 Table of Contents</h2>
+  <ul>
+    <li><a href="#generate-qr-code">Generate QR Code</a></li>
+    <li><a href="#decode-qr-code">Read / Decode QR Code</a></li>
+    <li><a href="#what-is-qr-code">What is a QR Code</a></li>
+    <li><a href="#how-qr-code-generator-works">How QR Code Generator Works</a></li>
+    <li><a href="#qr-code-use-cases">QR Code Use Cases</a></li>
+    <li><a href="#how-to-decode-qr-code">How to Decode QR Code</a></li>
+  </ul>
+</nav>
+
+<div class="calc-section" id="generate-qr-code">
   <h2> Generate QR Code</h2>
   <p class="subtitle">Enter text or a URL to generate a scannable QR code</p>
 
@@ -371,7 +477,7 @@ gtag("config", "G-ESF1YX8CCR");
   </div>
 </div>
 
-<div class="calc-section">
+<div class="calc-section" id="decode-qr-code">
   <h2> Read / Decode QR Code</h2>
   <p class="subtitle">Upload an image containing a QR code to extract its content</p>
 
@@ -402,7 +508,7 @@ gtag("config", "G-ESF1YX8CCR");
   </div>
 </div>
 
-<section class="about-section"><h2> Key Features</h2><ul>
+<section class="about-section" id="key-features"><h2> Key Features</h2><ul>
 <li>Generate QR codes from any text or URL</li>
 <li>Download generated QR codes as high-quality PNG images</li>
 <li>Decode and read QR codes from uploaded images</li>
@@ -410,6 +516,90 @@ gtag("config", "G-ESF1YX8CCR");
 <li>100% client-side JavaScript — no data sent to any server</li>
 <li>Dark theme, responsive layout, works on desktop and mobile</li>
 </ul></section>
+
+<section class="about-section" id="what-is-qr-code">
+<h2>What is a QR Code</h2>
+<p>A <strong>QR Code</strong> (Quick Response Code) is a two-dimensional matrix barcode invented in 1994 by Denso Wave, a subsidiary of Toyota. Unlike traditional one-dimensional barcodes that store data only horizontally, QR codes encode information in both horizontal and vertical dimensions, dramatically increasing data capacity — up to <strong>7,089 numeric characters</strong> or <strong>4,296 alphanumeric characters</strong> in a single symbol.</p>
+<p>QR codes consist of black modules (squares) arranged on a white background, with three distinctive <strong>finder patterns</strong> located in the top-left, top-right, and bottom-left corners. These finder patterns allow scanners to detect the code's orientation, rotation, and perspective distortion instantly. Originally developed for tracking automotive parts during manufacturing, QR codes have evolved into a universal bridge between physical and digital worlds — used everywhere from product packaging and restaurant menus to mobile payments, event tickets, and contactless information sharing.</p>
+<p>A standard QR code can encode multiple data types: URLs, plain text, email addresses, phone numbers, SMS messages, Wi-Fi network credentials, vCard contact details, geographic coordinates, calendar events, and even cryptocurrency wallet addresses — making it one of the most versatile encoding formats available today.</p>
+</section>
+
+<section class="about-section" id="how-qr-code-generator-works">
+<h2>How QR Code Generator Works</h2>
+<p>Our <strong>QR Code Generator</strong> creates fully functional QR codes entirely in your browser using client-side JavaScript — no data is ever uploaded to a server. When you enter text or a URL and click "Generate," the tool executes a multi-step encoding pipeline defined by the ISO/IEC 18004 standard:</p>
+<ol>
+<li><strong>Data Analysis</strong> — The input is analyzed to choose the most efficient encoding mode: Numeric (digits 0–9), Alphanumeric (uppercase letters, digits, and select symbols), Byte (Latin-1/ISO-8859-1), or Kanji (Shift JIS characters).</li>
+<li><strong>Error Correction Coding</strong> — Reed-Solomon error correction codes are computed based on the selected level. Our generator defaults to <strong>Level H (High)</strong>, which allows up to 30% of the code to be damaged or obscured while still remaining scannable. The four available levels are L (7%), M (15%), Q (25%), and H (30%).</li>
+<li><strong>Matrix Construction</strong> — The encoded data and error correction codewords are interleaved and placed into a square grid. Finder patterns, timing patterns, alignment patterns, and quiet zones are added according to the QR code version (1 through 40), which determines the grid size from 21×21 to 177×177 modules.</li>
+<li><strong>Masking</strong> — Eight predefined mask patterns are evaluated, and the one that minimizes undesirable patterns (large blocks of same-colored modules) is applied to improve readability.</li>
+<li><strong>Rendering</strong> — The final binary matrix is drawn onto an HTML5 Canvas element, which can then be downloaded as a high-resolution PNG image.</li>
+</ol>
+<p>Here is a simplified example of generating a QR code programmatically using the QRCode.js library:</p>
+<pre class="code-block"><span class="comment">// Generate a QR code with QRCode.js</span>
+<span class="keyword">const</span> qrcode = <span class="keyword">new</span> <span class="func">QRCode</span>(document.getElementById(<span class="string">'container'</span>), {
+  <span class="const">text</span>: <span class="string">'https://23232322.xyz'</span>,
+  <span class="const">width</span>: <span class="keyword">256</span>,
+  <span class="const">height</span>: <span class="keyword">256</span>,
+  <span class="const">colorDark</span>: <span class="string">'#000000'</span>,
+  <span class="const">colorLight</span>: <span class="string">'#ffffff'</span>,
+  <span class="const">correctLevel</span>: QRCode.<span class="const">CorrectLevel</span>.<span class="const">H</span>  <span class="comment">// High error correction</span>
+});</pre>
+</section>
+
+<section class="about-section" id="qr-code-use-cases">
+<h2>QR Code Use Cases</h2>
+<p>QR codes have become an indispensable tool across industries, bridging offline and online experiences in countless practical applications:</p>
+<ul>
+<li><strong>Marketing & Advertising</strong> — Printed on flyers, billboards, product packaging, and business cards to direct consumers to websites, landing pages, promotional offers, or app download links with a simple scan.</li>
+<li><strong>Restaurants & Hospitality</strong> — Contactless digital menus, ordering systems, and bill payment via QR codes on tables — especially prevalent in the post-pandemic era.</li>
+<li><strong>Mobile Payments</strong> — QR codes power major payment platforms including Alipay, WeChat Pay, PayPal QR, and unified payment interfaces (UPI) across Asia and beyond.</li>
+<li><strong>Event Management</strong> — QR codes on tickets enable fast, paperless check-in and access control at concerts, conferences, and sporting events.</li>
+<li><strong>Wi-Fi Sharing</strong> — Encode network SSID, password, and encryption type so guests connect automatically by scanning instead of typing credentials.</li>
+<li><strong>Developer Tooling</strong> — Embed QR codes in CI/CD dashboards for build status, link to API documentation, or share repository URLs in presentations.</li>
+<li><strong>Education</strong> — Printed in textbooks, worksheets, and classroom posters to link supplementary digital resources, video tutorials, and interactive quizzes.</li>
+<li><strong>Personal Use</strong> — Share contact information (vCard), pre-composed SMS messages, geographic coordinates, or cryptocurrency wallet addresses with friends and colleagues.</li>
+</ul>
+</section>
+
+<section class="about-section" id="how-to-decode-qr-code">
+<h2>How to Decode QR Code</h2>
+<p><strong>Decoding a QR code</strong> — also referred to as reading or scanning — is the reverse process of extracting the original data from a QR code image. Our <strong>QR Code Reader</strong> performs this entirely in your browser using the jsQR library, with no image uploads to any remote server. The decoding algorithm works through these steps:</p>
+<ol>
+<li><strong>Image Acquisition</strong> — You provide an image file (PNG, JPEG, WebP, GIF, or BMP) via file picker or drag-and-drop. The image is loaded into an HTML canvas for pixel-level access.</li>
+<li><strong>Finder Pattern Detection</strong> — The algorithm scans the image to locate the three distinctive finder patterns (nested squares) that define the QR code's position, size, and orientation. This step handles rotation, skew, and perspective distortion.</li>
+<li><strong>Module Sampling</strong> — Once the code boundaries are established, the grid of modules is sampled to reconstruct the binary data matrix — a grid of 1s (black) and 0s (white).</li>
+<li><strong>Error Correction</strong> — Reed-Solomon error correction is applied to recover data lost due to image noise, poor lighting, partial obstruction, or low resolution. The correction level built into the QR code determines how much damage can be tolerated.</li>
+<li><strong>Data Decoding</strong> — The corrected binary stream is decoded according to the encoding mode indicator, reconstructing the original text, URL, or other content.</li>
+</ol>
+<p>Our reader employs a two-pass strategy: it first attempts decoding without inversion, and if no QR code is detected, it retries with both normal and inverted color schemes to handle images with non-standard background colors. Here is a simplified example of QR code decoding using the Canvas API and jsQR:</p>
+<pre class="code-block"><span class="comment">// Decode a QR code from an image using jsQR</span>
+<span class="keyword">const</span> canvas = document.<span class="func">createElement</span>(<span class="string">'canvas'</span>);
+<span class="keyword">const</span> ctx = canvas.<span class="func">getContext</span>(<span class="string">'2d'</span>);
+<span class="keyword">const</span> img = <span class="keyword">new</span> <span class="func">Image</span>();
+
+img.<span class="const">onload</span> = () => {
+  canvas.<span class="const">width</span> = img.<span class="const">width</span>;
+  canvas.<span class="const">height</span> = img.<span class="const">height</span>;
+  ctx.<span class="func">drawImage</span>(img, <span class="keyword">0</span>, <span class="keyword">0</span>);
+
+  <span class="keyword">const</span> imageData = ctx.<span class="func">getImageData</span>(<span class="keyword">0</span>, <span class="keyword">0</span>, canvas.<span class="const">width</span>, canvas.<span class="const">height</span>);
+  <span class="keyword">const</span> code = <span class="func">jsQR</span>(imageData.<span class="const">data</span>, imageData.<span class="const">width</span>, imageData.<span class="const">height</span>);
+
+  <span class="keyword">if</span> (code) {
+    console.<span class="func">log</span>(<span class="string">'Decoded content:'</span>, code.<span class="const">data</span>);  <span class="comment">// The extracted text or URL</span>
+  }
+};
+img.<span class="const">src</span> = <span class="string">'qrcode-image.png'</span>;</pre>
+</section>
+
+<section class="related-tools">
+<h2>🔗 Related Tools</h2>
+<ul>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder / Decoder</a></li>
+<li><a href="/tools/url-encoder-decoder">URL Encoder / Decoder</a></li>
+<li><a href="/tools/text-diff">Text Diff Checker</a></li>
+</ul>
+</section>
 
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">&copy; 2026 DevToolBox.</p></footer>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Cover Generator — Free AI Social Media Cover Maker | DevToolBox</title>
+<meta name="description" content="Free AI-powered cover generator. Create beautiful social media covers, blog headers, and thumbnails with AI. Choose from multiple styles — Modern, Minimal, Tech, Nature, Abstract. No sign-up required.">
+<meta name="keywords" content="ai cover generator, cover maker, social media cover, ai image generator, free cover design, blog header maker, thumbnail creator, ai cover art">
+<link rel="canonical" href="https://23232322.xyz/tools/ai-cover-generator">
+<meta property="og:title" content="AI Cover Generator — Free AI Social Media Cover Maker">
+<meta property="og:description" content="Create stunning AI-powered covers for social media, blogs, and thumbnails. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://23232322.xyz/tools/ai-cover-generator">
+<meta property="og:image" content="https://23232322.xyz/tools/ai-cover-og.png">
+<link rel="stylesheet" href="/css/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-ESF1YX8CCR');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Cover Generator",
+  "description": "Free online AI-powered cover image generator for social media, blogs, and thumbnails.",
+  "applicationCategory": "Multimedia",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "url": "https://23232322.xyz/tools/ai-cover-generator"
+}
+</script>
+<style>
+:root {
+  --cover-w: 1242px;
+  --cover-h: 1660px;
+}
+.tool-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+@media (max-width: 900px) { .tool-layout { grid-template-columns: 1fr; } }
+
+.form-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 8px;
+}
+.form-group label .hint {
+  font-weight: 400;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--accent);
+}
+.form-group textarea { resize: vertical; min-height: 80px; font-family: inherit; }
+
+.style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.style-option {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.style-option:hover { border-color: var(--accent); }
+.style-option.selected { border-color: var(--accent); background: rgba(57,186,230,0.08); }
+.style-option .style-icon { font-size: 1.8rem; margin-bottom: 6px; }
+.style-option .style-name { font-size: 0.85rem; font-weight: 600; color: var(--text-bright); }
+.style-option .style-desc { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+
+.size-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.size-option {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.size-option:hover { border-color: var(--accent); }
+.size-option.selected { border-color: var(--accent); background: rgba(57,186,230,0.08); color: var(--accent); }
+.size-option .size-label { font-weight: 600; color: var(--text-bright); }
+.size-option .size-ratio { font-size: 0.72rem; }
+
+.btn-generate {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+.btn-generate:hover { opacity: 0.9; }
+.btn-generate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.preview-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-area {
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+#coverCanvas {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: none;
+}
+
+.preview-placeholder {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 60px 20px;
+}
+.preview-placeholder .ph-icon { font-size: 3rem; margin-bottom: 16px; }
+.preview-placeholder .ph-text { font-size: 1rem; }
+
+.loading-spinner { display: none; text-align: center; padding: 40px; }
+.loading-spinner.active { display: block; }
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: var(--text-dim); font-size: 0.9rem; }
+
+.btn-download {
+  display: none;
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: var(--green);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-download:hover { opacity: 0.85; }
+.btn-download.active { display: inline-block; }
+
+.error-msg {
+  display: none;
+  background: rgba(240,113,120,0.12);
+  border: 1px solid var(--red);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--red);
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+.error-msg.active { display: block; }
+
+.usage-info {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+.usage-info strong { color: var(--text-bright); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tools" class="active">Tools</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="breadcrumbs">
+    <a href="/">Home</a><span class="sep">·</span>
+    <a href="/tools">Tools</a><span class="sep">·</span>
+    AI Cover Generator
+  </div>
+
+  <h1 style="font-size:1.8rem;color:var(--text-bright);margin-bottom:4px">🎨 AI Cover Generator</h1>
+  <p style="color:var(--text-dim);margin-bottom:28px;font-size:1.05rem">
+    Generate beautiful AI covers for social media, blogs, and thumbnails.
+    Powered by Cloudflare Workers AI. 100% free.
+  </p>
+
+  <div class="tool-layout">
+    <!-- Left: Form -->
+    <div class="form-section">
+      <div class="form-group">
+        <label>Title <span class="hint">(main text on the cover)</span></label>
+        <input type="text" id="coverTitle" placeholder="e.g. 10 Free AI Tools You Need" maxlength="60">
+      </div>
+      <div class="form-group">
+        <label>Subtitle <span class="hint">(optional, smaller text)</span></label>
+        <input type="text" id="coverSubtitle" placeholder="e.g. Boost Your Productivity in 2026" maxlength="100">
+      </div>
+      <div class="form-group">
+        <label>Style</label>
+        <div class="style-grid" id="stylePicker">
+          <div class="style-option selected" data-style="modern" data-prompt="Modern minimalist background with soft gradients, clean abstract shapes, soft lighting, professional, high quality">
+            <div class="style-icon">✦</div>
+            <div class="style-name">Modern</div>
+            <div class="style-desc">Clean gradients & shapes</div>
+          </div>
+          <div class="style-option" data-style="tech" data-prompt="Technology themed background with circuit board patterns, blue and purple neon glow, futuristic digital abstract, matrix style, high tech">
+            <div class="style-icon">⚡</div>
+            <div class="style-name">Tech</div>
+            <div class="style-desc">Neon & circuit patterns</div>
+          </div>
+          <div class="style-option" data-style="nature" data-prompt="Beautiful nature scenery background, mountains or forest at sunset, warm golden hour lighting, peaceful natural landscape, photorealistic">
+            <div class="style-icon">🌄</div>
+            <div class="style-name">Nature</div>
+            <div class="style-desc">Scenery & landscapes</div>
+          </div>
+          <div class="style-option" data-style="abstract" data-prompt="Vibrant abstract art background, colorful fluid shapes, artistic paint splashes, creative and energetic composition, modern art">
+            <div class="style-icon">🌀</div>
+            <div class="style-name">Abstract</div>
+            <div class="style-desc">Colorful fluid art</div>
+          </div>
+          <div class="style-option" data-style="minimal" data-prompt="Ultra minimal aesthetic background, simple solid color gradients, clean white space, zen minimal design, soft pastel tones">
+            <div class="style-icon">◻</div>
+            <div class="style-name">Minimal</div>
+            <div class="style-desc">Clean & simple</div>
+          </div>
+          <div class="style-option" data-style="dark" data-prompt="Dark moody background with deep shadows, subtle textures, dramatic lighting, luxury dark aesthetic, premium feel">
+            <div class="style-icon">🌙</div>
+            <div class="style-name">Dark</div>
+            <div class="style-desc">Moody & dramatic</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Size</label>
+        <div class="size-grid" id="sizePicker">
+          <div class="size-option selected" data-width="1242" data-height="1660">
+            <div class="size-label">小红书封面</div>
+            <div class="size-ratio">3:4 · 1242×1660</div>
+          </div>
+          <div class="size-option" data-width="1200" data-height="630">
+            <div class="size-label">Blog / OG</div>
+            <div class="size-ratio">1.9:1 · 1200×630</div>
+          </div>
+          <div class="size-option" data-width="1920" data-height="1080">
+            <div class="size-label">YouTube</div>
+            <div class="size-ratio">16:9 · 1920×1080</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Color <span class="hint">(dominant color tone)</span></label>
+        <select id="coverColor">
+          <option value="auto">Auto (style default)</option>
+          <option value="blue">Blue</option>
+          <option value="purple">Purple</option>
+          <option value="pink">Pink</option>
+          <option value="green">Green</option>
+          <option value="orange">Orange</option>
+          <option value="teal">Teal</option>
+        </select>
+      </div>
+      <button class="btn-generate" id="btnGenerate">✨ Generate Cover</button>
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="usage-info">
+        <strong>Free</strong> — powered by Cloudflare Workers AI (flux-1-schnell).
+        Images are not stored on our servers. 10+ styles available.
+      </div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div class="preview-section">
+      <div class="preview-area">
+        <div class="preview-placeholder" id="placeholder">
+          <div class="ph-icon">🖼️</div>
+          <div class="ph-text">Enter your title and click Generate<br>to create an AI-powered cover</div>
+        </div>
+        <div class="loading-spinner" id="loadingSpinner">
+          <div class="spinner"></div>
+          <div class="loading-text">Generating your cover...<br><span style="font-size:0.8rem;color:var(--text-dim-muted)">This takes about 5-10 seconds</span></div>
+        </div>
+        <canvas id="coverCanvas"></canvas>
+        <button class="btn-download" id="btnDownload">⬇ Download Cover</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Content -->
+  <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border)">
+    <h2 style="color:var(--text-bright);font-size:1.3rem;margin-bottom:12px">About AI Cover Generator</h2>
+    <p style="color:var(--text);line-height:1.8;margin-bottom:16px">
+      The <strong>AI Cover Generator</strong> creates stunning social media covers, blog headers, 
+      and thumbnails using artificial intelligence. Simply enter a title, choose a style, and let 
+      AI generate a unique background image — no design skills needed.
+    </p>
+    <h3 style="color:var(--text-bright);font-size:1.1rem;margin-bottom:10px">Features</h3>
+    <ul style="color:var(--text);line-height:1.8;padding-left:20px;margin-bottom:20px">
+      <li><strong>6 Unique Styles:</strong> Modern, Tech, Nature, Abstract, Minimal, Dark</li>
+      <li><strong>Multiple Sizes:</strong> XHS cover, Blog OG, YouTube thumbnail</li>
+      <li><strong>AI Background:</strong> Each cover gets a unique AI-generated background</li>
+      <li><strong>Custom Text:</strong> Overlay your title and subtitle directly on the cover</li>
+      <li><strong>Free to Use:</strong> No sign-up, no credit card, unlimited generations</li>
+    </ul>
+    <h3 style="color:var(--text-bright);font-size:1.1rem;margin-bottom:10px">Use Cases</h3>
+    <ul style="color:var(--text);line-height:1.8;padding-left:20px;margin-bottom:20px">
+      <li>Xiaohongshu (小红书) cover images</li>
+      <li>Blog post featured images and OG tags</li>
+      <li>YouTube video thumbnails</li>
+      <li>Social media posts (Instagram, Twitter, LinkedIn)</li>
+      <li>Newsletter and email headers</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="https://github.com/sharefun2023/devtoolbox">GitHub</a>
+  </div>
+  <div class="copyright">DevToolBox — Free Developer Tools</div>
+</footer>
+
+<script>
+// --- Style picker ---
+document.querySelectorAll('.style-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.style-option').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  });
+});
+
+// --- Size picker ---
+document.querySelectorAll('.size-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.size-option').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  });
+});
+
+// --- Color palette to prompt mapping ---
+const colorPrompts = {
+  auto: '',
+  blue: 'dominant blue color tone, blue theme',
+  purple: 'dominant purple color tone, purple theme',
+  pink: 'dominant pink color tone, pink theme',
+  green: 'dominant green color tone, nature green theme',
+  orange: 'dominant orange and warm tones, golden hour',
+  teal: 'dominant teal color tone, teal and cyan theme',
+};
+
+// --- Generate ---
+const btn = document.getElementById('btnGenerate');
+const titleInput = document.getElementById('coverTitle');
+const subtitleInput = document.getElementById('coverSubtitle');
+const colorSelect = document.getElementById('coverColor');
+const canvas = document.getElementById('coverCanvas');
+const ctx = canvas.getContext('2d');
+const placeholder = document.getElementById('placeholder');
+const spinner = document.getElementById('loadingSpinner');
+const downloadBtn = document.getElementById('btnDownload');
+const errorMsg = document.getElementById('errorMsg');
+
+btn.addEventListener('click', generateCover);
+
+async function generateCover() {
+  const title = titleInput.value.trim();
+  if (!title) {
+    showError('Please enter a title for your cover');
+    return;
+  }
+
+  // Get selected style
+  const selectedStyle = document.querySelector('.style-option.selected');
+  const stylePrompt = selectedStyle ? selectedStyle.dataset.prompt : '';
+  const styleName = selectedStyle ? selectedStyle.dataset.style : 'modern';
+
+  // Get selected size
+  const selectedSize = document.querySelector('.size-option.selected');
+  const width = parseInt(selectedSize ? selectedSize.dataset.width : 1242);
+  const height = parseInt(selectedSize ? selectedSize.dataset.height : 1660);
+
+  // Build prompt
+  const color = colorSelect.value;
+  const colorPrompt = colorPrompts[color] || '';
+  const prompt = `Create a cover background image. ${stylePrompt}. ${colorPrompt}. No text, no text overlays. Abstract background only. High quality.`;
+
+  // Show loading
+  btn.disabled = true;
+  btn.textContent = '⏳ Generating...';
+  placeholder.style.display = 'none';
+  canvas.style.display = 'none';
+  downloadBtn.classList.remove('active');
+  errorMsg.classList.remove('active');
+  spinner.classList.add('active');
+
+  try {
+    // Call API
+    const res = await fetch('/api/generate-cover', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, width, height }),
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      if (data.error === 'NSFW_CONTENT') {
+        showError('The prompt triggered the content filter. Try different wording or a different style.');
+      } else {
+        showError(data.message || 'Generation failed. Please try again.');
+      }
+      return;
+    }
+
+    // Render image + text overlay
+    renderCover(data.image, title, subtitleInput.value.trim(), width, height, styleName);
+
+  } catch (err) {
+    showError('Network error. Check your connection and try again.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Generate Cover';
+    spinner.classList.remove('active');
+  }
+}
+
+function renderCover(base64Data, title, subtitle, width, height, style) {
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.display = 'block';
+  canvas.style.maxWidth = '400px';
+
+  const img = new Image();
+  img.onload = () => {
+    // Draw background image
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Apply overlay gradient for text readability
+    const grad = ctx.createLinearGradient(0, height * 0.4, 0, height);
+    grad.addColorStop(0, 'rgba(0,0,0,0.05)');
+    grad.addColorStop(0.6, 'rgba(0,0,0,0.45)');
+    grad.addColorStop(1, 'rgba(0,0,0,0.7)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw title (large, centered, bottom third)
+    const titleSize = Math.max(Math.floor(width / 18), 28);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 8;
+
+    // Title
+    const titleY = height * 0.78;
+    ctx.font = `bold ${titleSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+    ctx.fillStyle = '#ffffff';
+    wrapText(ctx, title, width / 2, titleY, width * 0.85, titleSize * 1.2);
+
+    // Subtitle
+    if (subtitle) {
+      const subSize = Math.max(Math.floor(titleSize * 0.45), 14);
+      ctx.font = `${subSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.shadowBlur = 4;
+      const subY = titleY + (title.includes('\n') ? titleSize * 2.4 : titleSize * 0.6);
+      wrapText(ctx, subtitle, width / 2, subY + subSize, width * 0.85, subSize * 1.4);
+    }
+
+    ctx.shadowBlur = 0;
+
+    // Show download
+    downloadBtn.classList.add('active');
+  };
+
+  img.src = `data:image/jpeg;base64,${base64Data}`;
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + ' ';
+    const metrics = ctx.measureText(testLine);
+    const testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      lines.push(line.trim());
+      line = words[n] + ' ';
+    } else {
+      line = testLine;
+    }
+  }
+  lines.push(line.trim());
+
+  // Limit to 3 lines
+  if (lines.length > 3) lines = lines.slice(0, 3);
+
+  // Auto-reduce font if needed
+  if (lines.length > 1) {
+    const fontSize = parseFloat(ctx.font);
+    if (fontSize > 24) {
+      ctx.font = `bold ${fontSize * 0.8}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      return wrapText(ctx, text, x, y, maxWidth, lineHeight * 0.8);
+    }
+  }
+
+  lines.forEach((line, i) => {
+    ctx.fillText(line, x, y + i * lineHeight);
+  });
+}
+
+// --- Download ---
+downloadBtn.addEventListener('click', () => {
+  const link = document.createElement('a');
+  link.download = `cover-${Date.now()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+
+function showError(msg) {
+  errorMsg.textContent = msg;
+  errorMsg.classList.add('active');
+  canvas.style.display = 'none';
+  downloadBtn.classList.remove('active');
+  placeholder.style.display = 'block';
+}
+</script>
+
+</body>
+</html>

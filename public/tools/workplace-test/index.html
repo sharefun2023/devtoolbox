@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>你的职场人设是什么？</title>
+<meta name="description" content="6道题测出你的职场真实人格——你是隐形卷王、佛系老油条，还是社恐技术宅？">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f0f1a;color:#e8e4f0;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.container{width:100%;max-width:420px;padding:24px 20px}
+/* Cover */
+.cover{text-align:center;padding:40px 0 24px}
+.cover .emoji{font-size:64px;margin-bottom:16px}
+.cover h1{font-size:28px;font-weight:800;line-height:1.3;margin-bottom:8px;background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cover .sub{font-size:15px;color:#9ca3af;margin-bottom:32px}
+.cover .cta{display:inline-block;padding:14px 48px;border-radius:50px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-size:17px;font-weight:700;border:none;cursor:pointer;transition:transform .2s}
+.cover .cta:active{transform:scale(.96)}
+.cover .meta{font-size:12px;color:#6b7280;margin-top:16px}
+/* Quiz */
+.quiz{display:none}
+.progress{height:3px;background:#1f1f2e;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.progress .bar{height:100%;background:linear-gradient(90deg,#7c3aed,#db2777);border-radius:2px;transition:width .4s}
+.question h2{font-size:20px;font-weight:700;margin-bottom:24px;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{padding:16px 20px;background:#1a1a2e;border:2px solid #2a2a3e;border-radius:14px;cursor:pointer;font-size:16px;transition:all .2s;text-align:left;color:#e8e4f0}
+.option:hover,.option:active{border-color:#7c3aed;background:#1f1a3e}
+.option.selected{border-color:#7c3aed;background:#1f1a3e}
+/* Result */
+.result{display:none;text-align:center;padding:20px 0}
+.result .r-emoji{font-size:72px;margin-bottom:12px}
+.result h2{font-size:26px;font-weight:800;margin-bottom:6px}
+.result .r-tag{display:inline-block;padding:4px 14px;border-radius:20px;background:#7c3aed22;color:#a78bfa;font-size:13px;margin-bottom:20px}
+.result .r-desc{font-size:15px;line-height:1.7;color:#c4b5d0;text-align:left;margin-bottom:24px}
+.result .r-stats{display:flex;gap:12px;justify-content:center;margin-bottom:28px}
+.result .r-stats .stat{background:#1a1a2e;border-radius:12px;padding:12px 16px;text-align:center}
+.result .r-stats .stat .val{font-size:22px;font-weight:800;color:#a78bfa}
+.result .r-stats .stat .lbl{font-size:11px;color:#6b7280;margin-top:2px}
+.result .share{display:inline-block;padding:12px 36px;border-radius:50px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer}
+.result .retry{margin-top:16px;font-size:14px;color:#6b7280;cursor:pointer;border:none;background:none;text-decoration:underline}
+.footer{text-align:center;padding:32px 20px;font-size:12px;color:#4b5563;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- COVER -->
+<div class="cover" id="cover">
+<div class="emoji">💼</div>
+<h1>你的职场人设<br>是什么？</h1>
+<p class="sub">6道题 · 2分钟 · 测出你的真实职场人格</p>
+<button class="cta" onclick="start()">开始测试</button>
+<p class="meta">已测 12,847 人 · 仅供娱乐</p>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz" id="quiz">
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="question">
+<h2 id="qtext"></h2>
+<div class="options" id="opts"></div>
+</div>
+</div>
+
+<!-- RESULT -->
+<div class="result" id="result"></div>
+
+</div>
+<div class="footer">仅供娱乐，结果均为模拟生成 · 非专业心理测评</div>
+
+<script>
+const Q = [
+{q:"周一早会，老板说"这周冲刺一下"，你脑子里第一个念头是？",o:["又来…上周不是刚冲完吗","好的，那我排一下优先级","冲什么？具体目标是什么","不管，反正冲不到我头上"]},
+{q:"同事在群里发了一个没人回的冷笑话，你的反应？",o:["发个😂 但心里毫无波动","认真分析笑点在哪里","已读不回，假装没看见","回一个更冷的"]},
+{q:"周五下午4:55，客户发来一个"紧急需求"，你？",o:["假装已经下班了","问清楚deadline，如果是下周一就不管","立刻拉会，这是证明自己的机会","回"收到"然后周一再说"]},
+{q:"公司团建，HR说"每个人表演一个才艺"，你？",o:["讲个冷笑话混过去","认真准备一段脱口秀","借上厕所消失20分钟","表演"即兴演讲：为什么团建应该取消""]},
+{q:"同事离职请你吃饭，问你"你觉得这公司怎么样"，你？",o:["疯狂吐槽半小时","说"还行吧"然后转移话题","客观分析公司优劣","说"挺好的"然后闷头吃"]},
+{q:"周末收到工作消息，你的第一反应？",o:["心梗三秒，然后装作没看见","秒回——我就是这种人","看一眼内容，不急就装死","直接关手机"]}
+];
+
+const RESULTS = [
+{name:"隐形卷王",emoji:"👑",tag:"内驱力 MAX",desc:"你是那种嘴上说着"我不卷"，背地里把周报写成论文的人。同事以为你在摸鱼，其实你已经把下季度的规划都写好了。你的职场信条：悄悄努力，然后惊艳所有人。\n\n适合岗位：产品经理、战略、创业\n致命弱点：容易把自己累死",stats:[{v:"95%",l:"责任心"},{v:"90%",l:"执行力"},{v:"35%",l:"摸鱼能力"}]},
+{name:"佛系老油条",emoji:"🧘",tag:"情绪稳定天花板",desc:"你已经看透了一切。老板画饼你微笑，同事内卷你喝茶。不是不努力，是你知道什么值得拼命、什么不值得。你的职场哲学：拿钱办事，下班走人，周末别找我。\n\n适合岗位：公务员、运维、财务\n致命弱点：偶尔被当成不求上进",stats:[{v:"95%",l:"情绪稳定"},{v:"80%",l:"边界感"},{v:"20%",l:"加班意愿"}]},
+{name:"社恐技术宅",emoji:"🤖",tag:"深度专注型",desc:"你不是不合群，你只是觉得和人说话消耗的电量比写代码还大。群里从不主动发言，但出了问题第一个被@。你的工位=结界，耳机=请勿打扰的旗帜。\n\n适合岗位：程序员、设计师、研究员\n致命弱点：年终总结写不满一页",stats:[{v:"95%",l:"专业深度"},{v:"85%",l:"独立作战"},{v:"15%",l:"团建参与"}]},
+{name:"职场外交官",emoji:"🎭",tag:"八面玲珑",desc:"你能让产品经理和程序员在同一个群里不吵架。你知道老板想听什么、客户想听什么、同事想听什么——而且是不同版本。你的人际网络就是你的超能力。\n\n适合岗位：项目经理、销售、HR\n致命弱点：有时候自己都不知道真心话是哪句",stats:[{v:"90%",l:"沟通力"},{v:"85%",l:"情商"},{v:"50%",l:"独处能力"}]}
+];
+
+let answers=[],cur=0;
+
+function start(){
+document.getElementById('cover').style.display='none';
+document.getElementById('quiz').style.display='block';
+cur=0;answers=[];showQ();
+}
+function showQ(){
+let q=Q[cur];
+document.getElementById('qtext').textContent=`${cur+1}. ${q.q}`;
+document.getElementById('bar').style.width=`${(cur/Q.length)*100}%`;
+let o=document.getElementById('opts');
+o.innerHTML='';
+q.o.forEach((txt,i)=>{let d=document.createElement('div');d.className='option';d.textContent=txt;d.onclick=()=>pick(i,d);o.appendChild(d)});
+}
+function pick(i,el){
+answers.push(i);
+document.querySelectorAll('.option').forEach(e=>e.classList.remove('selected'));
+el.classList.add('selected');
+setTimeout(()=>{
+cur++;
+if(cur>=Q.length){showResult()}else{showQ()}
+},300);
+}
+function showResult(){
+document.getElementById('quiz').style.display='none';
+document.getElementById('bar').style.width='100%';
+let score=answers.reduce((a,b)=>a+b,0);
+// Map score to 0-3 index
+let idx=Math.min(3,Math.floor(score/(Q.length*3)*4));
+let r=RESULTS[idx];
+let s='';
+r.stats.forEach(x=>{s+=`<div class="stat"><div class="val">${x.v}</div><div class="lbl">${x.l}</div></div>`});
+document.getElementById('result').innerHTML=`
+<div class="r-emoji">${r.emoji}</div>
+<h2>${r.name}</h2>
+<div class="r-tag">${r.tag}</div>
+<div class="r-desc">${r.desc.replace(/\n/g,'<br>')}</div>
+<div class="r-stats">${s}</div>
+<button class="share" onclick="share()">📤 分享结果</button>
+<div class="retry" onclick="retry()">再测一次</div>
+`;
+document.getElementById('result').style.display='block';
+}
+function share(){
+let r=RESULTS[Math.min(3,Math.floor(answers.reduce((a,b)=>a+b,0)/(Q.length*3)*4))];
+let t=`我在「你的职场人设」测试中测出了【${r.name}】${r.emoji}！\n\n${r.tag}\n来测测你是什么职场人格？`;
+if(navigator.share){navigator.share({title:'你的职场人设是什么？',text:t,url:location.href}).catch(()=>{copy(t)})}else{copy(t)}
+}
+function copy(t){navigator.clipboard.writeText(t).then(()=>alert('已复制！去小红书/朋友圈分享吧')).catch(()=>alert(t))}
+function retry(){document.getElementById('result').style.display='none';start()}
+</script>
+</body>
+</html>

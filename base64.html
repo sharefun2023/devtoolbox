@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Base64 & URL Encoder — DevToolbox</title>
-<meta name="description" content="Free online Base64 encoder/decoder and URL encoder/decoder. All processing in your browser.">
+<title>Base64 Decoder & Encoder - Free Online Tool | DevToolBox</title>
+<meta name="description" content="Free online Base64 decoder, encode decode, and URL encoder. Decode base64 instantly with our online base64 decoder — all processing happens in your browser, no data sent anywhere.">
+<meta name="keywords" content="base64 decoder, decode base64, base64 encode decode, online base64 decoder, base64 encoder, base64 converter, URL encoder, URL decoder">
 <link rel="canonical" href="https://devtoolbox.pages.dev/base64">
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950}
@@ -42,6 +43,54 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Base64 encoding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Base64 is a binary-to-text encoding scheme that converts binary data into ASCII characters. It's commonly used to transmit data over text-based protocols like email, embed images in HTML/CSS, and store binary data in JSON or XML formats."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I decode Base64 online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simply paste your Base64-encoded text into the input field above and click the Decode button. Our free online Base64 decoder processes everything locally in your browser — no data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I encode files to Base64?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Switch to the File → Base64 tab, select any file from your device, and the tool will instantly convert it to a Base64 string. You can then copy the output for use in data URIs, API requests, or anywhere Base64 is required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this Base64 decoder free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. This Base64 decoder and encoder is completely free with no usage limits, no registration required, and no ads. All encoding and decoding happens in your browser for maximum privacy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Base64 and URL encoding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Base64 encoding converts binary data to a 64-character ASCII set (A-Z, a-z, 0-9, +, /), while URL encoding (percent-encoding) replaces unsafe ASCII characters with a % followed by two hexadecimal digits. Use the URL Encode tab for encoding special characters in URLs."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav>
@@ -54,8 +103,14 @@ gtag("config", "G-ESF1YX8CCR");
 </nav>
 
 <div class="container">
-  <h1>64 Base64 & URL Encoder</h1>
-  <p class="subtitle">Encode and decode Base64, URL-encode, and file-to-Base64 conversion</p>
+  <h1>Free Online Base64 Decoder & Encoder</h1>
+  <p class="subtitle">Encode and decode Base64, URL-encode, and file-to-Base64 conversion — all in your browser</p>
+
+  <section style="margin-bottom:24px;line-height:1.7;color:var(--text);font-size:.92rem">
+    <p>Need a fast, reliable <strong>base64 decoder</strong>? Our free tool lets you <strong>decode base64</strong> strings instantly — no downloads, no sign-ups, and no data ever leaves your browser. Whether you're debugging API responses, inspecting JWT tokens, or extracting embedded images, this <strong>online base64 decoder</strong> handles it all with zero friction.</p>
+    <p style="margin-top:12px"><strong>Base64 encoding</strong> is a binary-to-text scheme that represents binary data using 64 ASCII characters (A–Z, a–z, 0–9, +, /). It's everywhere in modern development: email attachments (MIME), data URIs in HTML/CSS, JSON Web Tokens, Kubernetes secrets, and more. Our tool supports full <strong>base64 encode decode</strong> workflows — paste encoded text to decode it, or type plain text to encode it. The <strong>Base64 decoder</strong> handles Unicode text safely, while the encoder ensures your output is ready for any text-based protocol.</p>
+    <p style="margin-top:12px">Beyond Base64, this page also includes a <strong>URL encoder/decoder</strong> (with component-level support) and a <strong>file-to-Base64 converter</strong> that turns any file into a Base64 data URI in one click. Every operation runs client-side in JavaScript, so your sensitive data stays private. Bookmark this <strong>base64 decoder</strong> for your daily dev workflow — it's fast, free, and works entirely offline once loaded.</p>
+  </section>
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('base64')" id="tab-base64">Base64</button>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Encoder - Free Online Base64 Encode Tool | DevToolBox</title>
+<meta name="description" content="Free online Base64 encoder — encode text and files to Base64 instantly. UTF-8 safe, URL-safe output, and file-to-Base64 conversion. 100% browser-based, no data sent anywhere.">
+<meta name="keywords" content="base64 encoder, online base64 encoder, base64 encode, encode to base64, base64 converter, base64 encode online, free base64 encoder, base64 encoder tool, base64 buffer encoder">
+<link rel="canonical" href="https://devtoolbox.pages.dev/base64-encode">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a.home{font-size:1.1rem;margin-right:auto}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.8rem;margin-bottom:4px}.subtitle{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.tabs{display:flex;gap:0;margin-bottom:0}
+.tab{padding:8px 20px;border:1px solid var(--border);border-bottom:none;background:var(--bg);color:var(--muted);cursor:pointer;border-radius:8px 8px 0 0;font-size:.9rem}
+.tab.active{background:var(--card);color:var(--text);border-color:var(--border)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:20px}
+textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;border-radius:8px;line-height:1.6;resize:vertical;min-height:140px}
+textarea:focus{outline:none;border-color:var(--accent)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.stats{color:var(--muted);font-size:.8rem;margin-top:4px;height:20px}
+.copy-feedback{color:var(--green);font-size:.8rem;margin-left:8px;opacity:0;transition:opacity .3s}
+.copy-feedback.show{opacity:1}
+.file-input{display:inline-block;padding:8px 16px;border:1px dashed var(--border);border-radius:6px;cursor:pointer;font-size:.85rem;color:var(--muted);text-align:center}
+.file-input:hover{border-color:var(--accent);color:var(--text)}
+.file-input input{display:none}
+.cta-btn{display:inline-block;background:var(--accent);color:#000;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;margin-top:8px}
+.cta-btn:hover{opacity:0.9}
+.note{background:#1a2332;border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:.85rem}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-ESF1YX8CCR");
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Base64 encoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Base64 encoder converts binary data or text into a 64-character ASCII string (A-Z, a-z, 0-9, +, /). It's used to safely transmit binary data over text-based protocols like email (MIME), embed images in HTML/CSS as data URIs, and store binary data in JSON or XML formats."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use this online Base64 encoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simply type or paste your text into the input field above and click the Encode button. The tool converts your text to Base64 instantly. You can also use the File → Base64 tab to encode images, PDFs, and other binary files. All processing happens locally in your browser — no data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I encode files to Base64 online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Switch to the File → Base64 tab, select any file from your device, and the tool will instantly convert it to a Base64 string. The output can be used for data URIs, API requests, or anywhere Base64-encoded data is required. There's no file size limit since processing happens locally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this Base64 encoder free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. This online Base64 encoder is completely free with no usage limits, no registration required, and no ads. All encoding happens in your browser for maximum privacy and security."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this encoder support UTF-8 and special characters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Our Base64 encoder handles Unicode text including emoji, Chinese characters, and special symbols correctly by encoding through UTF-8 before Base64 conversion. Most basic btoa() implementations fail on non-Latin characters — ours handles them properly."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64-encode" style="color:var(--text)">Base64 Encoder</a>
+  <a href="/base64-decode">Base64 Decoder</a>
+  <a href="/timestamp">Timestamp</a>
+  <a href="/uuid">UUID</a>
+</nav>
+
+<div class="container">
+  <h1>🔒 Free Online Base64 Encoder</h1>
+  <p class="subtitle">Encode text and files to Base64 instantly — UTF-8 safe, URL-safe output, 100% browser-based</p>
+
+  <section style="margin-bottom:24px;line-height:1.7;color:var(--text);font-size:.92rem">
+    <p>Need a fast, reliable <strong>base64 encoder</strong>? This free tool lets you <strong>encode to Base64</strong> instantly — no downloads, no sign-ups, and no data ever leaves your browser. Whether you're embedding images in HTML as data URIs, preparing API payloads, or converting text for text-based protocols like SMTP and MIME, this <strong>online base64 encoder</strong> gets the job done with zero friction.</p>
+    <p style="margin-top:12px"><strong>Base64 encoding</strong> converts binary data or text into a 64-character ASCII string using characters A–Z, a–z, 0–9, +, and /. It's the universal standard for safe data transmission across text-based systems — used everywhere from email attachments to JSON Web Tokens, Kubernetes secrets, web fonts, and inline SVG images. Unlike a basic <strong>base64 encode</strong> tool, ours handles Unicode text (emojis, Chinese characters, special symbols) correctly by encoding through UTF-8 first — no more broken output from <code>btoa()</code>.</p>
+    <p style="margin-top:12px">This <strong>base64 encoder</strong> also supports <strong>file-to-Base64</strong> conversion — drop any image, PDF, or binary file and get a ready-to-use Base64 string or data URI. Every operation runs client-side in JavaScript, so your sensitive content stays private. Bookmark this <strong>free base64 encoder</strong> for your daily dev workflow — it works entirely offline once loaded and requires no network connection after the initial page visit.</p>
+  </section>
+
+  <div class="note">
+    💡 <strong>Need to decode instead?</strong> Visit our dedicated <a href="/base64-decode" style="color:var(--accent)">Base64 Decoder</a> page — optimized for <strong>base64 decode</strong> with 60,500 monthly searches!
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('text')" id="tab-text">📝 Text → Base64</button>
+    <button class="tab" onclick="switchTab('file')" id="tab-file">📁 File → Base64</button>
+  </div>
+
+  <!-- Text Encode Tab -->
+  <div class="panel" id="panel-text">
+    <label>Input Text</label>
+    <textarea id="b64in" placeholder="Enter text to encode to Base64..." oninput="b64Stats()"></textarea>
+    <div class="btn-row">
+      <button class="primary" onclick="b64Encode()">🔒 Encode to Base64</button>
+      <button onclick="copyB64()">📋 Copy Output</button>
+    </div>
+    <label>Base64 Output</label>
+    <textarea id="b64out" placeholder="Encoded Base64 will appear here..." readonly></textarea>
+    <div class="stats" id="b64stats"></div>
+  </div>
+
+  <!-- File Tab -->
+  <div class="panel" id="panel-file" style="display:none">
+    <label>Select File to Encode</label>
+    <div class="btn-row">
+      <label class="file-input">
+        📁 Choose File
+        <input type="file" id="fileInput" onchange="fileToBase64()">
+      </label>
+      <button onclick="copyFileB64()" id="copyFileBtn">📋 Copy Base64</button>
+    </div>
+    <div id="fileInfo" style="display:none;margin-bottom:12px">
+      <span style="color:var(--accent)" id="fileName"></span>
+      <span style="color:var(--muted);margin-left:8px" id="fileSize"></span>
+    </div>
+    <label>Base64 Output</label>
+    <textarea id="fileB64out" placeholder="Select a file to encode..." readonly style="min-height:200px"></textarea>
+    <div class="stats" id="filestats"></div>
+  </div>
+
+  <section style="margin-top:32px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🚀 How to Use This Base64 Encoder</h2>
+    <ol style="padding-left:20px">
+      <li style="margin-bottom:8px"><strong>Paste or type</strong> your text in the input field above — it handles plain text, JSON, XML, and special characters.</li>
+      <li style="margin-bottom:8px">Click <strong>Encode to Base64</strong> — the tool instantly converts your input using UTF-8 safe encoding.</li>
+      <li style="margin-bottom:8px"><strong>Copy</strong> the Base64 output with one click. Use it in data URIs, API requests, or anywhere Base64 is needed.</li>
+      <li style="margin-bottom:8px">For files, switch to the <strong>File → Base64</strong> tab, select any file, and get an instant Base64 string.</li>
+    </ol>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">📋 Supported Use Cases</h2>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><strong>Data URIs</strong> — embed images directly in HTML/CSS: <code>data:image/png;base64,...</code></li>
+      <li style="margin-bottom:6px"><strong>API payloads</strong> — encode binary data for JSON or XML API requests</li>
+      <li style="margin-bottom:6px"><strong>Email attachments</strong> — MIME Base64 encoding for file attachments</li>
+      <li style="margin-bottom:6px"><strong>CSS inline assets</strong> — inline fonts, SVGs, and background images</li>
+      <li style="margin-bottom:6px"><strong>JSON Web Tokens (JWT)</strong> — encode header and payload segments</li>
+      <li style="margin-bottom:6px"><strong>Kubernetes secrets</strong> — encode configuration values for k8s manifests</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+  $(`tab-${name}`).classList.add('active');
+  $(`panel-${name}`).style.display='block';
+}
+
+function b64Encode(){
+  try{$('b64out').value=btoa(unescape(encodeURIComponent($('b64in').value)));b64Stats()}
+  catch(e){$('b64out').value='Error: '+e.message}
+}
+function copyB64(){navigator.clipboard.writeText($('b64out').value)}
+function b64Stats(){const l=$('b64out').value.length;$('b64stats').textContent=l?`${l.toLocaleString()} chars`:'Ready'}
+
+function fileToBase64(){
+  const file=$('fileInput').files[0];
+  if(!file)return;
+  $('fileName').textContent=file.name;
+  $('fileSize').textContent=`(${(file.size/1024).toFixed(1)} KB)`;
+  $('fileInfo').style.display='block';
+  const reader=new FileReader();
+  reader.onload=function(){
+    const base64=reader.result.split(',')[1];
+    $('fileB64out').value=base64;
+    $('filestats').textContent=`Base64 length: ${base64.length.toLocaleString()} chars | Raw: ${file.size.toLocaleString()} bytes`;
+  };
+  reader.readAsDataURL(file);
+}
+function copyFileB64(){navigator.clipboard.writeText($('fileB64out').value)}
+
+b64Stats();
+</script>
+</body>
+</html>

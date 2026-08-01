@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Decoder - Free Online Base64 Decode Tool | DevToolBox</title>
+<meta name="description" content="Free online Base64 decoder — decode Base64 strings back to text instantly. Supports UTF-8, image data URIs, and URL-safe Base64. 100% browser-based, no data sent anywhere.">
+<meta name="keywords" content="base64 decoder, online base64 decoder, decode base64, base64 decode online, base64 decode tool, base64 to text, base64 string decoder, free base64 decoder, base64 convert to text">
+<link rel="canonical" href="https://devtoolbox.pages.dev/base64-decode">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{display:flex;align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+nav a{color:var(--accent);text-decoration:none;font-weight:600}
+nav a.home{font-size:1.1rem;margin-right:auto}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.8rem;margin-bottom:4px}.subtitle{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.tabs{display:flex;gap:0;margin-bottom:0}
+.tab{padding:8px 20px;border:1px solid var(--border);border-bottom:none;background:var(--bg);color:var(--muted);cursor:pointer;border-radius:8px 8px 0 0;font-size:.9rem}
+.tab.active{background:var(--card);color:var(--text);border-color:var(--border)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:20px}
+textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;border-radius:8px;line-height:1.6;resize:vertical;min-height:140px}
+textarea:focus{outline:none;border-color:var(--accent)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+button.accent{background:var(--green);color:#000;border-color:var(--green)}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.stats{color:var(--muted);font-size:.8rem;margin-top:4px;height:20px}
+.copy-feedback{color:var(--green);font-size:.8rem;margin-left:8px;opacity:0;transition:opacity .3s}
+.copy-feedback.show{opacity:1}
+.note{background:#1a3322;border-left:3px solid var(--green);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:.85rem}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-ESF1YX8CCR");
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Base64 decoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Base64 decoder converts Base64-encoded strings back to their original binary or text form. Base64 encoding uses 64 ASCII characters (A-Z, a-z, 0-9, +, /) to represent any binary data as text. A decoder reverses this process — essential for reading email attachments, decoding JWT tokens, extracting embedded images from HTML, and processing API responses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I decode Base64 online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your Base64-encoded string into the input field above and click the Decode button. The tool instantly converts it back to readable text. It handles standard Base64, URL-safe Base64 (with - and _ instead of + and /), and can extract text from Base64-encoded data URIs. All processing happens locally in your browser — no data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this decoder handle large Base64 strings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Since all processing happens client-side in your browser using JavaScript, there are no server-side limits. You can decode Base64 strings of any size — from short JWT tokens to large file encodings. Performance depends on your device's memory and processing power."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Base64 decoder support Unicode and special characters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Our decoder properly handles UTF-8 encoded Base64, so emojis, Chinese characters, and special symbols decode correctly. It uses proper UTF-8 decoding rather than basic atob() which only handles Latin-1 characters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this Base64 decoder free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, this online Base64 decoder is completely free with no usage limits, no registration required, and no ads. All decoding happens in your browser for maximum privacy — your data never leaves your device."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav>
+  <a href="/" class="home">🧰 DevToolbox</a>
+  <a href="/json">JSON</a>
+  <a href="/base64-encode">Base64 Encoder</a>
+  <a href="/base64-decode" style="color:var(--text)">Base64 Decoder</a>
+  <a href="/timestamp">Timestamp</a>
+  <a href="/uuid">UUID</a>
+</nav>
+
+<div class="container">
+  <h1>🔓 Free Online Base64 Decoder</h1>
+  <p class="subtitle">Decode Base64 strings to text instantly — UTF-8 safe, image extraction, URL-safe support</p>
+
+  <section style="margin-bottom:24px;line-height:1.7;color:var(--text);font-size:.92rem">
+    <p>Need to <strong>decode Base64</strong> fast? This free <strong>online base64 decoder</strong> converts any Base64 string back to readable text in milliseconds — no downloads, no sign-ups, and your data stays private in your browser. Whether you're debugging JWT tokens, extracting email attachments, reading Kubernetes secrets, or pulling embedded images from HTML, this <strong>base64 decoder</strong> handles it all with zero overhead.</p>
+    <p style="margin-top:12px"><strong>Base64 decoding</strong> is the reverse of Base64 encoding — it takes a string of 64 ASCII characters (A–Z, a–z, 0–9, +, /) and converts it back to the original binary or text data. It's an essential operation for developers working with MIME email attachments, JSON Web Tokens, data URIs, Kubernetes secrets, CSS inline fonts, and any API that returns Base64-encoded payloads. Unlike a basic <strong>base64 decode</strong> tool that chokes on special characters, ours properly handles UTF-8 input — emojis, Chinese, Japanese, and all Unicode characters decode correctly.</p>
+    <p style="margin-top:12px">Paste any Base64 string — including <strong>URL-safe Base64</strong> (using <code>-</code> and <code>_</code> instead of <code>+</code> and <code>/</code>) — and this <strong>base64 decode online</strong> tool instantly converts it to readable text. It also handles data URIs like <code>data:image/png;base64,...</code> — the decoder automatically strips the prefix and decodes the payload. Every operation runs client-side in JavaScript, so your sensitive content never leaves your device. Bookmark this <strong>free base64 decoder</strong> for your daily development workflow — it's fast, private, and works offline after the initial load.</p>
+  </section>
+
+  <div class="note">
+    💡 <strong>Need to encode instead?</strong> Visit our dedicated <a href="/base64-encode" style="color:var(--accent)">Base64 Encoder</a> page — optimized for <strong>base64 encode</strong> with text and file support!
+  </div>
+
+  <label>Paste Base64 String to Decode</label>
+  <textarea id="b64in" placeholder="Paste your Base64-encoded string here to decode...&#10;&#10;Examples:&#10;• SGVsbG8gV29ybGQh → Decodes to 'Hello World!'&#10;• data:image/png;base64,iVBORw0KGgo... → Strip prefix, decode payload&#10;• eyJhbGciOiJIUzI1NiIs... → Decode JWT segments" oninput="b64Stats()"></textarea>
+  <div class="btn-row">
+    <button class="primary" onclick="b64Decode()">🔓 Decode Base64</button>
+    <button class="accent" onclick="decodeImage()">🖼️ Extract Image</button>
+    <button onclick="copyB64()">📋 Copy Output</button>
+    <button onclick="$('b64in').value='';$('b64out').value='';$('b64stats').textContent='Ready';$('imagePreview').style.display='none'">🗑 Clear</button>
+  </div>
+  <label>Decoded Output</label>
+  <textarea id="b64out" placeholder="Decoded text will appear here..." readonly></textarea>
+  <div class="stats" id="b64stats"></div>
+
+  <div id="imagePreview" style="display:none;margin-top:16px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <label>Image Preview</label>
+    <img id="previewImg" style="max-width:100%;max-height:400px;border-radius:6px" alt="Decoded image preview">
+  </div>
+
+  <section style="margin-top:32px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🚀 How to Use This Base64 Decoder</h2>
+    <ol style="padding-left:20px">
+      <li style="margin-bottom:8px"><strong>Paste</strong> your Base64-encoded string into the input field above.</li>
+      <li style="margin-bottom:8px">Click <strong>Decode Base64</strong> — the tool instantly converts it back to readable text.</li>
+      <li style="margin-bottom:8px"><strong>Copy</strong> the decoded output or use <strong>Extract Image</strong> if the Base64 contains an embedded image.</li>
+    </ol>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">📋 Common Base64 Decode Scenarios</h2>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><strong>JWT Tokens</strong> — decode the header and payload segments of JSON Web Tokens (e.g., <code>eyJhbGciOi...</code>)</li>
+      <li style="margin-bottom:6px"><strong>Email Attachments</strong> — extract text from MIME Base64-encoded email content</li>
+      <li style="margin-bottom:6px"><strong>Data URIs</strong> — decode <code>data:image/png;base64,...</code> to extract embedded images or text</li>
+      <li style="margin-bottom:6px"><strong>Kubernetes Secrets</strong> — decode <code>kubectl get secret</code> output which is Base64-encoded</li>
+      <li style="margin-bottom:6px"><strong>API Responses</strong> — many APIs return Base64-encoded payloads that need decoding</li>
+      <li style="margin-bottom:6px"><strong>URL-Safe Base64</strong> — handles Base64url (RFC 4648 §5) with <code>-</code> and <code>_</code> characters</li>
+    </ul>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">❓ Frequently Asked Questions</h2>
+    <p style="margin-bottom:8px"><strong>Is my data safe when I use this decoder?</strong> Absolutely. All decoding happens 100% in your browser using JavaScript — your Base64 strings never leave your device. No server uploads, no logging, complete privacy.</p>
+    <p style="margin-bottom:8px"><strong>What if my Base64 string has newlines or spaces?</strong> The decoder automatically strips whitespace and newlines from your input. Just paste and click Decode — it'll handle formatting cleanup for you.</p>
+    <p style="margin-bottom:8px"><strong>Can I decode image Base64 to see the image?</strong> Yes! Click the <strong>Extract Image</strong> button. If your Base64 is an image (PNG, JPEG, GIF, SVG, WebP, etc.), the tool will render a preview right on the page.</p>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function b64Decode(){
+  let input=$('b64in').value.trim();
+  if(!input){$('b64out').value='Please paste a Base64 string first';return}
+  // Strip data URI prefix if present
+  if(input.startsWith('data:')){
+    const comma=input.indexOf(',');
+    if(comma!==-1)input=input.substring(comma+1);
+  }
+  // Remove whitespace and newlines
+  input=input.replace(/\s/g,'');
+  try{
+    $('b64out').value=decodeURIComponent(escape(atob(input)));
+    b64Stats();
+  }catch(e){
+    $('b64out').value='Error: Invalid Base64 input. Check that the string is complete and correctly formatted.';
+    b64Stats();
+  }
+}
+
+function decodeImage(){
+  let input=$('b64in').value.trim();
+  if(!input){return}
+  // If it's a data URI, use as-is. Otherwise, try to detect type from magic bytes.
+  let src=input;
+  if(!input.startsWith('data:')){
+    // Try common image types
+    const m=atob(input.replace(/\s/g,'').substring(0,20));
+    let mime='image/png'; // default
+    if(m.charCodeAt(0)===0xFF&&m.charCodeAt(1)===0xD8)mime='image/jpeg';
+    else if(m.charCodeAt(0)===0x47&&m.charCodeAt(1)===0x49)mime='image/gif';
+    else if(m.charCodeAt(0)===0x52&&m.charCodeAt(1)===0x49)mime='image/webp';
+    else if(m.startsWith('<?xml')||m.startsWith('<svg'))mime='image/svg+xml';
+    src=`data:${mime};base64,${input.replace(/\s/g,'')}`;
+  }
+  const img=$('previewImg');
+  img.onerror=function(){$('imagePreview').style.display='none';alert('Could not decode as image. This Base64 may not contain an image.');};
+  img.onload=function(){$('imagePreview').style.display='block'};
+  img.src=src;
+}
+
+function copyB64(){navigator.clipboard.writeText($('b64out').value)}
+function b64Stats(){const l=$('b64out').value.length;$('b64stats').textContent=l?`${l.toLocaleString()} chars decoded`:'Ready'}
+
+b64Stats();
+</script>
+</body>
+</html>

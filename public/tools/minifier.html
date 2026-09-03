@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Minifier Online — Free Online HTML Minifier Tool | DevToolBox</title>
-  <meta name="description" content="Free online HTML Minifier — compress, minify, and beautify your HTML, CSS, and JavaScript code instantly. Supports HTML minification, CSS minification, and JS minification. 100% browser-based, no uploads, no limits.">
-  <meta name="keywords" content="html minifier online, html minifier, online html minifier, html minify, html minification, compress html, minify html, free html minifier">
+  <meta name="description" content="Minify HTML online for free — compress HTML, CSS & JavaScript instantly. Strip comments and whitespace or beautify output. 100% client-side, nothing uploaded.">
+  <meta name="keywords" content="html minifier online, minify html online, html minifier, html minify, minify html, html minification, compress html, online html minifier, html compressor, css minifier, js minifier, free html minifier">
   <meta property="og:title" content="HTML Minifier Online — Free Tool | DevToolBox">
   <meta property="og:description" content="Free online HTML Minifier — compress, minify, and beautify your HTML, CSS, and JS code. Supports HTML minification, CSS minification, and JS minification. 100% client-side, no uploads required.">
   <meta property="og:url" content="https://23232322.xyz/tools/minifier">
@@ -14,18 +14,26 @@
   <meta name="twitter:title" content="HTML Minifier Online — Free Tool | DevToolBox">
   <meta name="twitter:description" content="Free online HTML Minifier — compress, minify, and beautify your HTML, CSS, and JS code. Supports HTML minification, CSS minification, and JS minification. 100% client-side, no uploads required.">
   <link rel="canonical" href="https://23232322.xyz/tools/minifier">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-ESF1YX8CCR");
+  </script>
   <link rel="stylesheet" href="/css/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "HTML Minifier Online",
-    "description": "Free online HTML Minifier — compress, minify, and beautify your HTML, CSS, and JS code. 100% browser-based, no uploads.",
+    "description": "Free HTML minifier online — compress, minify, and beautify HTML, CSS, and JavaScript. Remove comments and whitespace to speed up page loads. 100% browser-based, no uploads.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/minifier",
-    "dateModified": "2026-09-01"
+    "dateModified": "2026-09-03"
   }
   </script>
   <script type="application/ld+json">
@@ -143,6 +151,19 @@
       z-index: 999;
     }
     .toast.show { visibility: visible; opacity: 1; }
+
+    .seo-content { margin-top: 48px; border-top: 1px solid var(--tool-border); padding-top: 26px; line-height: 1.8; }
+    .seo-content h2 { color: var(--tool-text-bright); font-size: 1.5em; margin: 26px 0 12px; }
+    .seo-content h3 { color: var(--tool-accent); font-size: 1.08em; margin: 22px 0 8px; }
+    .seo-content h4 { color: var(--tool-text-bright); font-size: 0.98em; margin: 18px 0 6px; }
+    .seo-content p { color: var(--tool-text); margin: 8px 0; }
+    .seo-content ul, .seo-content ol { padding-left: 24px; color: var(--tool-text); }
+    .seo-content li { margin: 5px 0; }
+    .seo-content code { background: var(--tool-input-bg); padding: 2px 6px; border-radius: 4px; color: var(--tool-accent); font-family: 'Courier New', monospace; font-size: 0.9em; }
+    .seo-content strong { color: var(--tool-text-bright); }
+    .seo-content .related-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .seo-content .related-links a { color: var(--tool-accent); text-decoration: none; border: 1px solid var(--tool-border); padding: 6px 16px; border-radius: 20px; font-size: 0.9em; }
+    .seo-content .related-links a:hover { border-color: var(--tool-accent); background: var(--tool-accent-dim); }
   </style>
   <script type="application/ld+json">
 {
@@ -151,18 +172,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is CSS/JS Minifier free to use?",
+      "name": "Is this HTML minifier really free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, CSS/JS Minifier is completely free to use. No sign-up required, no usage limits."
+        "text": "Yes — completely free, with no sign-up, no usage limits, and no watermarks. Minify as much HTML, CSS, or JavaScript as you like, right in your browser."
       }
     },
     {
       "@type": "Question",
-      "name": "Does CSS/JS Minifier require an internet connection?",
+      "name": "Is my HTML code uploaded to a server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
+        "text": "No. The HTML minifier runs 100% client-side in your browser. Your code never leaves your device, making it safe for proprietary templates and snippets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I minify CSS and JavaScript with this tool too?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Switch between the HTML, CSS, and JS tabs. Every mode uses syntax-aware compression so strings, regex literals, and template content stay intact."
       }
     }
   ]
@@ -173,10 +202,11 @@
 
 <div class="tool-container">
   <h1>HTML Minifier Online</h1>
-  <p class="subtitle">Compress (minify) or beautify (format) your HTML, CSS, and JavaScript code. All processing happens in your browser — nothing is uploaded.</p>
+  <p class="subtitle">Minify HTML, CSS &amp; JavaScript online — or beautify minified code back into readable formatting. Pick a tab, paste your code, hit Compress. 100% client-side — your code never leaves your browser.</p>
 
   <div class="mode-tabs">
-    <div class="mode-tab active" data-mode="css" onclick="setMode('css')">CSS</div>
+    <div class="mode-tab active" data-mode="html" onclick="setMode('html')">HTML</div>
+    <div class="mode-tab" data-mode="css" onclick="setMode('css')">CSS</div>
     <div class="mode-tab" data-mode="js" onclick="setMode('js')">JS</div>
   </div>
 
@@ -193,7 +223,7 @@
         <span>Input</span>
         <span class="count" id="inputCount">0 chars</span>
       </div>
-      <textarea id="inputArea" placeholder="Paste your CSS or JavaScript code here..." spellcheck="false"></textarea>
+      <textarea id="inputArea" placeholder="Paste your HTML code here..." spellcheck="false"></textarea>
     </div>
     <div class="editor-pane">
       <div class="pane-label">
@@ -204,22 +234,68 @@
     </div>
   </div>
 
+  <div class="seo-content">
+    <h2>Minify HTML Online in Seconds</h2>
+    <p>Every extra kilobyte of HTML, CSS, or JavaScript slows your page down and costs your visitors bandwidth. This <strong>free HTML minifier online</strong> strips the parts browsers simply don't need — comments, indentation, and redundant whitespace — and hands you compact, production-ready code you can paste straight into your deployment pipeline.</p>
+
+    <h3>How to Minify HTML Online</h3>
+    <ol>
+      <li><strong>Pick the HTML tab</strong> above (or CSS / JS for those formats).</li>
+      <li><strong>Paste your code</strong> into the input box — from a view-source copy, a template file, or your editor.</li>
+      <li><strong>Hit Compress</strong>, then Copy Output. The minified code is ready to deploy.</li>
+    </ol>
+
+    <h3>What This Tool Compresses</h3>
+    <ul>
+      <li><strong>HTML comments</strong> — <code>&lt;!-- ... --&gt;</code> blocks are removed unless they are IE conditional comments.</li>
+      <li><strong>Whitespace between tags</strong> — indentation and blank lines collapse away. Spaces that matter between inline elements are kept, so words never run together.</li>
+      <li><strong>CSS &amp; JavaScript</strong> — the same page minifies stylesheets and scripts with comment removal and token-aware JS compression.</li>
+    </ul>
+    <p>Content inside <code>&lt;pre&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;script&gt;</code>, and <code>&lt;style&gt;</code> is preserved byte-for-byte, so your rendered layout and embedded logic never break.</p>
+
+    <h3>Why Minify HTML?</h3>
+    <ul>
+      <li><strong>Faster page loads</strong> — a smaller HTML document means a quicker First Contentful Paint and a better Core Web Vitals score.</li>
+      <li><strong>Lower bandwidth</strong> — every visitor downloads less, which matters even more on mobile data plans.</li>
+      <li><strong>Cleaner deployments</strong> — hand-written templates ship minified to production while you keep a readable source copy.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <h4>Is this HTML minifier really free?</h4>
+    <p>Yes — completely free, with no sign-up, no usage limits, and no watermarks. Minify as much HTML, CSS, or JavaScript as you like.</p>
+    <h4>Is my HTML code uploaded to a server?</h4>
+    <p>No. The minifier runs 100% in your browser. Your code is never sent over the network, which makes it safe to use on proprietary templates and snippets.</p>
+    <h4>Can I minify HTML and CSS/JS with the same tool?</h4>
+    <p>Yes — switch between the HTML, CSS, and JS tabs above. Each mode uses syntax-aware compression so strings, regexes, and template literals stay intact.</p>
+
+    <div class="related-links">
+      <a href="/tools/json-formatter-online">JSON Formatter</a>
+      <a href="/tools/html-entity-encoder-decoder">HTML Entity Encoder/Decoder</a>
+      <a href="/tools/diff-checker">Diff Checker</a>
+      <a href="/tools/markdown-preview">Markdown Preview</a>
+      <a href="/tools/uuid-generator">UUID Generator</a>
+    </div>
+  </div>
+
   <a href="/tools/" class="back-link">&larr; Back to All Tools</a>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-let currentMode = 'css';
+let currentMode = 'html';
 
 function setMode(mode) {
   currentMode = mode;
   document.querySelectorAll('.mode-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.mode === mode);
   });
-  document.getElementById('inputArea').placeholder = mode === 'css'
-    ? 'Paste your CSS code here...'
-    : 'Paste your JavaScript code here...';
+  const ph = {
+    html: 'Paste your HTML code here...',
+    css: 'Paste your CSS code here...',
+    js: 'Paste your JavaScript code here...'
+  };
+  document.getElementById('inputArea').placeholder = ph[mode] || ph.html;
 }
 
 // --- Live char count ---
@@ -243,7 +319,9 @@ function minify() {
   if (!input.trim()) { showToast('Nothing to compress'); return; }
 
   let output;
-  if (currentMode === 'css') {
+  if (currentMode === 'html') {
+    output = minifyHTML(input);
+  } else if (currentMode === 'css') {
     output = minifyCSS(input);
   } else {
     output = minifyJS(input);
@@ -252,6 +330,176 @@ function minify() {
   document.getElementById('outputArea').value = output;
   document.getElementById('outputCount').textContent = output.length + ' chars';
   showToast('Compressed successfully');
+}
+
+function tokenizeHTML(s) {
+  const toks = [];
+  let i = 0;
+  const n = s.length;
+  while (i < n) {
+    const c = s[i];
+    if (c === '<') {
+      if (s.startsWith('<!--', i)) {
+        const e = s.indexOf('-->', i + 4);
+        if (e === -1) { toks.push({ t: 'text', v: s.slice(i) }); break; }
+        toks.push({ t: 'comment', v: s.slice(i, e + 3) });
+        i = e + 3;
+        continue;
+      }
+      let j = i + 1;
+      let q = '';
+      let closed = false;
+      for (; j < n; j++) {
+        const ch = s[j];
+        if (q) { if (ch === q) q = ''; }
+        else if (ch === '"' || ch === "'") q = ch;
+        else if (ch === '>') { closed = true; break; }
+      }
+      if (!closed) { toks.push({ t: 'text', v: s.slice(i) }); break; }
+      toks.push({ t: 'tag', v: s.slice(i, j + 1) });
+      i = j + 1;
+      continue;
+    }
+    const e = s.indexOf('<', i);
+    toks.push({ t: 'text', v: e === -1 ? s.slice(i) : s.slice(i, e) });
+    i = e === -1 ? n : e;
+  }
+  return toks;
+}
+
+function prevToken(toks, i) { for (let j = i - 1; j >= 0; j--) if (toks[j].t !== 'comment') return toks[j]; return null; }
+function nextToken(toks, i) { for (let j = i + 1; j < toks.length; j++) if (toks[j].t !== 'comment') return toks[j]; return null; }
+
+function tagNameOf(tag) {
+  const m = tag.match(/^<\/?\s*([a-zA-Z][a-zA-Z0-9]*)/);
+  return m ? m[1].toLowerCase() : null;
+}
+function isInlineTag(tag) {
+  const n = tagNameOf(tag);
+  return !!n && INLINE_TAGS.has(n);
+}
+const INLINE_TAGS = new Set(['a','abbr','acronym','b','bdi','bdo','big','br','button','canvas','cite','code','data','del','dfn','em','embed','font','i','iframe','img','input','ins','kbd','label','map','mark','meter','noscript','object','output','picture','progress','q','rp','rt','ruby','s','samp','select','slot','small','span','strong','sub','sup','svg','template','textarea','time','tt','u','var','video','wbr']);
+const VOID_TAGS = new Set(['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr']);
+
+function protectBlocks(html, keep) {
+  return html.replace(/<(pre|textarea|script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, function (m) {
+    keep.push(m);
+    return '\u0000K' + (keep.length - 1) + '\u0000';
+  });
+}
+function restoreBlocks(out, keep) {
+  return out.replace(/\u0000K(\d+)\u0000/g, function (m, n) { return keep[+n]; });
+}
+
+function minifyHTML(html) {
+  // Protect pre/textarea/script/style so their contents stay byte-identical
+  const keep = [];
+  html = protectBlocks(html, keep);
+  const toks = tokenizeHTML(html);
+  let out = '';
+  for (let i = 0; i < toks.length; i++) {
+    const tk = toks[i];
+    if (tk.t === 'comment') {
+      // keep IE conditional comments only
+      if (/^<!--\[if/i.test(tk.v)) out += tk.v;
+      continue;
+    }
+    if (tk.t === 'tag') {
+      out += tk.v;
+      continue;
+    }
+    // text token: collapse whitespace, drop insignificant whitespace
+    const prev = prevToken(toks, i);
+    const next = nextToken(toks, i);
+    const collapsed = tk.v.replace(/\s+/g, ' ');
+    const trimmed = collapsed.trim();
+    if (!trimmed) {
+      // pure whitespace between two inline tags still renders as one space
+      if (prev && prev.t === 'tag' && next && next.t === 'tag' &&
+          isInlineTag(prev.v) && isInlineTag(next.v)) out += ' ';
+      continue;
+    }
+    let text = trimmed;
+    // leading/trailing spaces adjacent to inline tags are rendered — keep one
+    if (/^\s/.test(collapsed) && prev && prev.t === 'tag' && isInlineTag(prev.v)) text = ' ' + text;
+    if (/\s$/.test(collapsed) && next && next.t === 'tag' && isInlineTag(next.v)) text = text + ' ';
+    out += text;
+  }
+  return restoreBlocks(out, keep);
+}
+
+function beautifyHTML(html) {
+  const keep = [];
+  html = protectBlocks(html, keep);
+  const toks = tokenizeHTML(html);
+  let out = '';
+  let indent = 0;
+  const writeIndent = function () {
+    if (!out || out.endsWith('\n')) out += '  '.repeat(Math.max(0, indent));
+  };
+  const writeLine = function (s) {
+    if (out && !out.endsWith('\n')) out += '\n';
+    out += '  '.repeat(Math.max(0, indent)) + s;
+  };
+  // 行首标签与闭合标签配对时可直接同行闭合（<p>x</p>、<li>one</li>）
+  const canCloseOnLine = function (closeName) {
+    if (!out || out.endsWith('\n')) return false;
+    const li = out.lastIndexOf('\n');
+    const line = (li < 0 ? out : out.slice(li + 1)).replace(/^\s+/, '');
+    const re = /<(?!\/)\s*([a-zA-Z][a-zA-Z0-9]*)/g;
+    let m, cnt = 0, first = '';
+    while ((m = re.exec(line))) {
+      const nm = m[1].toLowerCase();
+      if (!INLINE_TAGS.has(nm) && !VOID_TAGS.has(nm)) { cnt++; if (!first) first = nm; }
+    }
+    return cnt === 1 && first === closeName;
+  };
+  for (let i = 0; i < toks.length; i++) {
+    const tk = toks[i];
+    if (tk.t === 'comment') { writeLine(tk.v); continue; }
+    if (tk.t === 'text') {
+      let v = tk.v.replace(/[ \t\r\n]+/g, ' ');
+      if (!out || out.endsWith('\n')) v = v.replace(/^ /, '');
+      const next = nextToken(toks, i);
+      if (!(next && next.t === 'tag' && isInlineTag(next.v))) v = v.replace(/ $/, '');
+      if (v) {
+        const prev = prevToken(toks, i);
+        // 文本紧跟开标签：撤销块级开标签后的换行，让文本与标签同行
+        if (prev && prev.t === 'tag' && !/^<\//.test(prev.v)) out = out.replace(/\n\s*$/, '');
+        writeIndent();
+        out += v;
+      }
+      continue;
+    }
+    if (/^\u0000K\d+\u0000$/.test(tk.v)) {
+      if (out && !out.endsWith('\n')) out += '\n';
+      writeIndent();
+      out += tk.v;
+      continue;
+    }
+    const isClose = /^<\//.test(tk.v);
+    const name = tagNameOf(tk.v);
+    const isVoid = name && VOID_TAGS.has(name);
+    const isInline = name && INLINE_TAGS.has(name);
+    if (isClose) {
+      if (!isInline) {
+        indent = Math.max(0, indent - 1);
+        if (canCloseOnLine(name)) out += tk.v;
+        else writeLine(tk.v);
+      } else {
+        out += tk.v;
+      }
+    } else if (!isVoid && !isInline) {
+      writeLine(tk.v);
+      indent++;
+      out += '\n';
+    } else {
+      writeIndent();
+      out += tk.v;
+    }
+  }
+  out = restoreBlocks(out, keep);
+  return out.trim() + '\n';
 }
 
 function minifyCSS(css) {
@@ -373,7 +621,9 @@ function beautify() {
   if (!input.trim()) { showToast('Nothing to beautify'); return; }
 
   let output;
-  if (currentMode === 'css') {
+  if (currentMode === 'html') {
+    output = beautifyHTML(input);
+  } else if (currentMode === 'css') {
     output = beautifyCSS(input);
   } else {
     output = beautifyJS(input);

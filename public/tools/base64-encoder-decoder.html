@@ -101,6 +101,20 @@ gtag("config", "G-ESF1YX8CCR");
 <li>100% client-side — works offline after first load</li>
 <li>Copy output with one click</li>
 </ul></section>
+<section class="about-section"><h2>📖 Base64 Encoding &amp; Decoding Explained</h2>
+<p>Base64 is a binary-to-text encoding that represents arbitrary bytes with 64 printable ASCII characters (A–Z, a–z, 0–9, <code>+</code>, <code>/</code>). It exists because many protocols — MIME email, HTTP headers, JSON, XML, data URIs — can only carry text. Encoding inflates the payload by roughly 33%, which is the trade-off for safe transport.</p>
+<p>In practice you meet Base64 in JWT segments, Kubernetes secrets (<code>kubectl get secret</code>), inline CSS fonts, embedded images written as <code>data:image/png;base64,...</code>, and API responses that ship binary payloads as strings. URL-safe Base64 (RFC 4648 §5) swaps <code>+</code> and <code>/</code> for <code>-</code> and <code>_</code> so the output survives a query string or a filename.</p>
+<p>Both directions of this conversion run entirely in your browser — nothing is uploaded, so you can paste credentials, tokens, or customer data without them leaving your machine.</p>
+<h3>Dedicated encoder and decoder pages</h3>
+<p>Prefer a single-purpose tool? Use the <a href="/base64-encode">Base64 Encoder</a> to convert text or files to Base64, or the <a href="/base64-decode">Base64 Decoder</a> to turn a Base64 string back into readable text and extract embedded images.</p>
+</section>
+<section class="about-section"><h2>🔗 Related Tools</h2><ul>
+<li><a href="/base64-encode">Base64 Encoder</a> — text and file to Base64, URL-safe output</li>
+<li><a href="/base64-decode">Base64 Decoder</a> — Base64 to text, data URI and image extraction</li>
+<li><a href="/tools/url-encoder-decoder">URL Encoder / Decoder</a> — percent-encoding for URLs and query strings</li>
+<li><a href="/tools/jwt-decoder">JWT Decoder</a> — decode the Base64url segments of a JSON Web Token</li>
+<li><a href="/tools/html-entity-encoder-decoder">HTML Entity Encoder / Decoder</a> — escape and unescape HTML entities</li>
+</ul></section>
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>
 </body>

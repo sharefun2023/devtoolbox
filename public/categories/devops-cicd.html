@@ -28,6 +28,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I work out how many hosts a subnet holds?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the CIDR block, for example 10.0.0.0/24, into the CIDR calculator. It returns the network address, the broadcast address, the subnet mask and the usable host range for both IPv4 and IPv6 notation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why bother verifying a checksum?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A matching hash is evidence that the artifact you downloaded is byte-for-byte the one that was published. It catches truncated downloads and tampered mirrors — cheap to check, expensive to skip."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a JWT issued by a CI pipeline different from a normal JWT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, it is the same format. OIDC-based CI integrations issue short-lived JWTs so a pipeline can assume a cloud role without storing a long-lived secret key. The debugger shows you the claims, the issuer and the expiry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I decode a Kubernetes Secret without a cluster?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Kubernetes stores Secret values as Base64, so decoding the value in a Base64 tool gives you the plaintext — no kubectl and no cluster access required. Treat the result as secret material."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header>
@@ -38,7 +78,7 @@ gtag("config", "G-ESF1YX8CCR");
 </header>
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/">Categories</a><span class="sep">›</span>DevOps & CI/CD</div>
-<h2 class="section-title"><span class="dot cyan"></span> DevOps & CI/CD Tools</h2>
+<h1 class="section-title" style="margin-top:0"><span class="dot cyan"></span> DevOps & CI/CD Tools</h1>
 <p style="color:var(--text-dim);margin-bottom:24px;">CI/CD pipelines, container orchestration, infrastructure as code, monitoring, and deployment tools — ship faster with confidence.</p>
 
 <div class="grid grid-2">
@@ -58,6 +98,29 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="https://coolify.io/" target="_blank" rel="nofollow" class="card"><div class="card-title">🆒 Coolify</div><div class="card-desc">Self-hosted Heroku/Netlify alternative. Deploy apps, databases, and services on your own servers with one click.</div><div class="card-meta"><span class="tag free">Free</span><span class="tag open-source">Open Source</span></div></a>
   <a href="https://www.portainer.io/" target="_blank" rel="nofollow" class="card"><div class="card-title">🐳 Portainer</div><div class="card-desc">Easy container management GUI for Docker, Kubernetes, and Swarm. Deploy and manage stacks visually.</div><div class="card-meta"><span class="tag free">Free</span><span class="tag open-source">Open Source</span></div></a>
 </div>
+
+<!-- devtoolbox-expanded -->
+<section class="about-section"><h2>💡 About DevOps & CI/CD Tools</h2>
+<p>DevOps is the category where small mistakes get expensive: a wrong subnet mask in a VPC, a checksum that does not match the release artifact, a base64 blob in a Kubernetes secret you cannot read. The platforms above are the infrastructure layer — containers, orchestration, pipelines and monitoring.</p>
+<p>The DevToolBox utilities below cover the arithmetic and the decoding that surrounds all of it. They run entirely offline in the browser, which matters more here than anywhere else: the thing you are usually debugging is the network.</p>
+</section>
+<section class="about-section"><h2>🧰 Free DevToolBox Tools</h2>
+<p>Client-side and free — nothing you paste leaves your browser:</p><ul>
+<li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — Plan VPC and subnet ranges; returns network, broadcast, mask and usable host range for IPv4 and IPv6.</li>
+<li><a href="/tools/hash-generator">Hash Generator</a> — Verify release artifacts with MD5, SHA-1, SHA-256, SHA-512, CRC32 and HMAC.</li>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — Decode Kubernetes secrets, Docker config files and CI variables.</li>
+<li><a href="/tools/jwt-debugger">JWT Debugger</a> — Inspect the short-lived tokens your CI provider issues for OIDC cloud deployments.</li>
+<li><a href="/tools/json-formatter-online">JSON Formatter</a> — Read pipeline definitions and Terraform state output.</li>
+<li><a href="/tools/diff-checker">Diff Checker</a> — Compare two versions of a CI config to find the change that broke the build.</li>
+<li><a href="/tools/timestamp-converter">Timestamp Converter</a> — Decode the epoch timestamps in logs and monitoring output.</li>
+<li><a href="/tools/uuid-generator">UUID Generator</a> — Generate identifiers for resource naming in test environments.</li>
+</ul></section>
+<section class="about-section"><h2>❓ Frequently Asked Questions</h2>
+<h3>How do I work out how many hosts a subnet holds?</h3><p>Enter the CIDR block, for example 10.0.0.0/24, into the CIDR calculator. It returns the network address, the broadcast address, the subnet mask and the usable host range for both IPv4 and IPv6 notation.</p>
+<h3>Why bother verifying a checksum?</h3><p>A matching hash is evidence that the artifact you downloaded is byte-for-byte the one that was published. It catches truncated downloads and tampered mirrors — cheap to check, expensive to skip.</p>
+<h3>Is a JWT issued by a CI pipeline different from a normal JWT?</h3><p>No, it is the same format. OIDC-based CI integrations issue short-lived JWTs so a pipeline can assume a cloud role without storing a long-lived secret key. The debugger shows you the claims, the issuer and the expiry.</p>
+<h3>Can I decode a Kubernetes Secret without a cluster?</h3><p>Yes. Kubernetes stores Secret values as Base64, so decoding the value in a Base64 tool gives you the plaintext — no kubectl and no cluster access required. Treat the result as secret material.</p>
+</section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

@@ -28,6 +28,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these tools really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — all of them, with no usage limit and no sign-up. The site is a static deployment and every tool is a self-contained page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does anything get uploaded to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Each tool is plain JavaScript running in the page. You can confirm it in your browser's network tab: after the page loads there are no outbound requests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use these tools offline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once a page has loaded you can keep working if the connection drops, because nothing else is fetched. Reloading naturally requires a connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which tool should I reach for first when debugging?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with the Diff Checker to see what changed, then the JSON or SQL formatter to make the data readable, and the encoding tools when a value arrives in a form you do not recognise."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header>
@@ -42,7 +82,7 @@ gtag("config", "G-ESF1YX8CCR");
 </header>
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/">Categories</a><span class="sep">›</span>Dev Tools</div>
-<h2 class="section-title"><span class="dot cyan"></span> Dev Tools</h2>
+<h1 class="section-title" style="margin-top:0"><span class="dot cyan"></span> Dev Tools</h1>
 <p style="color:var(--text-dim);margin-bottom:24px;">Everyday utilities for developers — subnet calculators, timestamp converters, UUID generators, and more. All free, all in your browser.</p>
 
 <div class="grid grid-2">
@@ -59,6 +99,33 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="/tools/url-encoder-decoder" class="card"><div class="card-title">🔗 URL Encoder/Decoder</div><div class="card-desc">Encode and decode URL-unsafe characters. Supports full RFC 3986 encoding for query strings and form data.</div><div class="card-meta"><span class="tag free">Free</span></div></a>
   <a href="/tools/html-entity-encoder-decoder" class="card"><div class="card-title">🏷️ HTML Entity Encoder</div><div class="card-desc">Convert special characters to HTML entities and back. Essential for escaping user input in web applications.</div><div class="card-meta"><span class="tag free">Free</span></div></a>
 </div>
+
+<!-- devtoolbox-expanded -->
+<section class="about-section"><h2>💡 About Dev Tools</h2>
+<p>This is the grab-bag category: the utilities that belong to no framework and no platform, but turn up in the middle of a debugging session. Subnet arithmetic, timestamp conversion, identifier generation — small jobs that are tedious by hand and not worth installing anything for.</p>
+<p>Every utility in this category runs entirely in your browser. Nothing is uploaded, nothing is stored and there is no sign-up. Once a page has loaded it keeps working even if your connection drops.</p>
+</section>
+<section class="about-section"><h2>🧰 Free DevToolBox Tools</h2>
+<p>Client-side and free — nothing you paste leaves your browser:</p><ul>
+<li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — IPv4 and IPv6 subnet maths: network, broadcast, mask and usable range.</li>
+<li><a href="/tools/timestamp-converter">Timestamp Converter</a> — Convert Unix seconds or milliseconds to a readable date, in any timezone.</li>
+<li><a href="/tools/uuid-generator">UUID Generator</a> — Generate v1, v4 and v7 identifiers individually or in bulk.</li>
+<li><a href="/tools/json-formatter-online">JSON Formatter</a> — Format, validate and tree-view JSON with clear error positions.</li>
+<li><a href="/tools/sql-formatter-online">SQL Formatter Online</a> — Beautify SQL across 15+ dialects, or minify it for production.</li>
+<li><a href="/tools/regex-tester">Regex Tester</a> — Test a regular expression with live highlighting and match groups.</li>
+<li><a href="/tools/jwt-debugger">JWT Debugger</a> — Decode and verify JWT tokens without sending them anywhere.</li>
+<li><a href="/tools/diff-checker">Diff Checker</a> — Compare text, code or JSON side by side.</li>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — Encode and decode Base64 strings and files, URL-safe included.</li>
+<li><a href="/tools/url-encoder-decoder">URL Encoder/Decoder</a> — Encode and decode URL-unsafe characters per RFC 3986.</li>
+<li><a href="/tools/html-entity-encoder-decoder">HTML Entity Encoder</a> — Convert special characters to HTML entities and back.</li>
+<li><a href="/tools/hash-generator">Hash Generator</a> — MD5, SHA-1/256/512, CRC32 and HMAC digests in one page.</li>
+</ul></section>
+<section class="about-section"><h2>❓ Frequently Asked Questions</h2>
+<h3>Are these tools really free?</h3><p>Yes — all of them, with no usage limit and no sign-up. The site is a static deployment and every tool is a self-contained page.</p>
+<h3>Does anything get uploaded to a server?</h3><p>No. Each tool is plain JavaScript running in the page. You can confirm it in your browser's network tab: after the page loads there are no outbound requests.</p>
+<h3>Can I use these tools offline?</h3><p>Once a page has loaded you can keep working if the connection drops, because nothing else is fetched. Reloading naturally requires a connection.</p>
+<h3>Which tool should I reach for first when debugging?</h3><p>Start with the Diff Checker to see what changed, then the JSON or SQL formatter to make the data readable, and the encoding tools when a value arrives in a form you do not recognise.</p>
+</section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

@@ -28,6 +28,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I format code in the browser or in my editor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a single snippet, or a file you received, the browser is quicker — no plugins and no configuration. For anything inside your own repository, use the editor's formatter so the project's shared style rules win."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why use a regex tester when my language already supports regex?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because every engine differs. A tester shows you exactly which groups matched and where, which is far faster than adding print statements only to discover your pattern was greedy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does minifying HTML break anything?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can, if you strip whitespace that carries meaning. DevToolBox's HTML minifier leaves pre, textarea, script and style content intact and collapses only the whitespace between tags."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I compare two large files in the browser?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The diff tools process the text locally, so file size is limited by your machine's memory rather than by an upload limit."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header>
@@ -42,7 +82,7 @@ gtag("config", "G-ESF1YX8CCR");
 </header>
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/">Categories</a><span class="sep">›</span>Code & IDE</div>
-<h2 class="section-title"><span class="dot cyan"></span> Code & IDE Tools</h2>
+<h1 class="section-title" style="margin-top:0"><span class="dot cyan"></span> Code & IDE Tools</h1>
 <p style="color:var(--text-dim);margin-bottom:24px;">Everything you need to write better code — formatters, diff checkers, regex testers, and more. All free, all in your browser.</p>
 
 <div class="grid grid-2">
@@ -62,6 +102,31 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="https://stackblitz.com/" target="_blank" rel="nofollow" class="card"><div class="card-title">⚡ StackBlitz</div><div class="card-desc">Instant full-stack web IDE powered by WebContainers. Runs Node.js natively in the browser — no remote VMs.</div><div class="card-meta"><span class="tag free">Free</span></div></a>
   <a href="https://devtoys.app/" target="_blank" rel="nofollow" class="card"><div class="card-title">🧰 DevToys</div><div class="card-desc">Swiss Army knife for developers — JSON/YAML converter, JWT debugger, hash generator, regex tester, and 30+ utilities.</div><div class="card-meta"><span class="tag free">Free</span><span class="tag open-source">Open Source</span></div></a>
 </div>
+
+<!-- devtoolbox-expanded -->
+<section class="about-section"><h2>💡 About Code & IDE Tools</h2>
+<p>Code and IDE tooling covers the small, constant chores of writing software: formatting a snippet, comparing two versions of a file, testing a pattern before it reaches production, and shrinking an asset before it ships. None of these need a plugin or a build pipeline.</p>
+<p>The browser utilities below are the half of that workflow that works best without an editor. They are useful precisely when you do not want to open one — reviewing a snippet in a pull request, checking a regular expression, or comparing a config file somebody just pasted into chat.</p>
+</section>
+<section class="about-section"><h2>🧰 Free DevToolBox Tools</h2>
+<p>Client-side and free — nothing you paste leaves your browser:</p><ul>
+<li><a href="/tools/diff-checker">Diff Checker</a> — Compare two files or snippets side by side, with moved-line detection.</li>
+<li><a href="/tools/text-diff">Text Diff</a> — Fast plain-text comparison for logs, config files and dumps.</li>
+<li><a href="/tools/regex-tester">Regex Tester</a> — Test a pattern against sample input with the match groups highlighted.</li>
+<li><a href="/online-regex-tester">Online Regex Tester</a> — The full regex workbench, with a pattern explainer, cheat sheet and common examples.</li>
+<li><a href="/tools/json-formatter-online">JSON Formatter</a> — Beautify, validate and tree-view JSON documents.</li>
+<li><a href="/tools/sql-formatter-online">SQL Formatter Online</a> — Reformat SQL in 15+ dialects before it goes into your code.</li>
+<li><a href="/tools/minifier">HTML Minifier</a> — Minify or pretty-print HTML while protecting pre, script and style content.</li>
+<li><a href="/tools/markdown-preview">Markdown Preview</a> — Render Markdown to check how a README or doc page will look.</li>
+<li><a href="/tools/uuid-generator">UUID Generator</a> — Generate v1, v4 and v7 identifiers for fixtures and test data.</li>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — Decode encoded values in config files and source snippets.</li>
+</ul></section>
+<section class="about-section"><h2>❓ Frequently Asked Questions</h2>
+<h3>Should I format code in the browser or in my editor?</h3><p>For a single snippet, or a file you received, the browser is quicker — no plugins and no configuration. For anything inside your own repository, use the editor's formatter so the project's shared style rules win.</p>
+<h3>Why use a regex tester when my language already supports regex?</h3><p>Because every engine differs. A tester shows you exactly which groups matched and where, which is far faster than adding print statements only to discover your pattern was greedy.</p>
+<h3>Does minifying HTML break anything?</h3><p>It can, if you strip whitespace that carries meaning. DevToolBox's HTML minifier leaves pre, textarea, script and style content intact and collapses only the whitespace between tags.</p>
+<h3>Can I compare two large files in the browser?</h3><p>Yes. The diff tools process the text locally, so file size is limited by your machine's memory rather than by an upload limit.</p>
+</section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

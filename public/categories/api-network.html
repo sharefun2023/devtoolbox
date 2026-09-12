@@ -28,6 +28,38 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need an account to debug an API?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every DevToolBox utility runs in the browser with no sign-up and no usage limit. Some of the external applications listed above have optional paid tiers; their free tiers are enough for everyday debugging."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to paste a production payload into a browser tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With DevToolBox, yes — the encoding, decoding, hashing and JWT tools are pure client-side JavaScript, so nothing is uploaded. You can confirm it yourself by watching the network tab while the tool runs. That said, treat live production secrets as sensitive and avoid pasting them into any tool whose behaviour you haven't checked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between an HTTP client and a mock server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An HTTP client sends real requests to a real endpoint (Postman, curl, HTTPie). A mock server (Mockoon, Beeceptor) stands in for an endpoint that does not exist yet, so you can build and test the frontend before the backend is ready."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header>
@@ -38,7 +70,7 @@ gtag("config", "G-ESF1YX8CCR");
 </header>
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/">Categories</a><span class="sep">›</span>API & Network</div>
-<h2 class="section-title"><span class="dot cyan"></span> API & Network Tools</h2>
+<h1 class="section-title" style="margin-top:0"><span class="dot cyan"></span> API & Network Tools</h1>
 <p style="color:var(--text-dim);margin-bottom:24px;">HTTP clients, API testers, WebSocket debuggers, and network utilities — test and debug your APIs without leaving the browser.</p>
 
 <div class="grid grid-2">
@@ -58,6 +90,27 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="https://jsonplaceholder.typicode.com/" target="_blank" rel="nofollow" class="card"><div class="card-title">📦 JSONPlaceholder</div><div class="card-desc">Free fake REST API for testing and prototyping. Ready-to-use endpoints for posts, users, comments, and more.</div><div class="card-meta"><span class="tag free">Free</span><span class="tag open-source">Open Source</span></div></a>
   <a href="https://requestbin.com/" target="_blank" rel="nofollow" class="card"><div class="card-title">📬 RequestBin</div><div class="card-desc">Inspect HTTP requests and webhooks in real time. Create a URL endpoint and see exactly what's being sent.</div><div class="card-meta"><span class="tag free">Free</span><span class="tag paid">Pro</span></div></a>
 </div>
+
+<!-- devtoolbox-expanded -->
+<section class="about-section"><h2>💡 About API & Network Tools</h2>
+<p>This category is about the moment something has to talk to something else: sending a request, inspecting the response, and decoding whatever comes back. The listings above are full desktop or hosted applications and they earn their place — but they are also heavy. Opening Postman to read one header is like taking a bus to the corner shop.</p>
+<p>Most API debugging is really decoding. A body arrives Base64-encoded, a query string is percent-encoded, an Authorization header carries a JWT. The DevToolBox utilities below do exactly that job, and they run entirely in your browser — so you can paste a production payload without uploading it anywhere.</p>
+</section>
+<section class="about-section"><h2>🧰 Free DevToolBox Tools</h2>
+<p>Client-side and free — nothing you paste leaves your browser:</p><ul>
+<li><a href="/tools/url-encoder-decoder">URL Encoder/Decoder</a> — Percent-encode query strings, path segments and form values correctly, per RFC 3986.</li>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — Decode Base64 request and response bodies, including the URL-safe variant.</li>
+<li><a href="/tools/jwt-debugger">JWT Debugger</a> — Inspect JWT headers and claims, and verify HS, RS and ES signatures locally.</li>
+<li><a href="/tools/json-formatter-online">JSON Formatter</a> — Beautify, validate and tree-view the JSON your API returned.</li>
+<li><a href="/tools/hash-generator">Hash Generator</a> — Compute MD5, SHA-1, SHA-256 and CRC32 checksums to verify a payload.</li>
+<li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — Work out which addresses an allow-list range actually covers, IPv4 or IPv6.</li>
+<li><a href="/tools/diff-checker">Diff Checker</a> — Compare two response bodies and see exactly what changed between calls.</li>
+</ul></section>
+<section class="about-section"><h2>❓ Frequently Asked Questions</h2>
+<h3>Do I need an account to debug an API?</h3><p>No. Every DevToolBox utility runs in the browser with no sign-up and no usage limit. Some of the external applications listed above have optional paid tiers; their free tiers are enough for everyday debugging.</p>
+<h3>Is it safe to paste a production payload into a browser tool?</h3><p>With DevToolBox, yes — the encoding, decoding, hashing and JWT tools are pure client-side JavaScript, so nothing is uploaded. You can confirm it yourself by watching the network tab while the tool runs. That said, treat live production secrets as sensitive and avoid pasting them into any tool whose behaviour you haven't checked.</p>
+<h3>What is the difference between an HTTP client and a mock server?</h3><p>An HTTP client sends real requests to a real endpoint (Postman, curl, HTTPie). A mock server (Mockoon, Beeceptor) stands in for an endpoint that does not exist yet, so you can build and test the frontend before the backend is ready.</p>
+</section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

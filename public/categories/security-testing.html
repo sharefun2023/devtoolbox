@@ -28,6 +28,46 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it safe to paste a real token into an online decoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not into just any online decoder — many send the value to a server. DevToolBox's JWT tools are client-side JavaScript: the token is parsed in your browser and never uploaded. Even so, treat a live production token as sensitive and revoke it if you are unsure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does verifying a JWT actually check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A JWT has three parts: header, payload and signature. Decoding reads the first two, which anyone can do and which proves nothing. Verification recomputes the signature with the secret or public key and compares, and that is what proves the token was not forged."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is hashing the same thing as encryption?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Encryption is reversible with a key; hashing is one-way. A hash verifies integrity or stores a password-derived value. It cannot be turned back into the original input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I encode or escape user input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both, at different layers. Percent-encode values that go into a URL; HTML-entity-encode values that go into a page. The rule is to encode for the context the value is entering, at the moment it enters it."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <header>
@@ -38,7 +78,7 @@ gtag("config", "G-ESF1YX8CCR");
 </header>
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/">Categories</a><span class="sep">›</span>Security & Testing</div>
-<h2 class="section-title"><span class="dot cyan"></span> Security & Testing Tools</h2>
+<h1 class="section-title" style="margin-top:0"><span class="dot cyan"></span> Security & Testing Tools</h1>
 <p style="color:var(--text-dim);margin-bottom:24px;">JWT debugger, security scanners, static analysis, penetration testing tools, and test frameworks — ship secure, well-tested code.</p>
 
 <div class="grid grid-2">
@@ -57,6 +97,29 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="https://github.com/dependabot" target="_blank" rel="nofollow" class="card"><div class="card-title">🤖 Dependabot</div><div class="card-desc">Automated dependency updates built into GitHub. Keeps your packages secure and up to date with automatic PRs.</div><div class="card-meta"><span class="tag free">Free</span></div></a>
   <a href="https://haveibeenpwned.com/" target="_blank" rel="nofollow" class="card"><div class="card-title">🔓 Have I Been Pwned</div><div class="card-desc">Check if your email or password has been compromised in a data breach. Essential security hygiene for developers.</div><div class="card-meta"><span class="tag free">Free</span></div></a>
 </div>
+
+<!-- devtoolbox-expanded -->
+<section class="about-section"><h2>💡 About Security & Testing Tools</h2>
+<p>Security tooling comes with a rule that most other categories do not have: the tool must never become the leak. Anything that accepts a token, a key or a payload has to be understood before it is trusted with real material.</p>
+<p>The DevToolBox utilities below are deliberately built to run entirely in your browser — no upload, no server-side processing, no account. You can verify that in your browser's network tab while you use them. They cover the routine inspection work: reading a token, checking a signature, computing a hash, and encoding a value safely before it reaches a page.</p>
+</section>
+<section class="about-section"><h2>🧰 Free DevToolBox Tools</h2>
+<p>Client-side and free — nothing you paste leaves your browser:</p><ul>
+<li><a href="/tools/jwt-debugger">JWT Debugger</a> — Decode and verify JWT signatures locally: HS256/384/512 and RS/ES256-512.</li>
+<li><a href="/tools/jwt-decoder">JWT Decoder</a> — Quick decode of a JWT header and payload when verification is not needed.</li>
+<li><a href="/tools/hash-generator">Hash Generator</a> — MD5, SHA-1, SHA-256, SHA-512, CRC32 and HMAC digests.</li>
+<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — Encode and decode binary-safe values, including URL-safe Base64.</li>
+<li><a href="/tools/html-entity-encoder-decoder">HTML Entity Encoder</a> — Escape user input before it reaches the page.</li>
+<li><a href="/tools/url-encoder-decoder">URL Encoder/Decoder</a> — Percent-encode values for safe transport in URLs.</li>
+<li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — Work out the address range a firewall rule really covers.</li>
+<li><a href="/tools/diff-checker">Diff Checker</a> — Compare a config before and after a hardening pass.</li>
+</ul></section>
+<section class="about-section"><h2>❓ Frequently Asked Questions</h2>
+<h3>Is it safe to paste a real token into an online decoder?</h3><p>Not into just any online decoder — many send the value to a server. DevToolBox's JWT tools are client-side JavaScript: the token is parsed in your browser and never uploaded. Even so, treat a live production token as sensitive and revoke it if you are unsure.</p>
+<h3>What does verifying a JWT actually check?</h3><p>A JWT has three parts: header, payload and signature. Decoding reads the first two, which anyone can do and which proves nothing. Verification recomputes the signature with the secret or public key and compares, and that is what proves the token was not forged.</p>
+<h3>Is hashing the same thing as encryption?</h3><p>No. Encryption is reversible with a key; hashing is one-way. A hash verifies integrity or stores a password-derived value. It cannot be turned back into the original input.</p>
+<h3>Should I encode or escape user input?</h3><p>Both, at different layers. Percent-encode values that go into a URL; HTML-entity-encode values that go into a page. The rule is to encode for the context the value is entering, at the moment it enters it.</p>
+</section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

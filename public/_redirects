@@ -1,0 +1,5 @@
+# /tools/regex-tester was a duplicate listing of the real regex tool (no tool UI, CTA linked to itself).
+# Consolidated onto /online-regex-tester, which hosts the working tool + deep content + FAQ schema.
+/tools/regex-tester        /online-regex-tester  301
+/tools/regex-tester/       /online-regex-tester  301
+/tools/regex-tester.html   /online-regex-tester  301

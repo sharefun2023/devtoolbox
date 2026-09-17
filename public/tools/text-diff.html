@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Diff — Free Online Text Comparison Tool | DevToolBox</title>
-<meta name="description" content="Free online text diff tool. Compare two texts side by side with line-by-line highlight of additions, deletions, and modifications. 100% client-side.">
+<title>Diff Checker — Free Online Text &amp; Code Comparison Tool | DevToolBox</title>
+<meta name="description" content="Free online diff checker and text diff tool. Compare two texts, code snippets or JSON side by side with line-by-line highlighting of additions, deletions and modifications. 100% client-side, nothing uploaded.">
 <link rel="canonical" href="https://23232322.xyz/tools/text-diff">
+<meta name="keywords" content="diff checker, text diff, compare text online, text comparison tool, line diff, word diff, diff checker online">
+<meta property="og:title" content="Diff Checker — Free Online Text &amp; Code Comparison Tool | DevToolBox">
+<meta property="og:description" content="Compare two texts, code snippets or JSON side by side with line-by-line and word-level highlighting. Free, client-side diff checker — nothing is uploaded.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://23232322.xyz/tools/text-diff">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Diff Checker — Free Online Text Comparison Tool">
+<meta name="twitter:description" content="Side-by-side text diff with line and word-level highlighting. Runs entirely in your browser.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Diff Checker & Text Diff",
+  "description": "Free online diff checker and text diff tool. Compare two texts, code snippets or JSON side by side with line-by-line highlighting of additions, deletions and modifications.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "url": "https://23232322.xyz/tools/text-diff",
+  "dateModified": "2026-09-17"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is a diff checker?",
+     "acceptedAnswer": {"@type": "Answer", "text": "A diff checker compares two pieces of text and marks exactly what changed. Lines or words that appear only in the original are marked as deletions, lines that appear only in the new version are additions, and lines that changed on both sides are marked as modified with the changed words highlighted."}},
+    {"@type": "Question", "name": "Is this text diff tool free and private?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes. The comparison runs entirely in your browser using JavaScript, there is no sign-up, and the text you paste is never sent to a server."}},
+    {"@type": "Question", "name": "How is this different from git diff?",
+     "acceptedAnswer": {"@type": "Answer", "text": "git diff runs against a repository and its revision history and outputs a unified patch format aimed at git apply. This online diff checker compares two arbitrary blocks of text you paste in, so it works for config files, logs, prose, CSV exports and JSON that were never in version control — and it renders the result side by side rather than as +/- lines."}},
+    {"@type": "Question", "name": "Can I compare JSON or code, not just plain text?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes. The tool is plain-text aware, so any UTF-8 text works: JSON, YAML, SQL, source code, CSV, and prose. It does not parse or re-format your input, so what you paste is what gets compared."}}
+  ]
+}
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column}
@@ -58,6 +95,16 @@ footer p{color:#555;margin-top:8px;font-size:12px}
   .actions button{padding:8px 18px;font-size:13px}
   main{padding:12px}
 }
+.content-block{max-width:900px;margin:40px auto 24px;padding:0 4px}
+.content-block h2{font-size:19px;color:#e8f0fe;margin:28px 0 10px}
+.content-block p,.content-block li{color:#a8b6c8;font-size:14.5px;line-height:1.75}
+.content-block ol,.content-block ul{margin:10px 0 10px 22px}
+.content-block li{margin-bottom:7px}
+.content-block table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.content-block th,.content-block td{border:1px solid #1e2a3a;padding:9px 12px;text-align:left;color:#a8b6c8}
+.content-block th{background:#131820;color:#e8f0fe;font-weight:600}
+.content-block code{background:#131820;border:1px solid #1e2a3a;border-radius:4px;padding:1px 5px;font-size:.9em;color:#7fd962}
+.content-block a{color:#39bae6}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -145,7 +192,7 @@ gtag("config", "G-ESF1YX8CCR");
 </div>
 
 <main>
-<h1>📄 Text Diff</h1>
+<h1>📄 Diff Checker &amp; Text Diff</h1>
 <p class="desc">Compare two texts side by side. Additions, deletions, and modifications are highlighted line by line with word-level granularity.</p>
 
 <div class="tool-container">
@@ -171,6 +218,49 @@ gtag("config", "G-ESF1YX8CCR");
     <div class="diff-placeholder">Paste text in both panels and click Compare</div>
   </div>
 </div>
+
+<section class="content-block">
+  <h2>How to Use This Diff Checker</h2>
+  <ol>
+    <li><strong>Paste the baseline</strong> into the left panel — the version you want to treat as "before".</li>
+    <li><strong>Paste the changed text</strong> into the right panel. Both panels stay in your browser; nothing is uploaded.</li>
+    <li><strong>Click Compare.</strong> The tool runs a longest-common-subsequence diff over the two inputs.</li>
+    <li><strong>Read the result side by side.</strong> Content only on the left is a deletion, only on the right is an addition, and lines that changed on both sides are shown as modified with the changed words highlighted.</li>
+    <li><strong>Swap or Clear</strong> to flip the comparison direction or start a fresh one. The counter next to the buttons reports how many lines were added, removed and changed.</li>
+  </ol>
+
+  <h2>What Gets Highlighted</h2>
+  <table>
+    <thead><tr><th>Marker</th><th>Meaning</th><th>Typical cause</th></tr></thead>
+    <tbody>
+      <tr><td>Removed line</td><td>Present on the left only</td><td>Deleted config key, dropped log line, removed paragraph</td></tr>
+      <tr><td>Added line</td><td>Present on the right only</td><td>New environment variable, extra import, appended row</td></tr>
+      <tr><td>Modified line</td><td>Both sides, different content</td><td>Changed value, reworded sentence, bumped version string</td></tr>
+      <tr><td>Unchanged</td><td>Identical on both sides</td><td>Context — kept visible so you can read the diff in place</td></tr>
+    </tbody>
+  </table>
+  <p>Because the comparison is word-granular inside changed lines, a single edited number or variable name is obvious instead of being buried in a redrawn line.</p>
+
+  <h2>What Developers Actually Use It For</h2>
+  <ul>
+    <li><strong>Config drift</strong> — compare a working <code>.env</code>, nginx block or <code>docker-compose.yml</code> against the version on another machine.</li>
+    <li><strong>Log comparison</strong> — diff two runs to spot the one line where behaviour diverges.</li>
+    <li><strong>Reviewing pasted code</strong> — a colleague drops a snippet in chat; compare it against your local copy before committing.</li>
+    <li><strong>API response diffing</strong> — paste the pretty-printed JSON from two responses and see exactly which field changed.</li>
+    <li><strong>Prose and documentation</strong> — track edits between two drafts without a word processor's revision marks.</li>
+  </ul>
+
+  <h2>Diff Checker vs. Git Diff</h2>
+  <p><code>git diff</code> is the right tool inside a repository: it knows about revisions, staged changes and rename detection, and it emits a unified patch you can pipe into <code>git apply</code>. This page solves the other half of the problem — two blocks of text that were never in version control, or that live on two different machines. Paste both sides, get a side-by-side visual diff, and nothing leaves your machine.</p>
+
+  <h2>Related Free Tools</h2>
+  <ul>
+    <li><a href="/tools/json-formatter-online">JSON Formatter &amp; Validator</a> — format, validate and tree-view JSON before comparing it.</li>
+    <li><a href="/online-regex-tester">Regex Tester</a> — test a pattern against the lines you just diffed.</li>
+    <li><a href="/base64-encode">Base64 Encoder</a> and <a href="/base64-decode">Base64 Decoder</a> — decode an opaque blob so the diff is readable.</li>
+    <li><a href="/tools/hash-generator">Hash Generator</a> — check two files are byte-identical before you spend time diffing them.</li>
+  </ul>
+</section>
 </main>
 
 <footer>

@@ -15,7 +15,8 @@
   <style>
     /* Inline tool styles — scoped to the debugger card */
     .jwt-tool{background:#10161f;border:1px solid var(--border);border-radius:10px;padding:24px;margin:0 0 40px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-    .jwt-tool h2{font-size:1.3rem;color:var(--text-bright);margin-bottom:14px;border:none;padding:0}
+    .jwt-tool h2,.jwt-tool h1{font-size:1.3rem;color:var(--text-bright);margin-bottom:14px;border:none;padding:0}
+    .jwt-tool h1{font-weight:700}
     .jwt-tool textarea,.jwt-tool input[type=text],.jwt-tool input[type=password]{width:100%;background:#0a0e14;border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.85rem;outline:none;transition:border .2s;resize:vertical;box-sizing:border-box}
     .jwt-tool textarea{min-height:110px}
     .jwt-tool textarea:focus,.jwt-tool input:focus{border-color:var(--accent)}
@@ -148,7 +149,7 @@ gtag("config", "G-ESF1YX8CCR");
 
 <!-- ============ TOOL ============ -->
 <div class="jwt-tool" id="debugger">
-  <h2>🔑 JWT Debugger — Decode & Verify</h2>
+  <h1>🔑 JWT Debugger — Decode &amp; Verify</h1>
   <label for="tokenInput">JWT Token (header.payload.signature)</label>
   <textarea id="tokenInput" spellcheck="false" placeholder="Paste your JWT token here...&#10;e.g. eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"></textarea>
 
@@ -378,7 +379,7 @@ gtag("config", "G-ESF1YX8CCR");
   <p style="margin-bottom:8px;">More developer utilities from DevToolBox:</p>
   <div style="display:flex;flex-wrap:wrap;gap:8px;">
     <a href="/tools/jwt-decoder" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">JWT Decoder</a>
-    <a href="/tools/base64-encoder-decoder" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Base64 Encoder/Decoder</a>
+    <a href="/base64-encode" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Base64 Encoder/Decoder</a>
     <a href="/tools/json-formatter-online" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">JSON Formatter</a>
     <a href="/tools/hash-generator" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Hash Generator</a>
     <a href="/tools/uuid-generator" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">UUID Generator</a>

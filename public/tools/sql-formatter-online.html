@@ -159,7 +159,7 @@ gtag("config", "G-ESF1YX8CCR");
 <ul>
 <li><strong>Reviewing a pull request.</strong> Format a changed query before reading the diff. Structural mismatches that were invisible in the one-line original become obvious.</li>
 <li><strong>Reading an inherited query.</strong> Legacy reports are frequently a single 400-character line. Beautifying is the fastest way to work out what it selects.</li>
-<li><strong>Reviewing a migration before it runs.</strong> Format the migration, then compare it against the previous version with a <a href="/tools/diff-checker">Diff Checker</a> to see exactly which statement changed.</li>
+<li><strong>Reviewing a migration before it runs.</strong> Format the migration, then compare it against the previous version with a <a href="/tools/text-diff">Diff Checker</a> to see exactly which statement changed.</li>
 <li><strong>Embedding SQL in application code.</strong> Minify it first, so the statement can sit in a single-line string without awkward line continuation.</li>
 <li><strong>Sharing a query in a ticket or chat message.</strong> A formatted query is unambiguous; a single line is not.</li>
 <li><strong>Teaching or documenting.</strong> Indentation is the cheapest way to explain a join graph or a window function.</li>
@@ -169,9 +169,9 @@ gtag("config", "G-ESF1YX8CCR");
 <section class="about-section"><h2>🧰 Related DevToolBox Tools</h2>
 <ul>
 <li><a href="/tools/json-formatter-online">JSON Formatter</a> — beautify and validate the JSON columns and API payloads your queries return.</li>
-<li><a href="/tools/diff-checker">Diff Checker</a> — compare two queries or two migration files line by line.</li>
+<li><a href="/tools/text-diff">Diff Checker</a> — compare two queries or two migration files line by line.</li>
 <li><a href="/tools/timestamp-converter">Timestamp Converter</a> — turn the Unix timestamps stored in your tables into readable dates.</li>
-<li><a href="/tools/base64-encoder-decoder">Base64 Encoder/Decoder</a> — decode Base64 values held in database columns.</li>
+<li><a href="/base64-encode">Base64 Encoder/Decoder</a> — decode Base64 values held in database columns.</li>
 <li><a href="/tools/hash-generator">Hash Generator</a> — checksums for fixtures and data-verification queries.</li>
 <li><a href="/categories/database-sql">Database &amp; SQL category</a> — GUI clients, hosted Postgres and MySQL, and schema designers.</li>
 </ul>

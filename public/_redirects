@@ -3,3 +3,18 @@
 /tools/regex-tester        /online-regex-tester  301
 /tools/regex-tester/       /online-regex-tester  301
 /tools/regex-tester.html   /online-regex-tester  301
+
+# Dead-end stub pages (no tool UI, CTA pointed at themselves) consolidated onto the
+# real tool page. Recipe: 301 + delete stub + drop sitemap entry + fix internal links.
+/tools/diff-checker                        /tools/text-diff  301
+/tools/diff-checker/                       /tools/text-diff  301
+/tools/diff-checker.html                   /tools/text-diff  301
+/tools/color-picker-converter              /tools/color-tools  301
+/tools/color-picker-converter/             /tools/color-tools  301
+/tools/color-picker-converter.html         /tools/color-tools  301
+/tools/base64-encoder-decoder              /base64-encode  301
+/tools/base64-encoder-decoder/             /base64-encode  301
+/tools/base64-encoder-decoder.html         /base64-encode  301
+/uuid                                      /tools/uuid-generator  301
+/uuid/                                     /tools/uuid-generator  301
+/uuid.html                                 /tools/uuid-generator  301

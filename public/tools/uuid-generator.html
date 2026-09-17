@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free UUID Generator Online | Generate Random UUID v4 &amp; Get UUID Instantly | DevToolBox</title>
-  <meta name="description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 100 random UUIDs in bulk. uuid gen tool: copy, download CSV/JSON. 100% client-side, no signup.">
+  <meta name="description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 500 random UUIDs in bulk. uuid gen tool: copy, download CSV/JSON. 100% client-side, no signup.">
   <meta name="keywords" content="uuid generator, uuid generator online, generate uuid, uuid v4 generator, random uuid generator, online uuid generator, uuid4, uuid gen, get uuid, random uuid, generate random uuid, get uuid online">
   <link rel="canonical" href="https://23232322.xyz/tools/uuid-generator">
   <meta property="og:title" content="Free UUID Generator Online | Generate Random UUID v4 &amp; Get UUID Instantly | DevToolBox">
-  <meta property="og:description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 100 random UUIDs in bulk. Copy, download CSV/JSON. 100% client-side. No signup required.">
+  <meta property="og:description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 500 random UUIDs in bulk. Copy, download CSV/JSON. 100% client-side. No signup required.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://23232322.xyz/tools/uuid-generator">
   <link rel="stylesheet" href="/css/style.css">
@@ -104,13 +104,69 @@
     @media (max-width: 600px) {
       .related-grid { grid-template-columns: 1fr; }
     }
+  
+    /* ── Live UUID tool ── */
+    .uuid-tool {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 20px 0 32px;
+    }
+    .uuid-out {
+      font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+      font-size: 1.15rem;
+      color: var(--green);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      word-break: break-all;
+      cursor: pointer;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .uuid-out:hover { border-color: var(--accent); }
+    .uuid-copied { color: var(--green); font-size: .8rem; text-align: center; height: 18px; opacity: 0; transition: opacity .2s; }
+    .uuid-copied.show { opacity: 1; }
+    .uuid-label { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-dim); margin: 16px 0 6px; }
+    .uuid-seg { display: flex; flex-wrap: wrap; gap: 8px; }
+    .uuid-seg button, .uuid-actions button {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      padding: 8px 14px; border-radius: var(--radius); cursor: pointer; font-size: .82rem;
+      font-family: inherit; transition: border-color .15s, background .15s, color .15s;
+    }
+    .uuid-seg button:hover, .uuid-actions button:hover { border-color: var(--accent); color: var(--text-bright); }
+    .uuid-seg button.on { background: var(--accent); border-color: var(--accent); color: #06121a; font-weight: 600; }
+    .uuid-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 18px; }
+    .uuid-actions .uuid-primary { background: var(--accent); border-color: var(--accent); color: #06121a; font-weight: 600; }
+    .uuid-actions .uuid-clear { color: var(--text-dim); }
+    .uuid-count-wrap { font-size: .82rem; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
+    .uuid-count-wrap input {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      padding: 6px 8px; border-radius: var(--radius); width: 70px; font-family: inherit; font-size: .82rem;
+    }
+    .uuid-bulk {
+      width: 100%; min-height: 96px; margin-top: 14px; background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 12px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82rem; resize: vertical;
+    }
+    .uuid-bulk:focus { outline: none; border-color: var(--accent); }
+    .uuid-note { font-size: .78rem; color: var(--text-dim); margin-top: 10px; }
+    @media (max-width: 600px) {
+      .uuid-out { font-size: .85rem; }
+      .uuid-seg button, .uuid-actions button { padding: 7px 10px; font-size: .76rem; }
+    }
   </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "UUID Generator Online — Generate Random UUID & Get UUID Instantly",
-    "description": "Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Bulk generate up to 100 random UUIDs. uuid gen tool for developers. Copy, download CSV/JSON. 100% client-side, no data sent to any server.",
+    "description": "Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Bulk generate up to 500 random UUIDs. uuid gen tool for developers. Copy, download CSV/JSON. 100% client-side, no data sent to any server.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
@@ -186,8 +242,44 @@
 <div class="tool-hero">
   <h1>🆔 Free Online UUID Generator — Generate Random UUID &amp; Get UUID Instantly</h1>
   <div class="tool-tags"><span class="tag free">Free</span></div>
-  <p class="tool-desc">Generate random UUID v4, get UUID v1 and v7 identifiers instantly in your browser. Bulk generate up to 100 random UUIDs, multiple output formats, one-click copy — all with zero server roundtrips. Free uuid gen tool for developers. Fast, private, no signup.</p>
-  <a href="/tools/uuid-generator" class="tool-cta">Try UUID Generator →</a>
+  <p class="tool-desc">Generate random UUID v4, get UUID v1 and v7 identifiers instantly in your browser. Bulk generate up to 500 random UUIDs, multiple output formats, one-click copy — all with zero server roundtrips. Free uuid gen tool for developers. Fast, private, no signup.</p>
+  <a href="#uuid-tool" class="tool-cta">Generate a UUID now ↓</a>
+</div>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="uuid-tool" id="uuid-tool">
+  <div class="uuid-out" id="uuid-out" onclick="uuidCopyOut()" title="Click to copy">Your UUID will appear here — hit Generate</div>
+  <div class="uuid-copied" id="uuid-copied">✓ Copied to clipboard</div>
+
+  <span class="uuid-label">Version</span>
+  <div class="uuid-seg" id="uuid-ver">
+    <button class="on" data-v="v4" onclick="uuidPick('v4')">v4 · random</button>
+    <button data-v="v7" onclick="uuidPick('v7')">v7 · time-ordered</button>
+    <button data-v="v1" onclick="uuidPick('v1')">v1 · time-based</button>
+    <button data-v="guid" onclick="uuidPick('guid')">GUID</button>
+    <button data-v="nanoid" onclick="uuidPick('nanoid')">NanoID</button>
+    <button data-v="ulid" onclick="uuidPick('ulid')">ULID</button>
+  </div>
+
+  <span class="uuid-label">Output format</span>
+  <div class="uuid-seg" id="uuid-fmt">
+    <button class="on" data-f="lower" onclick="uuidFmt('lower')">lowercase</button>
+    <button data-f="upper" onclick="uuidFmt('upper')">UPPERCASE</button>
+    <button data-f="nohyphen" onclick="uuidFmt('nohyphen')">no hyphens</button>
+  </div>
+
+  <div class="uuid-actions">
+    <button class="uuid-primary" onclick="uuidGen()">⚡ Generate</button>
+    <label class="uuid-count-wrap">Bulk × <input type="number" id="uuid-count" value="10" min="1" max="500"></label>
+    <button onclick="uuidBulk()">Generate bulk</button>
+    <button onclick="uuidCopyBulk()">Copy all</button>
+    <button onclick="uuidDownload('csv')">Download CSV</button>
+    <button onclick="uuidDownload('json')">Download JSON</button>
+    <button class="uuid-clear" onclick="uuidClear()">Clear</button>
+  </div>
+
+  <textarea class="uuid-bulk" id="uuid-bulk" readonly placeholder="Bulk output appears here…"></textarea>
+  <p class="uuid-note">Every identifier is generated locally with <code>crypto.getRandomValues()</code> — nothing is sent to a server. Click the output to copy it.</p>
 </div>
 
 <!-- ━━━━━━━━━━━━ TOC ━━━━━━━━━━━━ -->
@@ -245,7 +337,7 @@ function uuidv4Compat() {
   <ol>
     <li><strong>Select a version</strong> — Choose UUID v4 (random, default), v1 (time-based), or v7 (time-ordered) from the version selector.</li>
     <li><strong>Pick output format</strong> — Options include lowercase (standard), uppercase, or no-hyphens format for systems that require compact identifiers.</li>
-    <li><strong>Set quantity</strong> — Generate a single UUID or use bulk mode to produce up to 100 UUIDs at once for testing or seeding databases.</li>
+    <li><strong>Set quantity</strong> — Generate a single UUID or use bulk mode to produce up to 500 identifiers at once for testing or seeding databases.</li>
     <li><strong>Generate</strong> — Click the "Generate" button and your UUIDs appear instantly — all computation happens locally in your browser using JavaScript.</li>
     <li><strong>Copy or download</strong> — Click any UUID to copy it to your clipboard, use "Copy All" for the full batch, or download as CSV/JSON for programmatic consumption.</li>
   </ol>
@@ -283,13 +375,13 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
   <h2>✨ Key Features</h2>
   <ul>
     <li>Generate UUID v4 (random) — the most common type, default selection</li>
-    <li>Generate UUID v1 (time-based) with MAC address and timestamp</li>
-    <li>Generate UUID v7 (time-ordered) — ideal for DB primary keys</li>
-    <li>Bulk generation — up to 100 UUIDs at once</li>
-    <li>Multiple output formats: lowercase, uppercase, no hyphens</li>
-    <li>Copy individual UUIDs or the entire batch with one click</li>
-    <li>Download as CSV or JSON for direct import into your projects</li>
-    <li>100% browser-based — zero server roundtrips, maximum privacy</li>
+    <li>Generate UUID v7 (time-ordered) — sortable, ideal for database primary keys</li>
+    <li>Generate UUID v1 (time-based), Microsoft-style GUID, NanoID and ULID</li>
+    <li>Bulk generation — up to 500 identifiers at once, ready to paste into a seed script</li>
+    <li>Output formats: lowercase, UPPERCASE, or no hyphens (UUID family only)</li>
+    <li>Click the result to copy it, or "Copy all" to grab the whole batch</li>
+    <li>Download the batch as CSV or JSON for direct import into your projects</li>
+    <li>100% browser-based — zero server roundtrips, nothing to sign up for</li>
   </ul>
 </section>
 
@@ -305,7 +397,7 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
         <span class="rc-desc">Format, validate, and beautify JSON with tree view and diff</span>
       </span>
     </a>
-    <a href="/tools/base64-encoder-decoder" class="related-card">
+    <a href="/base64-encode" class="related-card">
       <span class="rc-icon">🔐</span>
       <span class="rc-info">
         <span class="rc-title">Base64 Encoder / Decoder</span>
@@ -323,5 +415,161 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
 </section>
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">&copy; 2026 DevToolBox.</p></footer>
+<script>
+(function () {
+  var ver = 'v4', fmt = 'lower';
+
+  function rand(n) {
+    var a = new Uint8Array(n);
+    (window.crypto || window.msCrypto).getRandomValues(a);
+    return a;
+  }
+  function hex(a) {
+    var s = '';
+    for (var i = 0; i < a.length; i++) s += a[i].toString(16).padStart(2, '0');
+    return s;
+  }
+  function uuidV4() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    var b = rand(16);
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    var s = hex(b);
+    return s.slice(0, 8) + '-' + s.slice(8, 12) + '-' + s.slice(12, 16) + '-' + s.slice(16, 20) + '-' + s.slice(20);
+  }
+  function uuidV7() {
+    var ms = BigInt(Date.now());
+    var b = rand(16);
+    b[0] = Number((ms >> 40n) & 0xFFn);
+    b[1] = Number((ms >> 32n) & 0xFFn);
+    b[2] = Number((ms >> 24n) & 0xFFn);
+    b[3] = Number((ms >> 16n) & 0xFFn);
+    b[4] = Number((ms >> 8n) & 0xFFn);
+    b[5] = Number(ms & 0xFFn);
+    b[6] = (b[6] & 0x0f) | 0x70;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    var s = hex(b);
+    return s.slice(0, 8) + '-' + s.slice(8, 12) + '-' + s.slice(12, 16) + '-' + s.slice(16, 20) + '-' + s.slice(20);
+  }
+  function uuidV1() {
+    var t = Date.now() * 10000 + 122192928000000000;
+    var tHex = t.toString(16).padStart(16, '0');
+    var clock = Math.floor(Math.random() * 16384);
+    var node = rand(6);
+    node[0] |= 0x01;
+    var clockHex = (clock | 0x8000).toString(16).padStart(4, '0');
+    return tHex.slice(0, 8) + '-' + tHex.slice(8, 12) + '-1' + tHex.slice(13, 16) + '-' + clockHex + '-' + hex(node);
+  }
+  function nanoId(size) {
+    var chars = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict';
+    var b = rand(size || 21), out = '';
+    for (var i = 0; i < size; i++) out += chars[b[i] & 63];
+    return out;
+  }
+  function ulid() {
+    var chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+    var time = Date.now().toString(32).padStart(10, '0').toUpperCase();
+    var b = rand(16), out = '';
+    for (var i = 0; i < 16; i++) out += chars[b[i] % 32];
+    return time + out;
+  }
+  function make(v) {
+    switch (v) {
+      case 'v7': return uuidV7();
+      case 'v1': return uuidV1();
+      case 'guid': return '{' + uuidV4().toUpperCase() + '}';
+      case 'nanoid': return nanoId(21);
+      case 'ulid': return ulid();
+      default: return uuidV4();
+    }
+  }
+  function shape(s, v) {
+    if (v === 'nanoid' || v === 'ulid') return s;           /* not a UUID — format toggles do not apply */
+    if (fmt === 'upper') return s.toUpperCase();
+    if (fmt === 'nohyphen') return s.replace(/-/g, '');
+    return s;
+  }
+  function flash() {
+    var c = document.getElementById('uuid-copied');
+    c.classList.add('show');
+    setTimeout(function () { c.classList.remove('show'); }, 1400);
+  }
+  function copy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flash, function () { fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); flash(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  function seg(id, attr, val) {
+    var box = document.getElementById(id);
+    var btns = box.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle('on', btns[i].getAttribute(attr) === val);
+    }
+  }
+
+  function uuidPick(v) { ver = v; seg('uuid-ver', 'data-v', v); uuidGen(); }
+  function uuidFmt(f) { fmt = f; seg('uuid-fmt', 'data-f', f); uuidGen(); }
+  function uuidGen() {
+    document.getElementById('uuid-out').textContent = shape(make(ver), ver);
+  }
+  function uuidCopyOut() {
+    var t = document.getElementById('uuid-out').textContent;
+    if (!t || t.indexOf('appear here') > -1) uuidGen();
+    copy(document.getElementById('uuid-out').textContent);
+  }
+  function uuidBulk() {
+    var n = Math.min(500, Math.max(1, parseInt(document.getElementById('uuid-count').value, 10) || 10));
+    document.getElementById('uuid-count').value = n;
+    var lines = [];
+    for (var i = 0; i < n; i++) lines.push(shape(make(ver), ver));
+    document.getElementById('uuid-bulk').value = lines.join('\n');
+  };
+  function uuidCopyBulk() {
+    var v = document.getElementById('uuid-bulk').value;
+    if (!v.trim()) uuidBulk();
+    copy(document.getElementById('uuid-bulk').value);
+  };
+  function uuidClear() {
+    document.getElementById('uuid-bulk').value = '';
+    document.getElementById('uuid-out').textContent = 'Your UUID will appear here — hit Generate';
+  };
+  function uuidDownload(kind) {
+    var lines = document.getElementById('uuid-bulk').value.trim();
+    if (!lines) { uuidBulk(); lines = document.getElementById('uuid-bulk').value.trim(); }
+    var rows = lines.split('\n');
+    var text = kind === 'json'
+      ? JSON.stringify(rows, null, 2)
+      : 'uuid\n' + rows.join('\n') + '\n';
+    var mime = kind === 'json' ? 'application/json' : 'text/csv';
+    var blob = new Blob([text], { type: mime });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'uuids.' + kind;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  /* expose for the inline onclick handlers */
+  window.uuidPick = uuidPick;
+  window.uuidFmt = uuidFmt;
+  window.uuidGen = uuidGen;
+  window.uuidCopyOut = uuidCopyOut;
+  window.uuidBulk = uuidBulk;
+  window.uuidCopyBulk = uuidCopyBulk;
+  window.uuidClear = uuidClear;
+  window.uuidDownload = uuidDownload;
+})();
+</script>
 </body>
 </html>

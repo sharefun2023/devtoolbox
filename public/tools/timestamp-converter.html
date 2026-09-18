@@ -3,97 +3,306 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timestamp Converter — Free Unix Timestamp to Date Converter | DevToolBox</title>
-  <meta name="description" content="Free online Unix timestamp converter. Convert between Unix timestamps and human-readable dates. Support for all timezones and ISO 8601 formats.">
+  <title>Timestamp Converter — Free Unix Timestamp to Date Converter (Epoch to Human Time) | DevToolBox</title>
+  <meta name="description" content="Free online Unix timestamp converter. Convert epoch seconds, milliseconds, microseconds and nanoseconds to human-readable dates — and dates back to timestamps. Auto-detects 10/13/16/19-digit values, shows any IANA timezone, ISO 8601, RFC 2822 and relative time. 100% client-side.">
+  <meta name="keywords" content="timestamp converter, unix timestamp converter, epoch converter, unix time converter, timestamp to date, epoch to date, date to timestamp, convert unix timestamp, unix timestamp to date, epoch time converter, timestamp converter online">
   <link rel="canonical" href="https://23232322.xyz/tools/timestamp-converter">
+  <meta property="og:title" content="Timestamp Converter — Free Unix Epoch to Date Converter | DevToolBox">
+  <meta property="og:description" content="Convert Unix timestamps (seconds, ms, µs, ns) to readable dates and back. Any IANA timezone, ISO 8601, RFC 2822, relative time and date arithmetic — all in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://23232322.xyz/tools/timestamp-converter">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Timestamp Converter — Free Unix Epoch to Date Converter | DevToolBox">
+  <meta name="twitter:description" content="Convert Unix timestamps to dates and dates to timestamps. Auto-detects seconds / ms / µs / ns, renders any timezone, 100% client-side.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/tool.css">
+  <script src="/js/timestamp-converter.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Timestamp Converter",
-    "description": "Free online Unix timestamp converter. Convert between Unix timestamps and human-readable dates. Support for all timezones and ISO 8601 formats.",
+    "description": "Free online Unix timestamp converter. Auto-detects second, millisecond, microsecond and nanosecond epochs, converts between timestamps and human-readable dates, renders any IANA timezone and supports date arithmetic. 100% client-side.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/timestamp-converter",
-    "dateModified": "2026-08-24"
+    "dateModified": "2026-09-18"
   }
   </script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "DevToolBox",
-      "item": "https://23232322.xyz"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Timestamp Converter",
-      "item": "https://23232322.xyz/tools/timestamp-converter"
-    }
-  ]
-}
-  </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag("js", new Date());
-gtag("config", "G-ESF1YX8CCR");
-</script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Timestamp Converter free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, Timestamp Converter is completely free to use. No sign-up required, no usage limits."
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "DevToolBox", "item": "https://23232322.xyz"},
+      {"@type": "ListItem", "position": 2, "name": "Timestamp Converter", "item": "https://23232322.xyz/tools/timestamp-converter"}
+    ]
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-ESF1YX8CCR");
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I know if a timestamp is in seconds or milliseconds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Count the digits. Ten digits is seconds (1,758,213,000 is September 2025), thirteen digits is milliseconds (1,758,213,000,123), sixteen is microseconds and nineteen is nanoseconds. This converter detects the unit automatically from the digit count and lets you override it, so a 13-digit millisecond value is never silently read as a year-57766 date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Unix epoch always 1970-01-01?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unix time counts seconds from 1970-01-01T00:00:00Z, ignoring leap seconds. Negative timestamps are valid and point to dates before 1970 — -86400 is 1969-12-31T00:00:00Z. Note that many systems store a different epoch: Windows FILETIME starts in 1601, NTP in 1900 and .NET ticks in 0001."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my timestamp show a different date than expected?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Unix timestamp is always UTC. If the date you see is off by a fixed number of hours, you are comparing a UTC rendering with a local-time rendering. Check the timezone row in the results table — it shows the same instant in seventeen zones plus your own, with the UTC offset applied."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the year 2038 problem?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Systems that store Unix time in a signed 32-bit integer overflow on 2038-01-19T03:14:07Z. This converter uses JavaScript numbers (IEEE 754 doubles), so it handles dates far past 2038 — the JavaScript Date range is roughly year -271821 to 275760 — but it will happily show you the exact instant where a 32-bit system would wrap around."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Does Timestamp Converter require an internet connection?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
-      }
-    }
-  ]
-}
+    ]
+  }
   </script>
 </head>
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
 <main>
-<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code & IDE</a><span class="sep">›</span>Timestamp Converter</div>
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code &amp; IDE</a><span class="sep">›</span>Timestamp Converter</div>
 <div class="tool-hero">
   <h1>⏰ Timestamp Converter</h1>
   <div class="tool-tags"><span class="tag free">Free</span></div>
-  <p class="tool-desc">Free online Unix timestamp converter. Convert between Unix timestamps (seconds/milliseconds) and human-readable dates. Support for all timezones and ISO 8601 formats.</p>
-  <a href="/tools/timestamp-converter" class="tool-cta">Try Timestamp Converter →</a>
+  <p class="tool-desc">Convert Unix timestamps to human-readable dates and back — seconds, milliseconds, microseconds and nanoseconds are detected automatically. See the instant in any timezone, ISO 8601, RFC 2822 or relative form, and shift it by days, hours or minutes. Everything runs in your browser.</p>
+  <a href="#timestamp-tool" class="tool-cta">Convert a timestamp now ↓</a>
 </div>
-<section class="about-section"><h2>✨ Key Features</h2><ul>
-<li>Convert Unix timestamps to human-readable dates</li>
-<li>Convert dates back to Unix timestamps</li>
-<li>Support for seconds and millisecond timestamps</li>
-<li>Multiple output formats: ISO 8601, RFC 2822, locale strings</li>
-<li>Timezone conversion — see the time in any zone</li>
-<li>Current timestamp displayed in real time</li>
-<li>Date arithmetic: add/subtract days, hours, minutes</li>
-<li>100% client-side — instant conversion</li>
-</ul></section>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="dt-tool" id="timestamp-tool">
+  <div class="dt-head">
+    <h2>⏰ Unix timestamp converter</h2>
+    <div class="dt-bar">
+      <span class="dt-field">Read as
+        <select id="ts-unit">
+          <option value="auto" selected>Auto-detect</option>
+          <option value="s">Seconds (10 digits)</option>
+          <option value="ms">Milliseconds (13)</option>
+          <option value="us">Microseconds (16)</option>
+          <option value="ns">Nanoseconds (19)</option>
+        </select>
+      </span>
+      <span class="dt-field">Timezone
+        <select id="ts-tz"></select>
+      </span>
+    </div>
+  </div>
+
+  <p class="dt-note" style="margin:0 0 10px" id="ts-live"></p>
+
+  <div class="dt-bar">
+    <input class="dt-field" type="text" id="ts-in" style="flex:1;min-width:220px;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--radius);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.9rem" value="" placeholder="1758213000  (paste a Unix timestamp)" aria-label="Unix timestamp">
+    <button class="dt-btn primary" id="ts-convert">Convert →</button>
+    <button class="dt-btn" id="ts-now">Use current time</button>
+  </div>
+  <div class="dt-status" id="ts-status"></div>
+
+  <table class="dt-kv" id="ts-table" style="margin-top:10px"></table>
+
+  <div class="dt-sub">
+    <h3>📅 Date → timestamp</h3>
+    <div class="dt-bar">
+      <input class="dt-field" type="text" id="ts-date-in" style="flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--radius);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.88rem" placeholder="2026-09-18 20:30  ·  2026-09-18T20:30:00Z  ·  RFC 2822" aria-label="Date to convert to a timestamp">
+      <button class="dt-btn" id="ts-date-go">To timestamp</button>
+      <input class="dt-field" type="datetime-local" id="ts-datetime" aria-label="Pick a date and time" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:var(--radius);font-family:inherit;font-size:.82rem">
+      <button class="dt-btn" id="ts-picker-go">Use picker</button>
+    </div>
+    <textarea class="dt-ta sm" id="ts-date-out" readonly spellcheck="false" placeholder="The timestamp for that date appears here…" style="margin-top:10px"></textarea>
+    <p class="dt-note">Naive dates (no timezone in the text) are interpreted as your local time (detected as <span id="ts-local-zone-name">local</span>); a trailing <code>Z</code> or <code>+02:00</code> is honoured when present.</p>
+  </div>
+
+  <div class="dt-sub">
+    <h3>➕ Date arithmetic</h3>
+    <div class="dt-bar">
+      <span class="dt-field">Shift <input type="number" id="ts-delta-amount" value="7" step="1"></span>
+      <span class="dt-field">
+        <select id="ts-delta-unit">
+          <option value="seconds">seconds</option>
+          <option value="minutes">minutes</option>
+          <option value="hours">hours</option>
+          <option value="days" selected>days</option>
+          <option value="weeks">weeks</option>
+        </select>
+      </span>
+      <button class="dt-btn" id="ts-delta-go">Apply to the converted time</button>
+      <button class="dt-btn" id="ts-copy-seconds">Copy seconds</button>
+      <button class="dt-btn" id="ts-copy-iso">Copy ISO 8601</button>
+    </div>
+    <div id="ts-delta-out"></div>
+  </div>
+
+  <div class="dt-sub">
+    <h3>🌍 The same instant around the world</h3>
+    <table class="dt-kv"><thead><tr><th>Timezone</th><th>Local time</th><th>Offset</th></tr></thead><tbody id="ts-zones"></tbody></table>
+    <p class="dt-note">Rendered with your browser&#39;s <code>Intl.DateTimeFormat</code> database — summertime transitions are applied correctly, and no request leaves the page.</p>
+  </div>
+</div>
+<div class="dt-toast" id="dt-toast"></div>
+
+<nav class="about-section" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;" aria-label="Table of Contents">
+  <h2 style="border-bottom:none;margin-bottom:12px;">📑 Table of Contents</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:2;">
+    <li><a href="#what-is-unix-time">What is Unix time?</a></li>
+    <li><a href="#seconds-or-ms">Seconds, milliseconds, microseconds or nanoseconds?</a></li>
+    <li><a href="#how-to-use">How to use this converter</a></li>
+    <li><a href="#timezones">Timestamps and timezones</a></li>
+    <li><a href="#y2038">The year 2038 problem</a></li>
+    <li><a href="#use-cases">Use cases</a></li>
+    <li><a href="#faq">Frequently asked questions</a></li>
+    <li><a href="#related-tools">Related tools</a></li>
+  </ol>
+</nav>
+
+<div style="height:32px;"></div>
+
+<section class="about-section" id="what-is-unix-time">
+  <h2>🕰️ What is Unix time?</h2>
+  <p><strong>Unix time</strong> (also called <strong>epoch time</strong>, POSIX time or a <strong>Unix timestamp</strong>) is the number of seconds that have elapsed since 00:00:00 UTC on 1 January 1970 — a moment known as <em>the epoch</em>. It is the least ambiguous way to record an instant: no timezone, no daylight-saving rules, no month names, no locale. That is why logs, databases, JWT <code>exp</code> claims, HTTP caching headers, API payloads and cron schedules all speak in epoch seconds.</p>
+  <p>The trade-off is readability. Nothing about <code>1758213000</code> tells a human whether it happened last week or during the Bronze Age, which is why a <strong>timestamp converter</strong> ends up in every developer&#39;s bookmarks. Paste the number, get the date back.</p>
+  <p>Unix time ignores leap seconds: every day is treated as exactly 86,400 seconds. That is a deliberate simplification so that <code>time_t + 86400</code> is always "the same clock time tomorrow".</p>
+</section>
+
+<section class="about-section" id="seconds-or-ms">
+  <h2>🔢 Seconds, milliseconds, microseconds or nanoseconds?</h2>
+  <p>The single most common timestamp mistake is reading a millisecond value as seconds (or the reverse), which lands you tens of thousands of years off. Digit count is the reliable signal:</p>
+  <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.9rem;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);text-align:left;">
+        <th style="padding:8px;color:var(--muted);">Digits</th>
+        <th style="padding:8px;color:var(--muted);">Unit</th>
+        <th style="padding:8px;color:var(--muted);">Example value</th>
+        <th style="padding:8px;color:var(--muted);">Means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">10</td><td style="padding:8px;">seconds</td><td style="padding:8px;"><code>1758213000</code></td><td style="padding:8px;">2025-09-18T16:30:00Z</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">13</td><td style="padding:8px;">milliseconds</td><td style="padding:8px;"><code>1758213000123</code></td><td style="padding:8px;">same instant, ms precision (JavaScript <code>Date.now()</code>)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">16</td><td style="padding:8px;">microseconds</td><td style="padding:8px;"><code>1758213000123456</code></td><td style="padding:8px;">same instant, µs precision (PostgreSQL, Python)</td></tr>
+      <tr><td style="padding:8px;">19</td><td style="padding:8px;">nanoseconds</td><td style="padding:8px;"><code>1758213000123456789</code></td><td style="padding:8px;">same instant, ns precision (Go, Java <code>Instant</code>)</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;">This converter counts the digits for you, states which unit it used, and lets you force a unit when a value is ambiguous (for example a 13-digit number that really is seconds, far in the future).</p>
+</section>
+
+<section class="about-section" id="how-to-use">
+  <h2>🚀 How to use this converter</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:1.9;">
+    <li><strong>Timestamp → date:</strong> paste the number and press <em>Convert</em> (or <em>Enter</em>). You get the value in seconds, milliseconds, microseconds and nanoseconds, plus ISO 8601, RFC 2822, UTC, your local time and the timezone you picked from the dropdown.</li>
+    <li><strong>Date → timestamp:</strong> type almost any shape of date — <code>2026-09-18</code>, <code>2026-09-18 20:30</code>, <code>2026-09-18T20:30:00Z</code>, <code>2026-09-18T20:30:00+08:00</code> — or pick one with the date/time control, and read the epoch value back.</li>
+    <li><strong>Shift a date:</strong> choose an amount and a unit (seconds through weeks) and apply it to the converted time. Handy for expiry dates: "this token lives 7 days, so it dies at…".</li>
+    <li><strong>Compare zones:</strong> the table at the bottom shows the same instant across seventeen common IANA zones with their UTC offsets, so you can answer "what time is that for the customer in Sydney?".</li>
+  </ol>
+  <p>Every column has its own copy button, and nothing you paste is transmitted — the page works with the network disconnected.</p>
+</section>
+
+<section class="about-section" id="timezones">
+  <h2>🌍 Timestamps and timezones</h2>
+  <p>A Unix timestamp has no timezone: it is a point on a universal timeline, and the timezone is only applied when you <em>render</em> it. That leads to a familiar class of bug — a log says <code>2026-09-18T16:30:00Z</code>, you read it as "16:30 my time", and every offset in your debugging story is wrong by the difference between your zone and UTC.</p>
+  <p>Two rules keep you out of trouble:</p>
+  <ul>
+    <li>Store instants as UTC (epoch seconds, or an ISO 8601 string ending in <code>Z</code>). Store the user&#39;s timezone separately if you need to display wall-clock times.</li>
+    <li>Never store "local" times as timestamps. A wall-clock appointment (a meeting at 09:00) and an instant (a log line) are different data types, even though both can look like a date.</li>
+  </ul>
+  <p>This converter uses the ICU timezone database shipped with your browser through <code>Intl.DateTimeFormat</code>, so daylight-saving transitions (including the odd ones: Lord Howe Island&#39;s 30-minute shift, southern-hemisphere summer time) are handled by the same code that renders dates everywhere else on your machine.</p>
+</section>
+
+<section class="about-section" id="y2038">
+  <h2>⚠️ The year 2038 problem</h2>
+  <p>On <strong>2038-01-19T03:14:08Z</strong> a signed 32-bit Unix timestamp overflows — the moment is <code>2147483647</code> seconds. Systems that still store <code>time_t</code> as 32 bits (old embedded firmware, some databases and file formats) will wrap around to 1901. 64-bit epochs push that limit to roughly the year 292 billion.</p>
+  <p>JavaScript is not affected by 32-bit epochs — numbers are doubles, so the practical wall is the <code>Date</code> range of ±8,640,000,000,000,000 ms (about ±275,760 years) — but a converter is exactly where you want to check "what will this look like on the other side?". Paste <code>2147483648</code> and see.</p>
+</section>
+
+<section class="about-section" id="use-cases">
+  <h2>💼 Use cases</h2>
+  <ul>
+    <li><strong>Debugging API responses:</strong> turn <code>created_at: 1758213000</code> into something you can compare against your own clock.</li>
+    <li><strong>JWT debugging:</strong> <code>exp</code> and <code>iat</code> are epoch seconds — check whether a token is actually expired, or expiring sooner than the logs suggest. Pair this page with the <a href="/tools/jwt-debugger">JWT Debugger</a>.</li>
+    <li><strong>Database work:</strong> PostgreSQL <code>extract(epoch from now())</code>, MySQL <code>UNIX_TIMESTAMP()</code>, MongoDB ObjectId timestamps and SQLite&#39;s integer dates all speak the same language.</li>
+    <li><strong>Cache and cookie debugging:</strong> <code>Expires</code> headers are HTTP-dates, but signed URL and CDN TTLs are usually epoch values.</li>
+    <li><strong>Log correlation:</strong> line up a client-side console timestamp with a server timestamp without doing offset arithmetic by hand.</li>
+    <li><strong>Data pipelines:</strong> spot a column that is "seconds since epoch" but arriving in milliseconds from one producer — a classic incident with a 1000× error.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="faq">
+  <h2>❓ Frequently asked questions</h2>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">How do I know if a timestamp is in seconds or milliseconds?</h3>
+  <p>Count the digits: 10 = seconds, 13 = milliseconds, 16 = microseconds, 19 = nanoseconds. This converter detects the unit from the digit count and tells you which one it used, so you can spot a millisecond value that was about to be read as seconds.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Is the Unix epoch always 1970-01-01?</h3>
+  <p>Unix time starts at 1970-01-01T00:00:00Z, and negative values are valid (<code>-86400</code> is 1969-12-31T00:00:00Z). Other systems use different epochs: Windows FILETIME starts in 1601, NTP in 1900, .NET ticks in year 1, and GPS time in 1980 — a value that looks wrong by decades is usually a different epoch, not a broken timestamp.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Why does my timestamp show a different date than expected?</h3>
+  <p>A Unix timestamp is always UTC. If you are off by a fixed number of hours, you are comparing a UTC rendering with a local-time rendering — check the timezone rows, which show the offset that was applied.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">What is the year 2038 problem?</h3>
+  <p>Signed 32-bit Unix timestamps overflow on 2038-01-19T03:14:08Z. This converter uses JavaScript numbers, so it renders dates far beyond that — paste <code>2147483648</code> to see the exact instant where 32-bit systems wrap.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Is my data sent anywhere?</h3>
+  <p>No. Parsing, formatting, the timezone table and the arithmetic all run in your browser. The page contains no upload call, and it keeps working if you disconnect the network after loading.</p>
+</section>
+
+<section class="about-section" id="related-tools" style="margin-top:48px;">
+  <h2>🔗 Related tools</h2>
+  <p style="margin-bottom:16px;">More free developer tools from DevToolBox:</p>
+  <div class="grid grid-3">
+    <a href="/tools/jwt-debugger" class="card">
+      <div class="card-title">🔑 JWT Debugger</div>
+      <div class="card-desc">Decode and verify JSON Web Tokens, including the exp / iat / nbf claims that are Unix timestamps.</div>
+    </a>
+    <a href="/cron" class="card">
+      <div class="card-title">⏱️ Cron Expression Explainer</div>
+      <div class="card-desc">Describe cron schedules in plain English and see the next run times.</div>
+    </a>
+    <a href="/tools/json-formatter-online" class="card">
+      <div class="card-title">📋 JSON Formatter &amp; Validator</div>
+      <div class="card-desc">Format, validate, diff and minify JSON — including the API responses your timestamps came from.</div>
+    </a>
+  </div>
+</section>
+
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>
+<script>
+  (function () {
+    var el = document.getElementById('ts-local-zone-name');
+    if (el && window.Intl && Intl.DateTimeFormat) {
+      try { el.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time'; } catch (e) { el.textContent = 'local time'; }
+    }
+  })();
+</script>
 </body>
 </html>

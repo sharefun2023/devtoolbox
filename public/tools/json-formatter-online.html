@@ -12,6 +12,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://23232322.xyz/tools/json-formatter-online">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/tool.css">
+  <script src="/js/json-formatter.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -22,7 +24,7 @@
     "operatingSystem": "Any",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/json-formatter-online",
-    "dateModified": "2026-09-17"
+    "dateModified": "2026-09-18"
   }
   </script>
     <script type="application/ld+json">
@@ -97,11 +99,69 @@
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code &amp; IDE</a><span class="sep">›</span>Online JSON Formatter, Validator & Beautifier</div>
 <div class="tool-hero">
-  <h1>📋 Free Online JSON Formatter, Validator & Beautifier</h1>
+  <h1>📋 Online JSON Formatter, Validator &amp; Beautifier</h1>
   <div class="tool-tags"><span class="tag free">Free</span><span class="tag featured">Featured</span></div>
   <p class="tool-desc">Format, beautify, and validate JSON instantly in your browser. Tree view explorer for nested objects, side-by-side diff comparison, and JSON minifier — all client-side with zero data sent to any server. No ads, no sign-up required.</p>
-  <a href="/tools/json-formatter-online" class="tool-cta">Try JSON Formatter & Validator →</a>
+  <a href="#json-tool" class="tool-cta">Try JSON Formatter &amp; Validator ↓</a>
 </div>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="dt-tool" id="json-tool">
+  <div class="dt-head">
+    <h2>📋 JSON Formatter &amp; Validator</h2>
+    <div class="dt-bar">
+      <span class="dt-field">Indent
+        <select id="jf-indent">
+          <option value="2" selected>2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="tab">Tabs</option>
+        </select>
+      </span>
+      <button class="dt-btn" id="jf-sort">A→Z Sort keys</button>
+      <button class="dt-btn" id="jf-tree-btn">Tree view</button>
+    </div>
+  </div>
+
+  <div class="dt-bar">
+    <button class="dt-btn primary" id="jf-format">Format / Beautify</button>
+    <button class="dt-btn" id="jf-validate">Validate</button>
+    <button class="dt-btn" id="jf-minify">Minify</button>
+    <button class="dt-btn" id="jf-sample">Load sample</button>
+    <button class="dt-btn" id="jf-copy">Copy output</button>
+    <button class="dt-btn" id="jf-download">Download .json</button>
+    <button class="dt-btn ghost" id="jf-clear">Clear</button>
+  </div>
+
+  <div class="dt-grid2" style="margin-top:14px">
+    <div>
+      <label class="dt-note" for="jf-in" style="display:block;margin:0 0 6px">Raw JSON — paste or type here (Ctrl/⌘ + Enter formats)</label>
+      <textarea class="dt-ta" id="jf-in" spellcheck="false" placeholder='{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}'></textarea>
+    </div>
+    <div>
+      <label class="dt-note" for="jf-out" style="display:block;margin:0 0 6px">Formatted output</label>
+      <textarea class="dt-ta out" id="jf-out" spellcheck="false" readonly placeholder="Formatted JSON appears here…"></textarea>
+    </div>
+  </div>
+
+  <div class="dt-status" id="jf-status"></div>
+  <div class="dt-stats" id="jf-stats"></div>
+  <div class="dt-tree" id="jf-tree"></div>
+  <p class="dt-note">Validation, formatting, the tree view and the diff all run locally in this tab — parse your JSON with the network tab open and you will see zero requests.</p>
+
+  <div class="dt-sub">
+    <h3>🔀 Compare two JSON documents</h3>
+    <div class="dt-grid2">
+      <textarea class="dt-ta sm" id="jf-diff-a" spellcheck="false" placeholder="Left: original JSON document"></textarea>
+      <textarea class="dt-ta sm" id="jf-diff-b" spellcheck="false" placeholder="Right: changed JSON document"></textarea>
+    </div>
+    <div class="dt-bar" style="margin-top:10px">
+      <button class="dt-btn primary" id="jf-diff-run">Compare documents</button>
+      <span class="dt-note" style="margin:0">Lists every added, removed and changed key path.</span>
+    </div>
+    <div class="dt-out-box dt-diff" id="jf-diff-out" style="margin-top:10px"></div>
+  </div>
+</div>
+<div class="dt-toast" id="dt-toast"></div>
 
 <!-- Table of Contents -->
 <nav class="about-section" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;" aria-label="Table of Contents">
@@ -146,11 +206,11 @@
   <h2>⚙️ How It Works</h2>
   <p>Our JSON Formatter uses JavaScript's native <code>JSON.parse()</code> and <code>JSON.stringify()</code> methods, combined with a custom recursive parser for the tree view and diff engine. Here's the processing pipeline:</p>
   <ol style="padding-left:20px;color:var(--text);line-height:1.9;">
-    <li><strong>Input:</strong> You paste or type your JSON into the editor area. The tool accepts both formatted and minified JSON, as well as JSON with common formatting issues like trailing commas.</li>
-    <li><strong>Validation:</strong> The tool attempts to parse the input using <code>JSON.parse()</code>. If parsing fails, the exact error position (line and column) is reported with a descriptive message so you can fix the issue.</li>
-    <li><strong>Formatting:</strong> On successful parse, <code>JSON.stringify()</code> re-serializes the data with your chosen indentation level (2, 3, 4 spaces, or tabs). Keys can optionally be sorted alphabetically for consistent ordering.</li>
-    <li><strong>Tree View:</strong> A recursive component walks the parsed object and renders it as an expandable/collapsible tree, making it easy to navigate deeply nested arrays and objects.</li>
-    <li><strong>Output:</strong> The formatted result is displayed in a syntax-highlighted output panel. You can copy it to clipboard, download it as a .json file, or share it via URL.</li>
+    <li><strong>Input:</strong> You paste or type your JSON into the editor. Both formatted and minified JSON are accepted, and the validator explains what is wrong with malformed input instead of just failing.</li>
+    <li><strong>Validation:</strong> A hand-written recursive-descent parser walks the input character by character. When it hits a problem it reports the exact line, column and character offset, describes the issue in plain English (trailing comma, single quotes, comment, unquoted key, leading zero, curly quote…), and highlights the offending character back in the editor. Only after that does the browser's own <code>JSON.parse()</code> run as a second opinion.</li>
+    <li><strong>Formatting:</strong> On successful parse the data is re-serialized with your chosen indentation level (2 spaces, 4 spaces, or tabs). Keys can optionally be sorted alphabetically for consistent ordering.</li>
+    <li><strong>Tree View:</strong> The parsed data is rendered as an expandable/collapsible tree, so a deeply nested payload reads like a file explorer instead of one long wall of braces.</li>
+    <li><strong>Output:</strong> The formatted result is shown side by side with the input. You can copy it, download it as a <code>.json</code> file, and compare two documents key by key with the built-in diff.</li>
   </ol>
   <p>All processing happens entirely in your browser using JavaScript. <strong>No data is ever sent to any server</strong> — your JSON stays completely private and secure on your device, even when using the diff comparison or minify features.</p>
 </section>
@@ -207,12 +267,7 @@
   </table>
 
   <h3 style="color:var(--text-bright);margin-top:20px;margin-bottom:8px;">Why Validation Matters for Developers</h3>
-  <p>According to the <strong>2024 State of API Report</strong>, malformed JSON is one of the top 5 causes of API integration failures, affecting roughly 1 in 8 API responses in development environments. For developers working with third-party APIs, configuration files, or CI/CD pipelines, catching JSON errors <em>before</em> deployment saves hours of debugging. A <strong>JSON formatter & validator</strong> turns this into a one-second operation — paste, validate, fix, and move on.</p>
-
-  <blockquote style="border-left:3px solid var(--accent);padding:12px 16px;margin:16px 0;background:var(--bg);border-radius:0 6px 6px 0;color:var(--muted);font-style:italic;">
-    <p style="margin:0;color:var(--text);">"The biggest time-waster in API development isn't writing code — it's chasing down JSON parsing errors that a validator would have caught in two seconds."</p>
-    <p style="margin:4px 0 0;font-size:0.85rem;">— A common sentiment among backend engineers on Stack Overflow and r/webdev</p>
-  </blockquote>
+  <p><strong>JSON</strong> (RFC 8259) has no comment syntax, no trailing commas, and no single-quoted strings — the three mistakes that cause most "unexpected token" reports. Our validator names the mistake and points at the exact character, which is the difference between a five-second fix and ten minutes of squinting at a minified blob.</p>
 
   <p>Use the <strong>Validate</strong> button on this page to check your JSON instantly. On valid input, you'll see a green confirmation with formatted output. On invalid input, the exact error position is highlighted so you can fix it immediately — no guesswork, no scrolling through thousands of lines.</p>
 </section>
@@ -282,14 +337,15 @@
 <section class="about-section" id="key-features">
   <h2>✨ Key Features</h2>
   <ul>
-    <li>Pretty-print JSON with customizable indentation (2, 3, 4 spaces, or tabs)</li>
-    <li>Validate JSON syntax with line-level error reporting and descriptive messages</li>
-    <li>Tree view explorer — navigate deeply nested objects and arrays visually</li>
+    <li>Pretty-print JSON with customizable indentation (2 spaces, 4 spaces, or tabs)</li>
+    <li>Validate JSON with exact line, column and character position — plus a plain-English explanation of what went wrong</li>
+    <li>Tree view explorer — expand and collapse deeply nested objects and arrays</li>
     <li>JSON minifier — compress formatted JSON into a single line for production payloads</li>
-    <li>Side-by-side JSON diff comparison — find differences between two JSON documents</li>
+    <li>Document-to-document diff — lists every added, removed and changed key path</li>
     <li>Sort JSON keys alphabetically for consistent, diff-friendly ordering</li>
+    <li>Live stats: bytes, lines, key count, nesting depth, objects and arrays</li>
     <li>100% client-side processing — your data is never uploaded, logged, or seen by any server</li>
-    <li>Copy to clipboard, download as .json file, and share formatted output via URL</li>
+    <li>Copy to clipboard or download as a .json file</li>
     <li>Free forever — no ads, no sign-up, no usage limits</li>
   </ul>
 </section>

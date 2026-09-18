@@ -3,96 +3,294 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Entity Encoder & Decoder — Free Online HTML Escape Tool | DevToolBox</title>
-  <meta name="description" content="Free HTML entity encoder and decoder. Convert special characters to HTML entities and back. Essential for escaping user input and preventing XSS attacks.">
+  <title>HTML Entity Encoder &amp; Decoder — Free Online HTML Escape Tool | DevToolBox</title>
+  <meta name="description" content="Free HTML entity encoder and decoder. Escape HTML special characters to entities and decode named or numeric entities back to text — including &amp;amp;, &amp;lt;, &amp;#65; and &amp;#x1F600;. Catch unescaped input before it becomes an XSS hole. 100% client-side, nothing sent to a server.">
+  <meta name="keywords" content="html entity encoder, html entity decoder, html escape, html unescape, escape html online, decode html entities, html entities converter, html encode decode, ampersand escape, xss escape, html special characters">
   <link rel="canonical" href="https://23232322.xyz/tools/html-entity-encoder-decoder">
+  <meta property="og:title" content="HTML Entity Encoder &amp; Decoder — Free Online HTML Escape Tool | DevToolBox">
+  <meta property="og:description" content="Escape HTML characters to entities and decode named or numeric entities back to text. Handles &amp;amp;, &amp;lt;, &amp;copy;, &amp;#65; and &amp;#x1F600; — all in your browser.">
+  <meta property="og:url" content="https://23232322.xyz/tools/html-entity-encoder-decoder">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTML Entity Encoder &amp; Decoder — Free Online HTML Escape Tool | DevToolBox">
+  <meta name="twitter:description" content="Encode and decode HTML entities (named and numeric) in your browser. Includes a cheat sheet of the entities you actually use.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/tool.css">
+  <script src="/js/html-entity-tool.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "HTML Entity Encoder & Decoder",
-    "description": "Free HTML entity encoder and decoder. Convert special characters to HTML entities and back. Essential for escaping user input and preventing XSS attacks.",
+    "description": "Free HTML entity encoder and decoder. Convert special characters to named or numeric HTML entities and decode entities back to plain text, including the HTML 4.01 entity set and the legacy no-semicolon forms browsers accept. 100% client-side.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/html-entity-encoder-decoder",
-    "dateModified": "2026-08-24"
+    "dateModified": "2026-09-18"
   }
   </script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "DevToolBox",
-      "item": "https://23232322.xyz"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "HTML Entity Encoder & Decoder",
-      "item": "https://23232322.xyz/tools/html-entity-encoder-decoder"
-    }
-  ]
-}
-  </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag("js", new Date());
-gtag("config", "G-ESF1YX8CCR");
-</script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is HTML Entity Encoder & Decoder free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, HTML Entity Encoder & Decoder is completely free to use. No sign-up required, no usage limits."
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "DevToolBox", "item": "https://23232322.xyz"},
+      {"@type": "ListItem", "position": 2, "name": "Frontend & Design", "item": "https://23232322.xyz/categories/frontend-design"},
+      {"@type": "ListItem", "position": 3, "name": "HTML Entity Encoder & Decoder", "item": "https://23232322.xyz/tools/html-entity-encoder-decoder"}
+    ]
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-ESF1YX8CCR");
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which characters must be escaped in HTML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Five characters carry meaning in HTML and must be escaped in text and attribute values: & becomes &amp;amp;, < becomes &amp;lt;, > becomes &amp;gt;, \" becomes &amp;quot; and ' becomes &amp;#39;. Escaping those five is what stops user input from being interpreted as markup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between &#65; and &#x41;?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They are the same character (A) written two ways: &#65; is a decimal numeric character reference and &#x41; is hexadecimal. Using numeric references avoids the case-sensitivity and browser-support differences of named entities, which is why encoders fall back to them for characters that have no common name."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does escaping HTML entities prevent XSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Escaping the five characters above is the correct defence when untrusted text is placed in HTML body or attribute context, and this tool shows you exactly what that output looks like. It is not enough on its own in JavaScript, CSS or URL contexts — those need context-specific escaping — and it does nothing for SQL injection. Treat entity escaping as one layer, not a complete sanitizer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why did &amp;notin; turn into ¬in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because of the HTML legacy entity rule. Names such as &amp;not, &amp;amp and &amp;copy were defined before the trailing semicolon became mandatory, so browsers match the longest valid legacy name first. In &amp;notin; the parser can prefer the legacy &amp;not (¬) and leave the letters in; — which is why text containing ampersands should always be escaped as &amp;amp;."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Does HTML Entity Encoder & Decoder require an internet connection?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
-      }
-    }
-  ]
-}
+    ]
+  }
   </script>
 </head>
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
 <main>
-<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/frontend-design">Frontend & Design</a><span class="sep">›</span>HTML Entity Encoder / Decoder</div>
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/frontend-design">Frontend &amp; Design</a><span class="sep">›</span>HTML Entity Encoder / Decoder</div>
 <div class="tool-hero">
   <h1>🏷️ HTML Entity Encoder / Decoder</h1>
   <div class="tool-tags"><span class="tag free">Free</span></div>
-  <p class="tool-desc">Free HTML entity encoder and decoder. Convert special characters to HTML entities (&amp;copy; → ©) and back. Essential for escaping user input and preventing XSS attacks.</p>
-  <a href="/tools/html-entity-encoder-decoder" class="tool-cta">Try HTML Entity Tool →</a>
+  <p class="tool-desc">Escape HTML special characters into entities, and decode named or numeric entities (<code>&amp;amp;</code>, <code>&amp;copy;</code>, <code>&amp;#65;</code>, <code>&amp;#x1F600;</code>) back into text. The decoder follows the same legacy rules as a browser, including the no-semicolon forms. Runs entirely in your browser.</p>
+  <a href="#html-entity-tool" class="tool-cta">Escape or unescape HTML ↓</a>
 </div>
-<section class="about-section"><h2>✨ Key Features</h2><ul>
-<li>Encode special characters to HTML entities</li>
-<li>Decode HTML entities back to plain text</li>
-<li>Support for named entities (&copy; &reg; &trade; &euro;)</li>
-<li>Numeric entity support (decimal and hex)</li>
-<li>Common HTML symbols cheat sheet built-in</li>
-<li>Prevent XSS by escaping user-generated content</li>
-<li>100% client-side — secure and private</li>
-<li>Copy encoded HTML ready to paste</li>
-</ul></section>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="dt-tool" id="html-entity-tool">
+  <div class="dt-head">
+    <h2>🏷️ HTML entity encoder / decoder</h2>
+    <div class="dt-bar">
+      <span class="dt-field">Escape mode
+        <select id="he-mode">
+          <option value="minimal" selected>Minimal — only &amp; &lt; &gt; " '</option>
+          <option value="named">Named — use &amp;copy;, &amp;eacute; … where they exist</option>
+          <option value="dec">Decimal — every non-ASCII character as &amp;#NNN;</option>
+          <option value="hex">Hex — every non-ASCII character as &amp;#xNNNN;</option>
+          <option value="all">Everything — every character as a numeric entity</option>
+        </select>
+      </span>
+    </div>
+  </div>
+
+  <div class="dt-bar">
+    <button class="dt-btn primary" id="he-encode">Escape →</button>
+    <button class="dt-btn" id="he-decode">← Unescape</button>
+    <button class="dt-btn" id="he-swap">⇄ Swap</button>
+    <button class="dt-btn" id="he-sample">Load sample</button>
+    <button class="dt-btn" id="he-copy">Copy output</button>
+    <button class="dt-btn ghost" id="he-clear">Clear</button>
+  </div>
+
+  <div class="dt-grid2" style="margin-top:14px">
+    <div>
+      <label class="dt-note" for="he-in" style="display:block;margin:0 0 6px">Input — HTML or text (with entities)</label>
+      <textarea class="dt-ta" id="he-in" spellcheck="false" placeholder="&lt;a href=&quot;/x&quot;&gt;Café &amp;amp; tea&lt;/a&gt;"></textarea>
+    </div>
+    <div>
+      <label class="dt-note" for="he-out" style="display:block;margin:0 0 6px">Output</label>
+      <textarea class="dt-ta out" id="he-out" spellcheck="false" readonly placeholder="The escaped or unescaped text appears here…"></textarea>
+    </div>
+  </div>
+
+  <div class="dt-status" id="he-status"></div>
+  <p class="dt-note">Named and legacy matching mirrors the browser&#39;s own entity rules — including the famous quirk where <code>&amp;notin;</code> is not the same as <code>&amp;notin;</code> written with a legacy name in front.</p>
+
+  <div class="dt-sub">
+    <h3>🔍 Entities found in the input</h3>
+    <div id="he-entities"></div>
+  </div>
+</div>
+<div class="dt-toast" id="dt-toast"></div>
+
+<nav class="about-section" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;" aria-label="Table of Contents">
+  <h2 style="border-bottom:none;margin-bottom:12px;">📑 Table of Contents</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:2;">
+    <li><a href="#what-are-entities">What are HTML entities?</a></li>
+    <li><a href="#five-characters">The five characters you must escape</a></li>
+    <li><a href="#named-vs-numeric">Named vs numeric entities</a></li>
+    <li><a href="#cheat-sheet">Entity cheat sheet</a></li>
+    <li><a href="#how-to-use">How to use this tool</a></li>
+    <li><a href="#legacy-quirk">The legacy no-semicolon quirk</a></li>
+    <li><a href="#use-cases">Use cases</a></li>
+    <li><a href="#faq">Frequently asked questions</a></li>
+    <li><a href="#related-tools">Related tools</a></li>
+  </ol>
+</nav>
+
+<div style="height:32px;"></div>
+
+<section class="about-section" id="what-are-entities">
+  <h2>🏷️ What are HTML entities?</h2>
+  <p>An <strong>HTML entity</strong> (formally a <em>character reference</em>) is a short code that stands in for a character that would otherwise be ambiguous or hard to type. There are two kinds: <strong>named</strong> references such as <code>&amp;amp;</code> or <code>&amp;copy;</code>, and <strong>numeric</strong> references such as <code>&amp;#38;</code> (decimal) or <code>&amp;#x26;</code> (hexadecimal).</p>
+  <p>Entities exist because five characters are part of HTML&#39;s syntax itself. When your data contains a literal <code>&lt;</code>, the parser cannot know whether you meant "start a tag" or "show a less-than sign" — unless you escape it. That is the whole job of an HTML entity encoder, and it is why escaping runs in the opposite direction to what most people expect: the encoder makes text <em>safe to display</em>, not hidden.</p>
+</section>
+
+<section class="about-section" id="five-characters">
+  <h2>🔐 The five characters you must escape</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.9rem;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);text-align:left;">
+        <th style="padding:8px;color:var(--muted);">Character</th>
+        <th style="padding:8px;color:var(--muted);">Entity</th>
+        <th style="padding:8px;color:var(--muted);">Why it matters</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;"><code>&amp;</code></td><td style="padding:8px;"><code>&amp;amp;</code></td><td style="padding:8px;">Starts every other entity — an unescaped ampersand can swallow the text after it.</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;"><code>&lt;</code></td><td style="padding:8px;"><code>&amp;lt;</code></td><td style="padding:8px;">Opens a tag. This is the character that turns text into markup (and into XSS).</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;"><code>&gt;</code></td><td style="padding:8px;"><code>&amp;gt;</code></td><td style="padding:8px;">Closes a tag. Escaping it makes an unterminated <code>&lt;</code> harmless.</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;"><code>"</code></td><td style="padding:8px;"><code>&amp;quot;</code></td><td style="padding:8px;">Ends a double-quoted attribute value.</td></tr>
+      <tr><td style="padding:8px;"><code>'</code></td><td style="padding:8px;"><code>&amp;#39;</code></td><td style="padding:8px;">Ends a single-quoted attribute value — and yes, single quotes are valid there.</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;">Every other character — accents, currencies, arrows, CJK, emoji — is safe to put in an HTML document as long as the file is encoded as UTF-8, which is the default in every modern browser and editor. Escaping them is optional and only useful when the encoding is uncertain.</p>
+</section>
+
+<section class="about-section" id="named-vs-numeric">
+  <h2>🔢 Named vs numeric entities</h2>
+  <p>Named entities read better (<code>&amp;copy;</code> beats <code>&amp;#169;</code>) but they are not uniform. The HTML 4.01 set defines <code>&amp;nbsp;</code>, <code>&amp;mdash;</code>, <code>&amp;alpha;</code>, <code>&amp;euro;</code> and around 250 others, while most Unicode characters have no name at all — there is no <code>&amp;chineseletter;</code>.</p>
+  <p>Numeric references work for everything by definition. This tool&#39;s encoder therefore uses a name when one exists in the classic set and falls back to a numeric reference otherwise, so the output is always valid HTML rather than an invented name that no browser recognises. If you need to be certain — for a strict XML consumer, for example — use Decimal or Hex mode, where every non-ASCII character becomes a numeric reference.</p>
+</section>
+
+<section class="about-section" id="cheat-sheet">
+  <h2>📋 HTML entity cheat sheet</h2>
+  <p>The entities that appear in real documents, ordered by how often you will want them:</p>
+  <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.88rem;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);text-align:left;">
+        <th style="padding:6px;color:var(--muted);">Symbol</th><th style="padding:6px;color:var(--muted);">Named</th><th style="padding:6px;color:var(--muted);">Numeric</th><th style="padding:6px;color:var(--muted);">Symbol</th><th style="padding:6px;color:var(--muted);">Named</th><th style="padding:6px;color:var(--muted);">Numeric</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">&amp;</td><td style="padding:6px;"><code>&amp;amp;</code></td><td style="padding:6px;"><code>&amp;#38;</code></td><td style="padding:6px;">©</td><td style="padding:6px;"><code>&amp;copy;</code></td><td style="padding:6px;"><code>&amp;#169;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">&lt;</td><td style="padding:6px;"><code>&amp;lt;</code></td><td style="padding:6px;"><code>&amp;#60;</code></td><td style="padding:6px;">®</td><td style="padding:6px;"><code>&amp;reg;</code></td><td style="padding:6px;"><code>&amp;#174;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">&gt;</td><td style="padding:6px;"><code>&amp;gt;</code></td><td style="padding:6px;"><code>&amp;#62;</code></td><td style="padding:6px;">™</td><td style="padding:6px;"><code>&amp;trade;</code></td><td style="padding:6px;"><code>&amp;#8482;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">"</td><td style="padding:6px;"><code>&amp;quot;</code></td><td style="padding:6px;"><code>&amp;#34;</code></td><td style="padding:6px;">€</td><td style="padding:6px;"><code>&amp;euro;</code></td><td style="padding:6px;"><code>&amp;#8364;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">'</td><td style="padding:6px;"><code>&amp;#39;</code></td><td style="padding:6px;"><code>&amp;#39;</code></td><td style="padding:6px;">£</td><td style="padding:6px;"><code>&amp;pound;</code></td><td style="padding:6px;"><code>&amp;#163;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">(space)</td><td style="padding:6px;"><code>&amp;nbsp;</code></td><td style="padding:6px;"><code>&amp;#160;</code></td><td style="padding:6px;">€¢¥</td><td style="padding:6px;"><code>&amp;cent; &amp;yen;</code></td><td style="padding:6px;"><code>&amp;#162; &amp;#165;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">—</td><td style="padding:6px;"><code>&amp;mdash;</code></td><td style="padding:6px;"><code>&amp;#8212;</code></td><td style="padding:6px;">± × ÷</td><td style="padding:6px;"><code>&amp;plusmn; &amp;times; &amp;divide;</code></td><td style="padding:6px;"><code>&amp;#177; &amp;#215; &amp;#247;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">–</td><td style="padding:6px;"><code>&amp;ndash;</code></td><td style="padding:6px;"><code>&amp;#8211;</code></td><td style="padding:6px;">°</td><td style="padding:6px;"><code>&amp;deg;</code></td><td style="padding:6px;"><code>&amp;#176;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">…</td><td style="padding:6px;"><code>&amp;hellip;</code></td><td style="padding:6px;"><code>&amp;#8230;</code></td><td style="padding:6px;">•</td><td style="padding:6px;"><code>&amp;bull;</code></td><td style="padding:6px;"><code>&amp;#8226;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">"</td><td style="padding:6px;"><code>&amp;ldquo;</code></td><td style="padding:6px;"><code>&amp;#8220;</code></td><td style="padding:6px;">→</td><td style="padding:6px;"><code>&amp;rarr;</code></td><td style="padding:6px;"><code>&amp;#8594;</code></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px;">"</td><td style="padding:6px;"><code>&amp;rdquo;</code></td><td style="padding:6px;"><code>&amp;#8221;</code></td><td style="padding:6px;">≤ ≥ ≠</td><td style="padding:6px;"><code>&amp;le; &amp;ge; &amp;ne;</code></td><td style="padding:6px;"><code>&amp;#8804; &amp;#8805; &amp;#8800;</code></td></tr>
+      <tr><td style="padding:6px;">'</td><td style="padding:6px;"><code>&amp;rsquo;</code></td><td style="padding:6px;"><code>&amp;#8217;</code></td><td style="padding:6px;">∑ ∏ √ ∞</td><td style="padding:6px;"><code>&amp;sum; &amp;prod; &amp;radic; &amp;infin;</code></td><td style="padding:6px;"><code>&amp;#8721; &amp;#8719; &amp;#8730; &amp;#8734;</code></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;">The decoder in this tool knows the full HTML 4.01 set — Greek letters, mathematical operators, arrows, punctuation, Latin-1 accented letters and the currency symbols — and records the name it matched for every entity it decodes.</p>
+</section>
+
+<section class="about-section" id="how-to-use">
+  <h2>🚀 How to use this tool</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:1.9;">
+    <li><strong>To escape:</strong> paste the text, choose a mode and press <em>Escape</em>. Minimal mode escapes only the five dangerous characters (what you want for user input); Named, Decimal and Hex add entities for non-ASCII characters; Everything turns every character into a numeric reference.</li>
+    <li><strong>To unescape:</strong> paste the HTML and press <em>Unescape</em>. Named entities, decimal references, hex references and the legacy no-semicolon names are all decoded. Double-encoded text (<code>&amp;amp;lt;</code>) is decoded twice and reported.</li>
+    <li><strong>Read the table:</strong> every entity in the input is listed with the character it becomes, its code point and its name — useful when you are looking at someone else&#39;s markup and cannot tell what <code>&amp;#65279;</code> is.</li>
+    <li><strong>Unknown entities are left alone</strong> rather than silently turned into question marks, and they are reported in the status line so you can fix the source.</li>
+  </ol>
+</section>
+
+<section class="about-section" id="legacy-quirk">
+  <h2>⚠️ The legacy no-semicolon quirk</h2>
+  <p>HTML&#39;s entity rules were written before anyone enforced the trailing semicolon. Browsers therefore accept a set of legacy names without one — <code>&amp;amp</code>, <code>&amp;copy</code>, <code>&amp;nbsp</code> all still work — and they match the <em>longest</em> valid name they can find.</p>
+  <p>That produces a genuinely surprising result: <code>&amp;notin;</code> (which should be ∉) can be read as the legacy <code>&amp;not</code> (¬) followed by the letters <code>in;</code>. The same trap sits in <code>&amp;copycat</code> (©cat) and any text where an ampersand is followed by a word. The decoder in this tool reproduces the browser behaviour on purpose — if you want the literal ampersand, write <code>&amp;amp;</code>. That is also the rule for your own data: escape every ampersand, and none of this can bite you.</p>
+</section>
+
+<section class="about-section" id="use-cases">
+  <h2>💼 Use cases</h2>
+  <ul>
+    <li><strong>Debugging double escaping:</strong> the page displays <code>&amp;amp;amp;</code> because it was escaped three times somewhere in the pipeline — this tool shows you how many decode passes are needed.</li>
+    <li><strong>Writing CMS content:</strong> paste text with accents, quotes or an ampersand and get markup-safe HTML for a template field.</li>
+    <li><strong>Email templates:</strong> HTML email clients are the strictest parsers you will meet; unescaped <code>&amp;</code> characters in URLs break links.</li>
+    <li><strong>Reading scraped HTML:</strong> decode entities from a page source or a feed into readable text.</li>
+    <li><strong>XSS review:</strong> encode a suspicious payload and see what a correct escaper produces, which makes it obvious when a template skipped it.</li>
+    <li><strong>Data cleanup:</strong> strip <code>&amp;nbsp;</code> and typographic entities from imported text before storing it.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="faq">
+  <h2>❓ Frequently asked questions</h2>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Which characters must be escaped in HTML?</h3>
+  <p><code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>"</code> and <code>'</code> — as <code>&amp;amp;</code>, <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;quot;</code> and <code>&amp;#39;</code>. Everything else is safe in a UTF-8 document.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">What is the difference between &amp;#65; and &amp;#x41;?</h3>
+  <p>Nothing but the base: <code>&amp;#65;</code> is decimal, <code>&amp;#x41;</code> is hexadecimal, and both mean <code>A</code>. Numeric references work for every Unicode character, which is why the encoder uses them whenever no common name exists.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Does escaping HTML entities prevent XSS?</h3>
+  <p>Escaping untrusted text before it lands in HTML or an attribute is the correct defence for that context, and it is what this tool produces. It is not sufficient in JavaScript, CSS or URL contexts, and it is irrelevant to SQL injection — escaping is one layer of a defence-in-depth approach, not a sanitizer.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Why did &amp;notin; turn into ¬in?</h3>
+  <p>Because of the legacy entity rule: the parser matched the no-semicolon name <code>&amp;not</code> (¬) and left the rest as text. Browsers do the same. Escape your ampersands as <code>&amp;amp;</code> and it cannot happen.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Is my text uploaded anywhere?</h3>
+  <p>No. Encoding, entity matching and decoding all run in your browser against a built-in table — you can load the page, disconnect and keep working.</p>
+</section>
+
+<section class="about-section" id="related-tools" style="margin-top:48px;">
+  <h2>🔗 Related tools</h2>
+  <p style="margin-bottom:16px;">More free developer tools from DevToolBox:</p>
+  <div class="grid grid-3">
+    <a href="/tools/url-encoder-decoder" class="card">
+      <div class="card-title">🔗 URL Encoder Decoder</div>
+      <div class="card-desc">Percent-encode and decode URLs and query strings, with a full URL parser.</div>
+    </a>
+    <a href="/tools/minifier" class="card">
+      <div class="card-title">📦 HTML / CSS / JS Minifier</div>
+      <div class="card-desc">Shrink HTML, CSS and JavaScript for production — safely, with inline-handler protection.</div>
+    </a>
+    <a href="/tools/json-formatter-online" class="card">
+      <div class="card-title">📋 JSON Formatter &amp; Validator</div>
+      <div class="card-desc">Format, validate and diff JSON — useful when the escaped payload is JSON.</div>
+    </a>
+  </div>
+</section>
+
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>
 </body>

@@ -3,101 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Encoder Decoder — Free Online URL Encoder Decoder Tool | DevToolBox</title>
-  <meta name="description" content="Free online URL encoder decoder — decode a URL, encode a URL. Encode and decode special characters, query parameters, and path segments. The best URL encoder decoder for developers.">
-  <meta property="og:title" content="URL Encoder Decoder — Free Online URL Encoder Decoder Tool">
-  <meta property="og:description" content="Free online URL encoder decoder — decode a URL, encode a URL. Encode and decode special characters, query parameters, and path segments.">
+  <title>URL Encoder Decoder — Free Online Percent-Encoding Tool | DevToolBox</title>
+  <meta name="description" content="Free online URL encoder decoder — encode or decode a URL, a query string or a single value. Percent-encoding (RFC 3986), + for spaces in form data, strict mode, and a lenient decoder that explains invalid escapes instead of throwing. Parses any URL into scheme, host, path, query parameters and fragment. 100% client-side.">
+  <meta name="keywords" content="url encoder decoder, url encoder, url decoder, decode a url, encode a url, percent encoding, url encode online, url decode online, urlencode, urldecode, query string encoder, url parser, uri encoder decoder">
+  <link rel="canonical" href="https://23232322.xyz/tools/url-encoder-decoder">
+  <meta property="og:title" content="URL Encoder Decoder — Free Online Percent-Encoding Tool | DevToolBox">
+  <meta property="og:description" content="Encode or decode URLs, query strings and values in your browser. RFC 3986 percent-encoding, form mode (+ for spaces), lenient decoding and a full URL parser.">
   <meta property="og:url" content="https://23232322.xyz/tools/url-encoder-decoder">
   <meta property="og:type" content="website">
-  <meta name="keywords" content="decode a url, encode a url, url encoder decoder, url encoder, url decoder, online url encoder decoder, url encode, url decode">
-  <link rel="canonical" href="https://23232322.xyz/tools/url-encoder-decoder">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="URL Encoder Decoder — Free Online Percent-Encoding Tool | DevToolBox">
+  <meta name="twitter:description" content="Encode and decode URLs and query strings — RFC 3986, form encoding, UTF-8 aware. Nothing leaves your browser.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/tool.css">
+  <script src="/js/url-tool.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "URL Encoder Decoder",
-    "description": "Free online URL encoder decoder — decode a URL, encode a URL. Encode and decode special characters, query parameters, and path segments.",
+    "description": "Free online URL encoder and decoder. Percent-encode or decode URLs, query strings and values with RFC 3986, application/x-www-form-urlencoded and lenient modes, plus a URL parser that breaks any URL into scheme, host, path, parameters and fragment. 100% client-side.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/url-encoder-decoder",
-    "dateModified": "2026-08-24"
+    "dateModified": "2026-09-18"
   }
   </script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "DevToolBox",
-      "item": "https://23232322.xyz"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "URL Encoder Decoder",
-      "item": "https://23232322.xyz/tools/url-encoder-decoder"
-    }
-  ]
-}
-  </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag("js", new Date());
-gtag("config", "G-ESF1YX8CCR");
-</script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is URL Encoder Decoder free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, URL Encoder Decoder is completely free to use. No sign-up required, no usage limits."
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "DevToolBox", "item": "https://23232322.xyz"},
+      {"@type": "ListItem", "position": 2, "name": "API & Network", "item": "https://23232322.xyz/categories/api-network"},
+      {"@type": "ListItem", "position": 3, "name": "URL Encoder Decoder", "item": "https://23232322.xyz/tools/url-encoder-decoder"}
+    ]
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-ESF1YX8CCR");
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between encodeURIComponent and encodeURI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "encodeURIComponent escapes everything except the unreserved set A-Z a-z 0-9 - _ . ! ~ * ' ( ), which makes it the right choice for a single value such as a query parameter. encodeURI leaves the reserved characters : / ? # [ ] @ ! $ & ' ( ) * + , ; = alone so an entire URL stays a URL — use it on a whole address, never on one value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should a space be %20 or +?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both mean space, but in different places. Inside a path or a modern query string a space is %20. In application/x-www-form-urlencoded bodies and in query strings produced by HTML forms, a space is +. This tool has separate Component, Strict and Form modes so you get the flavour your API expects; the decoder decodes + as a space in Form mode and keeps it literal otherwise."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is double encoding?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Double encoding happens when an already-encoded string is encoded again and the percent sign itself becomes %25 — so a space becomes %2520 instead of %20. It is the usual reason an API receives the literal text %20 where a space was expected. This tool detects the %25xx pattern and offers to decode the input twice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does decoding sometimes fail?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "decodeURIComponent throws a URIError when it meets a percent sign that is not followed by two hex digits, or a byte sequence that is not valid UTF-8 — for example a truncated %E4%B8 or a Latin-1 payload. This tool decodes leniently by default: valid escapes are decoded, malformed ones are left exactly as they were and listed so you can see what the sender got wrong."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Does URL Encoder Decoder require an internet connection?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
-      }
-    }
-  ]
-}
+    ]
+  }
   </script>
 </head>
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
 <main>
-<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/api-network">API & Network</a><span class="sep">›</span>URL Encoder Decoder</div>
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/api-network">API &amp; Network</a><span class="sep">›</span>URL Encoder Decoder</div>
 <div class="tool-hero">
   <h1>🔗 URL Encoder Decoder</h1>
   <div class="tool-tags"><span class="tag free">Free</span></div>
-  <p class="tool-desc">Free online URL encoder decoder. Encode and decode URLs, special characters, query parameters, and path segments. Supports RFC 3986 and application/x-www-form-urlencoded.</p>
-  <a href="/tools/url-encoder-decoder" class="tool-cta">Try URL Tool →</a>
+  <p class="tool-desc">Encode or decode a URL, a query string or a single value — percent-encoding (RFC 3986), <code>+</code> for spaces in form data, and a lenient decoder that tells you which escapes were invalid instead of throwing. Any URL is also broken into scheme, host, path, query parameters and fragment. Runs in your browser.</p>
+  <a href="#url-tool" class="tool-cta">Encode or decode a URL ↓</a>
 </div>
-<section class="about-section"><h2>✨ Key Features</h2><ul>
-<li>URL encode any string with proper percent-encoding</li>
-<li>Decode percent-encoded URLs back to plain text</li>
-<li>Full URL parsing — protocol, host, path, query, hash</li>
-<li>Query string builder and parser</li>
-<li>Handle international characters (UTF-8 encoding)</li>
-<li>RFC 3986 compliant encoding</li>
-<li>100% client-side — no data sent to servers</li>
-<li>Copy encoded URL with one click</li>
-</ul></section>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="dt-tool" id="url-tool">
+  <div class="dt-head">
+    <h2>🔗 URL encoder / decoder</h2>
+    <div class="dt-bar">
+      <span class="dt-field">Mode
+        <select id="url-mode">
+          <option value="component" selected>Component — for one value (encodeURIComponent)</option>
+          <option value="strict">Strict RFC 3986 — also escapes ! ' ( ) *</option>
+          <option value="uri">Whole URL — keeps : / ? &amp; = # (encodeURI)</option>
+          <option value="form">Form data — spaces become +</option>
+        </select>
+      </span>
+    </div>
+  </div>
+
+  <div class="dt-bar">
+    <button class="dt-btn primary" id="url-encode">Encode →</button>
+    <button class="dt-btn" id="url-decode">← Decode</button>
+    <button class="dt-btn" id="url-swap">⇄ Swap</button>
+    <button class="dt-btn" id="url-sample">Load sample</button>
+    <button class="dt-btn" id="url-copy">Copy output</button>
+    <button class="dt-btn ghost" id="url-clear">Clear</button>
+  </div>
+
+  <div class="dt-grid2" style="margin-top:14px">
+    <div>
+      <label class="dt-note" for="url-in" style="display:block;margin:0 0 6px">Input — a URL, a query string or a value</label>
+      <textarea class="dt-ta" id="url-in" spellcheck="false" placeholder="https://example.com/search?q=café &amp; tea=中文"></textarea>
+    </div>
+    <div>
+      <label class="dt-note" for="url-out" style="display:block;margin:0 0 6px">Output</label>
+      <textarea class="dt-ta out" id="url-out" spellcheck="false" readonly placeholder="The encoded or decoded result appears here…"></textarea>
+    </div>
+  </div>
+
+  <div class="dt-status" id="url-status"></div>
+  <p class="dt-note">Encoding and decoding happen with the browser&#39;s own <code>encodeURIComponent</code> / <code>decodeURIComponent</code> primitives, so what you see here is exactly what <code>fetch()</code> or your framework will produce.</p>
+
+  <div class="dt-sub">
+    <h3>🧩 Parsed URL</h3>
+    <table class="dt-kv" id="url-parts"></table>
+  </div>
+
+  <div class="dt-sub">
+    <h3>🔍 Query parameters (decoded)</h3>
+    <div id="url-query"></div>
+  </div>
+
+  <div class="dt-sub">
+    <h3>📖 Every percent escape in the input</h3>
+    <div id="url-escapes"></div>
+  </div>
+
+  <div class="dt-sub">
+    <h3>🌍 Non-ASCII characters and their UTF-8 bytes</h3>
+    <div id="url-chars"></div>
+  </div>
+</div>
+<div class="dt-toast" id="dt-toast"></div>
+
+<nav class="about-section" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;" aria-label="Table of Contents">
+  <h2 style="border-bottom:none;margin-bottom:12px;">📑 Table of Contents</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:2;">
+    <li><a href="#what-is-percent-encoding">What is percent-encoding?</a></li>
+    <li><a href="#reserved-unreserved">Reserved vs unreserved characters</a></li>
+    <li><a href="#modes">Component, Strict, Whole URL and Form modes</a></li>
+    <li><a href="#how-to-use">How to use this tool</a></li>
+    <li><a href="#common-mistakes">Common encoding mistakes</a></li>
+    <li><a href="#use-cases">Use cases</a></li>
+    <li><a href="#faq">Frequently asked questions</a></li>
+    <li><a href="#related-tools">Related tools</a></li>
+  </ol>
+</nav>
+
+<div style="height:32px;"></div>
+
+<section class="about-section" id="what-is-percent-encoding">
+  <h2>🔗 What is percent-encoding?</h2>
+  <p>A URL may only contain a small set of ASCII characters. Everything else — spaces, <code>&amp;</code>, <code>?</code>, Cyrillic, Chinese, emoji — has to be written as a <strong>percent-encoding</strong>: a percent sign followed by the two hex digits of the byte. A space is <code>%20</code>, <code>&amp;</code> is <code>%26</code>, the ampersand-free <code>#</code> is <code>%23</code>. Multi-byte characters are encoded byte by byte in UTF-8, so <code>中</code> (U+4E2D) becomes <code>%E4%B8%AD</code> and 😀 (U+1F600) becomes <code>%F0%9F%98%80</code>.</p>
+  <p>The rules live in <strong>RFC 3986</strong>, which also defines how the parts of a URI fit together. Two practical consequences follow from it:</p>
+  <ul>
+    <li>A reserved character only <em>becomes</em> reserved in a particular position. A <code>/</code> in a path is a separator; a <code>/</code> inside a query value must be encoded as <code>%2F</code> if it is meant literally.</li>
+    <li>Encoding is not encryption and not compression. Decoding is always reversible, and this tool does it locally.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="reserved-unreserved">
+  <h2>📚 Reserved vs unreserved characters</h2>
+  <p>Only the <strong>unreserved</strong> set may appear literally in a URL: <code>A–Z</code>, <code>a–z</code>, <code>0-9</code>, <code>-</code>, <code>_</code>, <code>.</code>, <code>~</code>. Everything else is a candidate for escaping, but implementations differ by one notch — and that notch causes most "why is my signature invalid?" bugs:</p>
+  <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.9rem;">
+    <thead>
+      <tr style="border-bottom:2px solid var(--border);text-align:left;">
+        <th style="padding:8px;color:var(--muted);">Function / mode</th>
+        <th style="padding:8px;color:var(--muted);">Escapes</th>
+        <th style="padding:8px;color:var(--muted);">Leaves alone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px;"><code>encodeURIComponent</code> (Component mode)</td>
+        <td style="padding:8px;">everything except unreserved + <code>! ' ( ) *</code></td>
+        <td style="padding:8px;"><code>A-Z a-z 0-9 - _ . ~ ! ' ( ) *</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px;">Strict RFC 3986 (Strict mode)</td>
+        <td style="padding:8px;">also <code>! ' ( ) *</code></td>
+        <td style="padding:8px;"><code>A-Z a-z 0-9 - _ . ~</code> — this is what AWS SigV4 and OAuth 1.0 expect</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:8px;"><code>encodeURI</code> (Whole URL mode)</td>
+        <td style="padding:8px;">spaces, non-ASCII, control characters</td>
+        <td style="padding:8px;">reserved: <code>: / ? # [ ] @ ! $ &amp; ' ( ) * + , ; =</code></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;"><code>x-www-form-urlencoded</code> (Form mode)</td>
+        <td style="padding:8px;">same as Component, then <code>%20</code> → <code>+</code></td>
+        <td style="padding:8px;">as Component, but spaces become <code>+</code></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;">If a signature check fails on exactly the characters <code>! ' ( ) *</code>, you are comparing Component output with a Strict-mode signature — switch the mode and try again.</p>
+</section>
+
+<section class="about-section" id="modes">
+  <h2>🎛️ Which mode should I use?</h2>
+  <ul>
+    <li><strong>Component</strong> — one value that goes into a query parameter, path segment or form field. This is the default and matches JavaScript&#39;s <code>encodeURIComponent</code>.</li>
+    <li><strong>Strict RFC 3986</strong> — the same, plus <code>!</code>, <code>'</code>, <code>(</code>, <code>)</code>, <code>*</code> escaped. Required by some signature schemes and by a few strict servers.</li>
+    <li><strong>Whole URL</strong> — paste a complete address containing a space or a non-ASCII character and get back a valid URL with the structure intact.</li>
+    <li><strong>Form data</strong> — for <code>application/x-www-form-urlencoded</code> bodies and classic HTML form posts, where a space is a <code>+</code>.</li>
+  </ul>
+  <p>Decoding uses the same selector: in Form mode a <code>+</code> becomes a space, in the other modes it stays a plus sign (which is why <code>a+b</code> survives a round trip in Component mode but turns into <code>a b</code> in Form mode).</p>
+</section>
+
+<section class="about-section" id="how-to-use">
+  <h2>🚀 How to use this tool</h2>
+  <ol style="padding-left:20px;color:var(--text);line-height:1.9;">
+    <li>Paste a URL, a query string (<code>?a=1&amp;b=2</code>) or a single value into the input box.</li>
+    <li>Pick the mode that matches where the value is going.</li>
+    <li>Press <em>Encode</em> or <em>Decode</em>. The output box holds the result, ready for its copy button.</li>
+    <li>Read the panels underneath: the input is also parsed into scheme, host, port, path, query and fragment, the query string is expanded into a parameter table, every percent escape already present is decoded for you, and non-ASCII characters are shown with the exact UTF-8 bytes they will occupy.</li>
+    <li>If the input looks double-encoded (<code>%2520</code>), Decode will tell you and decode it twice.</li>
+  </ol>
+</section>
+
+<section class="about-section" id="common-mistakes">
+  <h2>🐛 Common encoding mistakes</h2>
+  <ul>
+    <li><strong>Encoding the whole URL with encodeURIComponent.</strong> <code>https://a.com/b?c=d</code> becomes <code>https%3A%2F%2Fa.com%2Fb%3Fc%3Dd</code> and your server sees a path that does not exist. Encode the <em>values</em>, not the address.</li>
+    <li><strong>Double encoding.</strong> Encoding in the client, then again in a proxy or an SDK, turns a space into <code>%2520</code>. When an API echoes back <code>%20</code> as literal text, look for a second encode step.</li>
+    <li><strong>Mixing <code>+</code> and <code>%20</code>.</strong> A <code>+</code> in a path is a literal plus. Decoding form data with a component decoder leaves plus signs everywhere, and decoding a path with a form decoder turns every plus into a space.</li>
+    <li><strong>Encoding reserved characters a second time.</strong> <code>%2F</code> in a path is a literal slash; some servers decode it back into a separator and re-route the request. That is a real (and sometimes exploitable) difference — keep it in mind when you build URL rewrite rules.</li>
+    <li><strong>Assuming UTF-8.</strong> Older Latin-1 systems produce <code>%E9</code> for <code>é</code> where UTF-8 needs <code>%C3%A9</code>. The escape table above flags byte sequences that are not valid UTF-8.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="use-cases">
+  <h2>💼 Use cases</h2>
+  <ul>
+    <li><strong>API debugging:</strong> see what your request actually contains — a query parameter that should be <code>name=John Doe</code> but arrives as <code>name=John+Doe</code> or <code>name=John%2520Doe</code> explains a lot of 400s.</li>
+    <li><strong>Signed URLs:</strong> CDN and cloud storage links embed an encoded signature; a single mis-escaped character invalidates the signature.</li>
+    <li><strong>Building links by hand:</strong> generate a properly encoded query string for an email, a spreadsheet or a tracker without writing a script.</li>
+    <li><strong>Reading search URLs:</strong> decode the <code>q=</code> parameter of a search engine or an analytics export.</li>
+    <li><strong>Log forensics:</strong> decode the requesting URL out of an access log line, including the spaces and the non-ASCII path.</li>
+    <li><strong>OAuth / OIDC work:</strong> <code>redirect_uri</code>, <code>state</code> and <code>scope</code> all travel percent-encoded, and half of all redirect_uri_mismatch errors are an encoding difference.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="faq">
+  <h2>❓ Frequently asked questions</h2>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">What is the difference between encodeURIComponent and encodeURI?</h3>
+  <p><code>encodeURIComponent</code> escapes everything except <code>A-Z a-z 0-9 - _ . ! ~ * ' ( )</code> and is meant for a single value. <code>encodeURI</code> keeps the reserved characters so an entire URL stays a URL. Use Component mode for a value and Whole URL mode for an address.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Should a space be %20 or +?</h3>
+  <p>In a path or a modern query string, <code>%20</code>. In <code>application/x-www-form-urlencoded</code> bodies and HTML form posts, <code>+</code>. The Form mode encodes to <code>+</code> and the Form decode mode turns <code>+</code> back into a space.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">What about double encoding?</h3>
+  <p>It shows up as <code>%25</code> followed by two hex digits — <code>%2520</code> where a space was expected. This tool detects the pattern and decodes twice, showing you the intermediate result.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Why does decoding sometimes fail?</h3>
+  <p><code>decodeURIComponent</code> throws on a truncated escape such as <code>%E4%B8</code> or on bytes that are not valid UTF-8. This decoder is lenient by default: valid escapes are decoded, malformed ones are left untouched and listed in the status line, so you can still see the rest of the payload.</p>
+
+  <h3 style="color:var(--text-bright);margin-top:16px;">Is my URL sent to a server?</h3>
+  <p>No. Encoding, decoding, URL parsing and the byte tables all run in your browser. Signed URLs with credentials in them are safe to paste here — nothing leaves the page.</p>
+</section>
+
+<section class="about-section" id="related-tools" style="margin-top:48px;">
+  <h2>🔗 Related tools</h2>
+  <p style="margin-bottom:16px;">More free developer tools from DevToolBox:</p>
+  <div class="grid grid-3">
+    <a href="/base64-encode" class="card">
+      <div class="card-title">🔐 Base64 Encoder / Decoder</div>
+      <div class="card-desc">Encode and decode Base64 — including the URL-safe alphabet used in JWTs and data URIs.</div>
+    </a>
+    <a href="/tools/html-entity-encoder-decoder" class="card">
+      <div class="card-title">🏷️ HTML Entity Encoder / Decoder</div>
+      <div class="card-desc">Escape HTML the other way: characters to entities, entities back to text.</div>
+    </a>
+    <a href="/tools/json-formatter-online" class="card">
+      <div class="card-title">📋 JSON Formatter &amp; Validator</div>
+      <div class="card-desc">Pretty-print the JSON response that came back from your API call.</div>
+    </a>
+  </div>
+</section>
+
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>
 </body>

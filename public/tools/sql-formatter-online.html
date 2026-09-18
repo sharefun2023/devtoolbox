@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SQL Formatter Online — Free SQL Beautifier &amp; Formatter | DevToolBox</title>
-  <meta name="description" content="Free online SQL formatter and beautifier. Supports MySQL, PostgreSQL, T-SQL, and 15+ dialects. Format, minify, validate SQL, and convert SQL to JSON — all in your browser, no data sent to servers.">
+  <meta name="description" content="Free online SQL formatter and beautifier — paste a query and get one clause per line, indented subqueries and CASE blocks, with every token preserved. Minify SQL to a single line, check parentheses, unterminated strings and trailing commas with line numbers. MySQL, PostgreSQL and T-SQL quoting styles understood. 100% client-side.">
+  <meta name="keywords" content="sql formatter, sql formatter online, sql beautifier, format sql, beautify sql online, sql minifier, sql pretty printer, sql formatter mysql, sql formatter postgresql, sql formatter t-sql, online sql formatter free">
   <link rel="canonical" href="https://23232322.xyz/tools/sql-formatter-online">
+  <meta property="og:title" content="SQL Formatter Online — Free SQL Beautifier, Formatter &amp; Minifier | DevToolBox">
+  <meta property="og:description" content="Beautify SQL with one clause per line, indented subqueries and CASE blocks — or minify it to a single line. Token-safe: strings, identifiers and comments come back untouched. 100% client-side.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://23232322.xyz/tools/sql-formatter-online">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SQL Formatter Online — Free SQL Beautifier &amp; Minifier | DevToolBox">
+  <meta name="twitter:description" content="Format or minify SQL in your browser — clause per line, subqueries indented, literals untouched.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/tool.css">
+  <script src="/js/sql-formatter.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "SQL Formatter Online",
-    "description": "Free online SQL formatter and beautifier. Supports MySQL, PostgreSQL, T-SQL, and 15+ dialects.",
+    "description": "Free online SQL formatter, beautifier and minifier. Lays out one clause per line with indented subqueries and CASE blocks, preserves strings, identifiers and comments byte for byte, and reports structural problems with line numbers. 100% client-side.",
     "url": "https://23232322.xyz/tools/sql-formatter-online",
-    "dateModified": "2026-09-17",
+    "dateModified": "2026-09-18",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web Browser",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
@@ -82,7 +92,7 @@ gtag("config", "G-ESF1YX8CCR");
       "name": "Which SQL dialects are supported?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MySQL, MariaDB, PostgreSQL, T-SQL (SQL Server), PL/SQL (Oracle), SQLite, Redshift, BigQuery, Spark, DB2, Hive and Snowflake, plus a standard ANSI mode. The dialect selector at the top of the tool switches between them. Choosing the right dialect matters because quoting rules, LIMIT versus TOP, and procedure syntax differ."
+        "text": "The formatter works on the token level, so it handles standard SQL plus the vendor syntax that changes how tokens are delimited: MySQL backtick identifiers, T-SQL bracket identifiers, PostgreSQL double-quoted identifiers, casts with ::, and dollar-quoted function bodies. It is not tied to a dialect selector, and statements such as LIMIT versus TOP are preserved exactly as you typed them."
       }
     },
     {
@@ -95,6 +105,13 @@ gtag("config", "G-ESF1YX8CCR");
     },
     {
       "@type": "Question",
+      "name": "Does formatting ever change what the query does?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The formatter only moves whitespace: it lexes strings, quoted identifiers and comments first and copies them back byte for byte, so the token stream is identical before and after. Keywords change case only if you ask for it, and case does not affect SQL meaning. Comments are preserved as well."
+      }
+    },
+    {
       "name": "Do I still need a linter if I use a formatter?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -115,21 +132,85 @@ gtag("config", "G-ESF1YX8CCR");
 <div class="tool-hero">
   <h1>🔧 SQL Formatter Online</h1>
   <div class="tool-tags"><span class="tag free">Free</span><span class="tag featured">Featured</span></div>
-  <p class="tool-desc">Free online SQL formatter and beautifier. Supports MySQL, PostgreSQL, T-SQL, and 15+ dialects. Format, minify, validate SQL, and convert SQL to JSON — all in your browser, no data sent to servers.</p>
-  <a href="https://sqlformat.io" class="tool-cta">Open SQL Formatter →</a>
+  <p class="tool-desc">Free online SQL formatter and beautifier. Paste a query and get one clause per line, indented subqueries and <code>CASE</code> blocks, with identical tokens — the formatter is token based and never rewrites the inside of a string. Or go the other way and minify SQL onto a single line. Everything runs in your browser.</p>
+  <a href="#sql-tool" class="tool-cta">Format a query now ↓</a>
 </div>
+
+<!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
+<div class="dt-tool" id="sql-tool">
+  <div class="dt-head">
+    <h2>🔧 SQL formatter, beautifier &amp; minifier</h2>
+    <div class="dt-bar">
+      <span class="dt-field">Keywords
+        <select id="sql-keyword-case">
+          <option value="upper" selected>UPPERCASE</option>
+          <option value="lower">lowercase</option>
+          <option value="preserve">leave as typed</option>
+        </select>
+      </span>
+      <span class="dt-field">Indent
+        <select id="sql-indent">
+          <option value="2" selected>2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="tab">Tab</option>
+        </select>
+      </span>
+    </div>
+  </div>
+
+  <div class="dt-bar">
+    <button class="dt-btn primary" id="sql-format">Format / Beautify</button>
+    <button class="dt-btn" id="sql-minify">Minify to one line</button>
+    <button class="dt-btn" id="sql-swap">⇄ Swap</button>
+    <button class="dt-btn" id="sql-sample">Load sample</button>
+    <button class="dt-btn" id="sql-copy">Copy output</button>
+    <button class="dt-btn ghost" id="sql-clear">Clear</button>
+    <label class="dt-field" style="margin-left:auto"><input type="checkbox" id="sql-break-commas" checked> one column per line</label>
+    <label class="dt-field"><input type="checkbox" id="sql-break-and-or" checked> AND / OR on their own line</label>
+    <label class="dt-field"><input type="checkbox" id="sql-break-joins" checked> each JOIN on its own line</label>
+  </div>
+
+  <div class="dt-grid2" style="margin-top:14px">
+    <div>
+      <label class="dt-note" for="sql-in" style="display:block;margin:0 0 6px">Input SQL (Ctrl/⌘ + Enter formats, Tab inserts two spaces)</label>
+      <textarea class="dt-ta" id="sql-in" spellcheck="false" placeholder="select u.id, count(*) from users u join orders o on o.user_id = u.id where u.active = true group by u.id;"></textarea>
+    </div>
+    <div>
+      <label class="dt-note" for="sql-out" style="display:block;margin:0 0 6px">Formatted output</label>
+      <textarea class="dt-ta out" id="sql-out" spellcheck="false" readonly placeholder="The formatted query appears here…"></textarea>
+    </div>
+  </div>
+
+  <div class="dt-status" id="sql-status"></div>
+  <p class="dt-note">Strings, quoted identifiers (<code>"col"</code>, <code>`col`</code>, <code>[col]</code>), dollar-quoted bodies (<code>$$ … $$</code>) and comments are lexed first and handed back untouched — a keyword inside a literal is never re-cased.</p>
+
+  <div class="dt-sub">
+    <h3>🕘 Your last five queries</h3>
+    <div id="sql-history"></div>
+    <div class="dt-bar" style="margin-top:10px"><button class="dt-btn ghost" id="sql-history-clear">Clear local history</button></div>
+    <p class="dt-note">Stored in this browser only (<code>localStorage</code>) and never uploaded. Use Clear before using a shared machine.</p>
+  </div>
+
+  <div class="dt-sub">
+    <h3>🧰 Prefer a full IDE-style formatter?</h3>
+    <p class="dt-note" style="margin:0">The sibling project <a href="https://sqlformat.io">sqlformat.io</a> handles the same job with a bigger dialect matrix. This page keeps everything client-side with no account.</p>
+  </div>
+</div>
+<div class="dt-toast" id="dt-toast"></div>
 <section class="about-section"><h2>✨ Key Features</h2><ul>
-<li>Supports 15+ SQL dialects: MySQL, PostgreSQL, T-SQL, PL/SQL, SQLite, and more</li>
-<li>Instant formatting — paste and beautify in real time</li>
-<li>SQL minifier to compress queries for production</li>
-<li>SQL validator with line-level error messages</li>
-<li>Convert SQL to JSON with one click</li>
+<li>Token-based beautifier — one clause per line (<code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>GROUP BY</code>, <code>ORDER BY</code>, <code>LIMIT</code> …)</li>
+<li>Subqueries indented, and the opening parenthesis mirrored by a closing one on its own line</li>
+<li><code>CASE … WHEN … THEN … ELSE … END</code> laid out as a block instead of one line</li>
+<li><code>AND</code> / <code>OR</code> on their own line — while the <code>AND</code> that belongs to <code>BETWEEN x AND y</code> correctly stays inline</li>
+<li>Understands the quoting and comment styles in the wild: <code>'…'</code> with doubled or backslash escapes, <code>"…"</code>, <code>`…`</code>, <code>[…]</code>, <code>-- …</code>, <code># …</code>, <code>/* … */</code> and PostgreSQL dollar-quoted bodies</li>
+<li>Minifier — collapse a query onto one line without touching literals or swallowing a line comment</li>
+<li>Structure check with line numbers: unbalanced parentheses, unterminated strings and comments, trailing commas before a clause or <code>)</code></li>
+<li>Keyword casing (UPPERCASE / lowercase / leave as typed) and indent width (2, 4 or tab) as options</li>
+<li>Last five formatted queries kept in this browser only</li>
 <li>100% client-side — your SQL never leaves your browser</li>
-<li>Formatting history (last 5 queries saved locally)</li>
-<li>Share formatted queries via URL link</li>
 </ul></section>
 <section class="about-section"><h2>💡 How It Works</h2>
-<p>Simply paste your SQL query, choose your dialect, and the tool formats it instantly in your browser using JavaScript. No data is ever sent to any server — your SQL stays completely private and secure on your device.</p>
+<p>Paste your query and press <em>Format</em>. The formatter lexes the text into tokens — keywords, identifiers, literals, comments, operators — then lays the token stream out again with one clause per line and one indent level per nesting depth. It is a pure whitespace transformation: the tokens come out in the same order, so the query means exactly the same thing to your database. No data is sent to any server; your SQL stays on your device.</p>
 <p>This tool is part of the <strong>DevToolBox</strong> collection. Browse more tools in the <a href="/categories/database-sql">Database &amp; SQL</a> category.</p></section>
 <section class="about-section"><h2>📖 What SQL Formatting Actually Does</h2>
 <p>Formatting is a purely structural transformation. The tokens stay in the same order and the query means exactly the same thing to the database; only the whitespace and line breaks change. That is why a formatter is always safe to run — it cannot alter semantics, only readability.</p>
@@ -143,17 +224,17 @@ gtag("config", "G-ESF1YX8CCR");
 </ul>
 <p>The payoff is not aesthetic. Unformatted queries hide bugs: an <code>AND</code> that binds in the wrong place, a <code>LEFT JOIN</code> that is really an inner join because the filter moved into the <code>WHERE</code> clause, a correlated subquery buried in a single line. One line per clause and one indent level per nesting depth makes those mistakes visible at a glance.</p>
 </section>
-<section class="about-section"><h2>🔀 Pick the Right Dialect</h2>
-<p>Formatting results depend on the dialect you select, because the same keyword can be valid in one engine and reserved in another. The table below covers the differences that show up most often in practice.</p>
+<section class="about-section"><h2>🧾 What this formatter understands</h2>
+<p>SQL formatting goes wrong in one of two ways: the formatter rewrites something it should have copied (a string, a comment, a quoted identifier), or it gets confused by a delimiter it did not expect and runs the rest of the query together. This tool lexes the query first and classifies each token, which is why vendor syntax is handled without a dialect switch.</p>
 <ul>
-<li><strong>PostgreSQL</strong> — double-quoted identifiers, <code>::</code> cast syntax, <code>ILIKE</code>, <code>RETURNING</code>, and dollar-quoted function bodies ($$ ... $$).</li>
-<li><strong>MySQL / MariaDB</strong> — backtick identifiers, <code>LIMIT</code> for row counts, and backslash escapes inside string literals that other engines would treat as literal characters.</li>
-<li><strong>T-SQL (SQL Server)</strong> — bracket identifiers <code>[column]</code>, <code>TOP n</code> instead of <code>LIMIT</code>, and <code>GO</code> batch separators that are a client directive rather than a statement.</li>
-<li><strong>PL/SQL (Oracle)</strong> — <code>BEGIN ... END</code> blocks, <code>DECLARE</code> sections, and procedure or package bodies that need block-aware indentation rather than statement-aware.</li>
-<li><strong>BigQuery / Spark / Hive</strong> — backtick identifiers, array and struct literals, and <code>UNNEST</code> patterns that read very differently once indented.</li>
-<li><strong>Snowflake, Redshift, DB2, SQLite</strong> — mostly ANSI with small extensions; SQLite in particular accepts several constructs other engines reject, so it is a forgiving mode to start from.</li>
+<li><strong>String literals</strong> — <code>'text'</code> with doubled quotes (<code>'it''s'</code>) and MySQL-style backslash escapes (<code>'it\'s'</code>). Contents are never reflowed, so a comma or a parenthesis inside a string cannot break the layout.</li>
+<li><strong>Quoted identifiers</strong> — PostgreSQL-style <code>"column"</code>, MySQL-style <code>`column`</code> and T-SQL <code>[column]</code>. Keywords that appear inside them stay exactly as written.</li>
+<li><strong>Dollar-quoted bodies</strong> — PostgreSQL <code>$$ … $$</code> and <code>$tag$ … $tag$</code>, the construct that normally breaks naive formatters because it may contain semicolons.</li>
+<li><strong>Comments</strong> — <code>-- line</code>, MySQL <code># line</code> and <code>/* block */</code>. They keep their position, and minifying never swallows the rest of a statement after a line comment.</li>
+<li><strong>Identifiers that look like keywords</strong> — a table called <code>order</code> or a column called <code>date</code> is only re-cased when it is used in a keyword position, matching how every other formatter behaves.</li>
+<li><strong>Operators and casts</strong> — <code>::</code>, <code>||</code>, <code>!=</code>, <code>&lt;&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>-&gt;&gt;</code> and friends are kept as single units instead of being split into stray punctuation.</li>
 </ul>
-<p>If a query is standard SQL with no vendor extension, the ANSI mode gives the most neutral result. If you are unsure, format in the target dialect — that is the one the query will actually run against.</p>
+<p>What it does not do: rename anything, rewrite <code>LIMIT</code> into <code>TOP</code>, prettify stored-procedure control flow, or parse your schema. Reformatting a 2,000-line migration will wrap clauses and indent subqueries; it will not restructure the logic.</p>
 </section>
 <section class="about-section"><h2>🧪 Where a Formatter Fits in Your Workflow</h2>
 <ul>
@@ -184,7 +265,9 @@ gtag("config", "G-ESF1YX8CCR");
 <h3>Is it safe to paste a production SQL query?</h3>
 <p>Yes with DevToolBox. The formatter is client-side JavaScript: the query is parsed in your browser and never uploaded, which you can confirm in your browser's network tab. Remove literal credentials and customer data anyway — that is ordinary hygiene regardless of the tool.</p>
 <h3>Which SQL dialects are supported?</h3>
-<p>MySQL, MariaDB, PostgreSQL, T-SQL (SQL Server), PL/SQL (Oracle), SQLite, Redshift, BigQuery, Spark, DB2, Hive and Snowflake, plus a standard ANSI mode. Choosing the right dialect matters: quoting rules, <code>LIMIT</code> versus <code>TOP</code>, and procedure syntax all differ.</p>
+<p>The formatter is token based rather than dialect bound, so it understands standard SQL and the vendor conventions that decide how tokens are delimited: MySQL backtick identifiers, T-SQL <code>[bracketed]</code> identifiers, PostgreSQL double-quoted identifiers and <code>::</code> casts, and dollar-quoted function bodies. Statements such as <code>LIMIT</code> versus <code>TOP</code> are left exactly as you typed them — the tool never rewrites your SQL to another dialect.</p>
+<h3>Does formatting ever change what the query does?</h3>
+<p>No. Only whitespace moves. Strings, quoted identifiers and comments are lexed first and copied back byte for byte, so the token stream is identical before and after — that guarantee is covered by the project&#39;s test suite, which compares the token stream of every formatted and minified query against the input.</p>
 <h3>Can I minify SQL as well as beautify it?</h3>
 <p>Yes. The same tool both beautifies and minifies. Minifying collapses whitespace and line breaks so the query fits on one line, which helps when embedding a statement in application code or a config value where multi-line strings are awkward.</p>
 <h3>Do I still need a linter if I use a formatter?</h3>

@@ -3,15 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hash & UUID Generator - DevToolBox</title>
-<meta name="description" content="Generate UUID v4 and compute MD5, SHA1, SHA256, SHA512 hashes. Batch generate and copy with one click. Fully offline, no server uploads.">
+<title>MD5 Hash Generator Online — SHA-1, SHA-256, SHA-384 &amp; SHA-512</title>
+<meta name="description" content="Free MD5 and SHA hash generator: compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for text, a list of values or a whole file. 100% client-side.">
+<meta name="keywords" content="hash generator, md5 hash generator, md5 generator, sha1 generator, sha256 generator, sha512 generator, hash generator online, file hash checker, checksum generator, hash text online, md5 checksum tool, sha256 hash online">
+<meta property="og:title" content="MD5 Hash Generator Online — SHA-1, SHA-256, SHA-384 &amp; SHA-512">
+<meta property="og:description" content="Compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for text, batches of lines or a whole file. Runs entirely in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://23232322.xyz/tools/hash-generator">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MD5 Hash Generator Online — SHA-1, SHA-256, SHA-384 &amp; SHA-512">
+<meta name="twitter:description" content="Compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for text or a file. Runs entirely in your browser.">
 <link rel="canonical" href="https://23232322.xyz/tools/hash-generator">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#1a1a2e;--surface:#16213e;--card:#0f3460;--accent:#e94560;--text:#e8e8e8;--text-dim:#8892b0;--border:#233a5e;--radius:8px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif}
 body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;min-height:100vh}
 .container{max-width:920px;margin:0 auto;padding:24px 20px 80px}
-h1{font-size:1.8rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+h1{font-size:1.5rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
 h1 span{font-size:1.6rem}
 .subtitle{color:var(--text-dim);margin-bottom:32px;font-size:0.95rem}
 .tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--border);flex-wrap:wrap}
@@ -46,6 +54,11 @@ textarea{resize:vertical;min-height:100px}
 .batch-controls label{font-size:0.85rem;color:var(--text-dim)}
 .batch-controls input[type="number"]{width:80px;padding:6px 10px}
 .status{font-size:0.82rem;color:var(--text-dim);margin-top:8px}
+.about-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.about-section h2{font-size:1.15rem;color:var(--accent);margin-bottom:12px}
+.about-section h3{font-size:0.98rem;color:var(--text);margin:16px 0 4px}
+.about-section p,.about-section li{font-size:0.92rem;color:var(--text)}
+.about-section a{color:var(--accent)}
 .result-count{font-size:0.82rem;color:var(--text-dim);margin-top:8px}
 .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-dim);text-decoration:none;font-size:0.9rem;margin-top:40px;transition:color .2s}
 .back-link:hover{color:var(--accent)}
@@ -70,8 +83,8 @@ gtag("config", "G-ESF1YX8CCR");
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Hash & UUID Generator -",
-  "description": "Generate UUID v4 and compute MD5, SHA1, SHA256, SHA512 hashes. Batch generate and copy with one click. Fully offline, no server uploads.",
+  "name": "Hash Generator — MD5, SHA-1, SHA-256, SHA-384 & SHA-512",
+  "description": "Free online hash generator: compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for text, a batch of lines or a whole file. 100% client-side — nothing is uploaded.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Any",
   "offers": {
@@ -80,7 +93,7 @@ gtag("config", "G-ESF1YX8CCR");
     "priceCurrency": "USD"
   },
   "url": "https://23232322.xyz/tools/hash-generator",
-    "dateModified": "2026-09-12"
+    "dateModified": "2026-09-19"
 }
   </script>
   <script type="application/ld+json">
@@ -97,7 +110,7 @@ gtag("config", "G-ESF1YX8CCR");
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Hash & UUID Generator -",
+      "name": "Hash Generator",
       "item": "https://23232322.xyz/tools/hash-generator"
     }
   ]
@@ -110,18 +123,34 @@ gtag("config", "G-ESF1YX8CCR");
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is Hash & UUID Generator - free to use?",
+      "name": "Is this hash generator free and private?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, Hash & UUID Generator - is completely free to use. No sign-up required, no usage limits."
+        "text": "Yes. There is no sign-up, no usage limit and no server involved. MD5 is computed by an in-page implementation of RFC 1321 and the SHA family uses the browser's built-in Web Crypto API, so the text or file you hash never leaves your device."
       }
     },
     {
       "@type": "Question",
-      "name": "Does Hash & UUID Generator - require an internet connection?",
+      "name": "Which hash algorithm should I use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
+        "text": "Use SHA-256 (or SHA-512) for anything security-related, such as signatures, integrity checks or password-derived values. SHA-1 is legacy and should only be used to match a hash a legacy system already produced. MD5 is still fine for detecting accidental corruption and for matching values published by older download pages, but it is not collision-resistant and must not be used to prove authenticity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I generate an MD5 hash of a file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Open the Hash tab, choose a file and the page prints its MD5, SHA-256 and SHA-512 digests together with the file size, so you can compare them against the checksums a vendor published."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between hashing and encryption?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Encryption is reversible with the right key, hashing is one-way. A hash proves that an input has not changed (integrity) or stores a derived value such as a password digest; it cannot be turned back into the original input."
       }
     }
   ]
@@ -130,35 +159,18 @@ gtag("config", "G-ESF1YX8CCR");
 </head>
 <body>
 <div class="container">
-  <h1><span>🔐</span> Hash & UUID Generator</h1>
-  <p class="subtitle">Generate UUID v4, compute MD5/SHA1/SHA256/SHA512 hashes. All processing happens in your browser — nothing is sent to any server.</p>
+  <h1><span>🔐</span> Hash Generator — MD5, SHA-1, SHA-256, SHA-384, SHA-512</h1>
+  <p class="subtitle">Compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for text, a batch of lines or a whole file. All processing happens in your browser — nothing is sent to any server.</p>
+
+  <p style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin:-16px 0 24px;font-size:0.88rem;color:var(--text-dim)">Need UUIDs, GUIDs, NanoID or ULID instead? Use the dedicated <a href="/tools/uuid-generator" style="color:var(--accent)">UUID Generator</a> — it covers six ID formats and bulk generation.</p>
 
   <div class="tabs">
-    <button class="tab active" data-tab="uuid">UUID v4</button>
-    <button class="tab" data-tab="hash">Hash</button>
+    <button class="tab active" data-tab="hash">Hash</button>
     <button class="tab" data-tab="batch">Batch Hash</button>
   </div>
 
-  <!-- UUID Tab -->
-  <div class="panel active" id="panel-uuid">
-    <div class="card">
-      <div class="card-title">Generate UUID v4</div>
-      <div class="batch-controls">
-        <label for="uuid-count">Count:</label>
-        <input type="number" id="uuid-count" min="1" max="100" value="1">
-        <button class="btn btn-primary" onclick="generateUUIDs()">Generate</button>
-      </div>
-      <div id="uuid-output" class="output-area" style="display:none"></div>
-      <div class="btn-group" id="uuid-actions" style="display:none">
-        <button class="btn btn-sm" onclick="copyAll('uuid')">Copy All</button>
-        <button class="btn btn-sm" onclick="downloadAll('uuid')">Download TXT</button>
-      </div>
-      <div class="result-count" id="uuid-count-display"></div>
-    </div>
-  </div>
-
   <!-- Hash Tab -->
-  <div class="panel" id="panel-hash">
+  <div class="panel active" id="panel-hash">
     <div class="card">
       <div class="card-title">Compute Hash</div>
       <div class="form-group">
@@ -214,6 +226,52 @@ gtag("config", "G-ESF1YX8CCR");
     </div>
   </div>
 
+
+<!-- devtoolbox-expanded -->
+<section class="about-section">
+  <h2>What This Hash Generator Does</h2>
+  <p>Paste any text, a list of values or drop in a file and the page prints the digest for every algorithm you pick: <strong>MD5</strong>, <strong>SHA-1</strong>, <strong>SHA-256</strong>, <strong>SHA-384</strong> and <strong>SHA-512</strong>. Hashing runs locally — MD5 through an in-page RFC 1321 implementation, the SHA family through the browser's native <code>crypto.subtle</code> digest — so nothing you type is uploaded anywhere.</p>
+  <p>Three modes cover the usual jobs: a single <strong>Hash</strong> for one string, <strong>Batch Hash</strong> for one value per line (useful for checking a list of API keys, emails or tokens against a known set), and <strong>file hashing</strong> which shows the MD5, SHA-256 and SHA-512 of an uploaded file next to its size.</p>
+
+  <h2>Which Algorithm Should You Use?</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:0.9rem;margin:12px 0">
+    <thead><tr><th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-dim)">Algorithm</th><th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-dim)">Digest length</th><th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-dim)">Use it for</th></tr></thead>
+    <tbody>
+      <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border)">MD5</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">128-bit (32 hex)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">Checksums, cache keys, matching hashes published by older download pages. Not collision-resistant — never use it to prove authenticity.</td></tr>
+      <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border)">SHA-1</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">160-bit (40 hex)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">Legacy systems and Git object IDs. Deprecated for signatures.</td></tr>
+      <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border)">SHA-256</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">256-bit (64 hex)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">The sensible default: release artifacts, integrity checks, signatures, password-derived values.</td></tr>
+      <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border)">SHA-384 / SHA-512</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">384 / 512-bit</td><td style="padding:8px 10px;border-bottom:1px solid var(--border)">Where a longer digest is required by policy, or to match a vendor-published checksum.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>How to Verify a Downloaded File</h2>
+  <ol style="padding-left:20px;line-height:1.9">
+    <li>Copy the checksum the vendor published (usually a <code>SHA256</code> or <code>MD5</code> line).</li>
+    <li>Open the <strong>Hash</strong> tab here, choose that file, and wait for the digest list to appear.</li>
+    <li>Compare character by character — a single changed digit means the download was corrupted or tampered with.</li>
+    <li>Only then run the installer. If the values differ, download the file again from the official source.</li>
+  </ol>
+  <p>Because the computation happens in your browser, the file never travels to a server — which matters when the file is not something you would upload to a third party in the first place.</p>
+</section>
+
+<section class="about-section">
+  <h2>Frequently Asked Questions</h2>
+  <h3>Is this hash generator free and private?</h3><p>Yes. There is no sign-up, no usage limit and no server involved. MD5 is computed by an in-page implementation of RFC 1321 and the SHA family uses the browser's built-in Web Crypto API, so the text or file you hash never leaves your device.</p>
+  <h3>Which hash algorithm should I use?</h3><p>Use SHA-256 (or SHA-512) for anything security-related, such as signatures, integrity checks or password-derived values. SHA-1 is legacy and should only be used to match a hash a legacy system already produced. MD5 is still fine for detecting accidental corruption and for matching values published by older download pages, but it is not collision-resistant and must not be used to prove authenticity.</p>
+  <h3>Can I generate an MD5 hash of a file?</h3><p>Yes. Open the Hash tab, choose a file and the page prints its MD5, SHA-256 and SHA-512 digests together with the file size, so you can compare them against the checksums a vendor published.</p>
+  <h3>What is the difference between hashing and encryption?</h3><p>Encryption is reversible with the right key, hashing is one-way. A hash proves that an input has not changed (integrity) or stores a derived value such as a password digest; it cannot be turned back into the original input.</p>
+</section>
+
+<section class="about-section">
+  <h2>Related Tools</h2>
+  <ul style="line-height:2">
+    <li><a href="/tools/uuid-generator">UUID Generator</a> — UUID v1/v4/v7, GUID, NanoID and ULID with bulk generation.</li>
+    <li><a href="/tools/jwt-debugger">JWT Decoder &amp; Debugger</a> — Decode a JWT and verify its HMAC or RSA/ECDSA signature.</li>
+    <li><a href="/base64-encode">Base64 Encoder</a> — Encode and decode values, including URL-safe Base64.</li>
+    <li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — Work out the address range a firewall rule covers.</li>
+  </ul>
+</section>
+
   <a href="/" class="back-link">&larr; Back to Tools</a>
 </div>
 
@@ -262,34 +320,6 @@ async function shaFile(algorithm,file){
   var buf=await file.arrayBuffer();
   var hash=await crypto.subtle.digest(algorithm,buf);
   return Array.from(new Uint8Array(hash)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-}
-
-// ─── UUID Generation ────────────────────────────────────────────────────
-function uuidv4(){
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
-    var r=Math.random()*16|0;
-    return (c=='x'?r:(r&0x3|0x8)).toString(16);
-  });
-}
-
-function generateUUIDs(){
-  var count=parseInt(document.getElementById('uuid-count').value)||1;
-  if(count<1)count=1;if(count>100)count=100;
-  var out=document.getElementById('uuid-output');
-  var actions=document.getElementById('uuid-actions');
-  var countDisplay=document.getElementById('uuid-count-display');
-  var html='';
-  var uuids=[];
-  for(var i=0;i<count;i++){
-    var id=uuidv4();
-    uuids.push(id);
-    html+='<div class="entry"><span class="val">'+(count>1?(i+1)+'. ':'')+id+'</span><button class="copy-btn" onclick="copyText(\''+id+'\',this)">Copy</button></div>';
-  }
-  out.innerHTML=html;
-  out.style.display='block';
-  actions.style.display='flex';
-  countDisplay.textContent=count+' UUID'+(count>1?'s':'')+' generated';
-  out._data=uuids;
 }
 
 // ─── Hash Computation ────────────────────────────────────────────────────
@@ -389,7 +419,7 @@ function downloadAll(type){
   var blob=new Blob([out._data.join('\n')],{type:'text/plain'});
   var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  var name=type==='uuid'?'uuids':'hashes';
+  var name='hashes';
   a.download=name+'-'+new Date().toISOString().slice(0,10)+'.txt';
   a.click();
   URL.revokeObjectURL(a.href);

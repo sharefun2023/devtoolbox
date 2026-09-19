@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JWT Debugger — Online JWT Decoder & Signature Verifier | DevToolBox</title>
-  <meta name="description" content="Free online JWT debugger. Decode JWT header, payload & claims, verify HS256/RS256/ES256 signatures with your secret or public key, and check expiration — 100% client-side, tokens never leave your browser.">
-  <meta name="keywords" content="jwt debugger, jwt debugger online, jwt decoder, decode jwt, verify jwt, jwt validator, jwt parser, jwt token debugger, jwt signature verify, hs256 verify, rs256 verify, json web token debugger, online jwt tool">
-  <meta property="og:title" content="JWT Debugger — Online JWT Decoder & Signature Verifier | DevToolBox">
-  <meta property="og:description" content="Free online JWT debugger. Decode header, payload & claims, verify HS256/RS256/ES256 signatures, check expiration. 100% client-side, tokens never leave your browser.">
+  <title>JWT Decoder Online &amp; JWT Debugger — Decode &amp; Verify Tokens</title>
+  <meta name="description" content="Decode any JWT token's header, payload and claims online, verify HS256/RS256/ES256 signatures with your secret or public key, and check expiration. 100% client-side.">
+  <meta name="keywords" content="jwt decoder, jwt decoder online, jwt token decoder, decode jwt, decode jwt token, online jwt decoder, jwt debugger, jwt debugger online, verify jwt, jwt validator, jwt parser, jwt signature verify, hs256 verify, rs256 verify, es256 verify, jwt expiration checker, json web token decoder">
+  <meta property="og:title" content="JWT Decoder Online &amp; JWT Debugger — Decode &amp; Verify Tokens">
+  <meta property="og:description" content="Decode a JWT token's header, payload and claims, verify HS256/RS256/ES256 signatures, check expiration. 100% client-side — tokens never leave your browser.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://23232322.xyz/tools/jwt-debugger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JWT Decoder Online &amp; JWT Debugger — Decode &amp; Verify Tokens">
+<meta name="twitter:description" content="Decode JWT header, payload and claims, verify HS256/RS256/ES256 signatures, check expiration. Runs entirely in your browser.">
   <link rel="canonical" href="https://23232322.xyz/tools/jwt-debugger">
   <link rel="stylesheet" href="/css/style.css">
   <style>
@@ -50,13 +53,13 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Online JWT Debugger",
-    "description": "Free online JWT debugger. Decode JWT header, payload and claims, verify HS256/RS256/ES256 signatures with your secret or public key, and check token expiration. 100% client-side — tokens never leave your browser.",
+    "name": "JWT Decoder & Debugger — Online JWT Decode & Verify Tool",
+    "description": "Free online JWT decoder and debugger. Decode a JWT token's header, payload and claims, verify HS256/RS256/ES256 signatures with your secret or public key, and check expiration. 100% client-side — tokens never leave your browser.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/jwt-debugger",
-    "dateModified": "2026-09-17"
+    "dateModified": "2026-09-19"
   }
   </script>
   <script type="application/ld+json">
@@ -65,7 +68,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "DevToolBox", "item": "https://23232322.xyz"},
-      {"@type": "ListItem", "position": 2, "name": "JWT Debugger", "item": "https://23232322.xyz/tools/jwt-debugger"}
+      {"@type": "ListItem", "position": 2, "name": "JWT Decoder & Debugger", "item": "https://23232322.xyz/tools/jwt-debugger"}
     ]
   }
   </script>
@@ -129,6 +132,30 @@
           "@type": "Answer",
           "text": "This tool will still decode the header and payload of any three-part token, but if the algorithm is 'none' or the signature is empty the verification step will report INVALID. Accepting unsigned or alg:none tokens is a serious security vulnerability (CVE-2015-9235 style attacks), so a good debugger always flags them."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I decode a JWT token online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste the token into the box above and press Decode. The decoder splits it at the two dots, base64url-decodes the first two segments and prints the header and the payload as formatted JSON, with the registered claims (iss, sub, aud, exp, nbf, iat, jti) explained in a table. No key, no account and no upload is required \u2014 decoding runs entirely in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a JWT decoder the same as a JWT debugger?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Almost. A plain JWT decoder only reads the header and payload, while a JWT debugger also verifies the signature, checks the exp/nbf window, validates the claims and explains why a token is rejected. This tool does both, so you can decode a token and then run Decode + Verify Signature on the same input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I decode a JWT without the secret key?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The header and payload are only base64url-encoded, not encrypted, so anyone can read them without a key. What the key gives you is trust: verification recomputes the signature with the shared secret (HS256/384/512) or the public key (RS/ES) and proves the payload was not edited. Treat a decoded-but-unverified payload as untrusted input."
+        }
       }
     ]
   }
@@ -145,11 +172,11 @@ gtag("config", "G-ESF1YX8CCR");
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
 <main>
-<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/security-testing">Security & Testing</a><span class="sep">›</span>JWT Debugger</div>
+<div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/security-testing">Security & Testing</a><span class="sep">›</span>JWT Decoder &amp; Debugger</div>
 
 <!-- ============ TOOL ============ -->
 <div class="jwt-tool" id="debugger">
-  <h1>🔑 JWT Debugger — Decode &amp; Verify</h1>
+  <h1>🔑 JWT Decoder &amp; Debugger — Decode, Inspect &amp; Verify JWT Tokens</h1>
   <label for="tokenInput">JWT Token (header.payload.signature)</label>
   <textarea id="tokenInput" spellcheck="false" placeholder="Paste your JWT token here...&#10;e.g. eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"></textarea>
 
@@ -221,7 +248,7 @@ gtag("config", "G-ESF1YX8CCR");
   <p>Unlike opaque session IDs that require a server-side lookup, a JWT is <strong>self-contained</strong>: all the information the server needs (who the user is, when the token expires, what the user is allowed to do) is embedded directly in the token itself. That makes JWTs the standard choice for stateless authentication in REST APIs, single-page applications, mobile apps, and microservices — you will meet them in OAuth 2.0, OpenID Connect, Firebase Auth, Auth0, AWS Cognito, and countless enterprise SSO setups.</p>
   <p>A typical token looks like this:</p>
   <pre style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:12px;font-family:monospace;font-size:.78rem;overflow-x:auto;color:var(--text);margin:8px 0 12px;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</pre>
-  <p>When you paste this token into the debugger above, you will see it split into its three parts instantly. The debugger is the fastest way to understand what any JWT actually contains — whether it is a token from your own login flow, a third-party API, or a sample in documentation.</p>
+  <p>A <strong>JWT decoder</strong> (also called a JWT debugger, JWT parser or JWT token decoder) is simply a tool that reads those base64url segments back into plain JSON. When you paste this token into the decoder above, you will see it split into its three parts instantly — header, payload and signature. It is the fastest way to understand what any JWT actually contains, whether it is a token from your own login flow, a third-party API, or a sample in documentation.</p>
 </section>
 
 <section class="about-section" id="jwt-structure">
@@ -372,13 +399,22 @@ gtag("config", "G-ESF1YX8CCR");
 
   <h3 style="color:var(--text-bright);margin:14px 0 4px;">Can I decode a JWT that has no signature or an "alg: none" header?</h3>
   <p>This tool will still decode the header and payload of any three-part token, but if the algorithm is <code>none</code> or the signature is empty the verification step will report INVALID. Accepting unsigned or alg:none tokens is a serious security vulnerability, so a good debugger always flags them.</p>
+
+  <h3 style="color:var(--text-bright);margin:14px 0 4px;">How do I decode a JWT token online?</h3>
+  <p>Paste the token into the box above and press <strong>Decode</strong>. The decoder splits it at the two dots, base64url-decodes the first two segments, and prints the header and the payload as formatted JSON with the registered claims (<code>iss</code>, <code>sub</code>, <code>aud</code>, <code>exp</code>, <code>nbf</code>, <code>iat</code>, <code>jti</code>) explained in a table. No key, no account and no upload is required — the decode step is pure client-side JavaScript.</p>
+
+  <h3 style="color:var(--text-bright);margin:14px 0 4px;">Is a JWT decoder the same as a JWT debugger?</h3>
+  <p>Almost — a plain JWT decoder only reads the header and payload, while a JWT debugger goes further: it verifies the signature, checks the <code>exp</code>/<code>nbf</code> window, validates the claim set and reports why a token is being rejected. This page does both, so you can decode a token and then run <strong>Decode + Verify Signature</strong> on the same input without switching tools.</p>
+
+  <h3 style="color:var(--text-bright);margin:14px 0 4px;">Can I decode a JWT without the secret key?</h3>
+  <p>Yes, and you do not need the key to read the header and payload — they are only base64url-encoded, not encrypted. What you cannot do without the key is <em>trust</em> them: an unverified payload may have been edited by anyone who got hold of the token. Verification needs the shared secret (HS256/384/512) or the public key (RS/ES). Treat a decoded-but-unverified payload as untrusted input, never as proof of identity.</p>
 </section>
 
 <section class="about-section" id="related-tools">
   <h2>🔗 Related Tools</h2>
   <p style="margin-bottom:8px;">More developer utilities from DevToolBox:</p>
   <div style="display:flex;flex-wrap:wrap;gap:8px;">
-    <a href="/tools/jwt-decoder" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">JWT Decoder</a>
+    <a href="/base64-decode" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Base64 Decoder</a>
     <a href="/base64-encode" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Base64 Encoder/Decoder</a>
     <a href="/tools/json-formatter-online" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">JSON Formatter</a>
     <a href="/tools/hash-generator" style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:.85rem;">Hash Generator</a>

@@ -18,3 +18,10 @@
 /uuid                                      /tools/uuid-generator  301
 /uuid/                                     /tools/uuid-generator  301
 /uuid.html                                 /tools/uuid-generator  301
+
+# /tools/jwt-decoder was a 103-word shell with a decode-only copy of the same tool and a bare
+# title; /tools/jwt-debugger carries the real tool (decode + HS/RS/ES verify) and 14k words of
+# content. Consolidated onto the debugger page, which now targets "jwt decoder" too.
+/tools/jwt-decoder        /tools/jwt-debugger  301
+/tools/jwt-decoder/       /tools/jwt-debugger  301
+/tools/jwt-decoder.html   /tools/jwt-debugger  301

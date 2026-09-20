@@ -56,6 +56,7 @@ for path in PAGES:
     html = open(path, encoding="utf-8").read()
     url = url_of(path)
     label = url
+    noindex = bool(re.search(r'<meta[^>]+name=["\']robots["\'][^>]*noindex', html, re.I))
 
     # 1. tool scripts ↔ ids
     scripts = re.findall(r'<script src="(/js/[^"]+)"', html)
@@ -106,19 +107,29 @@ for path in PAGES:
     # 4. canonical / og:url
     can = re.search(r'<link rel="canonical" href="([^"]+)"', html)
     if not can:
-        if url != "/404":
+        if not noindex:
             errors.append(f"{label}: missing canonical")
     else:
         if "pages.dev" in can.group(1):
             errors.append(f"{label}: canonical still points at pages.dev ({can.group(1)})")
-        if not can.group(1).endswith(url.rstrip("/")) and url != "/":
+        # compare with the trailing slash normalised away (/categories/ == /categories)
+        if can.group(1).rstrip("/") != f"https://23232322.xyz{url}".rstrip("/") and url != "/":
             warnings.append(f"{label}: canonical {can.group(1)} does not match {url}")
     for prop in ("og:url",):
         m = re.search(r'<meta property="%s" content="([^"]+)"' % prop, html)
         if not m:
-            warnings.append(f"{label}: missing {prop}")
+            if not noindex:
+                errors.append(f"{label}: missing {prop}")
         elif "pages.dev" in m.group(1):
             errors.append(f"{label}: {prop} points at pages.dev")
+        elif m.group(1).rstrip("/") != f"https://23232322.xyz{url}".rstrip("/") and url != "/":
+            warnings.append(f"{label}: {prop} {m.group(1)} does not match {url}")
+    if not noindex:
+        for tag in ("og:title", "og:description", "og:type"):
+            if not re.search(r'<meta property="%s" content="[^"]+"' % tag, html):
+                errors.append(f"{label}: missing {tag}")
+        if not re.search(r'<meta name="twitter:card" content="[^"]+"', html):
+            errors.append(f"{label}: missing twitter:card")
 
     # 5. JSON-LD parses
     for i, block in enumerate(re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)):
@@ -148,12 +159,23 @@ for path in PAGES:
 
     # sitemap membership note
     sitemap = open(os.path.join(WEBROOT, "sitemap.xml"), encoding="utf-8").read()
-    if url != "/" and f"23232322.xyz{url}" not in sitemap and f"23232322.xyz{url}/" not in sitemap:
-        warnings.append(f"{label}: not in sitemap.xml")
+    locs = set(re.findall(r"<loc>([^<]+)</loc>", sitemap))
+    bare = url.rstrip("/") or "/"
+    if url != "/" and not noindex:
+        if f"https://23232322.xyz{bare}" not in locs and f"https://23232322.xyz{bare}/" not in locs:
+            warnings.append(f"{label}: not in sitemap.xml")
 
 for title, urls in titles.items():
     if len(urls) > 1:
         errors.append(f"duplicate <title> across {urls}: {title[:80]}")
+
+# every sitemap <loc> must resolve to a page we actually ship
+pages_known = {u.rstrip("/") or "/" for u in site_urls}
+for loc in sorted(re.findall(r"<loc>([^<]+)</loc>", open(os.path.join(WEBROOT, "sitemap.xml"), encoding="utf-8").read())):
+    rel = loc.replace("https://23232322.xyz", "").rstrip("/") or "/"
+    if rel in pages_known:
+        continue
+    errors.append(f"sitemap.xml lists {loc} but no page exists for it")
 
 print(f"pages checked: {len(PAGES)}")
 print(f"pages with tool scripts: {len(tool_pages)}")

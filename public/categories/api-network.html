@@ -113,12 +113,22 @@ gtag("config", "G-ESF1YX8CCR");
 <li><a href="/tools/hash-generator">Hash Generator</a> — Compute MD5, SHA-1 and SHA-256 checksums to verify a payload.</li>
 <li><a href="/tools/cidr-calculator">CIDR / Subnet Calculator</a> — Work out which addresses an allow-list range actually covers, IPv4 or IPv6.</li>
 <li><a href="/tools/text-diff">Diff Checker</a> — Compare two response bodies and see exactly what changed between calls.</li>
+<li><a href="/tools/timestamp-converter">Timestamp Converter</a> — Read the epoch seconds in a response body, an <code>X-RateLimit-Reset</code> header or a <code>Retry-After</code> value as a real date and timezone.</li>
+<li><a href="/tools/uuid-generator">UUID Generator</a> — Mint request IDs, correlation IDs and idempotency keys you can trace through your logs.</li>
+<li><a href="/tools/html-entity-encoder-decoder">HTML Entity Encoder/Decoder</a> — Un-escape entities when an XML or HTML error page comes back with <code>&amp;lt;div&amp;gt;</code> instead of markup.</li>
+<li><a href="/online-regex-tester">Regex Tester Online</a> — Write and test the patterns you pick fields out of a response body or a log line with.</li>
 </ul></section>
 <section class="about-section"><h2>❓ Frequently Asked Questions</h2>
 <h3>Do I need an account to debug an API?</h3><p>No. Every DevToolBox utility runs in the browser with no sign-up and no usage limit. Some of the external applications listed above have optional paid tiers; their free tiers are enough for everyday debugging.</p>
 <h3>Is it safe to paste a production payload into a browser tool?</h3><p>With DevToolBox, yes — the encoding, decoding, hashing and JWT tools are pure client-side JavaScript, so nothing is uploaded. You can confirm it yourself by watching the network tab while the tool runs. That said, treat live production secrets as sensitive and avoid pasting them into any tool whose behaviour you haven't checked.</p>
 <h3>What is the difference between an HTTP client and a mock server?</h3><p>An HTTP client sends real requests to a real endpoint (Postman, curl, HTTPie). A mock server (Mockoon, Beeceptor) stands in for an endpoint that does not exist yet, so you can build and test the frontend before the backend is ready.</p>
 </section>
+<section class="about-section"><h2>🔗 Related Categories</h2>
+<p>Sibling categories worth a look:</p><ul>
+<li><a href="/categories/database-sql">Database & SQL Tools</a> — where most of the JSON you're decoding is ultimately stored.</li>
+<li><a href="/categories/security-testing">Security & Testing Tools</a> — worth a look if you're debugging Authorization headers and tokens.</li>
+<li><a href="/categories/devops-cicd">DevOps & CI/CD Tools</a> — the other side of the wire — deploying and monitoring the service you're calling.</li>
+</ul></section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

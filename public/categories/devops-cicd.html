@@ -122,6 +122,9 @@ gtag("config", "G-ESF1YX8CCR");
 <li><a href="/tools/text-diff">Diff Checker</a> — Compare two versions of a CI config to find the change that broke the build.</li>
 <li><a href="/tools/timestamp-converter">Timestamp Converter</a> — Decode the epoch timestamps in logs and monitoring output.</li>
 <li><a href="/tools/uuid-generator">UUID Generator</a> — Generate identifiers for resource naming in test environments.</li>
+<li><a href="/online-regex-tester">Regex Tester Online</a> — Build and test the pattern you pipe into <code>grep</code> or <code>jq</code> when you're filtering a build log.</li>
+<li><a href="/tools/url-encoder-decoder">URL Encoder/Decoder</a> — Decode percent-encoded URLs and secrets stored in pipeline environment variables.</li>
+<li><a href="/tools/markdown-preview">Markdown Preview</a> — Render the README or runbook you're about to commit before the pull request goes up.</li>
 </ul></section>
 <section class="about-section"><h2>❓ Frequently Asked Questions</h2>
 <h3>How do I work out how many hosts a subnet holds?</h3><p>Enter the CIDR block, for example 10.0.0.0/24, into the CIDR calculator. It returns the network address, the broadcast address, the subnet mask and the usable host range for both IPv4 and IPv6 notation.</p>
@@ -129,6 +132,12 @@ gtag("config", "G-ESF1YX8CCR");
 <h3>Is a JWT issued by a CI pipeline different from a normal JWT?</h3><p>No, it is the same format. OIDC-based CI integrations issue short-lived JWTs so a pipeline can assume a cloud role without storing a long-lived secret key. The debugger shows you the claims, the issuer and the expiry.</p>
 <h3>Can I decode a Kubernetes Secret without a cluster?</h3><p>Yes. Kubernetes stores Secret values as Base64, so decoding the value in a Base64 tool gives you the plaintext — no kubectl and no cluster access required. Treat the result as secret material.</p>
 </section>
+<section class="about-section"><h2>🔗 Related Categories</h2>
+<p>Sibling categories worth a look:</p><ul>
+<li><a href="/categories/api-network">API & Network Tools</a> — health checks and webhooks are HTTP calls too.</li>
+<li><a href="/categories/security-testing">Security & Testing Tools</a> — verify tokens and hashes before a deploy, not after.</li>
+<li><a href="/categories/database-sql">Database & SQL Tools</a> — migrations are the step that most often breaks a deploy.</li>
+</ul></section>
 </main>
 <footer>
   <div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>

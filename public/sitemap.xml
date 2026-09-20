@@ -42,9 +42,9 @@
   <url><loc>https://23232322.xyz/tools/markdown-preview</loc><lastmod>2026-09-20</lastmod><priority>0.8</priority></url>
 
   <!-- Standalone Tools -->
-  <url><loc>https://23232322.xyz/cron</loc><lastmod>2026-09-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://23232322.xyz/cron/</loc><lastmod>2026-09-20</lastmod><priority>0.8</priority></url>
 
   <!-- AI Tools -->
   <url><loc>https://23232322.xyz/tools/ai-cover-generator</loc><lastmod>2026-09-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://23232322.xyz/tools/workplace-test</loc><lastmod>2026-09-20</lastmod><priority>0.6</priority></url>
+  <url><loc>https://23232322.xyz/tools/workplace-test/</loc><lastmod>2026-09-20</lastmod><priority>0.6</priority></url>
 </urlset>

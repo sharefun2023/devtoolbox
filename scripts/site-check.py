@@ -49,6 +49,10 @@ for p in PAGES:
     site_urls.add(url_of(p).rstrip("/"))
 site_urls.add("/")
 
+# URLs served from a <dir>/index.html (CF Pages serves those with a trailing slash
+# and 308-redirects the slash-less form), excluding the site root.
+DIR_URLS = {u for u in site_urls if u != "/" and u.endswith("/")}
+
 titles = defaultdict(list)
 tool_pages = []
 
@@ -93,6 +97,10 @@ for path in PAGES:
     # 3. internal links
     for href in re.findall(r'href="(/[^"#?]*)"', html):
         h = href
+        # a link to a slash-less directory URL costs a 308 hop (CF Pages serves /cron/)
+        if not h.endswith("/") and h.rstrip("/") + "/" in DIR_URLS:
+            errors.append(f"{label}: internal link {h} points at a directory page without the "
+                          f"trailing slash (CF Pages 308-redirects it)")
         if h in site_urls:
             continue
         cands = [
@@ -115,6 +123,11 @@ for path in PAGES:
         # compare with the trailing slash normalised away (/categories/ == /categories)
         if can.group(1).rstrip("/") != f"https://23232322.xyz{url}".rstrip("/") and url != "/":
             warnings.append(f"{label}: canonical {can.group(1)} does not match {url}")
+        # but a directory page must declare the trailing slash: the slash-less form
+        # 308-redirects, so a slash-less canonical points at a redirect
+        if url in DIR_URLS and not can.group(1).endswith("/"):
+            errors.append(f"{label}: canonical {can.group(1)} omits the trailing slash, "
+                          f"which 308-redirects back to {url}")
     for prop in ("og:url",):
         m = re.search(r'<meta property="%s" content="([^"]+)"' % prop, html)
         if not m:

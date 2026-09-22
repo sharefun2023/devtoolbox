@@ -25,3 +25,14 @@
 /tools/jwt-decoder        /tools/jwt-debugger  301
 /tools/jwt-decoder/       /tools/jwt-debugger  301
 /tools/jwt-decoder.html   /tools/jwt-debugger  301
+
+# Legacy short paths. /json, /base64 and /timestamp appear in the site's own HTML
+# history as link targets (they were dead links until 2026-09-12); a crawler that
+# recorded them can still retry them and get a 404. /tools never had an index page.
+# Every retry on a 4xx is a wasted fetch, so 301 these to the real pages.
+/json             /tools/json-formatter-online  301
+/base64           /base64-decode                301
+/timestamp        /tools/timestamp-converter    301
+/tools            /                             301
+/tools/           /                             301
+/tools/index.html /                             301

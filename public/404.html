@@ -20,6 +20,11 @@
     p { color: var(--text2); margin-bottom: 24px; }
     .btn { display: inline-block; background: var(--accent); color: #0a0e14; text-decoration: none; font-weight: 600; padding: 12px 28px; border-radius: 8px; }
     .btn:hover { opacity: 0.85; }
+    .popular { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .popular h2 { font-size: 1.05rem; color: var(--text2); font-weight: 600; margin-bottom: 18px; letter-spacing: 0.02em; }
+    .popular ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .popular a { display: inline-block; border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; padding: 9px 16px; border-radius: 20px; font-size: 0.9rem; }
+    .popular a:hover { border-color: var(--accent); color: var(--accent); }
   </style>
 </head>
 <body>
@@ -33,6 +38,19 @@
   <h1>Page not found</h1>
   <p>The page you're looking for doesn't exist or has been moved.</p>
   <a href="/" class="btn">Back to DevToolBox</a>
+  <section class="popular">
+    <h2>Looking for one of these?</h2>
+    <ul>
+      <li><a href="/base64-decode">Base64 Decoder</a></li>
+      <li><a href="/tools/json-formatter-online">JSON Formatter</a></li>
+      <li><a href="/online-regex-tester">Regex Tester</a></li>
+      <li><a href="/tools/minifier">HTML Minifier</a></li>
+      <li><a href="/tools/jwt-debugger">JWT Debugger</a></li>
+      <li><a href="/tools/uuid-generator">UUID Generator</a></li>
+      <li><a href="/tools/url-encoder-decoder">URL Encoder / Decoder</a></li>
+      <li><a href="/categories/">All tool categories</a></li>
+    </ul>
+  </section>
 </main>
 </body>
 </html>

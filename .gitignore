@@ -1,2 +1,6 @@
 # Internal docs - not for public repo
 SEO-PLAN.md
+
+# Python bytecode from the maintenance scripts
+__pycache__/
+*.pyc

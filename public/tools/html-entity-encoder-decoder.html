@@ -91,7 +91,7 @@
       },
       {
         "@type": "Question",
-        "name": "Why did &amp;notin; turn into ¬in?",
+        "name": "Why did &notin; turn into ¬in?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Because of the HTML legacy entity rule. Names such as &amp;not, &amp;amp and &amp;copy were defined before the trailing semicolon became mandatory, so browsers match the longest valid legacy name first. In &amp;notin; the parser can prefer the legacy &amp;not (¬) and leave the letters in; — which is why text containing ampersands should always be escaped as &amp;amp;."

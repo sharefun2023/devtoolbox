@@ -180,7 +180,7 @@ gtag("config", "G-ESF1YX8CCR");
       "name": "Does Text Diff require an internet connection?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most tools run 100% client-side in your browser. No data is sent to any server."
+        "text": "No. Text Diff runs entirely client-side in your browser — there is no server component and the text you paste is never sent anywhere. Once the page has loaded you can keep comparing with your network disconnected."
       }
     }
   ]
@@ -264,7 +264,24 @@ gtag("config", "G-ESF1YX8CCR");
   <h2>Diff Checker vs. Git Diff</h2>
   <p><code>git diff</code> is the right tool inside a repository: it knows about revisions, staged changes and rename detection, and it emits a unified patch you can pipe into <code>git apply</code>. This page solves the other half of the problem — two blocks of text that were never in version control, or that live on two different machines. Paste both sides, get a side-by-side visual diff, and nothing leaves your machine.</p>
 
-  <h2>Related Free Tools</h2>
+  
+  <!-- dtb:faq-visible -->
+  <section class="faq-visible" style="margin-top:24px;line-height:1.7;color:var(--muted)">
+    <h2>❓ Frequently Asked Questions</h2>
+    <h3>What is a diff checker?</h3>
+    <p>A diff checker compares two pieces of text and marks exactly what changed. Lines or words that appear only in the original are marked as deletions, lines that appear only in the new version are additions, and lines that changed on both sides are marked as modified with the changed words highlighted.</p>
+    <h3>Is this text diff tool free and private?</h3>
+    <p>Yes. The comparison runs entirely in your browser using JavaScript, there is no sign-up, and the text you paste is never sent to a server.</p>
+    <h3>How is this different from git diff?</h3>
+    <p>git diff runs against a repository and its revision history and outputs a unified patch format aimed at git apply. This online diff checker compares two arbitrary blocks of text you paste in, so it works for config files, logs, prose, CSV exports and JSON that were never in version control — and it renders the result side by side rather than as +/- lines.</p>
+    <h3>Can I compare JSON or code, not just plain text?</h3>
+    <p>Yes. The tool is plain-text aware, so any UTF-8 text works: JSON, YAML, SQL, source code, CSV, and prose. It does not parse or re-format your input, so what you paste is what gets compared.</p>
+    <h3>Is Text Diff free to use?</h3>
+    <p>Yes, Text Diff is completely free to use. No sign-up required, no usage limits.</p>
+    <h3>Does Text Diff require an internet connection?</h3>
+    <p>No. Text Diff runs entirely client-side in your browser — there is no server component and the text you paste is never sent anywhere. Once the page has loaded you can keep comparing with your network disconnected.</p>
+  </section>
+<h2>Related Free Tools</h2>
   <ul>
     <li><a href="/tools/json-formatter-online">JSON Formatter &amp; Validator</a> — format, validate and tree-view JSON before comparing it.</li>
     <li><a href="/online-regex-tester">Regex Tester</a> — test a pattern against the lines you just diffed.</li>

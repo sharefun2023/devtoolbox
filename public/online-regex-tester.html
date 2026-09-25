@@ -295,8 +295,8 @@ gtag("config", "G-ESF1YX8CCR");
         <tr onclick="loadPattern('\\b(?:\\+?\\d{1,3}[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b','g',this)" style="cursor:pointer"><td><code>\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b</code></td><td>Phone number (US/Intl)</td><td>555-123-4567, (800) 555-1234, +1-800-555-1234</td></tr>
         <tr onclick="loadPattern('#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\\b','g',this)" style="cursor:pointer"><td><code>#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\b</code></td><td>Hex color code</td><td>#FF5733, #abc, #00FF00</td></tr>
         <tr onclick="loadPattern('\\bpassword\\b','gi',this)" style="cursor:pointer"><td><code>\bpassword\b</code> (word boundary)</td><td>Word boundary matching</td><td>password (not passwords)</td></tr>
-        <tr onclick="loadPattern('<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(.*?)<\\/\\1>','gi',this)" style="cursor:pointer"><td><code><([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>(.*?)<\/\1></code></td><td>HTML tags (with content)</td><td>&lt;div&gt;hello&lt;/div&gt;, &lt;span class="x"&gt;text&lt;/span&gt;</td></tr>
-        <tr onclick="loadPattern('\\/\\*[\\s\\S]*?\\*\\/','g',this)" style="cursor:pointer"><td><code>\/\*[\s\S]*?<\/code></td><td>CSS/JS block comments</td><td>/* This is a comment */</td></tr>
+        <tr onclick="loadPattern('<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(.*?)<\\/\\1>','gi',this)" style="cursor:pointer"><td><code>&lt;([a-zA-Z][a-zA-Z0-9]*)\b[^&gt;]*&gt;(.*?)&lt;\/\1&gt;</code></td><td>HTML tags (with content)</td><td>&lt;div&gt;hello&lt;/div&gt;, &lt;span class="x"&gt;text&lt;/span&gt;</td></tr>
+        <tr onclick="loadPattern('\\/\\*[\\s\\S]*?\\*\\/','g',this)" style="cursor:pointer"><td><code>\/\*[\s\S]*?\*\/</code></td><td>CSS/JS block comments</td><td>/* This is a comment */</td></tr>
         <tr onclick="loadPattern('\\/\\/.*$','gm',this)" style="cursor:pointer"><td><code>\/\/.*$</code> (multiline)</td><td>Single-line comments (//)</td><td>// this is a comment</td></tr>
         <tr onclick="loadPattern('^\\s*$','gm',this)" style="cursor:pointer"><td><code>^\s*$</code> (multiline)</td><td>Empty lines</td><td>Blank lines in text</td></tr>
         <tr onclick="loadPattern('\\b[A-Z]{2,}\\b','g',this)" style="cursor:pointer"><td><code>\b[A-Z]{2,}\b</code></td><td>Uppercase acronyms</td><td>HTML, CSS, API, JSON, SQL</td></tr>
@@ -409,13 +409,21 @@ gtag("config", "G-ESF1YX8CCR");
   <!-- FAQ -->
   <section>
     <h2>❓ Frequently Asked Questions</h2>
-    <h3>Is this regex tester really free?</h3>
+  <!-- dtb:faq-visible -->
+    <h3>What is a regex tester?</h3>
+    <p>A regex tester is a free online tool that lets you write and test regular expressions (regex) in real time. You enter a regex pattern and test text, and the tool instantly highlights all matches. It supports flags like global (g), case-insensitive (i), multiline (m), and dotAll (s), plus a replace mode to transform matched text. All processing is done client-side in your browser — no data is sent to any server.</p>
+    <h3>How do I use this online regex tester?</h3>
+    <p>1. Type your regex pattern in the pattern field (e.g. \b\w+@\w+\.\w+\b for emails). 2. Select flags using the toggle buttons below — g for all matches, i for case-insensitive, m for multiline, s for dot-matches-newline. 3. Paste or type your test text in the text area. The tool highlights matches in real time. 4. Switch to replace mode to see what your text looks like after substitution. 5. Click any highlighted match to see its capture groups.</p>
+    <h3>Can I use this to learn regex?</h3>
+    <p>Absolutely. Below the tool you'll find a comprehensive regex tutorial with 30+ tested patterns covering email validation, URL matching, date parsing, HTML tag extraction, and more. Each pattern includes a description and matching examples — perfect for learning regex step by step. Use the tester to experiment with each pattern in real time.</p>
+
+    <h3>Is this regex tester free to use?</h3>
     <p>Yes. No sign-up, no credit card, no usage limits, no ads. It's a community tool for developers. All processing happens in your browser — there's no server to maintain, so there are no costs to pass on.</p>
 
-    <h3>Does my test data get sent anywhere?</h3>
+    <h3>Is my test data safe and private?</h3>
     <p>No. Everything happens locally in your browser using the JavaScript <code>RegExp</code> engine. Your patterns, test text, and match results never leave your device. This is especially important if you're testing against sensitive data like customer records, log files, or proprietary code.</p>
 
-    <h3>What regex engine does this use?</h3>
+    <h3>What regex flavor does this tester use?</h3>
     <p>JavaScript's native <code>RegExp</code> engine (ECMAScript specification). It supports all modern features: named groups, lookbehinds (ES2018+), Unicode property escapes (<code>\p{L}</code>), dotAll flag, and sticky flag. It is fully compatible with Node.js and all modern browsers.</p>
 
     <h3>Why doesn't my regex match even though it's valid?</h3>

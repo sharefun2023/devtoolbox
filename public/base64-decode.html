@@ -173,6 +173,13 @@ gtag("config", "G-ESF1YX8CCR");
 
   <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
     <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">❓ Frequently Asked Questions</h2>
+  <!-- dtb:faq-visible -->
+    <p style="margin-bottom:8px"><strong>What is a Base64 decoder?</strong> A Base64 decoder converts Base64-encoded strings back to their original binary or text form. Base64 encoding uses 64 ASCII characters (A-Z, a-z, 0-9, +, /) to represent any binary data as text. A decoder reverses this process — essential for reading email attachments, decoding JWT tokens, extracting embedded images from HTML, and processing API responses.</p>
+    <p style="margin-bottom:8px"><strong>How do I decode Base64 online?</strong> Paste your Base64-encoded string into the input field above and click the Decode button. The tool instantly converts it back to readable text. It handles standard Base64, URL-safe Base64 (with - and _ instead of + and /), and can extract text from Base64-encoded data URIs. All processing happens locally in your browser — no data is sent to any server.</p>
+    <p style="margin-bottom:8px"><strong>Can this decoder handle large Base64 strings?</strong> Yes! Since all processing happens client-side in your browser using JavaScript, there are no server-side limits. You can decode Base64 strings of any size — from short JWT tokens to large file encodings. Performance depends on your device's memory and processing power.</p>
+    <p style="margin-bottom:8px"><strong>Does the Base64 decoder support Unicode and special characters?</strong> Absolutely. Our decoder properly handles UTF-8 encoded Base64, so emojis, Chinese characters, and special symbols decode correctly. It uses proper UTF-8 decoding rather than basic atob() which only handles Latin-1 characters.</p>
+    <p style="margin-bottom:8px"><strong>Is this Base64 decoder free to use?</strong> Yes, this online Base64 decoder is completely free with no usage limits, no registration required, and no ads. All decoding happens in your browser for maximum privacy — your data never leaves your device.</p>
+
     <p style="margin-bottom:8px"><strong>Is my data safe when I use this decoder?</strong> Absolutely. All decoding happens 100% in your browser using JavaScript — your Base64 strings never leave your device. No server uploads, no logging, complete privacy.</p>
     <p style="margin-bottom:8px"><strong>What if my Base64 string has newlines or spaces?</strong> The decoder automatically strips whitespace and newlines from your input. Just paste and click Decode — it'll handle formatting cleanup for you.</p>
     <p style="margin-bottom:8px"><strong>Can I decode image Base64 to see the image?</strong> Yes! Click the <strong>Extract Image</strong> button. If your Base64 is an image (PNG, JPEG, GIF, SVG, WebP, etc.), the tool will render a preview right on the page.</p>
@@ -182,6 +189,19 @@ gtag("config", "G-ESF1YX8CCR");
 <script>
 const $=id=>document.getElementById(id);
 
+function b64Normalize(raw){
+  // Base64url (RFC 4648 §5) 和标准 Base64 的唯一差别是字母表的第 62/63 个字符：
+  // '+' '/' vs '-' '_'。浏览器 atob() 只认标准字母表，遇到 - 或 _ 直接抛
+  // InvalidCharacterError —— 而 JWT、URL 参数、data URI 里到处是 base64url。
+  // 所以先归一化：空白去掉、-/_ 换回 +//、按需补 '=' padding。
+  // 返回 null 表示这串东西不可能是 Base64（长度 %4==1 在 Base64 里非法）。
+  let s=String(raw).replace(/[\s\u00a0]/g,'').replace(/-/g,'+').replace(/_/g,'/');
+  const rem=s.length%4;
+  if(rem===1)return null;
+  if(rem)s+='='.repeat(4-rem);
+  return s;
+}
+
 function b64Decode(){
   let input=$('b64in').value.trim();
   if(!input){$('b64out').value='Please paste a Base64 string first';return}
@@ -190,10 +210,13 @@ function b64Decode(){
     const comma=input.indexOf(',');
     if(comma!==-1)input=input.substring(comma+1);
   }
-  // Remove whitespace and newlines
-  input=input.replace(/\s/g,'');
+  const norm=b64Normalize(input);
+  if(norm===null){
+    $('b64out').value='Error: Invalid Base64 input. Check that the string is complete and correctly formatted.';
+    b64Stats();return;
+  }
   try{
-    $('b64out').value=decodeURIComponent(escape(atob(input)));
+    $('b64out').value=decodeURIComponent(escape(atob(norm)));
     b64Stats();
   }catch(e){
     $('b64out').value='Error: Invalid Base64 input. Check that the string is complete and correctly formatted.';
@@ -206,15 +229,17 @@ function decodeImage(){
   if(!input){return}
   // If it's a data URI, use as-is. Otherwise, try to detect type from magic bytes.
   let src=input;
+  const normInput=b64Normalize(input);
   if(!input.startsWith('data:')){
     // Try common image types
-    const m=atob(input.replace(/\s/g,'').substring(0,20));
+    if(normInput===null)return;
+    const m=atob(normInput.substring(0,20));
     let mime='image/png'; // default
     if(m.charCodeAt(0)===0xFF&&m.charCodeAt(1)===0xD8)mime='image/jpeg';
     else if(m.charCodeAt(0)===0x47&&m.charCodeAt(1)===0x49)mime='image/gif';
     else if(m.charCodeAt(0)===0x52&&m.charCodeAt(1)===0x49)mime='image/webp';
     else if(m.startsWith('<?xml')||m.startsWith('<svg'))mime='image/svg+xml';
-    src=`data:${mime};base64,${input.replace(/\s/g,'')}`;
+    src=`data:${mime};base64,${normInput}`;
   }
   const img=$('previewImg');
   img.onerror=function(){$('imagePreview').style.display='none';alert('Could not decode as image. This Base64 may not contain an image.');};

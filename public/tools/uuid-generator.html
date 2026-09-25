@@ -401,7 +401,18 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
 
 <!-- ━━━━━━━━━━━━ Related Tools ━━━━━━━━━━━━ -->
 <section class="about-section">
-  <h2>🔗 Related Tools</h2>
+  
+  <!-- dtb:faq-visible -->
+  <section class="faq-visible" style="margin-top:24px;line-height:1.7;color:var(--muted)">
+    <h2>❓ Frequently Asked Questions</h2>
+    <h3>What is the difference between UUID v1, v4, and v7?</h3>
+    <p>UUID v1 is time-based using a timestamp and MAC address. UUID v4 is purely random, making it the most popular choice for general use. UUID v7 combines a Unix timestamp prefix with random data, making it chronologically sortable — ideal for database primary keys where insert-order clustering matters.</p>
+    <h3>Can UUIDs ever collide or produce duplicates?</h3>
+    <p>UUID v4 has 122 random bits, yielding approximately 5.3 x 10^36 possible values. The probability of a collision is astronomically low — you would need to generate 1 billion UUIDs per second for 85 years to have a 50% chance of a single collision. For all practical purposes, UUIDs are unique.</p>
+    <h3>Is the UUID Generator free and private?</h3>
+    <p>Yes, the UUID Generator is completely free with no sign-up required and no usage limits. All UUID generation runs 100% client-side in your browser using JavaScript — no data is ever sent to any server, ensuring complete privacy.</p>
+  </section>
+<h2>🔗 Related Tools</h2>
   <p>Explore more free developer tools from DevToolBox:</p>
   <div class="related-grid">
     <a href="/tools/json-formatter-online" class="related-card">

@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Cloudflare reserves /cdn-cgi/ for its own edge endpoints (email obfuscation, bot management,
+# analytics beacons). Nothing under it is site content, and /cdn-cgi/l/email-protection returns
+# 404 to any client that does not run Cloudflare's JS decoder — which is every non-rendering
+# crawler. Cloudflare's own /cdn-cgi/ endpoint docs recommend disallowing the prefix.
+Disallow: /cdn-cgi/
+
 Sitemap: https://23232322.xyz/sitemap.xml

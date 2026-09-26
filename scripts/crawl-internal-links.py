@@ -20,6 +20,17 @@ def get(u):
         return 0, str(e), {}
 
 
+def served_url(rel):
+    """Map a file path in public/ onto the URL Cloudflare Pages actually serves.
+    '/about.html' -> '/about', '/tools/x.html' -> '/tools/x', '/cron/index.html' -> '/cron/'.
+    Using the .html form instead makes every fetch a 308 and the page body never arrives."""
+    if rel.endswith('/index.html'):
+        return rel[:-len('index.html')]
+    if rel.endswith('.html'):
+        return rel[:-len('.html')]
+    return rel
+
+
 def main():
     pages = []
     for root, dirs, files in os.walk('public'):
@@ -27,12 +38,13 @@ def main():
             continue
         for f in files:
             if f.endswith('.html'):
-                pages.append('/' + os.path.relpath(os.path.join(root, f), 'public'))
+                rel = '/' + os.path.relpath(os.path.join(root, f), 'public')
+                pages.append(rel)
     print(f'{len(pages)} html files in public/')
 
     # live-fetch each page, harvest internal hrefs
     def fetch(rel):
-        url = SITE + rel.replace('/index.html', '/')
+        url = SITE + served_url(rel)
         code, body, _ = get(url)
         found = set()
         if code == 200:

@@ -287,7 +287,7 @@ gtag("config", "G-ESF1YX8CCR");
     <table class="cheat-table">
       <thead><tr><th>Pattern</th><th>Description</th><th>Matches</th></tr></thead>
       <tbody>
-        <tr onclick="loadPattern('\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b','gi',this)" style="cursor:pointer"><td><code>\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b</code></td><td>Email address</td><td>user@example.com, a.b@co.uk</td></tr>
+        <tr onclick="loadPattern('\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b','gi',this)" style="cursor:pointer"><td><code>\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b</code></td><td>Email address</td><td><!--email_off-->user@example.com<!--/email_off-->, <!--email_off-->a.b@co.uk<!--/email_off--></td></tr>
         <tr onclick="loadPattern('https?:\\/\\/[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!$&\'()*+,;=]*','gi',this)" style="cursor:pointer"><td><code>https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!$&'()*+,;=]*</code></td><td>URL (http/https)</td><td>https://example.com/path, http://a.co</td></tr>
         <tr onclick="loadPattern('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b','g',this)" style="cursor:pointer"><td><code>\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b</code></td><td>IPv4 address</td><td>192.168.1.1, 10.0.0.255</td></tr>
         <tr onclick="loadPattern('\\b\\d{4}-\\d{2}-\\d{2}\\b','g',this)" style="cursor:pointer"><td><code>\b\d{4}-\d{2}-\d{2}\b</code></td><td>Date (YYYY-MM-DD)</td><td>2026-08-03, 1999-12-31</td></tr>
@@ -316,7 +316,7 @@ gtag("config", "G-ESF1YX8CCR");
         <tr onclick="loadPattern('(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)','g',this)" style="cursor:pointer"><td><code>(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)</code></td><td>Strict IPv4 (0-255 each octet)</td><td>192.168.1.1, 255.255.255.0 (not 999.999.999.999)</td></tr>
         <tr onclick="loadPattern('^\\s+|\\s+$','gm',this)" style="cursor:pointer"><td><code>^\s+|\s+$</code> (multiline)</td><td>Leading/trailing whitespace</td><td>Spaces and tabs at line edges</td></tr>
         <tr onclick="loadPattern('(?<=\\d)(?=(\\d{3})+$)','g',this)" style="cursor:pointer"><td><code>(?<=\d)(?=(\d{3})+$)</code></td><td>Thousands separator position</td><td>Insert commas: 1234567 → 1,234,567</td></tr>
-        <tr onclick="loadPattern('\\b[\\w.-]+@[\\w.-]+\\.\\w+\\b','gi',this)" style="cursor:pointer"><td><code>\b[\w.-]+@[\w.-]+\.\w+\b</code></td><td>Simple email (loose)</td><td>user@example.com</td></tr>
+        <tr onclick="loadPattern('\\b[\\w.-]+@[\\w.-]+\\.\\w+\\b','gi',this)" style="cursor:pointer"><td><code>\b[\w.-]+@[\w.-]+\.\w+\b</code></td><td>Simple email (loose)</td><td><!--email_off-->user@example.com<!--/email_off--></td></tr>
       </tbody>
     </table>
     </div>

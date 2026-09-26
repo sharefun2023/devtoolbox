@@ -306,7 +306,7 @@
   <p>Here are common JSON formatting scenarios you can try with our tool. Paste any of these examples directly into the editor:</p>
 
   <h3 style="color:var(--text-bright);margin-top:20px;margin-bottom:8px;">Before: Minified JSON (hard to read)</h3>
-  <pre style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;overflow-x:auto;font-size:0.85rem;color:var(--text);line-height:1.6;"><code>{"users":[{"id":1,"name":"Alice","email":"alice@example.com","roles":["admin","editor"],"metadata":{"lastLogin":"2026-06-15T10:30:00Z","loginCount":42}},{"id":2,"name":"Bob","email":"bob@example.com","roles":["viewer"],"metadata":{"lastLogin":"2026-06-14T08:15:00Z","loginCount":7}}],"pagination":{"page":1,"perPage":20,"total":2}}</code></pre>
+  <pre style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;overflow-x:auto;font-size:0.85rem;color:var(--text);line-height:1.6;"><code>{"users":[{"id":1,"name":"Alice","email":"<!--email_off-->alice@example.com<!--/email_off-->","roles":["admin","editor"],"metadata":{"lastLogin":"2026-06-15T10:30:00Z","loginCount":42}},{"id":2,"name":"Bob","email":"<!--email_off-->bob@example.com<!--/email_off-->","roles":["viewer"],"metadata":{"lastLogin":"2026-06-14T08:15:00Z","loginCount":7}}],"pagination":{"page":1,"perPage":20,"total":2}}</code></pre>
 
   <h3 style="color:var(--text-bright);margin-top:20px;margin-bottom:8px;">After: Formatted JSON (2-space indent)</h3>
   <pre style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;overflow-x:auto;font-size:0.85rem;color:var(--text);line-height:1.6;"><code>{
@@ -314,7 +314,7 @@
     {
       "id": 1,
       "name": "Alice",
-      "email": "alice@example.com",
+      "email": "<!--email_off-->alice@example.com<!--/email_off-->",
       "roles": [
         "admin",
         "editor"
@@ -327,7 +327,7 @@
     {
       "id": 2,
       "name": "Bob",
-      "email": "bob@example.com",
+      "email": "<!--email_off-->bob@example.com<!--/email_off-->",
       "roles": [
         "viewer"
       ],

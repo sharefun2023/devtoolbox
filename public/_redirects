@@ -36,3 +36,12 @@
 /tools            /                             301
 /tools/           /                             301
 /tools/index.html /                             301
+
+# Cloudflare's Email Address Obfuscation (Scrape Shield) rewrites every email in the served
+# HTML into <a href="/cdn-cgi/l/email-protection#<hash>">. On Cloudflare **Pages** that endpoint
+# is not served, so every such link returns 404 — 6 of them live, on 4 pages including the
+# homepage. Bingbot hit exactly those on 2026-09-25 (CrawledPages=4, Code4xx=2).
+# Real browsers never navigate here (email-decode.min.js reads the hash off the DOM and swaps
+# in the mailto:), so this rule only affects crawlers and no-JS visitors: 404 -> 301 instead.
+/cdn-cgi/l/email-protection   /about  301
+/cdn-cgi/l/email-protection/* /about  301

@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Audit live devtoolbox pages: map each public/*.html to its real served URL and report
-obfuscated-email links (which 404 on Cloudflare Pages) + any non-200 page."""
+obfuscated-email links (which 404 on Cloudflare Pages) + any non-200 page.
+
+Match the bare path, NOT "/email-protection#": Cloudflare emits two shapes and only the mailto
+one carries the "#<xor>" fragment. Matching the fragment form only made this audit report 0
+while 7 class-form links ("<a href=\"/cdn-cgi/l/email-protection\" class=\"__cf_email__\">")
+were live."""
 import os, re, urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
 
@@ -32,7 +37,7 @@ def main():
         try:
             r = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=25)
             body = r.read().decode('utf-8', 'ignore')
-            return rel, url, r.getcode(), len(re.findall(r'cdn-cgi/l/email-protection#', body))
+            return rel, url, r.getcode(), len(re.findall(r'cdn-cgi/l/email-protection', body))
         except urllib.error.HTTPError as e:
             return rel, url, e.code, -1
         except Exception as e:

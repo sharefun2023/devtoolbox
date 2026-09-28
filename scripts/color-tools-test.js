@@ -3,7 +3,12 @@
  *
  * 为什么需要：这个页面即将被扩写正文，正文里会写「complementary 给 2 个色」「monochromatic
  * 用固定的 20/36/52/68/84% 明度阶梯」这类**可验证的事实**。事实必须来自跑起来的代码，
- * 不能来自读代码的猜。另外顺手验证 3 位十六进制（#0af）会不会把 <input type=color> 写坏。
+ * 不能来自读代码的猜。
+ *
+ * 另外验证 3 位十六进制（#0af）会不会让取色器、色块和三个输入框各说各话。注意这里的结论
+ * 是**用真浏览器测出来的**：Chrome 149 自己会把 #0af 展开成 #00aaff，所以「浏览器会把它
+ * 重置成 #000000」是错的（HTML 的 value sanitisation 只对「非 simple color」回落 #000000，
+ * 而现代 Chrome 走的是展开）。页面显式归一化是为了不依赖这个行为。
  *
  * 用法:
  *   node scripts/color-tools-test.js
@@ -137,12 +142,15 @@ check('monochromatic 是**固定明度阶梯** 20/36/52/68/84（与基准明度�
 check('monochromatic 保留基准色相',
   palette('monochromatic').map(h => hslOf(h).h), [168, 168, 168, 168, 168]);
 
-console.log('\n3 位十六进制（#0af）不能把 <input type=color> 写坏');
+console.log('\n3 位十六进制（#0af）必须落成一种表示，不能三种控件各说各话');
 api.updateAll('#0af');
 check('parseHex("#0af") 展开成 6 位', api.parseHex('#0af'), '#00aaff');
-check('colorPicker.value 是 6 位（浏览器会拒绝 3 位）',
+check('colorPicker.value 是 6 位 #rrggbb（页面不依赖浏览器的自动展开）',
   /^#[0-9a-f]{6}$/.test(String(el('colorPicker').value)), true);
 check('主色显示同步为 6 位', String(el('mainHex').textContent), '#00aaff');
+check('三个输入框与主色一致',
+  [el('hexInput').value, el('rgbInput').value, el('hslInput').value],
+  ['#00aaff', 'rgb(0,170,255)', 'hsl(200,100%,50%)']);
 
 console.log('\n随机色');
 check('randomColor() 形状', /^#[0-9a-f]{6}$/.test(api.randomColor()), true);

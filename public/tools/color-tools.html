@@ -489,8 +489,10 @@ function parseHex(val) {
   let h = val.trim();
   if (!h.startsWith('#')) h = '#' + h;
   if (/^#[0-9a-fA-F]{6}$/.test(h)) return h.toLowerCase();
-  // 3 位缩写（#0af）展开成 6 位：<input type="color"> 只接受 7 字符的 #rrggbb，
-  // 直接塞 3 位会被浏览器静默重置成 #000000，取色器的色块就和实际颜色对不上了。
+  // 3 位缩写（#0af）展开成 6 位。实测 Chrome 149 自己会把缩写展开成 #00aaff，
+  // 但 HTML 的 value sanitisation 对「不是 6 位 simple color」的取值是回落到
+  // #000000 —— 即换一个浏览器，取色器的色块就会和 HEX/RGB/HSL 三个输入框
+  // 各说各话。这里显式展开，页面状态就永远只有一种表示（7 字符小写）。
   if (/^#[0-9a-fA-F]{3}$/.test(h)) {
     return ('#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3]).toLowerCase();
   }

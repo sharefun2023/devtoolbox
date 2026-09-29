@@ -6,11 +6,31 @@ rule is that SubmitUrl is a zero-effect action while the crawler is stalled, and
 hides the real bottleneck. On 2026-09-21/22 CrawledPages went 0 -> 1 on two consecutive
 days (first movement since 09-07), so the crawler is live again and submission is back
 to being worth doing. Quota: 100/day, 800/month.
+
+The key is NOT in this file: this repository is public, and the key used to be
+hardcoded here (it is therefore still in the git history and should be rotated in
+Bing Webmaster -> Settings -> API Access). It is now read from the BING_API_KEY
+environment variable, falling back to the private ~/.hermes/.env.
 """
 import json
+import os
 import urllib.request
 
-KEY = "2926ffb8762244ceb2ce6fd423986ca9"
+
+def _key():
+    k = os.environ.get("BING_API_KEY")
+    if k:
+        return k.strip()
+    env = os.path.expanduser("~/.hermes/.env")
+    if os.path.exists(env):
+        for line in open(env, encoding="utf-8"):
+            if line.strip().startswith("BING_API_KEY="):
+                return line.split("=", 1)[1].strip()
+    raise SystemExit("BING_API_KEY not set (env or ~/.hermes/.env) — "
+                     "get it from Bing Webmaster -> Settings -> API Access")
+
+
+KEY = _key()
 ENDPOINT = "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch"
 SITE = "https://23232322.xyz/"
 

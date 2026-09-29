@@ -260,7 +260,7 @@ def faq_visible():
     return '\n'.join(out) + '\n'
 
 
-def jsonld_blocks():
+def jsonld_blocks(date):
     webapp = {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -270,7 +270,7 @@ def jsonld_blocks():
         "operatingSystem": "Any",
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
         "url": URL,
-        "dateModified": DATE,
+        "dateModified": date,
     }
     crumbs = {
         "@context": "https://schema.org",
@@ -329,7 +329,10 @@ def main():
     gaps = [src[blocks[i].end():blocks[i + 1].start()] for i in range(len(blocks) - 1)]
     if any(g.strip() for g in gaps):
         sys.exit('unexpected content between the JSON-LD blocks — refusing to splice')
-    src = src[:blocks[0].start()] + jsonld_blocks() + src[blocks[-1].end():]
+    # the dateModified in the page is owned by sitemap-lastmod-honest.py (it derives
+    # the date from git history); preserve whatever is there instead of resetting it
+    dm = re.search(r'"dateModified": "(\d{4}-\d{2}-\d{2})"', src)
+    src = src[:blocks[0].start()] + jsonld_blocks(dm.group(1) if dm else DATE) + src[blocks[-1].end():]
 
     # 3) CSS
     if '.seo-content{margin-top' not in src:

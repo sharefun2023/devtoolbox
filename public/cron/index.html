@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cron Expression Editor — DevToolbox</title>
-<meta name="description" content="Interactive cron expression editor with human-readable translations, presets, and next-execution preview. Supports standard 5-field cron.">
+<title>Cron Expression Editor — Crontab Generator &amp; Tester | DevToolBox</title>
+<meta name="keywords" content="cron expression editor, crontab generator, cron tester, cron schedule preview, cron expression online, crontab editor, cron syntax validator">
+<meta name="description" content="Build a 5-field cron expression or click a preset, read it in plain English and preview the next 10 runs. Free crontab tester, nothing is uploaded.">
 
-<meta property="og:title" content="Cron Expression Editor — DevToolbox">
-<meta property="og:description" content="Interactive cron expression editor with human-readable translations, presets, and next-execution preview. Supports standard 5-field cron.">
+<meta property="og:title" content="Cron Expression Editor — Crontab Generator &amp; Tester | DevToolBox">
+<meta property="og:description" content="Build a 5-field cron expression or click a preset, read it in plain English and preview the next 10 runs. Free crontab tester, nothing is uploaded.">
 <meta property="og:url" content="https://23232322.xyz/cron/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://23232322.xyz/og/cron.png">
@@ -16,13 +17,136 @@
 <meta property="og:image:alt" content="Cron Expression Editor">
 <meta property="og:site_name" content="DevToolBox">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Cron Expression Editor — DevToolbox">
-<meta name="twitter:description" content="Interactive cron expression editor with human-readable translations, presets, and next-execution preview. Supports standard 5-field cron.">
+<meta name="twitter:title" content="Cron Expression Editor — Crontab Generator &amp; Tester | DevToolBox">
+<meta name="twitter:description" content="Build a 5-field cron expression or click a preset, read it in plain English and preview the next 10 runs. Free crontab tester, nothing is uploaded.">
 <meta name="twitter:image" content="https://23232322.xyz/og/cron.png">
 
 <link rel="canonical" href="https://23232322.xyz/cron/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cron Editor","url":"https://23232322.xyz/cron/",
-    "dateModified": "2026-09-20","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},"description":"Interactive cron expression editor with presets and preview"}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cron Expression Editor — Crontab Generator & Tester",
+  "description": "Free online cron expression editor: build or parse a 5-field crontab expression, translate it into plain English and preview the next executions in UTC and your local time. Runs entirely client-side.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://23232322.xyz/cron/",
+  "dateModified": "2026-09-20"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://23232322.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cron Expression Editor",
+      "item": "https://23232322.xyz/cron/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this cron expression editor free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. There is no sign-up, no usage limit and nothing to install — the whole editor runs in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it require an internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only to load the page. Once it is open, parsing, translating and the next-runs preview all run client-side, so the editor keeps working offline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it support seconds or six-field cron expressions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This is the 5-field crontab form, so a 6-field Quartz or Spring expression such as \"0 0 12 * * ?\" is reported as an error instead of being half-interpreted. Seconds-level scheduling needs a different tool."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens when both the day-of-month and the day-of-week fields are set?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They are ORed, which is what Vixie cron does: \"0 0 1 * 1\" means midnight on the 1st of the month or on any Monday. The editor applies that rule and says so in the sentence it prints. If either of the two fields is *, the other one applies on its own."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I write MON or JAN instead of numbers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Three-letter names are accepted in the month and day-of-week fields and are case-insensitive, so \"0 12 * * MON\" and \"0 12 * * 1\" mean the same thing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is 7 accepted as Sunday?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Both 0 and 7 mean Sunday in the day-of-week field, so \"0 0 * * 0\" and \"0 0 * * 7\" produce the same schedule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which timezone are the next executions shown in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The left column is UTC and the right column is your browser's own timezone. There is no timezone picker, so if the job runs on a server in another region, read the UTC column."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does an expression like \"0 0 30 2 *\" show no upcoming run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because February never has 30 days, so that schedule can never fire. The page says there is no run in the next five years rather than leaving the list blank — that is what an impossible day/month combination looks like."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I paste a whole crontab file into it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The editor takes one expression at a time and does not parse crontab files, MAILTO or PATH lines, or the commands themselves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What day does the week start on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sunday. 0 (and 7) is Sunday, 1 is Monday, through 6 for Saturday — matching crontab."
+      }
+    }
+  ]
+}
+</script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--red:#f85149;--green:#3fb950;--orange:#d2991d;--purple:#a371f7}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -60,6 +184,25 @@ h1{font-size:1.5rem;margin-bottom:4px}
 .copied.show{opacity:1}
 @media(max-width:700px){.fields{grid-template-columns:repeat(3,1fr)}.next-list{grid-template-columns:1fr}}
 @media(max-width:480px){.fields{grid-template-columns:1fr 1fr}}
+    /* --- SEO content block (uses this page's own palette) --- */
+    .seo-content{margin-top:44px;border-top:1px solid var(--border);padding-top:26px;line-height:1.75;font-size:.95rem}
+    .seo-content h2{font-size:1.15rem;color:var(--text);margin:28px 0 10px}
+    .seo-content h3{font-size:1rem;color:var(--accent);margin:20px 0 8px}
+    .seo-content p{margin:8px 0;color:var(--text)}
+    .seo-content ul,.seo-content ol{padding-left:22px;margin:8px 0}
+    .seo-content li{margin:6px 0}
+    .seo-content strong{color:var(--text)}
+    .seo-content code{background:var(--bg);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.9em;color:var(--green)}
+    .seo-content table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem}
+    .seo-content th,.seo-content td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+    .seo-content th{background:var(--card);color:var(--muted);font-weight:600}
+    .seo-content .related-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .seo-content .related-links a{color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:.9rem}
+    .seo-content .related-links a:hover{border-color:var(--accent)}
+    .faq-visible{margin-top:34px;border-top:1px solid var(--border);padding-top:22px;line-height:1.75;font-size:.95rem}
+    .faq-visible h2{font-size:1.15rem;color:var(--text);margin-bottom:10px}
+    .faq-visible h3{font-size:1rem;color:var(--text);margin:18px 0 4px}
+    .faq-visible p{color:var(--muted);margin:0}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -134,185 +277,614 @@ gtag("config", "G-ESF1YX8CCR");
     <h2>Next 10 Executions</h2>
     <div class="next-list" id="next-list">Loading...</div>
   </div>
+  <!-- dtb:cron-seo-content -->
+  <div class="seo-content">
+    <h2>Cron Expression Editor: What This Page Does</h2>
+    <p>A cron expression is five fields that describe a repeating schedule. This editor works with
+    them in three ways, all inside your browser: it builds or parses the expression, translates it
+    into a sentence in English and Chinese, and lists the next ten times it will actually run.</p>
+    <ul>
+      <li><strong>Two-way editing</strong> — type into the expression bar and the five field boxes
+      follow; edit any field box and the bar is rebuilt. Whichever side you prefer, you end up with
+      the same five fields.</li>
+      <li><strong>Plain-language translation</strong> — every valid expression gets a sentence that
+      says what it means, including the part most people get wrong: the day-of-month / day-of-week
+      rule (see below).</li>
+      <li><strong>The next ten executions</strong> — two columns, the same instants as UTC and as
+      your browser's local time. Catching a mistake here is much cheaper than catching it in a log
+      file at 03:00.</li>
+      <li><strong>Fourteen presets</strong> for schedules that come up constantly — every five
+      minutes, weekdays at 9 AM, first of the month, yearly on January 1st. One click loads the
+      expression and updates everything on the page.</li>
+      <li><strong>Validation that names the problem</strong> — <code>60 * * * *</code>,
+      <code>*/0 * * * *</code> or a field with a typo produce an error naming the offending field,
+      instead of silently showing an empty list.</li>
+    </ul>
+
+    <h2>The Five Fields, In Order</h2>
+    <table>
+      <thead><tr><th>#</th><th>Field</th><th>Allowed values</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Minute</td><td>0–59</td><td>—</td></tr>
+        <tr><td>2</td><td>Hour</td><td>0–23</td><td>24-hour clock, no AM/PM</td></tr>
+        <tr><td>3</td><td>Day of month</td><td>1–31</td><td>a 31 here simply never fires in a
+        shorter month</td></tr>
+        <tr><td>4</td><td>Month</td><td>1–12 or JAN–DEC</td><td>names are case-insensitive</td></tr>
+        <tr><td>5</td><td>Day of week</td><td>0–6 or SUN–SAT</td><td>0 = Sunday, and 7 also means
+        Sunday</td></tr>
+      </tbody>
+    </table>
+    <p>All five fields are required. This is the POSIX / Vixie crontab form — the one used by
+    <code>crontab -e</code> and by the files in <code>/etc/cron.d/</code> on Linux and BSD.</p>
+
+    <h2>Syntax This Editor Understands</h2>
+    <table>
+      <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><code>*</code></td><td>every value in the field's range</td>
+        <td><code>* * * * *</code> — once a minute</td></tr>
+        <tr><td><code>,</code></td><td>a list of values</td>
+        <td><code>0 9,17 * * *</code> — at 09:00 and at 17:00</td></tr>
+        <tr><td><code>-</code></td><td>an inclusive range</td>
+        <td><code>0 9-17 * * *</code> — every hour from 09:00 through 17:00</td></tr>
+        <tr><td><code>/</code></td><td>a step, from the start of the range</td>
+        <td><code>*/15 * * * *</code> — every 15 minutes</td></tr>
+        <tr><td><code>a/n</code></td><td>start at <code>a</code>, then repeat every
+        <code>n</code></td>
+        <td><code>5/10 * * * *</code> — minutes 5, 15, 25, 35, 45, 55</td></tr>
+        <tr><td><code>a-b/n</code></td><td>every <code>n</code> inside a range</td>
+        <td><code>1-30/2 * * * *</code> — odd minutes in the first half of the hour</td></tr>
+        <tr><td><code>JAN–DEC</code>, <code>SUN–SAT</code></td><td>three-letter names, any
+        case</td><td><code>0 12 * * MON</code> — every Monday at noon</td></tr>
+      </tbody>
+    </table>
+
+    <h3>The day-of-month / day-of-week rule</h3>
+    <p>When <em>both</em> day fields are restricted, Vixie cron — and cronie, and the other
+    implementations descended from it — treat them as <strong>OR</strong>, not AND.
+    <code>0 0 1 * 1</code> therefore means "midnight on the 1st of the month <em>or</em> on any
+    Monday", not "midnight on Mondays that happen to be the 1st". This editor applies the OR rule
+    and its sentence says so; you can confirm it from the next-executions list, where plain Mondays
+    show up alongside the 1st. If one of the two fields is <code>*</code>, the rule does not
+    apply — the remaining condition is simply used on its own.</p>
+    <p>One caveat worth carrying with you: not every scheduler implements cron the same way. Quartz
+    (Java) wants a <code>?</code> in one of the two day fields, and AWS EventBridge has its own
+    restrictions and limits. What this page validates is the standard crontab dialect.</p>
+
+    <h2>Worked Examples</h2>
+    <p>Every sentence in the right-hand column is this editor's own output — measured, not
+    paraphrased.</p>
+    <table>
+      <thead><tr><th>Expression</th><th>What the page says</th></tr></thead>
+      <tbody>
+        <tr><td><code>* * * * *</code></td><td>Every minute</td></tr>
+        <tr><td><code>*/5 * * * *</code></td><td>Every 5 minutes</td></tr>
+        <tr><td><code>5/10 * * * *</code></td><td>Every day, every 10 minutes from :05 to :59 of
+        every hour</td></tr>
+        <tr><td><code>*/15 9-17 * * 1-5</code></td><td>Every Mon to Fri, every 15 minutes from
+        09:00 to 17:45</td></tr>
+        <tr><td><code>0 9 * * 1-5</code></td><td>Weekdays at 9:00 AM</td></tr>
+        <tr><td><code>0 0 1 * *</code></td><td>First day of every month at midnight</td></tr>
+        <tr><td><code>0 0 1 1 *</code></td><td>January 1st at midnight (yearly)</td></tr>
+        <tr><td><code>0 0 1 * 1</code></td><td>On day 1 of the month or on Mon, at 00:00</td></tr>
+        <tr><td><code>0 0 * * 7</code></td><td>Every Sun, at 00:00</td></tr>
+        <tr><td><code>0 0 29 2 *</code></td><td>On day 29 of the month in Feb, at 00:00 — a real
+        schedule, but only in leap years: the next run is 2028-02-29</td></tr>
+        <tr><td><code>0 0 30 2 *</code></td><td>On day 30 of the month in Feb, at 00:00, plus
+        "No run in the next 5 years — check the day / month combination"</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What It Deliberately Does Not Support</h2>
+    <ul>
+      <li><strong>Seconds.</strong> This is the 5-field form. A 6-field Quartz or Spring expression
+      such as <code>0 0 12 * * ?</code> is reported as an error rather than half-interpreted.</li>
+      <li><strong>Quartz-only tokens.</strong> <code>L</code> (last day of the month),
+      <code>W</code> (nearest weekday) and <code>#</code> (nth weekday) are not part of the Vixie
+      grammar and are rejected.</li>
+      <li><strong>Macros.</strong> <code>@daily</code>, <code>@hourly</code> and
+      <code>@reboot</code> are rejected too — write <code>0 0 * * *</code> instead of
+      <code>@daily</code>.</li>
+      <li><strong>Whole crontab files.</strong> One expression at a time. There is no way to paste
+      a crontab, an <code>/etc/cron.d/</code> snippet, or a file that mixes
+      <code>MAILTO=</code>, <code>PATH=</code> and comments with commands.</li>
+      <li><strong>A timezone picker.</strong> The next-runs list is computed in your browser's
+      timezone, with a UTC column beside it. If the job runs on a server in another region, read
+      the UTC column.</li>
+      <li><strong>Frequency maths and DST simulation.</strong> "This fires 720 times a month", or
+      what a particular daemon does with 02:30 on a spring-forward day, are left to the
+      scheduler's own documentation.</li>
+    </ul>
+
+    <h2>How To Use It</h2>
+    <ol>
+      <li><strong>Start from either end</strong> — type or paste an expression into the bar, or
+      click one of the presets.</li>
+      <li><strong>Read the sentence.</strong> If it does not describe what you intended, the field
+      you got wrong is usually obvious from the wording.</li>
+      <li><strong>Check the next ten runs.</strong> The local-time column is the one to compare
+      against your own expectation of when the job should have happened.</li>
+      <li><strong>Or build it field by field</strong> — set minute, hour, day, month and weekday
+      and watch the expression bar update.</li>
+      <li><strong>Copy the expression</strong> into your crontab, workflow file or manifest.</li>
+    </ol>
+
+    <h2>Where The Expression Goes Next</h2>
+    <ul>
+      <li><strong>Linux and BSD crontab</strong> — <code>crontab -e</code>, or a file under
+      <code>/etc/cron.d/</code>.</li>
+      <li><strong>CI/CD schedules</strong> — GitHub Actions and GitLab both take a cron string for
+      scheduled pipelines. Hosted schedulers often enforce a minimum interval and run in UTC, so
+      check the platform's own documentation before assuming your local time.</li>
+      <li><strong>Kubernetes CronJob</strong> — <code>spec.schedule</code> is the same five fields,
+      and the cluster's timezone (usually UTC) is what counts.</li>
+      <li><strong>Application schedulers</strong> — Celery beat, Sidekiq-Cron, node-cron and
+      friends all speak this dialect, which is exactly why the 5-field form is worth knowing by
+      heart.</li>
+    </ul>
+
+    <h3>Related Tools</h3>
+    <div class="related-links">
+      <a href="/tools/timestamp-converter">Timestamp Converter</a>
+      <a href="/tools/jwt-debugger">JWT Debugger</a>
+      <a href="/categories/devops-cicd">DevOps &amp; CI/CD</a>
+      <a href="/categories/dev-tools">Dev Tools</a>
+      <a href="/">All Tools</a>
+    </div>
+  </div>
+  <!-- dtb:faq-visible -->
+  <section class="faq-visible">
+    <h2>❓ Frequently Asked Questions</h2>
+    <h3>Is this cron expression editor free to use?</h3>
+    <p>Yes. There is no sign-up, no usage limit and nothing to install — the whole editor runs in your browser.</p>
+    <h3>Does it require an internet connection?</h3>
+    <p>Only to load the page. Once it is open, parsing, translating and the next-runs preview all run client-side, so the editor keeps working offline.</p>
+    <h3>Does it support seconds or six-field cron expressions?</h3>
+    <p>No. This is the 5-field crontab form, so a 6-field Quartz or Spring expression such as "0 0 12 * * ?" is reported as an error instead of being half-interpreted. Seconds-level scheduling needs a different tool.</p>
+    <h3>What happens when both the day-of-month and the day-of-week fields are set?</h3>
+    <p>They are ORed, which is what Vixie cron does: "0 0 1 * 1" means midnight on the 1st of the month or on any Monday. The editor applies that rule and says so in the sentence it prints. If either of the two fields is *, the other one applies on its own.</p>
+    <h3>Can I write MON or JAN instead of numbers?</h3>
+    <p>Yes. Three-letter names are accepted in the month and day-of-week fields and are case-insensitive, so "0 12 * * MON" and "0 12 * * 1" mean the same thing.</p>
+    <h3>Is 7 accepted as Sunday?</h3>
+    <p>Yes. Both 0 and 7 mean Sunday in the day-of-week field, so "0 0 * * 0" and "0 0 * * 7" produce the same schedule.</p>
+    <h3>Which timezone are the next executions shown in?</h3>
+    <p>The left column is UTC and the right column is your browser's own timezone. There is no timezone picker, so if the job runs on a server in another region, read the UTC column.</p>
+    <h3>Why does an expression like "0 0 30 2 *" show no upcoming run?</h3>
+    <p>Because February never has 30 days, so that schedule can never fire. The page says there is no run in the next five years rather than leaving the list blank — that is what an impossible day/month combination looks like.</p>
+    <h3>Can I paste a whole crontab file into it?</h3>
+    <p>No. The editor takes one expression at a time and does not parse crontab files, MAILTO or PATH lines, or the commands themselves.</p>
+    <h3>What day does the week start on?</h3>
+    <p>Sunday. 0 (and 7) is Sunday, 1 is Monday, through 6 for Saturday — matching crontab.</p>
+  </section>
 </div>
 <div class="copied" id="copied">✓ Copied!</div>
 
 <script>
 const FIELD_NAMES = ['minute','hour','day of month','month','day of week'];
 const FIELD_NAMES_ZH = ['分钟','小时','日','月','星期'];
+const KINDS = ['minute','hour','dom','month','dow'];
+const FIELD_IDS = ['f-min','f-hr','f-day','f-mon','f-wk'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const DAYS_ZH = ['日','一','二','三','四','五','六'];
+const MONTH_NAMES = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const DOW_NAMES = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+const UNIT = {
+  minute: ['minute','minutes','分钟'],
+  hour: ['hour','hours','小时'],
+  dom: ['day','days','日'],
+  month: ['month','months','月'],
+  dow: ['day','days','天']
+};
 
-function setPreset(expr) {
-  document.getElementById('expr').value = expr;
-  document.querySelectorAll('#presets button').forEach(b => {
-    b.classList.toggle('active', b.textContent.includes(expr.split(' ').join('')) || b.onclick?.toString().includes(expr.replace(/\*/g,'\\*')));
-  });
-  parseExpr();
+function fieldRange(kind) {
+  if (kind === 'minute') return [0, 59];
+  if (kind === 'hour') return [0, 23];
+  if (kind === 'dom') return [1, 31];
+  if (kind === 'month') return [1, 12];
+  return [0, 6];
 }
 
-function parseExpr() {
-  const expr = document.getElementById('expr').value.trim();
-  const parts = expr.split(/\s+/);
+function rangeText(kind) {
+  if (kind === 'dow') return '0-6 (7 also means Sunday)';
+  const r = fieldRange(kind);
+  return r[0] + '-' + r[1];
+}
+
+function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+
+function errPair(en, zh) { return { en: en, zh: zh }; }
+
+/* number or three-letter name -> integer, or null when this field cannot hold it */
+function tokenValue(s, kind) {
+  s = String(s).trim();
+  if (/^\d+$/.test(s)) return parseInt(s, 10);
+  if (kind === 'month' && /^[A-Za-z]{3}$/.test(s)) {
+    const i = MONTH_NAMES.indexOf(s.toUpperCase());
+    return i < 0 ? null : i + 1;
+  }
+  if (kind === 'dow' && /^[A-Za-z]{3}$/.test(s)) {
+    const i = DOW_NAMES.indexOf(s.toUpperCase());
+    return i < 0 ? null : i;
+  }
+  return null;
+}
+
+function inRange(v, kind) {
+  if (kind === 'dow' && v === 7) return true;      /* Vixie cron accepts 7 = Sunday */
+  const r = fieldRange(kind);
+  return v >= r[0] && v <= r[1];
+}
+
+/* One comma-separated token -> {from,to,step} (step null = single value / plain range),
+   or an {en,zh} error object. Grammar: star, star-slash-n, a, a-b, a/n, a-b/n */
+function parseToken(tok, kind) {
+  tok = String(tok).trim();
+  if (!tok) return errPair('empty value', '空值');
+  const slash = tok.split('/');
+  if (slash.length > 2) return errPair('too many "/" in "' + tok + '"', '"' + tok + '" 里斜杠太多');
+  let step = null;
+  if (slash.length === 2) {
+    if (!/^\d+$/.test(slash[1])) return errPair('step "' + slash[1] + '" is not a number', '步长 "' + slash[1] + '" 不是数字');
+    step = parseInt(slash[1], 10);
+    if (step < 1) return errPair('step must be 1 or more', '步长至少为 1');
+  }
+  const body = slash[0].trim();
+  let from, to;
+  if (body === '*') {
+    from = fieldRange(kind)[0];
+    to = fieldRange(kind)[1];
+  } else if (body.indexOf('-') >= 0) {
+    const p = body.split('-');
+    if (p.length !== 2) return errPair('bad range "' + body + '"', '区间 "' + body + '" 不合法');
+    from = tokenValue(p[0], kind);
+    to = tokenValue(p[1], kind);
+    if (from === null || to === null) return errPair('bad range "' + body + '"', '区间 "' + body + '" 不合法');
+  } else {
+    from = tokenValue(body, kind);
+    if (from === null) return errPair('unknown value "' + body + '" for this field', '本字段不认识 "' + body + '"');
+    to = step === null ? from : fieldRange(kind)[1];
+  }
+  if (!inRange(from, kind)) return errPair('value ' + from + ' is outside ' + rangeText(kind), '值 ' + from + ' 超出 ' + rangeText(kind));
+  if (!inRange(to, kind)) return errPair('value ' + to + ' is outside ' + rangeText(kind), '值 ' + to + ' 超出 ' + rangeText(kind));
+  if (from > to) return errPair('range "' + body + '" runs backwards', '区间 "' + body + '" 起止颠倒');
+  return { from: from, to: to, step: step };
+}
+
+function tokenMatch(val, t, kind) {
+  if (val < t.from || val > t.to) return false;
+  if (t.step === null || t.step === 1) return true;
+  return (val - t.from) % t.step === 0;
+}
+
+/* Does `val` satisfy a whole field pattern? Handles "*", lists and Sunday-as-7. */
+function matchField(val, kind, pattern) {
+  pattern = String(pattern).trim();
+  if (pattern === '*') return true;
+  const toks = pattern.split(',');
+  for (let i = 0; i < toks.length; i++) {
+    const t = parseToken(toks[i], kind);
+    if (t.en) continue;                            /* invalid token: validateExpr reports it */
+    if (tokenMatch(val, t, kind)) return true;
+    if (kind === 'dow' && val === 0 && tokenMatch(7, t, kind)) return true;
+  }
+  return false;
+}
+
+/* Vixie cron: when both day fields are restricted the rule is OR
+   ("the 1st of the month, or every Monday"), never AND. */
+function matchDay(d, dom, dow) {
+  const domOK = matchField(d.getDate(), 'dom', dom);
+  const dowOK = matchField(d.getDay(), 'dow', dow);
+  if (dom !== '*' && dow !== '*') return domOK || dowOK;
+  return domOK && dowOK;
+}
+
+function validateField(pattern, kind) {
+  if (!String(pattern).trim()) return errPair('empty', '空');
+  const toks = String(pattern).split(',');
+  for (let i = 0; i < toks.length; i++) {
+    const t = parseToken(toks[i], kind);
+    if (t.en) return t;
+  }
+  return null;
+}
+
+function validateExpr(parts) {
   if (parts.length !== 5) {
-    document.getElementById('desc-en').textContent = 'Invalid: need 5 fields';
-    document.getElementById('desc-zh').textContent = '无效：需要 5 个字段';
-    return;
+    return errPair('need exactly 5 fields, got ' + parts.length,
+                   '需要正好 5 个字段，当前 ' + parts.length + ' 个');
   }
-  ['f-min','f-hr','f-day','f-mon','f-wk'].forEach((id,i) => {
-    document.getElementById(id).value = parts[i];
+  for (let i = 0; i < 5; i++) {
+    const e = validateField(parts[i], KINDS[i]);
+    if (e) {
+      return errPair(FIELD_NAMES[i] + ' field "' + parts[i] + '": ' + e.en,
+                     FIELD_NAMES_ZH[i] + '字段 "' + parts[i] + '"：' + e.zh);
+    }
+  }
+  return null;
+}
+
+/* all concrete values a pattern can produce (capped: a step pattern in the
+   day-of-month field expands to 16 values, which nobody wants to read) */
+function expandValues(pattern, kind, cap) {
+  const out = [];
+  const toks = String(pattern).split(',');
+  for (let i = 0; i < toks.length; i++) {
+    const t = parseToken(toks[i], kind);
+    if (t.en) continue;
+    for (let v = t.from; v <= t.to; v++) {
+      if (t.step !== null && t.step > 1 && (v - t.from) % t.step !== 0) continue;
+      if (out.indexOf(v) < 0) {
+        if (cap && out.length >= cap) return out.sort(function (a, b) { return a - b; });
+        out.push(v);
+      }
+    }
+  }
+  return out.sort(function (a, b) { return a - b; });
+}
+
+function isRun(vals) {
+  if (vals.length < 2) return vals.length === 1;
+  for (let i = 1; i < vals.length; i++) if (vals[i] !== vals[i - 1] + 1) return false;
+  return true;
+}
+
+function dowPhrase(dow) {
+  const vals = expandValues(dow, 'dow', 8);
+  if (!vals.length || vals.length > 7) return String(dow);
+  if (isRun(vals)) {
+    return vals.length === 1 ? DAYS[vals[0] % 7] : DAYS[vals[0] % 7] + ' to ' + DAYS[vals[vals.length - 1] % 7];
+  }
+  const names = vals.map(function (v) { return DAYS[v % 7]; });
+  return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+}
+
+function dowPhraseZh(dow) {
+  const vals = expandValues(dow, 'dow', 8);
+  if (!vals.length || vals.length > 7) return String(dow);
+  const names = vals.map(function (v) { return '周' + DAYS_ZH[v % 7]; });
+  if (isRun(vals)) return names.length === 1 ? names[0] : names[0] + '到' + names[names.length - 1];
+  return names.join('、');
+}
+
+function domPhrase(dom, zh) {
+  const toks = String(dom).split(',');
+  const parts = toks.map(function (tk) {
+    const t = parseToken(tk, 'dom');
+    if (t.en) return tk;
+    if (t.step !== null && t.from === 1 && t.to === 31) {
+      return zh ? '每 ' + t.step + ' 天' : 'every ' + t.step + ' days';
+    }
+    if (t.step !== null) {
+      return zh ? t.from + ' 到 ' + t.to + ' 每 ' + t.step + ' 天' : 'every ' + t.step + ' days from ' + t.from + ' to ' + t.to;
+    }
+    if (t.from === t.to) return String(t.from);
+    return t.from + (zh ? ' 到 ' : ' to ') + t.to;
   });
-
-  const desc = describeCron(parts);
-  document.getElementById('desc-en').textContent = desc.en;
-  document.getElementById('desc-zh').textContent = desc.zh;
-  
-  calcNext(parts);
+  return parts.join(zh ? '、' : ' and ');
 }
 
-function syncFromFields() {
-  const parts = ['f-min','f-hr','f-day','f-mon','f-wk'].map(id => document.getElementById(id).value.trim() || '*');
-  document.getElementById('expr').value = parts.join(' ');
-  parseExpr();
+function monthPhrase(mon) {
+  const vals = expandValues(mon, 'month', 12);
+  if (!vals.length || vals.length > 12) return String(mon);
+  const names = vals.map(function (v) { return MONTHS[(v - 1 + 12) % 12]; });
+  if (isRun(vals)) return names.length === 1 ? names[0] : names[0] + ' to ' + names[names.length - 1];
+  return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
 }
 
-function describeField(val, name, nameZH, unitZH) {
-  val = val.trim();
-  if (val === '*') return {en: `every ${name}`, zh: `每${nameZH}`};
-  if (val.startsWith('*/')) {
-    const n = val.slice(2);
-    return {en: `every ${n} ${name}s`, zh: `每 ${n} ${nameZH}`};
-  }
-  if (val.includes(',')) {
-    const items = val.split(',').map(v => expandItem(v, name));
-    return {en: `at ${items.join(', ')}`, zh: `在 ${items.join('、')}`};
-  }
-  if (val.includes('-')) {
-    const [s,e] = val.split('-');
-    return {en: `${s} through ${e}`, zh: `从 ${s} 到 ${e} ${nameZH}`};
-  }
-  return {en: `at ${val}`, zh: `在 ${val} ${nameZH}`};
+function monthPhraseZh(mon) {
+  const vals = expandValues(mon, 'month', 12);
+  if (!vals.length || vals.length > 12) return String(mon);
+  const names = vals.map(function (v) { return v + ' 月'; });
+  if (isRun(vals)) return names.length === 1 ? names[0] : names[0] + '到' + names[names.length - 1];
+  return names.join('、');
 }
 
-function expandItem(v, field) {
-  if (field === 'day of week' && /^\d$/.test(v)) return DAYS[parseInt(v)];
-  return v;
+function describeDate(dom, mon, dow) {
+  let en, zh;
+  if (dom === '*' && dow === '*') {
+    en = 'every day';
+    zh = '每天';
+  } else if (dom !== '*' && dow !== '*') {
+    /* both restricted -> OR, so say so instead of pretending it is an AND */
+    en = 'on day ' + domPhrase(dom, false) + ' of the month or on ' + dowPhrase(dow);
+    zh = '每月 ' + domPhrase(dom, true) + ' 日或' + dowPhraseZh(dow);
+  } else if (dom !== '*') {
+    const p = domPhrase(dom, false);
+    en = /^\d/.test(p) ? 'on day ' + p + ' of the month' : p + ' of the month';
+    zh = '每月 ' + domPhrase(dom, true) + (/^\d/.test(p) ? ' 日' : '');
+  } else {
+    const run = isRun(expandValues(dow, 'dow', 8));
+    en = run ? 'every ' + dowPhrase(dow) : 'on ' + dowPhrase(dow);
+    zh = dowPhraseZh(dow);
+  }
+  if (mon !== '*') {
+    en += ' in ' + monthPhrase(mon);
+    zh = monthPhraseZh(mon) + '，' + zh;
+  }
+  return { en: en, zh: zh };
+}
+
+function describeTime(min, hour) {
+  const times = [];
+  if (hour === '*' && min === '*') {
+    return { en: 'every minute', zh: '每分钟' };
+  }
+  if (hour === '*' && /^\*\/\d+$/.test(min)) {
+    return { en: 'every ' + min.slice(2) + ' minutes', zh: '每 ' + min.slice(2) + ' 分钟' };
+  }
+  if (hour === '*') {
+    /* a step pattern is a rule, not a list: describe the rule instead of pasting
+       13 minute values and pretending the list is complete */
+    if (min.indexOf('/') >= 0 && min.indexOf(',') < 0) {
+      const t = parseToken(min, 'minute');
+      if (!t.en) {
+        return { en: 'every ' + t.step + ' minutes from :' + pad2(t.from) + ' to :' + pad2(t.to) + ' of every hour',
+                 zh: '每小时第 ' + pad2(t.from) + ' 到 ' + pad2(t.to) + ' 分之间每 ' + t.step + ' 分钟' };
+      }
+    }
+    const mins = expandValues(min, 'minute', 60);
+    return { en: 'every hour at minute ' + mins.map(pad2).join(', '),
+             zh: '每小时的第 ' + mins.map(pad2).join('、') + ' 分' };
+  }
+  if (min === '*' && /^\*\/\d+$/.test(hour)) {
+    return { en: 'every minute of every ' + hour.slice(2) + ' hours',
+             zh: '每 ' + hour.slice(2) + ' 小时的每分钟' };
+  }
+  if (min === '*') {
+    return { en: 'every minute of the hour(s) ' + expandValues(hour, 'hour', 24).map(pad2).join(', '),
+             zh: expandValues(hour, 'hour', 24).map(pad2).join('、') + ' 点的每分钟' };
+  }
+  if (/^\*\/\d+$/.test(hour)) {
+    const m = min === '0' ? '' : ' at minute ' + expandValues(min, 'minute', 12).map(pad2).join(', ');
+    return { en: 'every ' + hour.slice(2) + ' hours' + m,
+             zh: '每 ' + hour.slice(2) + ' 小时' + (m ? '（第 ' + expandValues(min, 'minute', 12).map(pad2).join('、') + ' 分）' : '') };
+  }
+  /* stepped minutes across a range of hours reads much better as one span than as
+     the full cross product ("every 15 minutes from 09:00 to 17:45") */
+  if (/^\*\/\d+$/.test(min) && /^\d+-\d+$/.test(hour)) {
+    const hs = expandValues(hour, 'hour', 24);
+    const ms = expandValues(min, 'minute', 12);
+    const lo = pad2(hs[0]) + ':00';
+    const hi = pad2(hs[hs.length - 1]) + ':' + pad2(ms[ms.length - 1]);
+    return { en: 'every ' + min.slice(2) + ' minutes from ' + lo + ' to ' + hi,
+             zh: lo + ' 到 ' + hi + ' 之间每 ' + min.slice(2) + ' 分钟' };
+  }
+  const hours = expandValues(hour, 'hour', 24);
+  const mins = expandValues(min, 'minute', 12);
+  if (hours.length * mins.length > 12) {
+    return { en: 'at minute ' + mins.map(pad2).join(', ') + ' of hours ' + hours.map(pad2).join(', '),
+             zh: hours.map(pad2).join('、') + ' 点的第 ' + mins.map(pad2).join('、') + ' 分' };
+  }
+  for (let i = 0; i < hours.length; i++) {
+    for (let j = 0; j < mins.length; j++) times.push(pad2(hours[i]) + ':' + pad2(mins[j]));
+  }
+  return { en: 'at ' + times.join(', '), zh: '在 ' + times.join('、') };
 }
 
 function describeCron(parts) {
-  const [min,hour,day,mon,wk] = parts;
-  
-  // Special common patterns
+  const [min, hour, day, mon, wk] = parts;
   const expr = parts.join(' ');
-  
-  if (expr === '* * * * *') return {en:'Every minute',zh:'每分钟'};
-  if (expr === '0 * * * *') return {en:'Every hour at minute 0',zh:'每小时整点'};
-  if (expr === '0 0 * * *') return {en:'Every day at midnight',zh:'每天午夜 0:00'};
-  if (expr === '0 9 * * *') return {en:'Every day at 9:00 AM',zh:'每天早上 9:00'};
-  if (expr === '0 9 * * 1-5') return {en:'Weekdays at 9:00 AM',zh:'工作日早上 9:00'};
-  if (expr === '0 0 * * 0') return {en:'Every Sunday at midnight',zh:'每周日凌晨 0:00'};
-  if (expr === '0 0 1 * *') return {en:'First day of every month at midnight',zh:'每月 1 号凌晨 0:00'};
-  if (expr === '0 0 1 1 *') return {en:'January 1st at midnight (yearly)',zh:'每年 1 月 1 日凌晨'};
-  if (expr === '*/30 * * * 1-5') return {en:'Every 30 minutes on weekdays',zh:'工作日每 30 分钟'};
-  if (expr === '0 9,17 * * 1-5') return {en:'At 9:00 AM and 5:00 PM on weekdays',zh:'工作日 9:00 和 17:00'};
 
-  const minD = describeField(min, 'minute', '分钟', '分钟');
-  const hrD = describeField(hour, 'hour', '小时', '小时');
-  const dayD = describeField(day, 'day of month', '日', '日');
-  const monD = describeField(mon, 'month', '月', '月');
-  const wkD = describeField(wk, 'day of week', '星期', '');
+  /* short, unambiguous phrasings for the most common schedules */
+  if (expr === '* * * * *') return { en: 'Every minute', zh: '每分钟' };
+  if (expr === '0 * * * *') return { en: 'Every hour at minute 0', zh: '每小时整点' };
+  if (expr === '*/5 * * * *') return { en: 'Every 5 minutes', zh: '每 5 分钟' };
+  if (expr === '*/15 * * * *') return { en: 'Every 15 minutes', zh: '每 15 分钟' };
+  if (expr === '*/30 * * * *') return { en: 'Every 30 minutes', zh: '每 30 分钟' };
+  if (expr === '0 0 * * *') return { en: 'Every day at midnight', zh: '每天午夜 0:00' };
+  if (expr === '0 9 * * *') return { en: 'Every day at 9:00 AM', zh: '每天早上 9:00' };
+  if (expr === '0 9 * * 1-5') return { en: 'Weekdays at 9:00 AM', zh: '工作日早上 9:00' };
+  if (expr === '0 0 * * 0') return { en: 'Every Sunday at midnight', zh: '每周日凌晨 0:00' };
+  if (expr === '0 0 1 * *') return { en: 'First day of every month at midnight', zh: '每月 1 号凌晨 0:00' };
+  if (expr === '0 0 1 1 *') return { en: 'January 1st at midnight (yearly)', zh: '每年 1 月 1 日凌晨' };
+  if (expr === '*/30 * * * 1-5') return { en: 'Every 30 minutes on weekdays', zh: '工作日每 30 分钟' };
+  if (expr === '0 9,17 * * 1-5') return { en: 'At 9:00 AM and 5:00 PM on weekdays', zh: '工作日 9:00 和 17:00' };
 
-  // Build description
-  let en = '', zh = '';
-  
-  if (wk !== '*') {
-    en += wkD.en + (day !== '*' ? ', plus ' + dayD.en : '') + ', ';
-    zh += wkD.zh + (day !== '*' ? '，且' + dayD.zh : '') + '，';
-  } else if (day !== '*') {
-    en += dayD.en + (mon !== '*' ? ' of ' + monD.en : '') + ', ';
-    zh += dayD.zh + (mon !== '*' ? '（' + monD.zh + '）' : '') + '，';
-  } else {
-    en += 'every day, ';
-    zh += '每天，';
-  }
-  
-  en += 'at ' + hrD.en + ':' + pad(min);
-  zh += hrD.zh + ':' + pad(min);
-
-  if (min.startsWith('*/')) {
-    const n = min.slice(2);
-    en = en.replace(/at .+/, `every ${n} minutes starting at ${hrD.en}:00`);
-    zh = zh.replace(/.+/, `从 ${hrD.zh}:00 起每 ${n} 分钟`);
-  }
-
-  return {en, zh};
-}
-
-function pad(v) {
-  v = v.replace('*/','').split(',')[0];
-  return v.length === 1 ? '0'+v : v;
+  const t = describeTime(min, hour);
+  const d = describeDate(day, mon, wk);
+  let en = d.en + ', ' + t.en;
+  en = en.charAt(0).toUpperCase() + en.slice(1);
+  return { en: en, zh: d.zh + '，' + t.zh };
 }
 
 function calcNext(parts) {
-  try {
-    const expr = parts.join(' ');
-    const dates = getNextDates(expr, 10);
-    const list = document.getElementById('next-list');
-    list.innerHTML = dates.map(d => {
-      const ds = d.toISOString().replace('T',' ').replace('Z','').substring(0,19);
-      const local = d.toLocaleString('zh-CN', {weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
-      return `<div>${ds} UTC</div><div>${local}</div>`;
-    }).join('');
-  } catch(e) {
-    document.getElementById('next-list').textContent = 'Invalid expression';
+  const list = document.getElementById('next-list');
+  const dates = getNextDates(parts.join(' '), 10);
+  if (!dates.length) {
+    list.textContent = 'No run in the next 5 years — check the day / month combination.';
+    return;
   }
+  list.innerHTML = dates.map(function (d) {
+    const ds = d.toISOString().replace('T', ' ').replace('Z', '').substring(0, 19);
+    const local = d.toLocaleString('zh-CN', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return '<div>' + ds + ' UTC</div><div>' + local + '</div>';
+  }).join('');
 }
 
+/* Next `count` matching times, local timezone.
+   Jump to the next candidate instead of testing every single minute: a yearly
+   expression sits ~525,600 minutes away, and the previous minute-by-minute
+   search gave up after 100,000 tries, so "0 0 1 1 *" (a preset on this page)
+   returned an empty list. */
 function getNextDates(expr, count) {
-  const parts = expr.split(/\s+/);
-  const [min,hour,dom,mon,dow] = parts;
+  const parts = String(expr).split(/\s+/);
+  const min = parts[0], hour = parts[1], dom = parts[2], mon = parts[3], dow = parts[4];
   const results = [];
-  let d = new Date();
-  d.setSeconds(0,0);
-  d.setMinutes(d.getMinutes() + 1); // start from next minute
-  
-  let tries = 0;
-  while (results.length < count && tries < 100000) {
-    if (matches(d, min, hour, dom, mon, dow)) {
-      results.push(new Date(d));
+  if (validateExpr(parts)) return results;
+
+  const start = new Date();
+  start.setSeconds(0, 0);
+  const horizon = new Date(start.getTime());
+  horizon.setFullYear(horizon.getFullYear() + 5);   /* covers Feb 29 and yearly rules */
+  const d = new Date(start.getTime());
+  d.setMinutes(d.getMinutes() + 1);
+
+  let guard = 0;
+  while (results.length < count && guard++ < 20000 && d <= horizon) {
+    if (!matchField(d.getMonth() + 1, 'month', mon)) {
+      d.setMonth(d.getMonth() + 1, 1);
+      d.setHours(0, 0, 0, 0);
+      continue;
     }
+    if (!matchDay(d, dom, dow)) {
+      d.setDate(d.getDate() + 1);
+      d.setHours(0, 0, 0, 0);
+      continue;
+    }
+    if (!matchField(d.getHours(), 'hour', hour)) {
+      d.setHours(d.getHours() + 1, 0, 0, 0);
+      continue;
+    }
+    if (!matchField(d.getMinutes(), 'minute', min)) {
+      d.setMinutes(d.getMinutes() + 1);
+      continue;
+    }
+    results.push(new Date(d));
     d.setMinutes(d.getMinutes() + 1);
-    tries++;
   }
   return results;
 }
 
-function matches(d, min, hour, dom, mon, dow) {
-  if (!matchField(d.getMinutes(), 0, 59, min)) return false;
-  if (!matchField(d.getHours(), 0, 23, hour)) return false;
-  if (!matchField(d.getDate(), 1, 31, dom)) return false;
-  if (!matchField(d.getMonth()+1, 1, 12, mon)) return false;
-  if (!matchField(d.getDay(), 0, 6, dow)) return false;
-  return true;
+function parseExpr() {
+  const parts = document.getElementById('expr').value.trim().split(/\s+/)
+    .filter(function (p) { return p.length > 0; });
+
+  if (parts.length === 5) {
+    for (let i = 0; i < 5; i++) document.getElementById(FIELD_IDS[i]).value = parts[i];
+  }
+
+  const bad = validateExpr(parts);
+  const list = document.getElementById('next-list');
+  if (bad) {
+    document.getElementById('desc-en').textContent = 'Invalid expression: ' + bad.en;
+    document.getElementById('desc-zh').textContent = '无效表达式：' + bad.zh;
+    list.textContent = bad.en + ' — ' + bad.zh;
+    return;
+  }
+
+  const desc = describeCron(parts);
+  document.getElementById('desc-en').textContent = desc.en;
+  document.getElementById('desc-zh').textContent = desc.zh;
+  calcNext(parts);
 }
 
-function matchField(val, vmin, vmax, pattern) {
-  if (pattern === '*') return true;
-  const parts = pattern.split(',');
-  for (let p of parts) {
-    p = p.trim();
-    if (p.startsWith('*/')) {
-      const step = parseInt(p.slice(2));
-      if ((val - vmin) % step === 0) return true;
-    } else if (p.includes('-')) {
-      const [s,e] = p.split('-').map(Number);
-      if (val >= s && val <= e) return true;
-    } else {
-      if (parseInt(p) === val) return true;
-    }
-  }
-  return false;
+function syncFromFields() {
+  const parts = FIELD_IDS.map(function (id) {
+    return document.getElementById(id).value.trim() || '*';
+  });
+  document.getElementById('expr').value = parts.join(' ');
+  parseExpr();
+}
+
+function setPreset(expr) {
+  document.getElementById('expr').value = expr;
+  document.querySelectorAll('#presets button').forEach(function (b) {
+    const oc = b.getAttribute('onclick') || '';
+    b.classList.toggle('active', oc.indexOf("setPreset('" + expr + "')") >= 0);
+  });
+  parseExpr();
 }
 
 function copyExpr() {
@@ -323,10 +895,10 @@ function copyExpr() {
 function showCopied() {
   const c = document.getElementById('copied');
   c.classList.add('show');
-  setTimeout(() => c.classList.remove('show'), 1500);
+  setTimeout(function () { c.classList.remove('show'); }, 1500);
 }
 
-// Init
+/* Init */
 parseExpr();
 </script>
 </body>

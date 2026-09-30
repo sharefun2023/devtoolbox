@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <title>Free Online Markdown Editor & Previewer - Live MD to HTML | DevToolBox</title>
 <meta name="description" content="Free online Markdown editor with live preview — GFM tables, task lists and fenced code blocks, plus one-click HTML export. 100% client-side.">
 
@@ -181,6 +182,7 @@ footer p{color:#555;margin-top:8px;font-size:12px}
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -406,8 +408,9 @@ console.log(greet("World"));
   <p>&copy; 2026 DevToolBox. All tools run locally in your browser.</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <script>
+document.addEventListener('DOMContentLoaded', function(){
 (function(){
   const editor = document.getElementById('editor');
   const preview = document.getElementById('preview');
@@ -525,6 +528,7 @@ console.log(greet("World"));
   // Initial render with placeholder content
   updatePreview();
 })();
+});
 </script>
 </body>
 </html>

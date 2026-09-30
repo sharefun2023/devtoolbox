@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <title>Free Online QR Code Generator & Reader - Generate & Scan QR | DevToolBox</title>
   <meta name="description" content="Free online QR code generator and reader — generate QR codes from text or URLs, download as PNG, or upload an image to decode. 100% client-side.">
 
@@ -394,7 +395,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
 </script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -450,6 +451,8 @@ gtag("config", "G-ESF1YX8CCR");
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script defer src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
@@ -634,8 +637,9 @@ img.<span class="const">src</span> = <span class="string">'qrcode-image.png'</sp
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">&copy; 2026 DevToolBox.</p></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+
 <script>
+document.addEventListener('DOMContentLoaded', function(){
 (function() {
   const $ = id => document.getElementById(id);
 
@@ -842,6 +846,7 @@ img.<span class="const">src</span> = <span class="string">'qrcode-image.png'</sp
     document.getElementById('fileInput').click();
   });
 })();
+});
 </script>
 </body>
 </html>

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — DevToolBox</title>
-  <meta name="description" content="DevToolBox privacy policy. We don't track you, don't use cookies, and don't collect personal data.">
+  <meta name="description" content="What DevToolBox does with your data: nothing you paste into a tool is uploaded, Google Analytics counts visits, and no ads or trackers are loaded.">
 
 <meta property="og:title" content="Privacy Policy — DevToolBox">
-<meta property="og:description" content="DevToolBox privacy policy. We don">
+<meta property="og:description" content="A plain-English privacy policy for a static developer-tools site: your tool input is processed in your own browser, Google Analytics counts visits, and no ad or tracking scripts run here.">
 <meta property="og:url" content="https://23232322.xyz/privacy">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://23232322.xyz/og/privacy.png">
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="DevToolBox">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy Policy — DevToolBox">
-<meta name="twitter:description" content="DevToolBox privacy policy. We don">
+<meta name="twitter:description" content="A plain-English privacy policy for a static developer-tools site: your tool input is processed in your own browser, Google Analytics counts visits, and no ad or tracking scripts run here.">
 <meta name="twitter:image" content="https://23232322.xyz/og/privacy.png">
 
 <link rel="canonical" href="https://23232322.xyz/privacy">
@@ -25,14 +25,12 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     "name": "Privacy Policy",
-    "description": "DevToolBox privacy policy. We don't track you, don't use cookies, and don't collect personal data.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "description": "What DevToolBox does with your data: nothing you paste into a tool is uploaded, Google Analytics counts visits, and no ads or trackers are loaded.",
     "url": "https://23232322.xyz/privacy",
-    "dateModified": "2026-09-26"
+    "isPartOf": {"@type": "WebSite", "name": "DevToolBox", "url": "https://23232322.xyz/"},
+    "dateModified": "2026-10-01"
   }
   </script>
 <!-- Google tag (gtag.js) -->
@@ -55,23 +53,98 @@ gtag("config", "G-ESF1YX8CCR");
 <main>
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span>Privacy Policy</div>
 <h1 style="font-size:1.8rem;color:var(--text-bright);margin-bottom:24px;">Privacy Policy</h1>
+
 <section class="about-section">
-  <h2>🔒 No Tracking</h2>
-  <p>DevToolBox does not use any analytics, tracking cookies, or third-party scripts. We have no idea who visits our site, and that's how we like it.</p>
+  <h2>🔒 The short version</h2>
+  <ul>
+    <li><strong>No account, no sign-up, no email address required.</strong> There is nothing to log into, so we never hold a password or a profile for you.</li>
+    <li><strong>What you paste into a tool stays in your browser.</strong> The formatters, encoders, converters, diff, regex and JWT tools are just JavaScript in the page you already downloaded — your input is never sent anywhere. There is exactly one exception, and it is spelled out in <a href="#input">§1</a>.</li>
+    <li><strong>We do count visits.</strong> Google Analytics 4 is loaded on this site and it sets two cookies. <a href="#analytics">§3</a> names them and tells you how to opt out.</li>
+    <li><strong>No ads, no ad networks, no retargeting pixels, no session recording,</strong> and your data is never sold or shared.</li>
+  </ul>
 </section>
-<section class="about-section">
-  <h2>📊 No Data Collection</h2>
-  <p>We do not collect, store, or process any personal data. Our site is entirely static — there are no user accounts, no forms that store data, and no server-side processing of any kind.</p>
-  <p>All interactive tools on linked pages (like SQL Formatter, JSON Formatter) process data entirely in your browser. Your content never leaves your device.</p>
+
+<section class="about-section" id="input">
+  <h2>📥 What happens to what you type</h2>
+  <p>Every tool here is a static HTML file with its JavaScript attached. When you open one, your browser downloads the page once and then does all the work locally: JSON parsing and validation, SQL formatting, Base64 encoding, regex matching, hashing, diffing, image conversion. There is no back-end endpoint for your input to be posted to, and the page code contains no request that could carry it off your machine.</p>
+  <p>The practical consequence: the result is computed on your own device, and it would come out identically if this site went offline the instant after the page loaded.</p>
+  <p><strong>The one exception is the <a href="/tools/ai-cover-generator">AI Cover Generator</a>.</strong> Generating a cover image needs a model that cannot run inside a browser tab, so that single page POSTs the text you type to our own Cloudflare Pages Function, which relays it to Cloudflare Workers AI (<code>@cf/black-forest-labs/flux-1-schnell</code>). Treat that prompt box as public — do not paste secrets, customer names or anything personal into it. The prompt is used for that one generation; we store neither the prompts nor the generated images.</p>
+  <p>Downloads — CSV, JSON, PNG, exported HTML — are assembled in your browser as temporary file objects and saved straight to your disk. Nothing is uploaded in order to build them.</p>
 </section>
+
 <section class="about-section">
-  <h2>🌐 Hosting</h2>
-  <p>DevToolBox is hosted on Cloudflare Pages. Cloudflare may collect standard server logs for operational purposes. Please refer to <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="nofollow">Cloudflare's Privacy Policy</a> for details.</p>
+  <h2>🍪 Cookies</h2>
+  <p>This site sets no cookies of its own. There is no cookie banner here because there is nothing of ours to consent to. One third-party script does set cookies, though, and it is only fair to name them:</p>
+  <ul>
+    <li><code>_ga</code> — written by Google Analytics 4. Holds a randomly generated client ID so that repeat visits can be counted as the same browser. Lifetime: up to 2 years.</li>
+    <li><code>_ga_ESF1YX8CCR</code> — written by Google Analytics 4. Holds session state, such as whether this is a new session and which link brought you here. Lifetime: up to 2 years.</li>
+  </ul>
+  <p>Both are stored for this domain, but the script that creates and reads them belongs to Google. Cloudflare's analytics beacon sends no cookie at all — on a page that loads the Google script, a full visit leaves exactly those two cookies and nothing else.</p>
+  <p>You can delete or block both at any time from your browser's cookie settings; see <a href="#controls">§6</a>.</p>
 </section>
+
+<section class="about-section" id="analytics">
+  <h2>📊 What we measure</h2>
+  <p>The site uses <strong>Google Analytics 4</strong> (measurement ID <code>G-ESF1YX8CCR</code>) to see which tools are used and which are not, which is the only reason any of this gets maintained. A standard page view records: the page you opened, the page that referred you, your approximate location (city level, inferred from your IP address), your browser, operating system and device type, and how long the visit lasted.</p>
+  <p>What it does <em>not</em> contain is anything you typed into a tool, or anything that would let us contact you. We read aggregate reports; we do not attempt to identify individuals.</p>
+  <p><strong>Cloudflare Web Analytics</strong> is also active. Cloudflare injects its beacon (<code>static.cloudflareinsights.com</code>) at its edge, so it is not a tag in our page source and not something we can remove from these files — it is a toggle in the Cloudflare dashboard. It reports aggregated page views and Core Web Vitals and, unlike Google Analytics, sets no cookies and does not follow you to other websites.</p>
+  <p>That is the complete list. There are no advertising or retargeting pixels, no social network trackers, no heat-map or session-recording scripts, and no affiliate or outbound-click tracking on this site.</p>
+  <p>We will not claim to honour the legacy <code>Do Not Track</code> header, because Google Analytics 4 ignores it. The opt-out in <a href="#controls">§6</a> is the route that actually works.</p>
+</section>
+
 <section class="about-section">
-  <h2>📧 Contact</h2>
-  <p>Questions about privacy? Email us at <!--email_off--><a href="mailto:hello@23232322.xyz">hello@23232322.xyz</a><!--/email_off-->.</p>
-  <p style="color:var(--text-dim);margin-top:16px;"><em>Last updated: June 2026</em></p>
+  <h2>💾 Local storage (stays on your device)</h2>
+  <p>One tool keeps a convenience cache in your browser, using <code>localStorage</code> rather than a cookie. The <a href="/tools/sql-formatter-online">SQL Formatter</a> saves your recent queries under the key <code>dt-sql-history</code>, so your history is still there after a reload or a restart.</p>
+  <p>That data never leaves your browser and nothing is fetched from a server to display it. The page has a <strong>Clear</strong> button that deletes it, and clearing site data for <code>23232322.xyz</code> in your browser settings removes it as well. If you are working on a shared machine, clear the history before you walk away.</p>
+</section>
+
+<section class="about-section">
+  <h2>🌐 Who else sees your request</h2>
+  <p>Loading any web page means your browser makes requests to servers, and those servers can see your IP address and which page asked for the file. These are the only outside parties involved here:</p>
+  <ul>
+    <li><strong>Cloudflare Pages</strong> (<code>23232322.xyz</code>) — hosts and serves every file on this site and terminates the encrypted connection. Cloudflare processes each request and keeps operational logs (IP address, timestamp, requested URL, user agent) under <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="nofollow">Cloudflare's privacy policy</a>.</li>
+    <li><strong>Google</strong> (<code>googletagmanager.com</code>, <code>google-analytics.com</code>) — serves the analytics script and receives the page views described in <a href="#analytics">§3</a>. See <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Google's privacy policy</a>.</li>
+    <li><strong>jsDelivr</strong> (<code>cdn.jsdelivr.net</code>) — a free public CDN that serves three JavaScript libraries used on two pages: the Markdown renderer and the QR code encoder/decoder. Fetching from it discloses your IP address and the page you are on to that CDN. Their <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net" target="_blank" rel="nofollow">privacy policy</a> is published here.</li>
+    <li><strong>Cloudflare Web Analytics</strong> (<code>static.cloudflareinsights.com</code>) — the cookieless beacon described in <a href="#analytics">§3</a>.</li>
+  </ul>
+  <p>Because the site is static there is no application server of ours logging your activity, and no database holding anything about you.</p>
+</section>
+
+<section class="about-section" id="controls">
+  <h2>🎛️ Your controls</h2>
+  <ul>
+    <li><strong>Block the analytics:</strong> install Google's own <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="nofollow">Analytics opt-out browser add-on</a>, or block <code>googletagmanager.com</code> and <code>google-analytics.com</code> with any content blocker. Every tool keeps working — nothing here depends on the analytics script.</li>
+    <li><strong>Delete the cookies:</strong> any browser action that clears cookies for <code>23232322.xyz</code> removes <code>_ga</code> and <code>_ga_ESF1YX8CCR</code>. Blocking third-party cookies alone may not be enough, since these are stored for this domain.</li>
+    <li><strong>Clear the SQL history:</strong> use the Clear button on the SQL Formatter page, or clear this site's storage in your browser settings.</li>
+    <li><strong>Turn JavaScript off entirely:</strong> that is a complete opt-out of everything described above — it also turns off the tools, which is rather the point of the site.</li>
+  </ul>
+</section>
+
+<section class="about-section">
+  <h2>📧 If you email us</h2>
+  <p>Writing to <!--email_off--><a href="mailto:hello@23232322.xyz">hello@23232322.xyz</a><!--/email_off--> gives us your address and whatever you wrote, and we use it to answer you. There is no newsletter, no mailing list, and your address is not passed to anyone else. Messages are handled by our email provider.</p>
+</section>
+
+<section class="about-section">
+  <h2>🚫 What we never do</h2>
+  <ul>
+    <li>Upload the content you paste into a tool — with the single AI Cover Generator exception described in <a href="#input">§1</a>.</li>
+    <li>Require an account, take a payment, or store a password.</li>
+    <li>Sell, rent or share personal data with advertisers or data brokers.</li>
+    <li>Run ad networks, retargeting pixels or cross-site tracking.</li>
+    <li>Knowingly collect anything from children. This is a developer utility with no accounts and no personal data, and it is not directed at children.</li>
+  </ul>
+</section>
+
+<section class="about-section">
+  <h2>📝 Changes to this policy</h2>
+  <p>If what the site does changes — a new third-party service, or a new tool that needs a server — this page changes with it and the date below moves. This policy describes the code that is actually deployed, and every claim in it maps to something you can check yourself in your browser's network tab.</p>
+</section>
+
+<section class="about-section">
+  <h2>📮 Contact</h2>
+  <p>Questions about privacy, or a correction to anything above? Email <!--email_off--><a href="mailto:hello@23232322.xyz">hello@23232322.xyz</a><!--/email_off-->.</p>
+  <p style="color:var(--text-dim);margin-top:16px;"><em>Last updated: October 2026</em></p>
 </section>
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>

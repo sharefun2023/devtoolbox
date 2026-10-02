@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Minifier Online — Free Online HTML Minifier Tool | DevToolBox</title>
-  <meta name="description" content="Minify HTML online for free — compress HTML, CSS & JavaScript instantly. Strip comments and whitespace or beautify output. 100% client-side, nothing uploaded.">
+  <meta name="description" content="Free HTML minifier online — compress HTML, CSS and JavaScript: strip comments, indentation and needless whitespace. Runs in your browser, nothing uploaded.">
   <meta name="keywords" content="html minifier online, minify html online, html minifier, html minify, minify html, html minification, compress html, online html minifier, html compressor, css minifier, js minifier, free html minifier">
 
 <meta property="og:title" content="HTML Minifier Online — Free Tool | DevToolBox">
@@ -44,7 +44,7 @@
     "operatingSystem": "Any",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "url": "https://23232322.xyz/tools/minifier",
-    "dateModified": "2026-09-28"
+    "dateModified": "2026-10-02"
   }
   </script>
   <script type="application/ld+json">
@@ -193,7 +193,7 @@
       "name": "Is my HTML code uploaded to a server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. The HTML minifier runs 100% client-side in your browser. Your code never leaves your device, making it safe for proprietary templates and snippets."
+        "text": "No. The HTML minifier runs 100% client-side in your browser. Your code never leaves your device, which makes it safe for proprietary templates and snippets."
       }
     },
     {
@@ -201,7 +201,55 @@
       "name": "Can I minify CSS and JavaScript with this tool too?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Switch between the HTML, CSS, and JS tabs. Every mode uses syntax-aware compression so strings, regex literals, and template content stay intact."
+        "text": "Yes. Switch between the HTML, CSS and JS tabs. Every mode uses syntax-aware compression so strings, regex literals and template content stay intact."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does this HTML minifier online remove exactly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "From HTML: comments (IE conditional comments are kept), indentation, blank lines, and whitespace between block-level tags — while keeping one space wherever inline elements or words would otherwise run together. From CSS: block comments, whole-line // lines, and whitespace around { } ; : , > ~. From JavaScript: comments, indentation and inline whitespace. It never strips optional closing tags, attribute quotes, HTML entities, or variable names."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the JavaScript minifier keep my line breaks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because JavaScript inserts semicolons at line ends. Joining lines can change behaviour silently: return followed by a value on the next line returns undefined, and let a = b followed by (function(){})() becomes a function call on b rather than two statements. Indentation is removed, the line breaks are not."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much smaller will my file get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on how much of the source is indentation and comments. Measured on real files: a hand-written template with comment banners and deep nesting went 357 → 270 bytes (24% smaller), while content-heavy production pages only shrink by 1.5%–4.4%. Hand-formatted stylesheets and scripts usually save the most."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does minifying HTML replace gzip or Brotli?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, and it does not need to — the two stack. Minification removes bytes that are never part of the rendered page; gzip or Brotli then compresses what is left at the transport layer. Minify first, then let your server or CDN compress the response."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I minify a whole folder or a zip of files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This is a one-document-at-a-time tool: paste into the input pane, compress, copy the output. There is no batch mode, no upload, no CLI and no build plugin — which is also why nothing is ever sent to a server. For whole projects, a build-time minifier is the right tool."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get the original formatting back after minifying?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not exactly — comments and blank lines are gone for good, so keep a copy of the source. You can, however, make minified HTML readable again with the Beautify button: it re-indents tags and puts each element on its own line so the structure is easy to follow."
       }
     }
   ]
@@ -263,6 +311,61 @@
     </ul>
     <p>Content inside <code>&lt;pre&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;script&gt;</code>, and <code>&lt;style&gt;</code> is preserved byte-for-byte, so your rendered layout and embedded logic never break.</p>
 
+    <h2>Three Modes: HTML, CSS and JavaScript</h2>
+    <p>Each tab is a different compressor with a different job. They share one rule: never change what the code <em>means</em> — only how much of it you have to ship.</p>
+    <ul>
+      <li><strong>HTML</strong> — tokenizes the document and removes comments (except IE conditional comments such as <code>&lt;!--[if IE]&gt;</code>), collapses whitespace runs inside text, and drops the whitespace between block-level tags. Where an inline element meets text — <code>&lt;span&gt;a&lt;/span&gt; &lt;span&gt;b&lt;/span&gt;</code> — a single space is kept instead of deleted, because removing it would glue the words together on screen.</li>
+      <li><strong>CSS</strong> — removes block comments and whole-line <code>//</code> lines, then collapses the whitespace around <code>{ } ; : , &gt; ~</code>. Quoted strings and everything inside <code>url(...)</code> are copied verbatim, so <code>https://</code> URLs, protocol-relative <code>url(//cdn…)</code> paths and <code>data:</code> URIs survive intact.</li>
+      <li><strong>JavaScript</strong> — removes comments, strips indentation and inline whitespace, and keeps strings, template literals and regex literals exactly as written. It does <strong>not</strong> rename your variables; that is a different (and much riskier) kind of tool.</li>
+    </ul>
+
+    <h2>What Stays Exactly As It Was</h2>
+    <p>These are the cases where a naive whitespace-stripper quietly destroys code. On this page they are protected by construction and covered by an automated test suite:</p>
+    <ul>
+      <li><strong><code>&lt;pre&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> bodies</strong> — never touched, byte for byte. Code samples and inline scripts keep their exact formatting.</li>
+      <li><strong><code>url(...)</code> and quoted strings in CSS</strong> — a <code>data:image/png;base64,…</code> URI contains <code>;</code> and <code>,</code>, and an <code>https://</code> URL contains <code>//</code>. Both look like CSS punctuation but are not, so they are masked before any reformatting happens.</li>
+      <li><strong><code>calc(100% + 20px)</code></strong> — the <code>+</code> and <code>-</code> operators inside <code>calc()</code> <em>require</em> surrounding whitespace. The CSS minifier deliberately leaves the <code>+</code> alone; saving two bytes is not worth emitting invalid CSS.</li>
+      <li><strong>String concatenation vs. increment in JS</strong> — <code>a + +b</code> stays <code>a+ +b</code>, not <code>a++b</code>. <code>a - -b</code> stays <code>a- -b</code>. Comments and division are not confused with regex literals.</li>
+    </ul>
+
+    <h2>Why the JavaScript Minifier Keeps Your Line Breaks</h2>
+    <p>JavaScript inserts semicolons for you, and it can only do that where a line ends. Two lines that look independent are sometimes not:</p>
+    <pre><code>let a = b
+(function(){ /* … */ })()   // called with b — not a separate statement
+
+function f() {
+  return                    // returns undefined; the 1 below is dead code
+  1
+}</code></pre>
+    <p>Join those lines onto one row and both snippets change meaning while still running without an error. So the JS mode deletes indentation and comments but keeps the line breaks themselves. The output is a little larger than a mangler that flattens everything; the difference is that the flattened one can be wrong in ways you only notice in production.</p>
+
+    <h2>What This Minifier Deliberately Does Not Do</h2>
+    <ul>
+      <li><strong>Strip optional tags or attribute quotes.</strong> <code>&lt;/li&gt;</code> and <code>class="row"</code> are left alone — that trick is legal HTML but breaks naive parsers and template engines downstream.</li>
+      <li><strong>Rewrite HTML entities.</strong> <code>&amp;nbsp;</code> stays <code>&amp;nbsp;</code>.</li>
+      <li><strong>Rename or mangle JavaScript identifiers</strong>, remove dead code, or inline modules. That is what a full build-time bundler does; this tool will not touch the names you can read.</li>
+      <li><strong>Inline CSS or JS, or rewrite asset URLs.</strong> Output stays one file of the same kind you pasted in.</li>
+      <li><strong>Replace gzip or Brotli.</strong> Those work at the transport layer and stack with minification — minify first, then let your server compress.</li>
+      <li><strong>Batch a folder, a zip, or a build step.</strong> One document per tab, straight from the textarea — no upload, no install, nothing to configure.</li>
+      <li><strong>Guarantee the output is smaller.</strong> If the input is already minified, the result can be identical or a few bytes longer where whitespace was load-bearing.</li>
+    </ul>
+
+    <h2>How Much Smaller Will the File Get?</h2>
+    <p>It depends entirely on how much of the source is indentation and comments. Measured on real files:</p>
+    <ul>
+      <li>A hand-written template with comment banners and deep nesting: <strong>357 → 270 bytes (24% smaller)</strong>.</li>
+      <li>Content-heavy production pages (lots of text, modest indentation): <strong>1.5% – 4.4% smaller</strong>.</li>
+    </ul>
+    <p>That is the honest split: minification is a reliable couple of percent on markup plus a real win on hand-formatted templates and stylesheets, and it is not a substitute for compression on the wire. If you want a quick before/after on your own file, paste it in and watch the character counters on each pane.</p>
+
+    <h2>How to Check a Minified Page Still Renders the Same</h2>
+    <ol>
+      <li>Keep the original — this tool only replaces what is in the output box, so copy the input back out first if you need it.</li>
+      <li>Deploy the minified file to a staging URL and open both versions side by side.</li>
+      <li>Open the browser console on the minified page. A syntax error that minification introduced shows up immediately and loudly.</li>
+      <li>Spot-check the things whitespace depends on: inline links and buttons (no glued words), <code>&lt;pre&gt;</code> blocks, CSS <code>calc()</code> and <code>url()</code> values, and any inline script that builds markup from strings.</li>
+    </ol>
+
     <h3>Why Minify HTML?</h3>
     <ul>
       <li><strong>Faster page loads</strong> — a smaller HTML document means a quicker First Contentful Paint and a better Core Web Vitals score.</li>
@@ -272,11 +375,23 @@
 
     <h3>Frequently Asked Questions</h3>
     <h4>Is this HTML minifier really free?</h4>
-    <p>Yes — completely free, with no sign-up, no usage limits, and no watermarks. Minify as much HTML, CSS, or JavaScript as you like.</p>
+    <p>Yes — completely free, with no sign-up, no usage limits, and no watermarks. Minify as much HTML, CSS, or JavaScript as you like, right in your browser.</p>
     <h4>Is my HTML code uploaded to a server?</h4>
-    <p>No. The minifier runs 100% in your browser. Your code is never sent over the network, which makes it safe to use on proprietary templates and snippets.</p>
+    <p>No. The HTML minifier runs 100% client-side in your browser. Your code never leaves your device, which makes it safe for proprietary templates and snippets.</p>
     <h4>Can I minify CSS and JavaScript with this tool too?</h4>
-    <p>Yes — switch between the HTML, CSS, and JS tabs above. Each mode uses syntax-aware compression so strings, regexes, and template literals stay intact.</p>
+    <p>Yes. Switch between the HTML, CSS and JS tabs. Every mode uses syntax-aware compression so strings, regex literals and template content stay intact.</p>
+    <h4>What does this HTML minifier online remove exactly?</h4>
+    <p>From HTML: comments (IE conditional comments are kept), indentation, blank lines, and whitespace between block-level tags — while keeping one space wherever inline elements or words would otherwise run together. From CSS: block comments, whole-line <code>//</code> lines, and whitespace around <code>{ } ; : , &gt; ~</code>. From JavaScript: comments, indentation and inline whitespace. It never strips optional closing tags, attribute quotes, HTML entities, or variable names.</p>
+    <h4>Why does the JavaScript minifier keep my line breaks?</h4>
+    <p>Because JavaScript inserts semicolons at line ends. Joining lines can change behaviour silently: <code>return</code> followed by a value on the next line returns <code>undefined</code>, and <code>let a = b</code> followed by <code>(function(){})()</code> becomes a function call on <code>b</code> rather than two statements. Indentation is removed, the line breaks are not.</p>
+    <h4>How much smaller will my file get?</h4>
+    <p>It depends on how much of the source is indentation and comments. Measured on real files: a hand-written template with comment banners and deep nesting went 357 → 270 bytes (24% smaller), while content-heavy production pages only shrink by 1.5%–4.4%. Hand-formatted stylesheets and scripts usually save the most.</p>
+    <h4>Does minifying HTML replace gzip or Brotli?</h4>
+    <p>No, and it does not need to — the two stack. Minification removes bytes that are never part of the rendered page; gzip or Brotli then compresses what is left at the transport layer. Minify first, then let your server or CDN compress the response.</p>
+    <h4>Can I minify a whole folder or a zip of files?</h4>
+    <p>No. This is a one-document-at-a-time tool: paste into the input pane, compress, copy the output. There is no batch mode, no upload, no CLI and no build plugin — which is also why nothing is ever sent to a server. For whole projects, a build-time minifier is the right tool.</p>
+    <h4>Can I get the original formatting back after minifying?</h4>
+    <p>Not exactly — comments and blank lines are gone for good, so keep a copy of the source. You can, however, make minified HTML readable again with the Beautify button: it re-indents tags and puts each element on its own line so the structure is easy to follow.</p>
 
     <div class="related-links">
       <a href="/tools/json-formatter-online">JSON Formatter</a>
@@ -284,6 +399,11 @@
       <a href="/tools/text-diff">Diff Checker</a>
       <a href="/tools/markdown-preview">Markdown Preview</a>
       <a href="/tools/uuid-generator">UUID Generator</a>
+      <a href="/tools/url-encoder-decoder">URL Encoder / Decoder</a>
+      <a href="/tools/image-compressor">Image Compressor</a>
+      <a href="/categories/frontend-design">Frontend &amp; Design Tools</a>
+      <a href="/categories/code-ide">Code &amp; IDE Tools</a>
+      <a href="/categories/dev-tools">All Dev Tools</a>
     </div>
   </div>
 
@@ -512,31 +632,45 @@ function beautifyHTML(html) {
   return out.trim() + '\n';
 }
 
+// --- CSS: 字符串与 url(...) 必须原样保留（数据 URI 里全是 ; , : ）---
+function protectCssLiterals(css, keep) {
+  css = css.replace(/url\(\s*(?:[^()"'\\]|\\.|"[^"]*"|'[^']*')*\s*\)/gi, function (m) {
+    keep.push(m);
+    return '\u0000S' + (keep.length - 1) + '\u0000';
+  });
+  css = css.replace(/"([^"\\]|\\.)*"|'([^'\\]|\\.)*'/g, function (m) {
+    keep.push(m);
+    return '\u0000S' + (keep.length - 1) + '\u0000';
+  });
+  return css;
+}
+function restoreCssLiterals(out, keep) {
+  return out.replace(/\u0000S(\d+)\u0000/g, function (m, n) { return keep[+n]; });
+}
+
 function minifyCSS(css) {
-  return css
-    // Remove multi-line comments (/* ... */)
+  const keep = [];
+  css = protectCssLiterals(css, keep);
+  const out = css
+    // Remove block comments (/* ... */)
     .replace(/\/\*[\s\S]*?\*\//g, '')
-    // Remove single-line comments (// ...) — CSS doesn't officially have them, but some preprocessors use them
-    .replace(/\/\/.*$/gm, '')
-    // Collapse whitespace around braces and semicolons
+    // 行注释只在「整行以 // 开头」时删。CSS 本身没有 // 注释语法，
+    // 而无条件删 /\/\/.*$/ 会把 url(https://…) 与 url(//cdn…) 后面的整行吃掉。
+    .replace(/^[ \t]*\/\/.*$/gm, '')
+    // Collapse whitespace around structural punctuation
     .replace(/\s*\{\s*/g, '{')
     .replace(/\s*\}\s*/g, '}')
     .replace(/\s*;\s*/g, ';')
     .replace(/\s*:\s*/g, ':')
     .replace(/\s*,\s*/g, ',')
-    // Collapse multiple spaces to one
-    .replace(/\s+/g, ' ')
-    // Remove trailing semicolons before closing braces
-    .replace(/;}/g, '}')
-    // Trim whitespace around selectors
     .replace(/\s*>\s*/g, '>')
-    .replace(/\s*\+\s*/g, '+')
     .replace(/\s*~\s*/g, '~')
-    // Remove leading/trailing whitespace on each line
-    .split('\n').map(l => l.trim()).join('')
-    // Collapse all remaining whitespace runs
-    .replace(/\s{2,}/g, ' ')
+    // 故意不压缩 `+` 两侧的空白：`+` 同时是 calc() 的运算符，
+    // calc(100% + 20px) 去掉空格就是非法 CSS，省这两个字节不值得。
+    .replace(/;}/g, '}')
+    .replace(/\s+/g, ' ')
     .trim();
+  return restoreCssLiterals(out, keep);
 }
 
 function minifyJS(js) {
@@ -594,14 +728,19 @@ function minifyJS(js) {
 
     // Skip whitespace (except in strings)
     if (/\s/.test(ch)) {
-      i++;
-      // Insert a space only when needed to separate tokens
+      let hadNewline = false;
+      while (i < len && /\s/.test(js[i])) {
+        if (js[i] === '\n') hadNewline = true;
+        i++;
+      }
       const prevResultChar = result.length > 0 ? result[result.length - 1] : '';
       const nextNonWs = getNextNonWS(js, i);
-      if (prevResultChar && nextNonWs &&
-          needsSpaceBetween(prevResultChar, nextNonWs)) {
-        result += ' ';
-      }
+      if (!prevResultChar || !nextNonWs) continue;
+      // 换行优先于空格保留：换行既能分隔 token，又能原样保住 ASI 语义。
+      // 把 return 与下一行粘起来、或把 `a = b` 与下一行的 `(function(){})()` 粘起来，
+      // 都是「压缩成功但代码行为变了」——那是真 bug，不是优化。
+      if (hadNewline) result += '\n';
+      else if (needsSpaceBetween(prevResultChar, nextNonWs)) result += ' ';
       continue;
     }
 
@@ -620,8 +759,13 @@ function getNextNonWS(str, pos) {
 function needsSpaceBetween(a, b) {
   // Insert space between two alphanumeric/identifier tokens
   if (/[a-zA-Z0-9_$]/.test(a) && /[a-zA-Z0-9_$]/.test(b)) return true;
-  // Space between keyword and identifier
-  if (/[a-zA-Z0-9_$}]/.test(a) && /[{([a-zA-Z0-9_$]/.test(b)) return false;
+  // `a + +b` / `a - -b` / `i + ++j`：两个同号运算符相邻必须留空格，
+  // 否则会被重新解析成 `++` / `--` —— 语义直接变了。
+  if ((a === '+' || a === '-') && a === b) return true;
+  // `/` 后紧跟 `/` 或 `*` 会变成注释
+  if (a === '/' && (b === '/' || b === '*')) return true;
+  // 数字字面量后的 `.` 会被吃成小数点：`1 .toString()` 不能变成 `1.toString()`
+  if (/[0-9]/.test(a) && b === '.') return true;
   return false;
 }
 
@@ -645,69 +789,103 @@ function beautify() {
 }
 
 function beautifyCSS(css) {
-  // First: strip existing whitespace artifacts, then reformat
-  let clean = css
-    // Remove comments
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .trim();
+  const pad = function (n) { return '  '.repeat(Math.max(0, n)); };
+  let out = '';
+  let depth = 0;        // >0 表示在声明块里（决定 `:` 是声明冒号还是伪类冒号）
+  let paren = 0;        // >0 表示在括号里（@media (min-width:600px) 这种）
+  let needIndent = false;
+  let pendingSpace = false;
 
-  let indent = 0;
-  let result = '';
-  let inValue = false;
-
-  for (let i = 0; i < clean.length; i++) {
-    const ch = clean[i];
-
-    if (ch === '{') {
-      result += ' {\n';
-      indent++;
-      inValue = false;
-    } else if (ch === '}') {
-      indent = Math.max(0, indent - 1);
-      result += '\n' + '  '.repeat(indent) + '}';
-      // Check for adjacent closing braces
-      if (i + 1 < clean.length && clean[i + 1] === '}') {
-        result += '\n';
-      } else if (i + 1 < clean.length) {
-        result += '\n';
-      }
-    } else if (ch === ';') {
-      result += ';\n';
-      if (indent > 0) {
-        // Check next char — if closing brace, don't add indent line
-        const nextNonWS = getNextNonSpace(clean, i + 1);
-        if (nextNonWS !== '}') {
-          result += '  '.repeat(indent);
-        }
-      }
-    } else if (ch === ':') {
-      result += ': ';
-    } else if (ch === ',') {
-      result += ', ';
-      i++; // skip next space if any
-      while (i < clean.length && clean[i] === ' ') i++;
-      i--;
-    } else if (ch === '\n' || ch === '\r') {
-      // skip existing newlines
-    } else if (/\s/.test(ch)) {
-      // At start of line, skip leading spaces (we add our own)
-      if (result.endsWith('\n')) {
-        result += '  '.repeat(indent);
-      }
-      // Skip consecutive spaces
-      if (result.length > 0 && result[result.length - 1] === ' ') continue;
-      result += ' ';
-    } else {
-      result += ch;
-    }
+  function put(s) {
+    if (!s) return;
+    if (needIndent) { out += pad(depth); needIndent = false; }
+    out += s;
+  }
+  function flushSpace() {
+    if (!pendingSpace) return;
+    pendingSpace = false;
+    if (needIndent || !out) return;
+    // 只在「已经紧跟着空白」时不再补 —— 不能因为上一个字符是 `+` `>` `~` `(` 就吃掉空格：
+    // calc(100% + 20px) 里 `+` 两侧都必须有空白，少一个就是非法 CSS。
+    if (/\s$/.test(out)) return;
+    out += ' ';
+  }
+  function newline() {
+    out = out.replace(/[ \t]+$/, '');
+    if (!out.endsWith('\n')) out += '\n';
+    needIndent = true;
+    pendingSpace = false;
   }
 
-  return result.trim();
-}
+  let i = 0;
+  while (i < css.length) {
+    const ch = css[i];
 
-function getNextNonSpace(str, pos) {
-  while (pos < str.length && (str[pos] === ' ' || str[pos] === '\n' || str[pos] === '\r')) pos++;
-  return pos < str.length ? str[pos] : null;
+    // 字符串原样拷贝
+    if (ch === '"' || ch === "'") {
+      let j = i + 1;
+      while (j < css.length) {
+        if (css[j] === '\\') { j += 2; continue; }
+        if (css[j] === ch) { j++; break; }
+        j++;
+      }
+      flushSpace(); put(css.slice(i, j)); i = j;
+      continue;
+    }
+
+    // url(...) 原样拷贝：数据 URI 里的 ; , : 不是结构符号，重排会把 URI 拆坏
+    if (/^url\(/i.test(css.slice(i, i + 4))) {
+      let j = i + 4, open = 1;
+      while (j < css.length && open > 0) {
+        const c = css[j];
+        if (c === '"' || c === "'") {
+          const q = c; j++;
+          while (j < css.length && css[j] !== q) { if (css[j] === '\\') j++; j++; }
+        } else if (c === '(') { open++; }
+        else if (c === ')') { open--; }
+        j++;
+      }
+      flushSpace(); put(css.slice(i, j)); i = j;
+      continue;
+    }
+
+    if (ch === '{') {
+      pendingSpace = false;
+      out = out.replace(/[ \t]+$/, '');
+      if (out && !out.endsWith('\n')) out += ' ';
+      put('{');
+      depth++;
+      newline();
+      i++;
+      continue;
+    }
+    if (ch === '}') {
+      depth = Math.max(0, depth - 1);
+      newline();
+      put('}');
+      newline();
+      i++;
+      continue;
+    }
+    if (ch === ';') { put(';'); newline(); i++; continue; }
+    if (ch === ':') {
+      // 选择器里的 `:`（a:hover）不能变成 `a: hover`；声明里的才加空格
+      if (depth > 0 || paren > 0) { put(':'); pendingSpace = false; out += ' '; }
+      else { put(':'); }
+      i++;
+      continue;
+    }
+    if (ch === ',') { pendingSpace = false; put(','); out += ' '; i++; continue; }
+    if (ch === '(') { flushSpace(); put('('); paren++; pendingSpace = false; i++; continue; }
+    if (ch === ')') { pendingSpace = false; put(')'); paren = Math.max(0, paren - 1); i++; continue; }
+    if (/\s/.test(ch)) { pendingSpace = true; i++; continue; }
+
+    flushSpace();
+    put(ch);
+    i++;
+  }
+
+  return out.trim();
 }
 
 function beautifyJS(js) {

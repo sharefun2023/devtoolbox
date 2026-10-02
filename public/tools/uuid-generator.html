@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free UUID Generator Online | Generate Random UUID v4 &amp; Get UUID Instantly | DevToolBox</title>
+  <title>UUID Generator Online — Generate Random UUID v4, v1 &amp; v7 | DevToolBox</title>
   <meta name="description" content="Free online UUID generator — create random UUID v4, v1 and v7 instantly, up to 500 in bulk, and download as CSV or JSON. 100% client-side.">
   <meta name="keywords" content="uuid generator, uuid generator online, generate uuid, uuid v4 generator, random uuid generator, online uuid generator, uuid4, uuid gen, get uuid, random uuid, generate random uuid, get uuid online">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="canonical" href="https://23232322.xyz/tools/uuid-generator">
 
-<meta property="og:title" content="Free UUID Generator Online | Generate Random UUID v4 &amp; Get UUID Instantly | DevToolBox">
+<meta property="og:title" content="UUID Generator Online — Generate Random UUID v4, v1 &amp; v7 | DevToolBox">
 <meta property="og:description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 500 random UUIDs in bulk. Copy, download CSV/JSON. 100% client-side. No signup required.">
 <meta property="og:url" content="https://23232322.xyz/tools/uuid-generator">
 <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="UUID Generator">
 <meta property="og:site_name" content="DevToolBox">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free UUID Generator Online | Generate Random UUID v4 &amp; Get UUID Instantly | DevToolBox">
+<meta name="twitter:title" content="UUID Generator Online — Generate Random UUID v4, v1 &amp; v7 | DevToolBox">
 <meta name="twitter:description" content="Free online UUID generator — generate random UUID v4, get UUID v1/v7 instantly. Generate up to 500 random UUIDs in bulk. Copy, download CSV/JSON. 100% client-side. No signup required.">
 <meta name="twitter:image" content="https://23232322.xyz/og/tools/uuid-generator.png">
 
@@ -244,6 +244,22 @@
           "@type": "Answer",
           "text": "Yes, the UUID Generator is completely free with no sign-up required and no usage limits. All UUID generation runs 100% client-side in your browser using JavaScript — no data is ever sent to any server, ensuring complete privacy."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this UUID generator online in bulk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — generate up to 500 UUIDs in one click, pick the version (v1, v4, v7, GUID, NanoID or ULID) and the output format (lowercase, UPPERCASE or without hyphens), then copy the list or download it as CSV or JSON."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I have to install anything to use this UUID generator online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. There is nothing to install, no account and no API key: open this page in any modern browser and the UUIDs are generated locally. The generation code is plain JavaScript served with the page, so it works the same on Windows, macOS, Linux and mobile."
+        }
       }
     ]
   }
@@ -411,6 +427,10 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
     <p>UUID v4 has 122 random bits, yielding approximately 5.3 x 10^36 possible values. The probability of a collision is astronomically low — you would need to generate 1 billion UUIDs per second for 85 years to have a 50% chance of a single collision. For all practical purposes, UUIDs are unique.</p>
     <h3>Is the UUID Generator free and private?</h3>
     <p>Yes, the UUID Generator is completely free with no sign-up required and no usage limits. All UUID generation runs 100% client-side in your browser using JavaScript — no data is ever sent to any server, ensuring complete privacy.</p>
+    <h3>Can I use this UUID generator online in bulk?</h3>
+    <p>Yes — generate up to 500 UUIDs in one click, pick the version (v1, v4, v7, GUID, NanoID or ULID) and the output format (lowercase, UPPERCASE or without hyphens), then copy the list or download it as CSV or JSON.</p>
+    <h3>Do I have to install anything to use this UUID generator online?</h3>
+    <p>No. There is nothing to install, no account and no API key: open this page in any modern browser and the UUIDs are generated locally. The generation code is plain JavaScript served with the page, so it works the same on Windows, macOS, Linux and mobile.</p>
   </section>
 <h2>🔗 Related Tools</h2>
   <p>Explore more free developer tools from DevToolBox:</p>
@@ -493,7 +513,12 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
   }
   function ulid() {
     var chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
-    var time = Date.now().toString(32).padStart(10, '0').toUpperCase();
+    /* 48-bit 毫秒时间戳按同一个 Crockford base32 字母表编码成 10 个字符。
+       不能用 Date.now().toString(32)：Number.toString(32) 的字母表是 0-9a-v，
+       会出现 I / L / O / U —— 恰好是 ULID 字母表里不存在的字符（实测旧实现
+       输出过 ...K8OL1B... 这样的串）。 */
+    var t = Date.now(), time = '';
+    for (var k = 9; k >= 0; k--) { time = chars[t % 32] + time; t = Math.floor(t / 32); }
     var b = rand(16), out = '';
     for (var i = 0; i < 16; i++) out += chars[b[i] % 32];
     return time + out;

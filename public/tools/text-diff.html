@@ -43,14 +43,54 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "What is a diff checker?",
-     "acceptedAnswer": {"@type": "Answer", "text": "A diff checker compares two pieces of text and marks exactly what changed. Lines or words that appear only in the original are marked as deletions, lines that appear only in the new version are additions, and lines that changed on both sides are marked as modified with the changed words highlighted."}},
-    {"@type": "Question", "name": "Is this text diff tool free and private?",
-     "acceptedAnswer": {"@type": "Answer", "text": "Yes. The comparison runs entirely in your browser using JavaScript, there is no sign-up, and the text you paste is never sent to a server."}},
-    {"@type": "Question", "name": "How is this different from git diff?",
-     "acceptedAnswer": {"@type": "Answer", "text": "git diff runs against a repository and its revision history and outputs a unified patch format aimed at git apply. This online diff checker compares two arbitrary blocks of text you paste in, so it works for config files, logs, prose, CSV exports and JSON that were never in version control — and it renders the result side by side rather than as +/- lines."}},
-    {"@type": "Question", "name": "Can I compare JSON or code, not just plain text?",
-     "acceptedAnswer": {"@type": "Answer", "text": "Yes. The tool is plain-text aware, so any UTF-8 text works: JSON, YAML, SQL, source code, CSV, and prose. It does not parse or re-format your input, so what you paste is what gets compared."}}
+    {
+      "@type": "Question",
+      "name": "What is a diff checker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A diff checker compares two pieces of text and marks exactly what changed. Lines or words that appear only in the original are marked as deletions, lines that appear only in the new version are additions, and lines that changed on both sides are marked as modified with the changed words highlighted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this text diff tool free and private?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The comparison runs entirely in your browser using JavaScript, there is no sign-up, and the text you paste is never sent to a server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from git diff?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "git diff runs against a repository and its revision history and outputs a unified patch format aimed at git apply. This online diff checker compares two arbitrary blocks of text you paste in, so it works for config files, logs, prose, CSV exports and JSON that were never in version control — and it renders the result side by side rather than as +/- lines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I compare JSON or code, not just plain text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The tool is plain-text aware, so any UTF-8 text works: JSON, YAML, SQL, source code, CSV, and prose. It does not parse or re-format your input, so what you paste is what gets compared."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Text Diff free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Text Diff is completely free to use. No sign-up required, no usage limits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Text Diff require an internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Text Diff runs entirely client-side in your browser — there is no server component and the text you paste is never sent anywhere. Once the page has loaded you can keep comparing with your network disconnected."
+      }
+    }
   ]
 }
 </script>
@@ -128,23 +168,6 @@ gtag("config", "G-ESF1YX8CCR");
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Text Diff",
-  "description": "Free online text diff tool. Compare two texts side by side with line-by-line highlight of additions, deletions, and modifications. 100% client-side.",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "url": "https://23232322.xyz/tools/text-diff",
-    "dateModified": "2026-09-27"
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     {
@@ -158,30 +181,6 @@ gtag("config", "G-ESF1YX8CCR");
       "position": 2,
       "name": "Text Diff",
       "item": "https://23232322.xyz/tools/text-diff"
-    }
-  ]
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Text Diff free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, Text Diff is completely free to use. No sign-up required, no usage limits."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does Text Diff require an internet connection?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Text Diff runs entirely client-side in your browser — there is no server component and the text you paste is never sent anywhere. Once the page has loaded you can keep comparing with your network disconnected."
-      }
     }
   ]
 }

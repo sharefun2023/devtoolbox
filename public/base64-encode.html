@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Base64 Encoder - Free Online Base64 Encode Tool | DevToolBox</title>
-<meta name="description" content="Free online Base64 encoder — encode text and files to Base64 in one click. UTF-8 safe, URL-safe output, file to Base64. 100% browser-based.">
-<meta name="keywords" content="base64 encoder, online base64 encoder, base64 encode, encode to base64, base64 converter, base64 encode online, free base64 encoder, base64 encoder tool, base64 buffer encoder, base64encode">
+<meta name="description" content="Free online Base64 encoder — encode text or files to Base64 or base64url instantly. UTF-8 safe, URL-safe output, file to Base64 data URI. Nothing uploaded.">
+<meta name="keywords" content="base64 encoder, base64 encode online, base64encode, online base64 encoder, encode to base64, base64url encoder, url-safe base64 encoder, base64 converter, text to base64, file to base64, base64 encode, free base64 encoder, base64 encoder tool">
 
 <meta property="og:title" content="Base64 Encoder - Free Online Base64 Encode Tool | DevToolBox">
 <meta property="og:description" content="Free online Base64 encoder — encode text and files to Base64 instantly. UTF-8 safe, URL-safe output, file-to-Base64 conversion. 100% browser-based.">
@@ -41,6 +41,9 @@ h1{font-size:1.8rem;margin-bottom:4px}.subtitle{color:var(--muted);margin-bottom
 textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;border-radius:8px;line-height:1.6;resize:vertical;min-height:140px}
 textarea:focus{outline:none;border-color:var(--accent)}
 .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.toggle{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:.8rem;color:var(--muted);cursor:pointer}
+.toggle input{width:auto;margin:0;padding:0;accent-color:var(--accent)}
+.toggle code{font-family:'JetBrains Mono','Fira Code',monospace;background:var(--bg);padding:0 3px;border-radius:3px}
 button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem}
 button:hover{border-color:var(--accent)}
 button.primary{background:var(--accent);color:#000;border-color:var(--accent)}
@@ -62,6 +65,43 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "G-ESF1YX8CCR");
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Encoder",
+  "description": "Free online Base64 encoder — encode text or files to Base64 or base64url instantly. UTF-8 safe, URL-safe output, file to Base64 data URI. Nothing uploaded.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://23232322.xyz/base64-encode",
+  "dateModified": "2026-10-03"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://23232322.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Base64 Encoder",
+      "item": "https://23232322.xyz/base64-encode"
+    }
+  ]
+}
 </script>
 <script type="application/ld+json">
 {
@@ -94,6 +134,14 @@ gtag("config", "G-ESF1YX8CCR");
     },
     {
       "@type": "Question",
+      "name": "Does this encoder support URL-safe Base64 (base64url)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Tick the URL-safe (base64url) box on the Text → Base64 tab and the output switches to the RFC 4648 §5 alphabet: - instead of +, _ instead of /, and the trailing = padding removed. That is the form JWT segments, URL query parameters and filenames require. The File → Base64 tab always emits standard Base64, because data URIs need the + and / alphabet."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Is this Base64 encoder free?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -106,6 +154,30 @@ gtag("config", "G-ESF1YX8CCR");
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes! Our Base64 encoder handles Unicode text including emoji, Chinese characters, and special symbols correctly by encoding through UTF-8 before Base64 conversion. Most basic btoa() implementations fail on non-Latin characters — ours handles them properly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Base64 encoding the same as encryption?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, and the difference matters. Base64 is a reversible transport encoding with no key: anyone who has the string can decode it in one step, which is exactly why it is used for JWTs and data URIs. Never treat Base64 as protection — a Base64-encoded password, API key or token is still plain text to anyone who receives it. Use TLS in transit and real encryption at rest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I turn a file into a data URI with this encoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Switch to the File → Base64 tab, choose the file, and copy the output. Then paste it after a MIME prefix: data:image/png;base64,iVBORw0KGgo= for a PNG, or data:image/svg+xml;base64,... for an SVG. Note that Base64 inflates the payload by about 33%, so data URIs are best for small assets such as icons and fonts — not for photos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a size limit on this base64 encode online tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no server-side limit, because nothing is uploaded — the whole string is built in your browser's memory. In practice the ceiling is your device: a multi-megabyte file produces a Base64 string about a third larger than the file, and pasting that into a data URI will make a page slow to load. For large files, keep the Base64 in its own .b64 file instead of inline in HTML."
       }
     }
   ]
@@ -125,7 +197,7 @@ gtag("config", "G-ESF1YX8CCR");
 
 <div class="container">
   <h1>🔒 Free Online Base64 Encoder</h1>
-  <p class="subtitle">Encode text and files to Base64 instantly — UTF-8 safe, URL-safe output, 100% browser-based</p>
+  <p class="subtitle">Encode text and files to Base64 instantly — UTF-8 safe, optional URL-safe (base64url) output, 100% browser-based</p>
 
   <section style="margin-bottom:24px;line-height:1.7;color:var(--text);font-size:.92rem">
     <p>Need a fast, reliable <strong>base64 encoder</strong>? This free tool lets you <strong>encode to Base64</strong> instantly — no downloads, no sign-ups, and no data ever leaves your browser. Whether you're embedding images in HTML as data URIs, preparing API payloads, or converting text for text-based protocols like SMTP and MIME, this <strong>online base64 encoder</strong> gets the job done with zero friction.</p>
@@ -149,6 +221,7 @@ gtag("config", "G-ESF1YX8CCR");
     <div class="btn-row">
       <button class="primary" onclick="b64Encode()">🔒 Encode to Base64</button>
       <button onclick="copyB64()">📋 Copy Output</button>
+      <label class="toggle"><input type="checkbox" id="b64url" onchange="b64Encode()"> URL-safe (base64url) — <code>-</code> <code>_</code> instead of <code>+</code> <code>/</code>, no <code>=</code> padding</label>
     </div>
     <label>Base64 Output</label>
     <textarea id="b64out" placeholder="Encoded Base64 will appear here..." readonly></textarea>
@@ -184,6 +257,7 @@ gtag("config", "G-ESF1YX8CCR");
     </ol>
   </section>
 
+<!-- dtb:b64e-expanded -->
   <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
     <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">📋 Supported Use Cases</h2>
     <ul style="padding-left:20px">
@@ -193,17 +267,74 @@ gtag("config", "G-ESF1YX8CCR");
       <li style="margin-bottom:6px"><strong>CSS inline assets</strong> — inline fonts, SVGs, and background images</li>
       <li style="margin-bottom:6px"><strong>JSON Web Tokens (JWT)</strong> — encode header and payload segments</li>
       <li style="margin-bottom:6px"><strong>Kubernetes secrets</strong> — encode configuration values for k8s manifests</li>
+    </ul>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🔤 Standard Base64 vs base64url — which output do you need?</h2>
+    <p>There are two alphabets in RFC 4648 and they are not interchangeable. Picking the wrong one is the most common reason a JWT or a URL parameter fails to decode on the other side.</p>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><strong>Standard Base64</strong> (RFC 4648 §4) uses all 64 characters including <code>+</code> and <code>/</code>, and pads the result with <code>=</code> so the length is always a multiple of four. Use it for data URIs, MIME email bodies, HTTP Basic auth headers, and Kubernetes secrets.</li>
+      <li style="margin-bottom:6px"><strong>base64url</strong> (RFC 4648 §5) swaps those two characters for <code>-</code> and <code>_</code> and drops the trailing padding. Use it for JWT segments, URL query parameters, cookie values, and anywhere the string has to survive a URL or a filename untouched.</li>
+    </ul>
+    <p>The same input, encoded both ways with this tool:</p>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><code>??&gt;&gt;??~</code> → standard <code>Pz8+Pj8/fg==</code></li>
+      <li style="margin-bottom:6px"><code>??&gt;&gt;??~</code> → base64url <code>Pz8-Pj8_fg</code></li>
+    </ul>
+    <p>Both of those decode back to the original text on our <a href="/base64-decode" style="color:var(--accent)">Base64 decoder</a>, which normalises either alphabet before decoding — so you never have to guess which form you were handed. Whether you arrived here searching for base64encode, base64 encode online or base64 converter, this page is the same one-step tool: text in, Base64 out, nothing uploaded.</p>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🗂 Turn a file into a data URI</h2>
+    <p>The File → Base64 tab reads the file locally with the browser's FileReader API and strips the data URI prefix for you, so you get the raw Base64 payload ready to paste anywhere:</p>
+    <ol style="padding-left:20px">
+      <li style="margin-bottom:6px">Choose the file — PNG, JPEG, SVG, WOFF2, PDF, anything.</li>
+      <li style="margin-bottom:6px">Copy the output, then prefix it: <code>data:image/png;base64,iVBORw0KGgo=</code> for a PNG, <code>data:image/svg+xml;base64,...</code> for an SVG, <code>data:font/woff2;base64,...</code> for a web font.</li>
+      <li style="margin-bottom:6px">Paste it into your HTML, CSS or JSON. Everything stays on your machine — the file is never uploaded.</li>
+    </ol>
+    <p>Two honest caveats: Base64 makes the payload about <strong>33% larger</strong> than the original file, and it cannot be compressed further or cached separately from the page. Data URIs are a good fit for small icons, logos and critical fonts, and a poor fit for photos and videos.</p>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🚫 What this Base64 encoder does not do</h2>
+    <p>Worth knowing before you use the output somewhere it will not work:</p>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><strong>It is not encryption.</strong> Base64 has no key and is trivially reversible — it hides nothing from anyone who receives the string.</li>
+      <li style="margin-bottom:6px"><strong>URL-safe mode is text-only.</strong> The File tab always emits standard Base64, because data URIs require the <code>+</code> and <code>/</code> alphabet.</li>
+      <li style="margin-bottom:6px"><strong>No batch or folder upload.</strong> One file per run — there is no multi-file queue.</li>
+      <li style="margin-bottom:6px"><strong>No MIME line wrapping.</strong> RFC 2045 wraps base64 at 76 characters for email; the output here is a single unbroken line. If a mail library needs the wrapped form, wrap it yourself.</li>
+      <li style="margin-bottom:6px"><strong>No streaming.</strong> Input and output both live in memory, so very large files depend on your device, not on us.</li>
+      <li style="margin-bottom:6px"><strong>It only encodes.</strong> Decoding a string, including URL-safe input and image data URIs, happens on the <a href="/base64-decode" style="color:var(--accent)">Base64 decoder</a> page.</li>
+    </ul>
+  </section>
+
+  <section style="margin-top:24px;line-height:1.7;color:var(--muted);font-size:.88rem">
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">🔗 Related tools</h2>
+    <ul style="padding-left:20px">
+      <li style="margin-bottom:6px"><a href="/base64-decode" style="color:var(--accent)">Base64 Decoder</a> — decode either alphabet back to text or binary, including image data URIs.</li>
+      <li style="margin-bottom:6px"><a href="/tools/jwt-debugger" style="color:var(--accent)">JWT Debugger</a> — split a token into its base64url segments and verify the signature.</li>
+      <li style="margin-bottom:6px"><a href="/tools/url-encoder-decoder" style="color:var(--accent)">URL Encoder / Decoder</a> — percent-encode the values you are about to put in a query string.</li>
+      <li style="margin-bottom:6px"><a href="/tools/hash-generator" style="color:var(--accent)">Hash Generator</a> — MD5 / SHA checksums, for when you need integrity rather than encoding.</li>
+      <li style="margin-bottom:6px"><a href="/tools/image-compressor" style="color:var(--accent)">Image Compressor</a> — shrink an image before you turn it into a data URI.</li>
+      <li style="margin-bottom:6px"><a href="/categories/api-network" style="color:var(--accent)">API &amp; Network tools</a> — everything for request and response bodies.</li>
+      <li style="margin-bottom:6px"><a href="/categories/security-testing" style="color:var(--accent)">Security &amp; Testing tools</a> — tokens, hashes, certificates and payloads.</li>
+      <li style="margin-bottom:6px"><a href="/categories/dev-tools" style="color:var(--accent)">Developer Tools</a> — the rest of the DevToolBox toolbox.</li>
+    </ul>
+  </section>
+
   <!-- dtb:faq-visible -->
   <section class="faq-visible" style="margin-top:24px;line-height:1.7;color:var(--muted)">
-    <h2>❓ Frequently Asked Questions</h2>
+    <h2 style="color:var(--text);font-size:1.1rem;margin-bottom:12px">❓ Frequently Asked Questions</h2>
     <p style="margin-bottom:8px"><strong>What is a Base64 encoder?</strong> A Base64 encoder converts binary data or text into a 64-character ASCII string (A-Z, a-z, 0-9, +, /). It's used to safely transmit binary data over text-based protocols like email (MIME), embed images in HTML/CSS as data URIs, and store binary data in JSON or XML formats.</p>
     <p style="margin-bottom:8px"><strong>How do I use this online Base64 encoder?</strong> Simply type or paste your text into the input field above and click the Encode button. The tool converts your text to Base64 instantly. You can also use the File → Base64 tab to encode images, PDFs, and other binary files. All processing happens locally in your browser — no data is sent to any server.</p>
     <p style="margin-bottom:8px"><strong>Can I encode files to Base64 online?</strong> Yes! Switch to the File → Base64 tab, select any file from your device, and the tool will instantly convert it to a Base64 string. The output can be used for data URIs, API requests, or anywhere Base64-encoded data is required. There's no file size limit since processing happens locally.</p>
+    <p style="margin-bottom:8px"><strong>Does this encoder support URL-safe Base64 (base64url)?</strong> Yes. Tick the URL-safe (base64url) box on the Text → Base64 tab and the output switches to the RFC 4648 §5 alphabet: - instead of +, _ instead of /, and the trailing = padding removed. That is the form JWT segments, URL query parameters and filenames require. The File → Base64 tab always emits standard Base64, because data URIs need the + and / alphabet.</p>
     <p style="margin-bottom:8px"><strong>Is this Base64 encoder free?</strong> Absolutely. This online Base64 encoder is completely free with no usage limits, no registration required, and no ads. All encoding happens in your browser for maximum privacy and security.</p>
     <p style="margin-bottom:8px"><strong>Does this encoder support UTF-8 and special characters?</strong> Yes! Our Base64 encoder handles Unicode text including emoji, Chinese characters, and special symbols correctly by encoding through UTF-8 before Base64 conversion. Most basic btoa() implementations fail on non-Latin characters — ours handles them properly.</p>
-  </section>
-
-    </ul>
+    <p style="margin-bottom:8px"><strong>Is Base64 encoding the same as encryption?</strong> No, and the difference matters. Base64 is a reversible transport encoding with no key: anyone who has the string can decode it in one step, which is exactly why it is used for JWTs and data URIs. Never treat Base64 as protection — a Base64-encoded password, API key or token is still plain text to anyone who receives it. Use TLS in transit and real encryption at rest.</p>
+    <p style="margin-bottom:8px"><strong>How do I turn a file into a data URI with this encoder?</strong> Switch to the File → Base64 tab, choose the file, and copy the output. Then paste it after a MIME prefix: data:image/png;base64,iVBORw0KGgo= for a PNG, or data:image/svg+xml;base64,... for an SVG. Note that Base64 inflates the payload by about 33%, so data URIs are best for small assets such as icons and fonts — not for photos.</p>
+    <p style="margin-bottom:8px"><strong>Is there a size limit on this base64 encode online tool?</strong> There is no server-side limit, because nothing is uploaded — the whole string is built in your browser's memory. In practice the ceiling is your device: a multi-megabyte file produces a Base64 string about a third larger than the file, and pasting that into a data URI will make a page slow to load. For large files, keep the Base64 in its own .b64 file instead of inline in HTML.</p>
   </section>
 </div>
 
@@ -218,11 +349,29 @@ function switchTab(name){
 }
 
 function b64Encode(){
-  try{$('b64out').value=btoa(unescape(encodeURIComponent($('b64in').value)));b64Stats()}
-  catch(e){$('b64out').value='Error: '+e.message}
+  try{
+    const raw=btoa(unescape(encodeURIComponent($('b64in').value)));
+    $('b64out').value=($('b64url')&&$('b64url').checked)?toUrlSafe(raw):raw;
+    b64Stats();
+  }
+  catch(e){
+    // encodeURIComponent 只在输入含「孤立代理项」（不是合法 UTF-16 文本）时才抛 ——
+    // 粘贴截断的 emoji、半个 UTF-16 字符时会发生。给它一句人话，别的错照实报。
+    $('b64out').value=/URI malformed/.test(e.message)
+      ? 'Error: the input is not valid text (it contains an unpaired surrogate character, e.g. half of an emoji), so it cannot be encoded as UTF-8.'
+      : 'Error: '+e.message;
+    b64Stats();
+  }
 }
+// base64url（RFC 4648 §5）：字母表第 62/63 个字符换成 - 和 _，并去掉结尾的 = padding。
+// JWT、URL 查询参数、文件名、HTTP 头这些位置不能出现 + / =，必须用这个变体。
+function toUrlSafe(b64){return b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 function copyB64(){navigator.clipboard.writeText($('b64out').value)}
-function b64Stats(){const l=$('b64out').value.length;$('b64stats').textContent=l?`${l.toLocaleString()} chars`:'Ready'}
+function b64Stats(){
+  const v=$('b64out').value,l=v.length;
+  const urlSafe=!!($('b64url')&&$('b64url').checked);
+  $('b64stats').textContent=l?`${l.toLocaleString()} chars${urlSafe?' (URL-safe, padding removed)':''}`:'Ready';
+}
 
 function fileToBase64(){
   const file=$('fileInput').files[0];

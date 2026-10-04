@@ -452,7 +452,7 @@ gtag("config", "G-ESF1YX8CCR");
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script defer src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<!-- jsQR is loaded on demand (first decode intent), not at page load — see loadJsQR() in the inline script below. -->
 </head>
 <body>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
@@ -646,6 +646,27 @@ document.addEventListener('DOMContentLoaded', function(){
   let qrCodeInstance = null;
   let currentDecodedText = '';
 
+  /* ---- Lazy-load jsQR on first decode intent ----
+     jsQR (~130 KB) is only needed when the user decodes an image, so it is fetched on demand
+     instead of at page load. The load is pre-warmed as soon as a file is selected (the earliest
+     reliable decode intent) and awaited inside decodeQR() before use, with a visible loading
+     state and a friendly CDN-failure error so the path never silently throws. */
+  let jsQRReady = null;
+  function loadJsQR() {
+    if (typeof jsQR === 'function') return Promise.resolve(jsQR);
+    if (!jsQRReady) {
+      jsQRReady = new Promise(function (resolve, reject) {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+        s.async = true;
+        s.onload = function () { resolve(jsQR); };
+        s.onerror = function () { jsQRReady = null; reject(new Error('jsQR failed to load')); };
+        document.head.appendChild(s);
+      });
+    }
+    return jsQRReady;
+  }
+
   /* ---- QR Code Generation ---- */
 
   window.generateQR = function() {
@@ -714,6 +735,11 @@ document.addEventListener('DOMContentLoaded', function(){
     $('decodeError').textContent = '';
     $('decodeBtn').disabled = false;
 
+    // Pre-warm the lazy jsQR load now that the user has chosen an image to decode,
+    // so it is ready (or nearly so) by the time they hit Decode. Fire-and-forget:
+    // decodeQR() awaits the same promise and handles failure itself.
+    loadJsQR().catch(function(){});
+
     // Show preview
     const reader = new FileReader();
     reader.onload = function(ev) {
@@ -726,6 +752,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   window.decodeQR = function() {
     const errDiv = $('decodeError');
+    const decodeBtn = $('decodeBtn');
 
     if (!selectedFile) {
       errDiv.textContent = 'Please select an image first';
@@ -734,56 +761,81 @@ document.addEventListener('DOMContentLoaded', function(){
 
     errDiv.textContent = '';
 
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      const img = new Image();
-      img.onload = function() {
-        try {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
+    // Ensure jsQR is available before decoding. showLoading hides the button state
+    // so the user sees the in-flight fetch rather than a disabled button that never reacts.
+    const showLoading = function (on) {
+      if (on) {
+        decodeBtn.dataset.label = decodeBtn.textContent;
+        decodeBtn.textContent = 'Loading…';
+        decodeBtn.disabled = true;
+      } else {
+        decodeBtn.textContent = decodeBtn.dataset.label || 'Decode QR Code';
+        if (selectedFile) decodeBtn.disabled = false;
+      }
+    };
 
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: 'dontInvert'
-          });
+    loadJsQR().then(function () {
+      showLoading(false);
+      runDecode();
+    }).catch(function () {
+      showLoading(false);
+      errDiv.textContent = 'The QR reader library could not be loaded. Check your connection and try again.';
+    });
 
-          if (code && code.data) {
-            currentDecodedText = code.data;
-            $('decodedText').textContent = code.data;
-            $('decodeResult').style.display = 'block';
-            errDiv.textContent = '';
-          } else {
-            // Try with inversion
-            const code2 = jsQR(imageData.data, imageData.width, imageData.height, {
-              inversionAttempts: 'attemptBoth'
+    function runDecode() {
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          try {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+              inversionAttempts: 'dontInvert'
             });
-            if (code2 && code2.data) {
-              currentDecodedText = code2.data;
-              $('decodedText').textContent = code2.data;
+
+            if (code && code.data) {
+              currentDecodedText = code.data;
+              $('decodedText').textContent = code.data;
               $('decodeResult').style.display = 'block';
               errDiv.textContent = '';
             } else {
-              errDiv.textContent = 'No QR code found in the image. Try a clearer or higher-resolution image.';
-              $('decodeResult').style.display = 'none';
+              // Try with inversion
+              const code2 = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: 'attemptBoth'
+              });
+              if (code2 && code2.data) {
+                currentDecodedText = code2.data;
+                $('decodedText').textContent = code2.data;
+                $('decodeResult').style.display = 'block';
+                errDiv.textContent = '';
+              } else {
+                errDiv.textContent = 'No QR code found in the image. Try a clearer or higher-resolution image.';
+                $('decodeResult').style.display = 'none';
+              }
             }
+          } catch (e) {
+            errDiv.textContent = 'Error decoding QR code: ' + e.message;
+            $('decodeResult').style.display = 'none';
           }
-        } catch (e) {
-          errDiv.textContent = 'Error decoding QR code: ' + e.message;
-          $('decodeResult').style.display = 'none';
-        }
+        };
+        img.onerror = function() {
+          errDiv.textContent = 'Failed to load the image. Please try a different file.';
+        };
+        img.src = ev.target.result;
       };
-      img.onerror = function() {
-        errDiv.textContent = 'Failed to load the image. Please try a different file.';
+      reader.onerror = function() {
+        errDiv.textContent = 'Failed to read the selected file.';
       };
-      img.src = ev.target.result;
-    };
-    reader.onerror = function() {
-      errDiv.textContent = 'Failed to read the selected file.';
-    };
-    reader.readAsDataURL(selectedFile);
+      reader.readAsDataURL(selectedFile);
+    }
+
+    showLoading(true);
   };
 
   window.copyDecoded = function() {

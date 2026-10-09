@@ -503,9 +503,11 @@ gtag("config", "G-ESF1YX8CCR");
     const mask = prefix === 0 ? 0n : ((1n << 128n) - 1n) ^ ((1n << BigInt(128 - prefix)) - 1n);
     const network = ipNum & mask;
     const broadcast = prefix === 128 ? network : (network | ((1n << BigInt(128 - prefix)) - 1n));
+    // 2^(128-prefix) overflows BigInt at prefix <= 127, so only prefix 128
+    // (total = 1, handled below) may use the shift expression.
     const totalUsable = prefix >= 127
-      ? (prefix === 128 ? 0n : (128 - prefix === 1 ? 0n : BigInt(128 - prefix)))
-      : ((1n << BigInt(128 - prefix)) - 2n);
+      ? (prefix === 128 ? 0n : BigInt(128 - prefix))
+      : (2n ** BigInt(128 - prefix)) - 2n;
 
     return {
       type: 'IPv6',
@@ -516,7 +518,7 @@ gtag("config", "G-ESF1YX8CCR");
       firstUsable: prefix >= 127 ? (prefix === 128 ? 'N/A' : 'N/A (point-to-point only)') : bigIntToIPv6(network + 1n),
       lastUsable: prefix >= 127 ? (prefix === 128 ? 'N/A' : 'N/A (point-to-point only)') : bigIntToIPv6(broadcast - 1n),
       usableCount: totalUsable.toLocaleString(),
-      totalIps: prefix === 128 ? '1' : ((1n << BigInt(128 - prefix)).toLocaleString()),
+      totalIps: prefix === 128 ? '1' : ((2n ** BigInt(128 - prefix)).toLocaleString()),
       prefix: prefix
     };
   }

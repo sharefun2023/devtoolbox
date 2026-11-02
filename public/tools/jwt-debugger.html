@@ -408,7 +408,7 @@ gtag("config", "G-ESF1YX8CCR");
   <h3 style="color:var(--text-bright);margin:14px 0 4px;">Does the tool support HS256, RS256, and ES256 verification?</h3>
   <p>Yes. HS256, HS384, and HS512 are verified with a shared secret. RS256, RS384, and RS512 are verified with an RSA public key in PEM format, and ES256/ES384/ES512 with an EC public key in PEM format. For asymmetric algorithms you never need the private key — verification only requires the public key.</p>
 
-  <h3 style="color:var(--text-bright);margin:14px 0 4px;">Can I decode a JWT that has no signature or an "alg: none" header?</h3>
+  <h3 style="color:var(--text-bright);margin:14px 0 4px;">Can I decode a JWT that has no signature or an 'alg: none' header?</h3>
   <p>This tool will still decode the header and payload of any three-part token, but if the algorithm is <code>none</code> or the signature is empty the verification step will report INVALID. Accepting unsigned or alg:none tokens is a serious security vulnerability, so a good debugger always flags them.</p>
 
   <h3 style="color:var(--text-bright);margin:14px 0 4px;">How do I decode a JWT token online?</h3>

@@ -220,7 +220,8 @@
 </head>
 <body>
 
-<div class="tool-container">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="tool-container" id="main" role="main">
 
   <h1>🎨 Color Picker &amp; Converter</h1>
   <p class="subtitle">Convert between HEX, RGB, HSL — pick, preview, generate palettes, and discover random colors. All in your browser.</p>
@@ -275,12 +276,12 @@
   <div class="card" style="margin-bottom:20px;">
     <h2>🎨 Palette Generator</h2>
     <div class="scheme-tabs" id="schemeTabs">
-      <span class="scheme-tab active" data-scheme="complementary" onclick="setScheme('complementary')">Complementary</span>
-      <span class="scheme-tab" data-scheme="analogous" onclick="setScheme('analogous')">Analogous</span>
-      <span class="scheme-tab" data-scheme="triadic" onclick="setScheme('triadic')">Triadic</span>
-      <span class="scheme-tab" data-scheme="split-complementary" onclick="setScheme('split-complementary')">Split Comp</span>
-      <span class="scheme-tab" data-scheme="tetradic" onclick="setScheme('tetradic')">Tetradic</span>
-      <span class="scheme-tab" data-scheme="monochromatic" onclick="setScheme('monochromatic')">Mono</span>
+      <span role="button" tabindex="0" class="scheme-tab active" data-scheme="complementary" onclick="setScheme('complementary')">Complementary</span>
+      <span role="button" tabindex="0" class="scheme-tab" data-scheme="analogous" onclick="setScheme('analogous')">Analogous</span>
+      <span role="button" tabindex="0" class="scheme-tab" data-scheme="triadic" onclick="setScheme('triadic')">Triadic</span>
+      <span role="button" tabindex="0" class="scheme-tab" data-scheme="split-complementary" onclick="setScheme('split-complementary')">Split Comp</span>
+      <span role="button" tabindex="0" class="scheme-tab" data-scheme="tetradic" onclick="setScheme('tetradic')">Tetradic</span>
+      <span role="button" tabindex="0" class="scheme-tab" data-scheme="monochromatic" onclick="setScheme('monochromatic')">Mono</span>
     </div>
     <div class="palette" id="palette"></div>
     <div class="palette-controls">
@@ -642,7 +643,7 @@ function renderPalette(colors) {
   el.innerHTML = colors.map(c => {
     const label = c;
     const textColor = getTextColor(c);
-    return `<div class="palette-color" style="background:${c}" onclick="setFromPalette('${c}')" title="${c}"><span class="palette-label" style="color:${textColor}">${label}</span></div>`;
+    return `<div role="button" tabindex="0" class="palette-color" role="button" tabindex="0" aria-label="Use color ${c}" style="background:${c}" onclick="setFromPalette('${c}')" title="${c}"><span class="palette-label" style="color:${textColor}">${label}</span></div>`;
   }).join('');
 }
 
@@ -676,7 +677,7 @@ function generateRandomColors() {
   }
   el.innerHTML = colors.map(c => {
     const textColor = getTextColor(c);
-    return `<div class="random-cell" style="background:${c}" onclick="setFromPalette('${c}')" title="${c}"><span class="rlabel" style="color:${textColor}">${c}</span></div>`;
+    return `<div role="button" tabindex="0" class="random-cell" role="button" tabindex="0" aria-label="Use color ${c}" style="background:${c}" onclick="setFromPalette('${c}')" title="${c}"><span class="rlabel" style="color:${textColor}">${c}</span></div>`;
   }).join('');
 }
 
@@ -711,5 +712,6 @@ generateRandomColors();
 updateAll(currentHex);
 </script>
 
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

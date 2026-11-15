@@ -203,6 +203,13 @@ h1{font-size:1.5rem;margin-bottom:4px}
     .faq-visible h2{font-size:1.15rem;color:var(--text);margin-bottom:10px}
     .faq-visible h3{font-size:1rem;color:var(--text);margin:18px 0 4px}
     .faq-visible p{color:var(--muted);margin:0}
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -217,6 +224,7 @@ gtag("config", "G-ESF1YX8CCR");
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <a href="/" class="home">🧰 DevToolbox</a>
   <a href="/tools/json-formatter-online">JSON</a>
@@ -225,7 +233,7 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="/tools/uuid-generator">UUID</a>
   <a href="/cron/" class="active">Cron</a>
 </nav>
-<div class="container">
+<div class="container" id="main" role="main">
   <h1>⏰ Cron Expression Editor</h1>
   <p class="subtitle">Build, understand, and test cron expressions visually</p>
 
@@ -303,7 +311,7 @@ gtag("config", "G-ESF1YX8CCR");
 
     <h2>The Five Fields, In Order</h2>
     <table>
-      <thead><tr><th>#</th><th>Field</th><th>Allowed values</th><th>Notes</th></tr></thead>
+      <thead><tr><th scope="col">#</th><th scope="col">Field</th><th scope="col">Allowed values</th><th scope="col">Notes</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>Minute</td><td>0–59</td><td>—</td></tr>
         <tr><td>2</td><td>Hour</td><td>0–23</td><td>24-hour clock, no AM/PM</td></tr>
@@ -319,7 +327,7 @@ gtag("config", "G-ESF1YX8CCR");
 
     <h2>Syntax This Editor Understands</h2>
     <table>
-      <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
+      <thead><tr><th scope="col">Operator</th><th scope="col">Meaning</th><th scope="col">Example</th></tr></thead>
       <tbody>
         <tr><td><code>*</code></td><td>every value in the field's range</td>
         <td><code>* * * * *</code> — once a minute</td></tr>
@@ -355,7 +363,7 @@ gtag("config", "G-ESF1YX8CCR");
     <p>Every sentence in the right-hand column is this editor's own output — measured, not
     paraphrased.</p>
     <table>
-      <thead><tr><th>Expression</th><th>What the page says</th></tr></thead>
+      <thead><tr><th scope="col">Expression</th><th scope="col">What the page says</th></tr></thead>
       <tbody>
         <tr><td><code>* * * * *</code></td><td>Every minute</td></tr>
         <tr><td><code>*/5 * * * *</code></td><td>Every 5 minutes</td></tr>
@@ -901,5 +909,6 @@ function showCopied() {
 /* Init */
 parseExpr();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

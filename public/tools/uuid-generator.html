@@ -266,8 +266,9 @@
   </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code &amp; IDE</a><span class="sep">›</span>UUID Generator</div>
 <div class="tool-hero">
   <h1>🆔 Free Online UUID Generator — Generate Random UUID &amp; Get UUID Instantly</h1>
@@ -278,7 +279,7 @@
 
 <!-- ━━━━━━━━━━━━ LIVE TOOL ━━━━━━━━━━━━ -->
 <div class="uuid-tool" id="uuid-tool">
-  <div class="uuid-out" id="uuid-out" onclick="uuidCopyOut()" title="Click to copy">Your UUID will appear here — hit Generate</div>
+  <div role="button" tabindex="0" class="uuid-out" id="uuid-out" onclick="uuidCopyOut()" title="Click to copy">Your UUID will appear here — hit Generate</div>
   <div class="uuid-copied" id="uuid-copied">✓ Copied to clipboard</div>
 
   <span class="uuid-label">Version</span>
@@ -621,5 +622,6 @@ print(uuid.uuid1())   # f47ac10b-58cc-11e8-9c2d-fa7ae01bbebc
   window.uuidDownload = uuidDownload;
 })();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

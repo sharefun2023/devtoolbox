@@ -287,8 +287,9 @@ gtag("config", "G-ESF1YX8CCR");
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/dev-tools">Dev Tools</a><span class="sep">›</span>CIDR / IPv6 Subnet Calculator</div>
 
@@ -303,12 +304,12 @@ gtag("config", "G-ESF1YX8CCR");
   <p class="subtitle">Enter a CIDR notation — e.g. <code>10.0.0.0/24</code> or <code>2001:db8::/32</code></p>
 
   <div class="examples">
-    <span class="example-chip" onclick="useExample('10.0.0.0/24')">10.0.0.0/24</span>
-    <span class="example-chip" onclick="useExample('192.168.1.0/28')">192.168.1.0/28</span>
-    <span class="example-chip" onclick="useExample('172.16.0.0/12')">172.16.0.0/12</span>
-    <span class="example-chip" onclick="useExample('2001:db8::/32')">2001:db8::/32</span>
-    <span class="example-chip" onclick="useExample('fe80::/10')">fe80::/10</span>
-    <span class="example-chip" onclick="useExample('::1/128')">::1/128</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('10.0.0.0/24')">10.0.0.0/24</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('192.168.1.0/28')">192.168.1.0/28</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('172.16.0.0/12')">172.16.0.0/12</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('2001:db8::/32')">2001:db8::/32</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('fe80::/10')">fe80::/10</span>
+    <span role="button" tabindex="0" class="example-chip" onclick="useExample('::1/128')">::1/128</span>
   </div>
 
   <div class="input-group">
@@ -623,5 +624,6 @@ gtag("config", "G-ESF1YX8CCR");
   calculate();
 })();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

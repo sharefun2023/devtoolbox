@@ -156,6 +156,13 @@ footer p{color:#555;margin-top:8px;font-size:12px}
 .content-block th{background:#131820;color:#e8f0fe;font-weight:600}
 .content-block code{background:#131820;border:1px solid #1e2a3a;border-radius:4px;padding:1px 5px;font-size:.9em;color:#7fd962}
 .content-block a{color:#39bae6}
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -188,6 +195,7 @@ gtag("config", "G-ESF1YX8CCR");
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <header>
   <a href="/" class="logo">🧰 DevToolBox</a>
   <nav>
@@ -201,7 +209,7 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="/">Home</a><span class="sep">›</span><a href="/">Tools</a><span class="sep">›</span>Text Diff
 </div>
 
-<main>
+<main id="main">
 <h1>📄 Diff Checker &amp; Text Diff</h1>
 <p class="desc">Compare two texts side by side. Additions, deletions, and modifications are highlighted line by line with word-level granularity.</p>
 
@@ -241,7 +249,7 @@ gtag("config", "G-ESF1YX8CCR");
 
   <h2>What Gets Highlighted</h2>
   <table>
-    <thead><tr><th>Marker</th><th>Meaning</th><th>Typical cause</th></tr></thead>
+    <thead><tr><th scope="col">Marker</th><th scope="col">Meaning</th><th scope="col">Typical cause</th></tr></thead>
     <tbody>
       <tr><td>Removed line</td><td>Present on the left only</td><td>Deleted config key, dropped log line, removed paragraph</td></tr>
       <tr><td>Added line</td><td>Present on the right only</td><td>New environment variable, extra import, appended row</td></tr>
@@ -435,5 +443,6 @@ document.addEventListener('DOMContentLoaded', function() {
   runDiff();
 });
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

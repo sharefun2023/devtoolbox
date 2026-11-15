@@ -208,3 +208,10 @@
   .dt-ta { min-height: 170px; }
   .dt-btn { padding: 7px 11px; font-size: .78rem; }
 }
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}

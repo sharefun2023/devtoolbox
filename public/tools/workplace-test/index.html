@@ -58,10 +58,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .result .share{display:inline-block;padding:12px 36px;border-radius:50px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-size:16px;font-weight:700;border:none;cursor:pointer}
 .result .retry{margin-top:16px;font-size:14px;color:#6b7280;cursor:pointer;border:none;background:none;text-decoration:underline}
 .footer{text-align:center;padding:32px 20px;font-size:12px;color:#4b5563;line-height:1.6}
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
 </style>
 </head>
 <body>
-<div class="container">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div class="container" id="main" role="main">
 
 <!-- COVER -->
 <div class="cover" id="cover">
@@ -144,7 +152,7 @@ document.getElementById('result').innerHTML=`
 <div class="r-desc">${r.desc.replace(/\n/g,'<br>')}</div>
 <div class="r-stats">${s}</div>
 <button class="share" onclick="share()">📤 分享结果</button>
-<div class="retry" onclick="retry()">再测一次</div>
+<div role="button" tabindex="0" class="retry" onclick="retry()">再测一次</div>
 `;
 document.getElementById('result').style.display='block';
 }
@@ -156,5 +164,6 @@ if(navigator.share){navigator.share({title:'你的职场人设是什么？',text
 function copy(t){navigator.clipboard.writeText(t).then(()=>alert('已复制！去小红书/朋友圈分享吧')).catch(()=>alert(t))}
 function retry(){document.getElementById('result').style.display='none';start()}
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

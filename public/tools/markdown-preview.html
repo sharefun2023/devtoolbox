@@ -186,6 +186,7 @@ footer p{color:#555;margin-top:8px;font-size:12px}
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <header>
   <a href="/" class="logo">DevToolBox</a>
   <nav>
@@ -199,7 +200,7 @@ footer p{color:#555;margin-top:8px;font-size:12px}
   <a href="/">Home</a><span class="sep">/</span><a href="/categories/frontend-design">Frontend &amp; Design</a><span class="sep">/</span>Markdown Preview
 </div>
 
-<main>
+<main id="main">
   <h1>📝 Markdown Preview</h1>
   <p class="desc">Write Markdown on the left, see live HTML preview on the right. Supports GitHub Flavored Markdown — tables, task lists, strikethrough, fenced code blocks. Export to HTML.</p>
 
@@ -316,7 +317,7 @@ npm install &amp;&amp; npm start
     <p>While both Markdown and HTML produce formatted content for the web, they serve fundamentally different purposes. Understanding when to use each will make you a more effective developer and writer.</p>
 
     <table>
-      <thead><tr><th>Feature</th><th>Markdown</th><th>HTML</th></tr></thead>
+      <thead><tr><th scope="col">Feature</th><th scope="col">Markdown</th><th scope="col">HTML</th></tr></thead>
       <tbody>
         <tr><td><strong>Readability (raw)</strong></td><td>Excellent — designed to be human-readable as plain text</td><td>Poor — cluttered with angle brackets and attributes</td></tr>
         <tr><td><strong>Learning Curve</strong></td><td>Minutes — intuitive syntax based on email conventions</td><td>Hours to days — dozens of tags and attributes to memorize</td></tr>
@@ -512,7 +513,14 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!md.trim()) return;
     let html;
     if (typeof marked !== 'undefined') {
-      html = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Markdown Export</title>\n<style>\nbody{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;color:#333}\nh1,h2{border-bottom:1px solid #eee;padding-bottom:6px}\npre{background:#f5f5f5;padding:16px;border-radius:8px;overflow-x:auto}\ncode{background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:0.9em}\npre code{background:none;padding:0}\nblockquote{margin:12px 0;padding:8px 16px;border-left:4px solid #ddd;background:#f9f9f9}\ntable{border-collapse:collapse;width:100%}\nth,td{border:1px solid #ddd;padding:8px 12px}\nth{background:#f5f5f5}\nimg{max-width:100%}\n</style>\n</head>\n<body>\n' + marked.parse(md) + '\n</body>\n</html>';
+      html = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Markdown Export</title>\n<style>\nbody{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;color:#333}\nh1,h2{border-bottom:1px solid #eee;padding-bottom:6px}\npre{background:#f5f5f5;padding:16px;border-radius:8px;overflow-x:auto}\ncode{background:#f5f5f5;padding:2px 6px;border-radius:4px;font-size:0.9em}\npre code{background:none;padding:0}\nblockquote{margin:12px 0;padding:8px 16px;border-left:4px solid #ddd;background:#f9f9f9}\ntable{border-collapse:collapse;width:100%}\nth,td{border:1px solid #ddd;padding:8px 12px}\nth{background:#f5f5f5}\nimg{max-width:100%}\n
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
+</style>\n</head>\n<body>\n' + marked.parse(md) + '\n</body>\n</html>';
     } else {
       html = md;
     }
@@ -530,5 +538,6 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 });
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

@@ -96,6 +96,13 @@ section strong{color:var(--text)}
 footer{text-align:center;padding:16px 0;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:32px}
 footer a{color:var(--accent)}
 @media(max-width:600px){.input-row{flex-direction:column}.flag-group{justify-content:center}}::selection{background:rgba(88,166,255,.3)}
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -115,7 +122,7 @@ gtag("config", "G-ESF1YX8CCR");
   "operatingSystem": "Any",
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
   "url": "https://23232322.xyz/online-regex-tester",
-  "dateModified": "2026-09-27"
+  "dateModified": "2026-11-15"
 }
 </script>
 <script type="application/ld+json">
@@ -187,6 +194,7 @@ gtag("config", "G-ESF1YX8CCR");
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <a href="/" class="home">🧰 DevToolBox</a>
   <a href="/tools/json-formatter-online">JSON</a>
@@ -196,6 +204,7 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="/tools/uuid-generator">UUID</a>
 </nav>
 
+<main id="main">
 <div class="container">
 
   <h1>🧪 Regex Tester Online — Free Regular Expression Tester & Debugger</h1>
@@ -228,10 +237,10 @@ gtag("config", "G-ESF1YX8CCR");
     <div class="error-msg" id="regexError">Invalid regex pattern</div>
 
     <div class="flag-group">
-      <span class="flag active" onclick="toggleFlag('g',this)">g global</span>
-      <span class="flag" onclick="toggleFlag('i',this)">i case-insensitive</span>
-      <span class="flag" onclick="toggleFlag('m',this)">m multiline</span>
-      <span class="flag" onclick="toggleFlag('s',this)">s dotAll</span>
+      <span role="button" tabindex="0" class="flag active" onclick="toggleFlag('g',this)">g global</span>
+      <span role="button" tabindex="0" class="flag" onclick="toggleFlag('i',this)">i case-insensitive</span>
+      <span role="button" tabindex="0" class="flag" onclick="toggleFlag('m',this)">m multiline</span>
+      <span role="button" tabindex="0" class="flag" onclick="toggleFlag('s',this)">s dotAll</span>
     </div>
 
     <!-- Replace input (hidden in match mode) -->
@@ -259,7 +268,7 @@ gtag("config", "G-ESF1YX8CCR");
       <label style="margin-top:4px">📋 Match Groups <span style="font-weight:400;color:var(--muted)">(click a row to scroll)</span></label>
       <div style="max-height:200px;overflow:auto">
         <table>
-          <thead><tr><th>#</th><th>Full Match</th><th>Groups</th><th>Index</th></tr></thead>
+          <thead><tr><th scope="col">#</th><th scope="col">Full Match</th><th scope="col">Groups</th><th scope="col">Index</th></tr></thead>
           <tbody id="matchGroupsBody"></tbody>
         </table>
       </div>
@@ -285,7 +294,7 @@ gtag("config", "G-ESF1YX8CCR");
     <p>Click any pattern row to load it into the tester above. Each pattern includes a description and real matching examples.</p>
     <div style="overflow-x:auto;max-height:600px;overflow-y:auto;border:1px solid var(--border);border-radius:8px">
     <table class="cheat-table">
-      <thead><tr><th>Pattern</th><th>Description</th><th>Matches</th></tr></thead>
+      <thead><tr><th scope="col">Pattern</th><th scope="col">Description</th><th scope="col">Matches</th></tr></thead>
       <tbody>
         <tr onclick="loadPattern('\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b','gi',this)" style="cursor:pointer"><td><code>\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b</code></td><td>Email address</td><td><!--email_off-->user@example.com<!--/email_off-->, <!--email_off-->a.b@co.uk<!--/email_off--></td></tr>
         <tr onclick="loadPattern('https?:\\/\\/[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!$&\'()*+,;=]*','gi',this)" style="cursor:pointer"><td><code>https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!$&'()*+,;=]*</code></td><td>URL (http/https)</td><td>https://example.com/path, http://a.co</td></tr>
@@ -300,10 +309,10 @@ gtag("config", "G-ESF1YX8CCR");
         <tr onclick="loadPattern('\\/\\/.*$','gm',this)" style="cursor:pointer"><td><code>\/\/.*$</code> (multiline)</td><td>Single-line comments (//)</td><td>// this is a comment</td></tr>
         <tr onclick="loadPattern('^\\s*$','gm',this)" style="cursor:pointer"><td><code>^\s*$</code> (multiline)</td><td>Empty lines</td><td>Blank lines in text</td></tr>
         <tr onclick="loadPattern('\\b[A-Z]{2,}\\b','g',this)" style="cursor:pointer"><td><code>\b[A-Z]{2,}\b</code></td><td>Uppercase acronyms</td><td>HTML, CSS, API, JSON, SQL</td></tr>
-        <tr onclick="loadPattern('(["\'])(?:(?=(\\\\?))\\2.)*?\\1','g',this)" style="cursor:pointer"><td><code>(["'])(?:(?=(\\?))\2.)*?\1</code></td><td>Quoted strings</td><td>"hello world", 'it\'s ok'</td></tr>
+        <tr onclick="loadPattern('([&quot;\'])(?:(?=(\\\\?))\\2.)*?\\1','g',this)" style="cursor:pointer"><td><code>(["'])(?:(?=(\\?))\2.)*?\1</code></td><td>Quoted strings</td><td>"hello world", 'it\'s ok'</td></tr>
         <tr onclick="loadPattern('\\b(\\w+)\\s+\\1\\b','gi',this)" style="cursor:pointer"><td><code>\b(\w+)\s+\1\b</code></td><td>Duplicate words</td><td>the the, is is, and and</td></tr>
         <tr onclick="loadPattern('^(?!.*\\b(password|secret|token)\\b).*$','gim',this)" style="cursor:pointer"><td><code>^(?!.*\b(password|secret|token)\b).*$</code></td><td>Lines NOT containing sensitive words</td><td>Lines without "password", "secret", "token"</td></tr>
-        <tr onclick="loadPattern('(?<=\\/\\*)[\\s\\S]*?(?=\\*\\/)','g',this)" style="cursor:pointer"><td><code>(?<=\/\*)[\s\S]*?(?=\*\/)</code></td><td>Lookbehind/lookahead: content inside /**/</td><td>Extracts just the comment text</td></tr>
+        <tr onclick="loadPattern('(?<=\\/\\*)[\\s\\S]*?(?=\\*\\/)','g',this)" style="cursor:pointer"><td><code>(?&lt;=\/\*)[\s\S]*?(?=\*\/)</code></td><td>Lookbehind/lookahead: content inside /**/</td><td>Extracts just the comment text</td></tr>
         <tr onclick="loadPattern('\\b(?=\\w{8,}\\b)(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])\\w+\\b','g',this)" style="cursor:pointer"><td><code>\b(?=\w{8,}\b)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])\w+\b</code></td><td>Strong password (8+ chars, upper/lower/digit/special)</td><td>P@ssw0rd!, Str0ng#Pass</td></tr>
         <tr onclick="loadPattern('\\b(0?[1-9]|1[0-2]):([0-5][0-9])\\s?(AM|PM)\\b','gi',this)" style="cursor:pointer"><td><code>\b(0?[1-9]|1[0-2]):([0-5][0-9])\s?(AM|PM)\b</code></td><td>12-hour time</td><td>9:30 AM, 12:45PM, 11:00 pm</td></tr>
         <tr onclick="loadPattern('(?:[A-Z][a-z]+\\.?\\s)+','g',this)" style="cursor:pointer"><td><code>(?:[A-Z][a-z]+\.?\s)+</code></td><td>Proper name (capitalized words)</td><td>John Smith, Dr. Jane Doe</td></tr>
@@ -315,7 +324,7 @@ gtag("config", "G-ESF1YX8CCR");
         <tr onclick="loadPattern('\\b([A-Za-z_][\\w]*)\\s*=\\s*([^;\\n]+)','g',this)" style="cursor:pointer"><td><code>\b([A-Za-z_][\w]*)\s*=\s*([^;\n]+)</code></td><td>Variable assignments</td><td>name = "Alice", count=42</td></tr>
         <tr onclick="loadPattern('(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)','g',this)" style="cursor:pointer"><td><code>(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)</code></td><td>Strict IPv4 (0-255 each octet)</td><td>192.168.1.1, 255.255.255.0 (not 999.999.999.999)</td></tr>
         <tr onclick="loadPattern('^\\s+|\\s+$','gm',this)" style="cursor:pointer"><td><code>^\s+|\s+$</code> (multiline)</td><td>Leading/trailing whitespace</td><td>Spaces and tabs at line edges</td></tr>
-        <tr onclick="loadPattern('(?<=\\d)(?=(\\d{3})+$)','g',this)" style="cursor:pointer"><td><code>(?<=\d)(?=(\d{3})+$)</code></td><td>Thousands separator position</td><td>Insert commas: 1234567 → 1,234,567</td></tr>
+        <tr onclick="loadPattern('(?<=\\d)(?=(\\d{3})+$)','g',this)" style="cursor:pointer"><td><code>(?&lt;=\d)(?=(\d{3})+$)</code></td><td>Thousands separator position</td><td>Insert commas: 1234567 → 1,234,567</td></tr>
         <tr onclick="loadPattern('\\b[\\w.-]+@[\\w.-]+\\.\\w+\\b','gi',this)" style="cursor:pointer"><td><code>\b[\w.-]+@[\w.-]+\.\w+\b</code></td><td>Simple email (loose)</td><td><!--email_off-->user@example.com<!--/email_off--></td></tr>
       </tbody>
     </table>
@@ -353,7 +362,7 @@ gtag("config", "G-ESF1YX8CCR");
       <li><code>?</code> — zero or one (optional)</li>
       <li><code>{n}</code> — exactly n times. <code>{n,}</code> — n or more. <code>{n,m}</code> — between n and m</li>
     </ul>
-    <p><strong>Greedy vs. Lazy:</strong> <code><.*></code> on <code>"&lt;div&gt;hello&lt;/div&gt;"</code> matches the <em>entire</em> string. <code><.*?></code> matches just <code>&lt;div&gt;</code> and <code>&lt;/div&gt;</code> separately.</p>
+    <p><strong>Greedy vs. Lazy:</strong> <code>&lt;.*&gt;</code> on <code>"&lt;div&gt;hello&lt;/div&gt;"</code> matches the <em>entire</em> string. <code>&lt;.*?&gt;</code> matches just <code>&lt;div&gt;</code> and <code>&lt;/div&gt;</code> separately.</p>
 
     <h3>5. Anchors — Where to Match</h3>
     <ul>
@@ -456,6 +465,8 @@ gtag("config", "G-ESF1YX8CCR");
   </div>
 
 </div>
+
+</main>
 
 <footer>
   <p>&copy; 2026 DevToolBox — Free developer tools. <a href="/privacy">Privacy Policy</a></p>
@@ -669,5 +680,6 @@ function showToast(msg){
 $('highlightOutput').textContent='Enter a regex pattern and test text above to see matches highlighted here...';
 $('matchStats').textContent='';
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

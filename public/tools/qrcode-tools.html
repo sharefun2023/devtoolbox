@@ -455,8 +455,9 @@ gtag("config", "G-ESF1YX8CCR");
 <!-- jsQR is loaded on demand (first decode intent), not at page load — see loadJsQR() in the inline script below. -->
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/dev-tools">Dev Tools</a><span class="sep">›</span>QR Code Generator & Reader</div>
 
@@ -503,7 +504,7 @@ gtag("config", "G-ESF1YX8CCR");
   <h2> Read / Decode QR Code</h2>
   <p class="subtitle">Upload an image containing a QR code to extract its content</p>
 
-  <div class="file-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+  <div role="button" tabindex="0" class="file-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
     <div class="icon"></div>
     <div class="hint">Click to select an image, or use the button below</div>
     <div class="filename" id="fileName"></div>
@@ -900,5 +901,6 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 });
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

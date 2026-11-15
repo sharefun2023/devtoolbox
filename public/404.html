@@ -25,18 +25,26 @@
     .popular ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     .popular a { display: inline-block; border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; padding: 9px 16px; border-radius: 20px; font-size: 0.9rem; }
     .popular a:hover { border-color: var(--accent); color: var(--accent); }
-  </style>
+  
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
+</style>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header>
   <div class="container">
     <a href="/" class="logo">🧰 DevToolBox</a>
   </div>
 </header>
-<main class="container">
+<main id="main" class="container">
   <div class="code">404</div>
   <h1>Page not found</h1>
   <p>The page you're looking for doesn't exist or has been moved.</p>
@@ -55,5 +63,6 @@
     </ul>
   </section>
 </main>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

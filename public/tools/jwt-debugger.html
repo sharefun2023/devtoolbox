@@ -181,8 +181,9 @@ gtag("config", "G-ESF1YX8CCR");
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/security-testing">Security & Testing</a><span class="sep">›</span>JWT Decoder &amp; Debugger</div>
 
 <!-- ============ TOOL ============ -->
@@ -220,7 +221,7 @@ gtag("config", "G-ESF1YX8CCR");
     </div>
     <div class="sec" id="rClaims">
       <div class="sec-hd"><span class="sec-t">Registered Claims</span></div>
-      <table><thead><tr><th style="width:15%">Claim</th><th style="width:30%">Value</th><th>Meaning</th></tr></thead><tbody id="claimsBody"></tbody></table>
+      <table><thead><tr><th scope="col" style="width:15%">Claim</th><th scope="col" style="width:30%">Value</th><th scope="col">Meaning</th></tr></thead><tbody id="claimsBody"></tbody></table>
     </div>
     <div class="sec" id="rExpiry">
       <div class="sec-hd"><span class="sec-t">Expiration Status</span></div>
@@ -296,9 +297,9 @@ gtag("config", "G-ESF1YX8CCR");
   <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:.88rem;">
     <thead>
       <tr style="border-bottom:2px solid var(--border);text-align:left;">
-        <th style="padding:8px;color:var(--muted);">Claim</th>
-        <th style="padding:8px;color:var(--muted);">Full Name</th>
-        <th style="padding:8px;color:var(--muted);">What It Means</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Claim</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Full Name</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">What It Means</th>
       </tr>
     </thead>
     <tbody>
@@ -716,5 +717,6 @@ gtag("config", "G-ESF1YX8CCR");
   }
 })();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

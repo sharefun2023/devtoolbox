@@ -258,14 +258,15 @@
 </head>
 <body>
 
-<div class="tool-container">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="tool-container" id="main" role="main">
   <h1>HTML Minifier Online</h1>
   <p class="subtitle">Minify HTML, CSS &amp; JavaScript online — or beautify minified code back into readable formatting. Pick a tab, paste your code, hit Compress. 100% client-side — your code never leaves your browser.</p>
 
   <div class="mode-tabs">
-    <div class="mode-tab active" data-mode="html" onclick="setMode('html')">HTML</div>
-    <div class="mode-tab" data-mode="css" onclick="setMode('css')">CSS</div>
-    <div class="mode-tab" data-mode="js" onclick="setMode('js')">JS</div>
+    <div role="button" tabindex="0" class="mode-tab active" data-mode="html" onclick="setMode('html')">HTML</div>
+    <div role="button" tabindex="0" class="mode-tab" data-mode="css" onclick="setMode('css')">CSS</div>
+    <div role="button" tabindex="0" class="mode-tab" data-mode="js" onclick="setMode('js')">JS</div>
   </div>
 
   <div class="action-bar">
@@ -969,5 +970,6 @@ function copyOutput() {
 }
 </script>
 
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

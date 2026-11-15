@@ -109,8 +109,9 @@
   </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code &amp; IDE</a><span class="sep">›</span>Online JSON Formatter, Validator & Beautifier</div>
 <div class="tool-hero">
   <h1>📋 Online JSON Formatter, Validator &amp; Beautifier</h1>
@@ -246,9 +247,9 @@
   <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.9rem;">
     <thead>
       <tr style="border-bottom:2px solid var(--border);text-align:left;">
-        <th style="padding:8px;color:var(--muted);">Error Type</th>
-        <th style="padding:8px;color:var(--muted);">Example</th>
-        <th style="padding:8px;color:var(--muted);">Validator Message</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Error Type</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Example</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Validator Message</th>
       </tr>
     </thead>
     <tbody>
@@ -400,5 +401,6 @@
 
 </main>
 <footer><div class="footer-links"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a><a href="/privacy">Privacy</a></div><p class="copyright">© 2026 DevToolBox.</p></footer>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

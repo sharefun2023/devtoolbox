@@ -101,8 +101,9 @@
   </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header><div class="inner"><a href="/" class="logo"><span class="icon">🧰</span> DevToolBox</a><nav><a href="/">Home</a><a href="/categories/">Categories</a><a href="/about">About</a></nav></div></header>
-<main>
+<main id="main">
 <div class="breadcrumbs"><a href="/">Home</a><span class="sep">›</span><a href="/categories/code-ide">Code &amp; IDE</a><span class="sep">›</span>Timestamp Converter</div>
 <div class="tool-hero">
   <h1>⏰ Timestamp Converter</h1>
@@ -176,7 +177,7 @@
 
   <div class="dt-sub">
     <h3>🌍 The same instant around the world</h3>
-    <table class="dt-kv"><thead><tr><th>Timezone</th><th>Local time</th><th>Offset</th></tr></thead><tbody id="ts-zones"></tbody></table>
+    <table class="dt-kv"><thead><tr><th scope="col">Timezone</th><th scope="col">Local time</th><th scope="col">Offset</th></tr></thead><tbody id="ts-zones"></tbody></table>
     <p class="dt-note">Rendered with your browser&#39;s <code>Intl.DateTimeFormat</code> database — summertime transitions are applied correctly, and no request leaves the page.</p>
   </div>
 </div>
@@ -211,10 +212,10 @@
   <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:0.9rem;">
     <thead>
       <tr style="border-bottom:2px solid var(--border);text-align:left;">
-        <th style="padding:8px;color:var(--muted);">Digits</th>
-        <th style="padding:8px;color:var(--muted);">Unit</th>
-        <th style="padding:8px;color:var(--muted);">Example value</th>
-        <th style="padding:8px;color:var(--muted);">Means</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Digits</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Unit</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Example value</th>
+        <th scope="col" style="padding:8px;color:var(--muted);">Means</th>
       </tr>
     </thead>
     <tbody>
@@ -315,5 +316,6 @@
     }
   })();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

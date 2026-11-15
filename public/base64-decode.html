@@ -50,6 +50,13 @@ label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
 .copy-feedback{color:var(--green);font-size:.8rem;margin-left:8px;opacity:0;transition:opacity .3s}
 .copy-feedback.show{opacity:1}
 .note{background:#1a3322;border-left:3px solid var(--green);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:.85rem}
+
+/* a11y: 跳转链接（WCAG 2.4.1）—— 键盘用户按 Tab 第一下即可跳过导航 */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:#0a0e14;color:#39bae6;
+  border:1px solid #39bae6;border-radius:6px;padding:10px 16px;font-size:14px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px;outline:2px solid #39bae6;outline-offset:2px}
+/* a11y: 假控件获得焦点时的可见环 */
+[role="button"][tabindex]:focus-visible{outline:2px solid #39bae6;outline-offset:2px}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESF1YX8CCR"></script>
@@ -178,6 +185,7 @@ gtag("config", "G-ESF1YX8CCR");
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <nav>
   <a href="/" class="home">🧰 DevToolbox</a>
   <a href="/categories/">Categories</a>
@@ -188,7 +196,7 @@ gtag("config", "G-ESF1YX8CCR");
   <a href="/tools/uuid-generator">UUID</a>
 </nav>
 
-<div class="container">
+<div class="container" id="main" role="main">
   <h1>🔓 Free Online Base64 Decoder</h1>
   <p class="subtitle">Decode Base64 strings to text instantly — UTF-8 safe, image extraction, URL-safe support</p>
 
@@ -355,5 +363,6 @@ function b64Stats(){const l=$('b64out').value.length;$('b64stats').textContent=l
 
 b64Stats();
 </script>
+<script src="/js/a11y.js" defer></script>
 </body>
 </html>

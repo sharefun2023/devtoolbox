@@ -82,7 +82,9 @@ for path in PAGES:
             missing = [m for m in missing if m != guard.group(1)]
         if missing:
             warnings.append(f"{label}: {s} expects ids not present: {', '.join(missing)}")
-        if '<link rel="stylesheet" href="/css/tool.css">' not in html:
+        if '<link rel="stylesheet" href="/css/tool.css">' not in html and s != "/js/a11y.js":
+            # a11y.js 是全站共享的无障碍脚本（挂 document 级键盘委托），不是工具模块，
+            # 不需要 tool.css —— 排除它，否则 15 个用 style.css 的页面会全部误报。
             errors.append(f"{label}: ships {s} but does not load /css/tool.css")
 
     # 2. self-referencing CTA

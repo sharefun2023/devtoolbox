@@ -37,6 +37,22 @@
 /tools/           /                             301
 /tools/index.html /                             301
 
+# 2026-11-21: trailing-slash / .html / index.html forms of the paths above were still 404.
+# Bing reported Code4xx on 11/14 (2), 11/19 (1), 11/20 (2) with no URL detail, and these are
+# the only reproducible 4xx left on the origin — a 404 on a path we already intend to redirect
+# is a straight oversight, and every retry costs a fetch from a 12-page index.
+# /uuid/index.html matters because /uuid/ really was a directory page before it was consolidated.
+/json/            /tools/json-formatter-online  301
+/json.html        /tools/json-formatter-online  301
+/json/index.html  /tools/json-formatter-online  301
+/base64/          /base64-decode                301
+/base64.html      /base64-decode                301
+/base64/index.html /base64-decode               301
+/timestamp/       /tools/timestamp-converter    301
+/timestamp.html   /tools/timestamp-converter    301
+/timestamp/index.html /tools/timestamp-converter 301
+/uuid/index.html  /tools/uuid-generator         301
+
 # NOTE (2026-09-26): you cannot _redirects your way out of the Cloudflare email-obfuscation 404.
 # Scrape Shield rewrites emails leaving the edge into /cdn-cgi/l/email-protection#<xor>, and
 # Cloudflare intercepts every /cdn-cgi/* request *before* the Pages router — a rule for it here

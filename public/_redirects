@@ -53,6 +53,19 @@
 /timestamp/index.html /tools/timestamp-converter 301
 /uuid/index.html  /tools/uuid-generator         301
 
+# 2026-11-22: two more paths that really did exist in the site's own HTML until the 2026-09-12
+# dead-link sweep (/tools/base64-encode -> /base64-encode, /tools/online-regex-tester ->
+# /online-regex-tester). They are gone from the current markup, but a crawler that fetched those
+# pages before 9/12 recorded the link targets and can still retry them against a 404. These are
+# the only remaining 404s on the origin with documented link history — /tools/<page>/index.html
+# style forms are NOT covered, because nothing ever linked to them (they are probe artefacts).
+/tools/base64-encode          /base64-encode           301
+/tools/base64-encode/         /base64-encode           301
+/tools/base64-encode.html     /base64-encode           301
+/tools/online-regex-tester        /online-regex-tester  301
+/tools/online-regex-tester/       /online-regex-tester  301
+/tools/online-regex-tester.html   /online-regex-tester  301
+
 # NOTE (2026-09-26): you cannot _redirects your way out of the Cloudflare email-obfuscation 404.
 # Scrape Shield rewrites emails leaving the edge into /cdn-cgi/l/email-protection#<xor>, and
 # Cloudflare intercepts every /cdn-cgi/* request *before* the Pages router — a rule for it here

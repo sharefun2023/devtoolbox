@@ -12,6 +12,8 @@ A directory of free developer tools, paired with a growing set of first-party, 1
 
 ## Built-in Tools
 
+[![DevToolBox on StartupScores](https://startupscores.com/badge/devtoolbox.svg?style=shield&v=combo&theme=dark)](https://startupscores.com/open-source/devtoolbox)
+
 | Tool | What it does |
 |------|--------------|
 | [Base64 Decode](https://23232322.xyz/base64-decode) | Decode standard and URL-safe Base64, with invalid-byte diagnostics and a hex view |
